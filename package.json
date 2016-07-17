@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/SudarshanChowdhary/ConferenceRoomLookup/issues"
   },
-  "homepage": "https://github.com/SudarshanChowdhary/ConferenceRoomLookup#readme"
+  "homepage": "https://github.com/SudarshanChowdhary/ConferenceRoomLookup#readme",
+  "dependencies": {
+    "ng-resource": "^1.3.2"
+  }
 }

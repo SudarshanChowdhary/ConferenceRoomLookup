@@ -1,0 +1,25 @@
+[
+  {
+    "key":"building1",
+    "value":1
+},{
+    "key":"building2",
+    "value":2
+},
+{
+    "key":"building3",
+    "value":3
+},{
+    "key":"building4",
+    "value":4
+},{
+    "key":"building5",
+    "value":5
+},{
+    "key":"building6",
+    "value":6
+},{
+    "key":"building7",
+    "value":7
+}
+]

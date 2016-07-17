@@ -1,10 +1,12 @@
 'use strict'
-ConferenceRoomLookup.controller("ConferenceRoom", function($scope, $http, services){
-	//alert("controller")
-    $http.get('package.json').success(function (data)
-    {
-        $scope.testAccounts = data;
-        $scope.selectedTestAccount = $scope.testAccounts[0];
-    });
+
+ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, buildingService, floorService, roomService){
+	$scope.enableFloor= true;
+	$scope.siteOptions= siteService.get();
+
+	
+	$scope.buildingOptions= buildingService.get();
+	$scope.floorOptions= floorService.get();
+	$scope.roomOptions= roomService.get();
 
 })

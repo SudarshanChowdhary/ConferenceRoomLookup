@@ -1,0 +1,25 @@
+[
+  {
+    "key":"room1",
+    "value":1
+},{
+    "key":"room2",
+    "value":2
+},
+{
+    "key":"room3",
+    "value":3
+},{
+    "key":"room4",
+    "value":4
+},{
+    "key":"room5",
+    "value":5
+},{
+    "key":"room6",
+    "value":6
+},{
+    "key":"room7",
+    "value":7
+}
+]

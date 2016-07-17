@@ -6,40 +6,22 @@
     margin-top: 30px;
 
 }
-.login-info{
-    margin: 10px;
-}
-/*.form-group label {*/
-    /*float: left;*/
-    /*text-align: left;*/
-    /*font-weight: normal;*/
-/*}*/
-
-/*.form-group select {*/
-    /*display: inline-block;*/
-    /*width: auto;*/
-    /*vertical-align: middle;*/
-/*}.*/
-/*.form-alignment {*/
-    /*margin-top: 45px;*/
-/*}*/
- .dropdown-width{
- width:279.7px;
- }
  .right-box{
      border: 1px solid #DDDDDD;
      border-radius: 5px;
      padding:20px 20px 30px 20px;
 
  }
- .selected-txt{
-     width:267.9px;
-     height: 20px;
+ .input-width{
+	width:279.7px;
+     height: 23px;
+     padding: 2px;
 
  }
  .floor{
      width:99.9px;
-     height: 20px;
+      height: 23px;
+     padding: 2px;
 
  }
  .optional{
@@ -55,3 +37,9 @@
      border-radius: 5px;
 
  }
+
+ .control-label{
+font-weight: normal;
+
+ }
+
