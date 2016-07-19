@@ -6,9 +6,36 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 	$scope.siteOptions= siteService.get();
 
 	
-	$scope.buildingOptions= buildingService.get();
-	$scope.floorOptions= floorService.get();
-	$scope.roomOptions= roomService.get();
+	
+	//$scope.floorOptions= floorService.get();
+	//$scope.roomOptions= roomService.get();
+
+	$scope.loadBuilding= function(site){
+		//alert(site);
+		if(!site){
+			//alert(site);
+			$scope.disableBuilding= false; 
+			$scope.lookupRoom.building = "";
+			
+			$scope.disableFloor= false; 
+			$scope.lookupRoom.floor = "";
+
+			$scope.disableRoom= false; 
+			$scope.lookupRoom.room = "";
+
+			$scope.disableDate= false; 
+			$scope.lookupRoom.date = "";
+
+			$scope.disableDuration= false; 
+			$scope.lookupRoom.duration = "";
+		}
+		else{
+			$scope.disableBuilding= true;
+			$scope.buildingOptions= building.Service.get(site);
+		}
+
+
+	}
 
 
 
@@ -47,7 +74,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 		$scope.dateOptions.minDate = $scope.inlineOptions.minDate;
 	};
 
-	$scope.toggleMin();
+	//$scope.toggleMin();
 
 	$scope.open1 = function() {
 		$scope.popup1.opened = true;

@@ -15,13 +15,15 @@
  .input-width{
 	width:279.7px;
      height: 23px;
-     padding: 2px;
+     padding: 0px;
+     font-size: 11px;
 
  }
  .floor{
      width:99.9px;
       height: 23px;
-     padding: 2px;
+     padding: 0px;
+     font-size: 11px;
 
  }
  .optional{
