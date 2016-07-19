@@ -18,25 +18,31 @@
                     <label for="building" class="col-sm-2 col-md-2 col-lg-2 control-label">Building</label>
                     <div class="col-md-6 col-lg-8">
                         <select id="building" class="input-width" ng-disabled="!disableBuilding" ng-model="lookupRoom.building">
-                        	                            <option value="">Select Building</option>
-                        	                             <option value="1">1</option>
+                            <option value="">Select Building</option>
+                            <option ng-repeat="building in buildingOptions.building" value="{{building.value}}">{{building.key}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group" ng-show="enableFloor">
                     <label for="floor" class="col-sm-2 col-md-2 col-lg-2 control-label">Floor</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="floor" class="floor" ng-disabled="!disableFloor" ng-model="lookupRoom.floor"></select>
+                        <select id="floor" class="floor" ng-model="lookupRoom.floor">
+                            <option value="">Select Floor</option>
+                            <option ng-repeat="floor in floorOptions.floor" value="{{floor.value}}">{{floor.key}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="room" class="col-sm-2 col-md-2 col-lg-2 control-label">Room</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="room" class="input-width" ng-disabled="!disableRoom" ng-model="lookupRoom.room"></select>
+                        <select id="room" class="input-width" ng-model="lookupRoom.room">
+                            <option value="">Select Room</option>
+                            <option ng-repeat="room in roomOptions.room" value="{{room.value}}">{{room.key}}</option>
+                        </select>
 
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-model="lookupRoom.unavailable" ng-disabled="!unavailabe"> Include Unavailable Rooms
+                                <input type="checkbox" ng-model="lookupRoom.unavailable"> <span class="optional"> Include Unavailable Rooms</span>
                             </label>
                         </div>
                     </div>
@@ -44,7 +50,7 @@
                 <div class="form-group">
                     <label for="date" class="col-sm-2 col-md-2 col-lg-2 control-label">Date</label>
                     <div class="col-md-6 col-lg-8">
-                        <input id="date" type="text" datepickerMode class="form-control input-width" ng-click="open2()" uib-datepicker-popup="{{format}} " ng-model="dt" ng-disabled="!date"
+                        <input id="date" type="text" datepickerMode class="form-control input-width" ng-click="open()" uib-datepicker-popup="{{format}} " ng-model="dt"
                                is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"  />
                     </div>
                 </div>
@@ -54,8 +60,36 @@
                     <label for="timeRange" class="control-label col-sm-2 col-md-2 col-lg-2">Time Range<div class="optional">Optional</div></label>
 
                     <div class="col-md-6 col-lg-8">
-                        <select id="timeRange" class="input-width" ng-disabled="!timeRange" ng-model="lookupRoom.timeRange"></select>
+                        <select id="timeRange" class="input-width" ng-model="lookupRoom.timeRange">
+                            <option value="option-1">AnyTime</option>
+                            <option value="option-2">Moring (9:00 AM - 12:00 PM) </option>
+                            <option value="option-3">Afternoon(1:00 PM - 5:00 PM) </option>
+                            <option value="option-4">Specific time</option>
+                        </select>
                     </div>
+
+                    <div class="col-md-6 col-lg-8">
+                        <label for="from" class="col-sm-1 col-md-1 col-lg-1 control-label">From</label>
+                        <div class="col-md-2 col-lg-2">
+                            <select id="from" class="" ng-model="lookupRoom.from">
+                                <option value="">Select Time</option>
+                                <option ng-repeat="floor in floorOptions.floor" value="{{floor.value}}">{{floor.key}}</option>
+                            </select>
+                        </div>
+
+                        <label for="to" class="col-sm-1 col-md-1 col-lg-1 control-label">To</label>
+                        <div class="col-md-2 col-lg-2">
+                            <select id="to" class="" ng-model="lookupRoom.floor">
+                                <option value="">Select Floor</option>
+                                <option ng-repeat="floor in floorOptions.floor" value="{{floor.value}}">{{floor.key}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+
+
                 </div>
 
                 <div class="form-group">
@@ -63,7 +97,11 @@
                     <label for="duration" class="control-label col-sm-2 col-md-2 col-lg-2">Duration <div class="optional">Optional</div></label>
 
                     <div class="col-md-6 col-lg-8">
-                        <select id="duration" class="input-width" ng-disabled="!duration" ng-model="lookupRoom.duration"></select>
+                        <select id="duration" class="input-width" ng-model="durationTime.model">
+                            <option ng-repeat="option in durationTime.availableOptions" ng-value="option.value">{{option.name}}</option>
+
+                        </select>
+
                     </div>
                 </div>
 
@@ -73,24 +111,22 @@
 
                     <div class="col-md-6 col-lg-8">
                         <label class="checkbox-inline">
-                            <input type="checkbox" ng-disabled="!seats" id="Checkbox1" value="option1">2-4
+                            <input type="checkbox" id="Checkbox1" value="option1">2-4
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" ng-disabled="!seats" id="Checkbox2" value="option2">5-8
+                            <input type="checkbox" id="Checkbox2" value="option2">5-8
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" ng-disabled="!seats" id="Checkbox3" value="option3">9-12
+                            <input type="checkbox" id="Checkbox3" value="option3">9-12
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" ng-disabled="!seats" id="Checkbox4" value="option4">13-20
+                            <input type="checkbox" id="Checkbox4" value="option4">13-20
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" ng-disabled="!seats" id="Checkbox5" value="option5">20+
+                            <input type="checkbox" id="Checkbox5" value="option5">20+
                         </label>
                     </div>
                 </div>
-
-
 
                 <div class="form-group">
                     <div class="">
@@ -99,24 +135,19 @@
                     </div>
                     <div id="amenities" class="col-md-6 col-lg-8">
                         <label class="checkbox-inline">
-                            <input type="checkbox" id="Checkbox6" ng-disabled="!amenities" value="AVCN">AVCN
+                            <input type="checkbox" id="Checkbox6" value="AVCN">AVCN
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" id="Checkbox7" ng-disabled="!amenities" value="Projector">Projector
+                            <input type="checkbox" id="Checkbox7" value="Projector">Projector
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" id="Checkbox8" ng-disabled="!amenities" value="option3">TV
+                            <input type="checkbox" id="Checkbox8" value="option3">TV
                         </label>
                     </div>
                 </div>
-
-
-
-
-
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-md-6 col-lg-8">
-                        <button type="submit" disabled="!submitBtn" class="btn btn-sm search-btn">Search</button>
+                        <button type="submit" class="btn btn-sm search-btn">Search</button>
                     </div>
                 </div>
             </form>

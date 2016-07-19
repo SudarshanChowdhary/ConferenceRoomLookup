@@ -6,4 +6,4 @@ ConferenceRoomLookup.factory("floorService", function($resource) {
             }
         })
     }
-)
+);

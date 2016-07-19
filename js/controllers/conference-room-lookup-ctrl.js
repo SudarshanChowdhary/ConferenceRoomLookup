@@ -1,33 +1,70 @@
 'use strict'
 
 ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, buildingService, floorService, roomService){
-	//alert("test");
-	$scope.enableFloor= false;
-	$scope.siteOptions= siteService.get();
+	$scope.enableFloor= true;
 
-	
-	
-	//$scope.floorOptions= floorService.get();
-	//$scope.roomOptions= roomService.get();
+	$scope.siteOptions= siteService.get();
+	$scope.buildingOptions= buildingService.get();
+	$scope.floorOptions= floorService.get();
+	$scope.roomOptions= roomService.get();
+
+	$scope.durationTime = {
+		model: null,
+		availableOptions:[
+
+			{name: "15 minutes", value: "0.25"},{name: "30 minutes", value: "0.5"},{name: "45 minutes", value: "0.75"},{name: "1 hour", value: "1"},{name: "1.15 minutes", value: "1.25"},{name: "1.30 minutes", value: "1.5"},
+			{name: "1.45 minutes", value: "1.75"},{name: "2 hour", value: "2"},{name: "2.15 minutes", value: "2.25"},{name: "2.30 minutes", value: "2.5"},{name: "2.45 minutes", value: "2.75"},{name: "3 hour", value: "3"},
+			{name: "3.15 minutes", value: "3.25"},{name: "3.30 minutes", value: "3.5"},{name: "3.45 minutes", value: "3.75"},{name: "4 hour", value: "4"},{name: "4.15 minutes", value: "4.25"},{name: "4.30 minutes", value: "4.5"},
+			{name: "4.45 minutes", value: "4.75"},{name: "5 hour", value: "5"},{name: "5.15 minutes", value: "5.25"},{name: "5.30 minutes", value: "5.5"},{name: "5.45 minutes", value: "5.75"},{name: "6 hour", value: "7"},
+			{name: "6.15 minutes", value: "6.25"},{name: "6.30 minutes", value: "6.5"},	{name: "6.45 minutes", value: "6.75"},{name: "7 hour", value: "7"},{name: "7.15 minutes", value: "7.25"},{name: "7.30 minutes", value: "7.5"},
+			{name: "7.45 minutes", value: "7.75"},{name: "8 hour", value: "8"},	{name: "8.15 minutes", value: "8.25"},{name: "8.30 minutes", value: "8.5"},	{name: "8.45 minutes", value: "8.75"}
+
+
+
+	]};
+
+	$scope.timeFrom = {
+		model: null,
+		fromOptions:[{name: "12 AM", value: "12 AM"},{name: "12:15 AM", value: "12:15 AM"},{name: "12:30 AM", value: "12:30 AM"},{name: "1:00 AM", value: "1:00 AM"},{name: "1.15 minutes", value: "1.25"},{name: "1.30 minutes", value: "1.5"},
+			{name: "1.45 minutes", value: "1.75"},{name: "2 hour", value: "2"},{name: "2.15 minutes", value: "2.25"},{name: "2.30 minutes", value: "2.5"},{name: "2.45 minutes", value: "2.75"},{name: "3 hour", value: "3"},
+			{name: "3.15 minutes", value: "3.25"},{name: "3.30 minutes", value: "3.5"},{name: "3.45 minutes", value: "3.75"},{name: "4 hour", value: "4"},{name: "4.15 minutes", value: "4.25"},{name: "4.30 minutes", value: "4.5"},
+			{name: "4.45 minutes", value: "4.75"},{name: "5 hour", value: "5"},{name: "5.15 minutes", value: "5.25"},{name: "5.30 minutes", value: "5.5"},{name: "5.45 minutes", value: "5.75"},{name: "6 hour", value: "7"},
+			{name: "6.15 minutes", value: "6.25"},{name: "6.30 minutes", value: "6.5"},	{name: "6.45 minutes", value: "6.75"},{name: "7 hour", value: "7"},{name: "7.15 minutes", value: "7.25"},{name: "7.30 minutes", value: "7.5"},
+			{name: "7.45 minutes", value: "7.75"},{name: "8 hour", value: "8"},	{name: "8.15 minutes", value: "8.25"},{name: "8.30 minutes", value: "8.5"},	{name: "8.45 minutes", value: "8.75"}
+
+
+		]};
+
+	$scope.timeTo = {
+		model: null,
+		toOptions:[
+			{name: "15 minutes", value: "0.25"},{name: "30 minutes", value: "0.5"},{name: "45 minutes", value: "0.75"},{name: "1 hour", value: "1"},{name: "1.15 minutes", value: "1.25"},{name: "1.30 minutes", value: "1.5"},
+			{name: "1.45 minutes", value: "1.75"},{name: "2 hour", value: "2"},{name: "2.15 minutes", value: "2.25"},{name: "2.30 minutes", value: "2.5"},{name: "2.45 minutes", value: "2.75"},{name: "3 hour", value: "3"},
+			{name: "3.15 minutes", value: "3.25"},{name: "3.30 minutes", value: "3.5"},{name: "3.45 minutes", value: "3.75"},{name: "4 hour", value: "4"},{name: "4.15 minutes", value: "4.25"},{name: "4.30 minutes", value: "4.5"},
+			{name: "4.45 minutes", value: "4.75"},{name: "5 hour", value: "5"},{name: "5.15 minutes", value: "5.25"},{name: "5.30 minutes", value: "5.5"},{name: "5.45 minutes", value: "5.75"},{name: "6 hour", value: "7"},
+			{name: "6.15 minutes", value: "6.25"},{name: "6.30 minutes", value: "6.5"},	{name: "6.45 minutes", value: "6.75"},{name: "7 hour", value: "7"},{name: "7.15 minutes", value: "7.25"},{name: "7.30 minutes", value: "7.5"},
+			{name: "7.45 minutes", value: "7.75"},{name: "8 hour", value: "8"},	{name: "8.15 minutes", value: "8.25"},{name: "8.30 minutes", value: "8.5"},	{name: "8.45 minutes", value: "8.75"}
+
+		]};
 
 	$scope.loadBuilding= function(site){
-		//alert(site);
+
 		if(!site){
-			//alert(site);
-			$scope.disableBuilding= false; 
+
+			$scope.disableBuilding= false;
 			$scope.lookupRoom.building = "";
-			
-			$scope.disableFloor= false; 
+
+			/*$scope.disableFloor= false;
 			$scope.lookupRoom.floor = "";
 
-			$scope.disableRoom= false; 
+			$scope.disableRoom= false;
 			$scope.lookupRoom.room = "";
 
-			$scope.disableDate= false; 
+			$scope.disableDate= false;
 			$scope.lookupRoom.date = "";
 
-			$scope.disableDuration= false; 
-			$scope.lookupRoom.duration = "";
+			$scope.disableDuration= false;
+			$scope.lookupRoom.duration = "";*/
 		}
 		else{
 			$scope.disableBuilding= true;
@@ -35,9 +72,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 		}
 
 
-	}
-
-
+	};
 
 	$scope.today = function() {
 		$scope.dt = new Date();
@@ -76,11 +111,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
 	//$scope.toggleMin();
 
-	$scope.open1 = function() {
-		$scope.popup1.opened = true;
-	};
-
-	$scope.open2 = function() {
+	$scope.open = function() {
 		$scope.popup2.opened = true;
 	};
 
@@ -91,10 +122,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 	$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','EEEE, MMMM dd, yyyy'];
 	$scope.format = $scope.formats[4];
 	$scope.altInputFormats = ['M!/d!/yyyy'];
-
-	$scope.popup1 = {
-		opened: false
-	};
 
 	$scope.popup2 = {
 		opened: false
@@ -132,7 +159,5 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
 		return '';
 	}
-
-
 
 });
