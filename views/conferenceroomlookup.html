@@ -1,6 +1,7 @@
 <section class="container" ng-controller="ConferenceRoom">
     <h1 class="room-lookup-header">Conference Room Looukup</h1>
-    <span class="login-info pull-right">Welcome Ketan <i class="btn-xs glyphicon glyphicon-menu-down"></i></span>
+    <div class="login-info pull-right">Welcome Ketan <i class="btn-xs glyphicon glyphicon-menu-down"></i></div>
+    
     <div class="row room-lookup">
         <section class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
             <form class="form-horizontal">
@@ -55,23 +56,24 @@
                 <div class="form-group">
                     <label for="timeRange" class="control-label col-sm-2 col-md-2 col-lg-2">Time Range<div class="optional">Optional</div></label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="timeRange" class="input-width form-control" ng-change="" ng-model="lookupRoom.timeRange">
-                            <option value="AnyTime">AnyTime</option>
+                        <select id="timeRange" class="input-width form-control" ng-model="lookupRoom.timeRange">
+                            <option value="">Select Time Range</option>
+                            <option value="AnyTime" ng-selected=true>AnyTime</option>
                             <option value="Morning">Moring (9:00 AM - 12:00 PM) </option>
                             <option value="Afternoon">Afternoon (1:00 PM - 5:00 PM) </option>
                             <option value="SpecificTime">Specific Time</option>
                         </select>
                     </div>
-                    <div class="col-md-6 col-lg-8" ng-if="lookupRoom.timeRange == 'SpecificTime'">
+                    <div class="col-md-6 col-lg-8 " ng-if="lookupRoom.timeRange == 'SpecificTime'">
                         <label for="from" class="control-label">From:</label>
-                        <select id="from" class="form-control floor" ng-model="timeFrom.model">
-                            <option value="">Select From Time</option>
-                            <option ng-repeat="fromTime in timeFrom.fromOptions" ng-value="fromTime.value">{{fromTime.name}}</option>
+                        <select id="from" class="form-control floor" ng-model="lookupRoom.fromTime">
+                            <option value="">Select...</option>
+                            <option ng-repeat="fromTime in timeFrom" value="{{fromTime.name}}">{{fromTime.name}}</option>
                         </select>
                         <label for="to" class="control-label">To</label>
-                        <select id="to" class="form-control floor" ng-model="timeTo.model">
-                            <option value="">Select To Time</option>
-                            <option ng-repeat="toTime in timeTo.toOptions" ng-value="toTime.value">{{toTime.name}}</option>
+                        <select id="to" class="form-control floor" ng-model="lookupRoom.toTime">
+                            <option value="">Select...</option>
+                            <option ng-repeat="toTime in timeTo" value="{{toTime.name}}">{{toTime.name}}</option>
                         </select>
                     </div>
                 </div>

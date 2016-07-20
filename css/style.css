@@ -1,48 +1,42 @@
 .room-lookup-header{
-    display: inline;
-    
+    display: inline-block;
+}
+.login-info {
+    padding: 30px 0;
 }
 .room-lookup{
     margin-top: 30px;
-
 }
  .right-box{
      border: 1px solid #DDDDDD;
      border-radius: 5px;
-     padding:20px 20px 30px 20px;
+     padding:20px;
 
  }
  .input-width{
-	width:279.7px;
-     height: 23px;
-     padding: 0px;
-     font-size: 11px;
-
+	width:280px;
+    height: 25px;
+    padding-top: 2px;
+    padding-bottom: 2px; 
  }
  .floor{
      width:107px;
-      height: 23px;
-     padding: 0px;
-     font-size: 11px;
      display: inline-block;
+    height: 25px;
+    padding-top: 2px;
+    padding-bottom: 2px; 
 
  }
  .optional{
      color:#BBBBBB;
-     font-size: 11px;
  }
  .search-btn{
-     width:68.9px;
-     height: 25px;
-     color: #ffffff;
+     width:69px;
+     color: #fff;
      background-color: #3384FB;
-     padding: 0px 12px;
-     border-radius: 5px;
-
  }
 
  .control-label{
-font-weight: normal;
-
+    font-weight: normal;
  }
 
