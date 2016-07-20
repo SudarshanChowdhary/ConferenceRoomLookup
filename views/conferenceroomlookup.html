@@ -1,7 +1,6 @@
 <section class="container" ng-controller="ConferenceRoom">
     <h1 class="room-lookup-header">Conference Room Looukup</h1>
-    <span class="login-info pull-right">Welcome Ketan <i class="btn-xs glyphicon glyphicon-menu-down
-"></i></span>
+    <span class="login-info pull-right">Welcome Ketan <i class="btn-xs glyphicon glyphicon-menu-down"></i></span>
     <div class="row room-lookup">
         <section class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
             <form class="form-horizontal">
@@ -39,7 +38,6 @@
                             <option value="">Select Room</option>
                             <option ng-repeat="room in roomOptions.room" value="{{room.value}}">{{room.key}}</option>
                         </select>
-
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" ng-model="lookupRoom.unavailable"> <span class="optional"> Include Unavailable Rooms</span>
@@ -50,66 +48,44 @@
                 <div class="form-group">
                     <label for="date" class="col-sm-2 col-md-2 col-lg-2 control-label">Date</label>
                     <div class="col-md-6 col-lg-8">
-                        <input id="date" type="text" datepickerMode class="form-control input-width" ng-click="open()" uib-datepicker-popup="{{format}} " ng-model="dt"
+                        <input id="date" type="text" datepickerMode class="form-control input-width" ng-click="open2()" uib-datepicker-popup="{{format}} " ng-model="dt"
                                is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"  />
                     </div>
                 </div>
-
                 <div class="form-group">
-
                     <label for="timeRange" class="control-label col-sm-2 col-md-2 col-lg-2">Time Range<div class="optional">Optional</div></label>
-
                     <div class="col-md-6 col-lg-8">
-                        <select id="timeRange" class="input-width" ng-change="" ng-model="lookupRoom.timeRange">
-                            <option value="">Selct Time Range</option>
+                        <select id="timeRange" class="input-width form-control" ng-change="" ng-model="lookupRoom.timeRange">
                             <option value="AnyTime">AnyTime</option>
                             <option value="Morning">Moring (9:00 AM - 12:00 PM) </option>
                             <option value="Afternoon">Afternoon (1:00 PM - 5:00 PM) </option>
                             <option value="SpecificTime">Specific Time</option>
                         </select>
-
-
-
                     </div>
-
-                    <div class="col-md-6 col-lg-8" ng-disabled="true">
+                    <div class="col-md-6 col-lg-8" ng-if="lookupRoom.timeRange == 'SpecificTime'">
                         <label for="from" class="control-label">From:</label>
-                            <select id="from" class="form-control floor" ng-model="lookupRoom.from">
-                                <option value="">Select Time</option>
-                                <option ng-repeat="floor in floorOptions.floor" value="{{floor.value}}">{{floor.key}}</option>
-                            </select>
-
-                        <label for="to" class="control-label">To</label>
-
-                            <select id="to" class="form-control floor" ng-model="lookupRoom.floor">
-                                <option value="">Select Floor</option>
-                                <option ng-repeat="floor in floorOptions.floor" value="{{floor.value}}">{{floor.key}}</option>
-                            </select>
-                    </div>
-
-
-
-
-
-                </div>
-
-                <div class="form-group">
-
-                    <label for="duration" class="control-label col-sm-2 col-md-2 col-lg-2">Duration <div class="optional">Optional</div></label>
-
-                    <div class="col-md-6 col-lg-8">
-                        <select id="duration" class="input-width" ng-model="durationTime.model">
-                            <option ng-repeat="option in durationTime.availableOptions" ng-value="option.value">{{option.name}}</option>
-
+                        <select id="from" class="form-control floor" ng-model="timeFrom.model">
+                            <option value="">Select From Time</option>
+                            <option ng-repeat="fromTime in timeFrom.fromOptions" ng-value="fromTime.value">{{fromTime.name}}</option>
                         </select>
-
+                        <label for="to" class="control-label">To</label>
+                        <select id="to" class="form-control floor" ng-model="timeTo.model">
+                            <option value="">Select To Time</option>
+                            <option ng-repeat="toTime in timeTo.toOptions" ng-value="toTime.value">{{toTime.name}}</option>
+                        </select>
                     </div>
                 </div>
-
                 <div class="form-group">
-
+                    <label for="duration" class="control-label col-sm-2 col-md-2 col-lg-2">Duration <div class="optional">Optional</div></label>
+                    <div class="col-md-6 col-lg-8">
+                        <select id="duration" class="input-width form-control" ng-model="durationTime.model">
+                            <option value="">Selection Duration</option>
+                            <option ng-repeat="option in durationTime.availableOptions" ng-value="option.value">{{option.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label col-sm-2 col-md-2 col-lg-2">Seats <div class="optional">Optional</div></label>
-
                     <div class="col-md-6 col-lg-8">
                         <label class="checkbox-inline">
                             <input type="checkbox" id="Checkbox1" value="option1">2-4
@@ -142,7 +118,7 @@
                             <input type="checkbox" id="Checkbox7" value="Projector">Projector
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" id="Checkbox8" value="option3">TV
+                            <input type="checkbox" id="Checkbox8" value="TV">TV
                         </label>
                     </div>
                 </div>
@@ -153,30 +129,19 @@
                 </div>
             </form>
         </section>
-
         <section class="col-xs-6 col-md-6 col-lg-4">
-
             <div class="right-box">
                 <h4>
                     Find and reserve an available conference room
                 </h4>
                 <p class="">
                     Book a conference room here and then complete the reservation in Calendar on your Mac. If a room you need is already booked, use this tool to email the meeting organizer.
-
                 </p>
                 <p>
                     Need help? Get <a href="#">step-by-step instructions</a> on how to use this tool.
                 </p>
-
-
             </div>
-
-
         </section>
-
     </div>
-
-
     </div>
-
 </section>
