@@ -20,10 +20,11 @@
 
  }
  .floor{
-     width:99.9px;
+     width:107px;
       height: 23px;
      padding: 0px;
      font-size: 11px;
+     display: inline-block;
 
  }
  .optional{

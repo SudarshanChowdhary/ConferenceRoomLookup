@@ -8,7 +8,7 @@
                 <div class="form-group">
                     <label for="site" class="col-sm-2 col-md-2 col-lg-2 control-label">Site</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="site" class="input-width" ng-change="loadBuilding(lookupRoom.site)" ng-model="lookupRoom.site">
+                        <select id="site" class="input-width form-control" ng-change="loadBuilding(lookupRoom.site)" ng-model="lookupRoom.site">
                             <option value="">Select site</option>
                             <option ng-repeat="site in siteOptions.site" value="{{site.value}}">{{site.key}}</option>
                         </select>
@@ -17,16 +17,16 @@
                 <div class="form-group">
                     <label for="building" class="col-sm-2 col-md-2 col-lg-2 control-label">Building</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="building" class="input-width" ng-disabled="!disableBuilding" ng-model="lookupRoom.building">
+                        <select id="building" class="input-width form-control" ng-change="loadRooms(lookupRoom.building)" ng-disabled="!disableBuilding" ng-model="lookupRoom.building">
                             <option value="">Select Building</option>
                             <option ng-repeat="building in buildingOptions.building" value="{{building.value}}">{{building.key}}</option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group" ng-show="enableFloor">
+                <div class="form-group" ng-if="enableFloor">
                     <label for="floor" class="col-sm-2 col-md-2 col-lg-2 control-label">Floor</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="floor" class="floor" ng-model="lookupRoom.floor">
+                        <select id="floor" class="floor form-control" ng-model="lookupRoom.floor" ng-disabled="!disableFloor">
                             <option value="">Select Floor</option>
                             <option ng-repeat="floor in floorOptions.floor" value="{{floor.value}}">{{floor.key}}</option>
                         </select>
@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label for="room" class="col-sm-2 col-md-2 col-lg-2 control-label">Room</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="room" class="input-width" ng-model="lookupRoom.room">
+                        <select id="room" class="input-width form-control" ng-model="lookupRoom.room" ng-disabled="!disableRoom">
                             <option value="">Select Room</option>
                             <option ng-repeat="room in roomOptions.room" value="{{room.value}}">{{room.key}}</option>
                         </select>
@@ -60,30 +60,31 @@
                     <label for="timeRange" class="control-label col-sm-2 col-md-2 col-lg-2">Time Range<div class="optional">Optional</div></label>
 
                     <div class="col-md-6 col-lg-8">
-                        <select id="timeRange" class="input-width" ng-model="lookupRoom.timeRange">
-                            <option value="option-1">AnyTime</option>
-                            <option value="option-2">Moring (9:00 AM - 12:00 PM) </option>
-                            <option value="option-3">Afternoon(1:00 PM - 5:00 PM) </option>
-                            <option value="option-4">Specific time</option>
+                        <select id="timeRange" class="input-width" ng-change="" ng-model="lookupRoom.timeRange">
+                            <option value="">Selct Time Range</option>
+                            <option value="AnyTime">AnyTime</option>
+                            <option value="Morning">Moring (9:00 AM - 12:00 PM) </option>
+                            <option value="Afternoon">Afternoon (1:00 PM - 5:00 PM) </option>
+                            <option value="SpecificTime">Specific Time</option>
                         </select>
+
+
+
                     </div>
 
-                    <div class="col-md-6 col-lg-8">
-                        <label for="from" class="col-sm-1 col-md-1 col-lg-1 control-label">From</label>
-                        <div class="col-md-2 col-lg-2">
-                            <select id="from" class="" ng-model="lookupRoom.from">
+                    <div class="col-md-6 col-lg-8" ng-disabled="true">
+                        <label for="from" class="control-label">From:</label>
+                            <select id="from" class="form-control floor" ng-model="lookupRoom.from">
                                 <option value="">Select Time</option>
                                 <option ng-repeat="floor in floorOptions.floor" value="{{floor.value}}">{{floor.key}}</option>
                             </select>
-                        </div>
 
-                        <label for="to" class="col-sm-1 col-md-1 col-lg-1 control-label">To</label>
-                        <div class="col-md-2 col-lg-2">
-                            <select id="to" class="" ng-model="lookupRoom.floor">
+                        <label for="to" class="control-label">To</label>
+
+                            <select id="to" class="form-control floor" ng-model="lookupRoom.floor">
                                 <option value="">Select Floor</option>
                                 <option ng-repeat="floor in floorOptions.floor" value="{{floor.value}}">{{floor.key}}</option>
                             </select>
-                        </div>
                     </div>
 
 

@@ -1,13 +1,11 @@
 'use strict'
 
 ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, buildingService, floorService, roomService){
-	$scope.enableFloor= true;
+	$scope.enableFloor= false;
 
 	$scope.siteOptions= siteService.get();
-	$scope.buildingOptions= buildingService.get();
-	$scope.floorOptions= floorService.get();
-	$scope.roomOptions= roomService.get();
-
+	$scope.buildingOptions=null;
+	
 	$scope.durationTime = {
 		model: null,
 		availableOptions:[
@@ -48,31 +46,52 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 		]};
 
 	$scope.loadBuilding= function(site){
-
 		if(!site){
 
 			$scope.disableBuilding= false;
-			$scope.lookupRoom.building = "";
+			$scope.lookupRoom.building = null;
 
-			/*$scope.disableFloor= false;
-			$scope.lookupRoom.floor = "";
+			$scope.disableFloor= false;
+			$scope.lookupRoom.floor = null;
 
 			$scope.disableRoom= false;
-			$scope.lookupRoom.room = "";
+			$scope.lookupRoom.room = null;
 
-			$scope.disableDate= false;
-			$scope.lookupRoom.date = "";
-
-			$scope.disableDuration= false;
-			$scope.lookupRoom.duration = "";*/
 		}
 		else{
-			$scope.disableBuilding= true;
-			$scope.buildingOptions= building.Service.get(site);
+			$scope.disableBuilding = true;
+			$scope.buildingOptions = buildingService.get(site);
 		}
-
-
 	};
+
+	$scope.loadRooms = function(building){
+		if(!building){
+
+			$scope.disableRoom= false;			
+			$scope.roomData = null;
+			$scope.floorData = null;			
+		}else{
+			angular.forEach($scope.buildingOptions.building, function(obj, value) {
+		    	if(value==building){
+    				if(obj.floor)
+    				{
+						$scope.enableFloor= true;
+						$scope.floorOptions= floorService.get();
+						$scope.disableFloor= true;
+    				}
+    				else{
+						$scope.disableFloor= false;
+						$scope.lookupRoom.floor = null;
+						$scope.floorOptions=null;
+						$scope.enableFloor= false;
+
+    				}
+    			}
+			});
+			$scope.disableRoom= true;
+			$scope.roomOptions= roomService.get();			
+		}
+	}
 
 	$scope.today = function() {
 		$scope.dt = new Date();
