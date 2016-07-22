@@ -3,8 +3,60 @@
 ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, buildingService, floorService, roomService, timeRangeService){
 	$scope.enableFloor= false;
 
-	$scope.siteOptions= siteService.get();
-	$scope.buildingOptions=null;
+
+	var uniqueData=function(dataObj, field){
+		var unique=[];
+		angular.forEach(dataObj, function(obj){
+    		var index = unique.indexOf(obj[field]);
+    		if(index === -1)
+    		{
+    			unique.push(obj[field]);
+    		}
+		});
+		return unique;
+	}
+
+	siteService.getSiteData().then(function(data){
+		$scope.siteOptions = data.data;
+		var uniqueRegionId=[];
+		$scope.regions=[];
+		angular.forEach(data.data, function(obj, index){
+    		var index = uniqueRegionId.indexOf(obj.regionId);
+    		if(index === -1)
+    		{
+    			uniqueRegionId.push(obj.regionId);
+        		$scope.regions.push({regionId:obj.regionId, regionName:obj.regionName, countries:[]});
+    		}
+		});
+
+		var uniqueCountries=uniqueData(data.data, "country");
+
+
+			angular.forEach(uniqueCountries, function(country, index){
+
+		angular.forEach($scope.regions, function(region, index){
+			angular.forEach(data.data, function(obj, index){
+
+	
+					if(obj.regionId==region.regionId && obj.country==country){
+						region.countries.push(obj.country);
+					}
+					
+	    		});
+	   		});
+    	});
+
+
+console.log($scope.regions);
+
+
+	});
+
+	
+
+
+
+	//$scope.buildingOptions=null;
 
 	$scope.durationTime = {
 		model: null,

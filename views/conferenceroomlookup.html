@@ -8,9 +8,11 @@
                 <div class="form-group">
                     <label for="site" class="col-sm-2 col-md-2 col-lg-2 control-label">Site</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="site" class="input-width form-control" ng-change="loadBuilding(lookupRoom.site)" ng-model="lookupRoom.site">
-                            <option value="">Select site</option>
-                            <option ng-repeat="site in siteOptions.site" value="{{site.value}}">{{site.key}}</option>
+                        <select id="site" class="input-width form-control" ng-change="loadBuilding(lookupRoom.data)" ng-model="lookupRoom.region">
+                            <option value="0">Select site</option>
+                            <optgroup ng-repeat="region in regions" label="{{region.regionName}}">
+								    <option value=""></option>
+                            </optgroup>
                         </select>
                     </div>
                 </div>
