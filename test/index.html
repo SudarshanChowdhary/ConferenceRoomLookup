@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dashboardApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Checkin Dashboard</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/checkin.css" rel="stylesheet">
+    <!-- <link href="css/bootstrap-datepicker.min.css" rel="stylesheet">-->
+    <link href="css/angular-datepicker.css" rel="stylesheet">
+    <!--<link href="css/bootstrap-datepicker.standalone.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="css/ng-table.min.css">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="chrome" ng-controller="searchController">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" ng-click="showHome()">Checkin Dashboard</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse add-Favorites">
+          <ul class="nav navbar-nav navbar-left">
+            <li><a data-toggle="collapse" href="#addFavoriteBox">+ Add favorites</a></li>
+            <li ng-if="favoritesList.length!=0 || favoritesList.length!=null"><a href="#" id="editFavorite" onclick="dashboard.showDeleteFavoriteIcon(this);">[Edit]</a></li>
+            <li ng-repeat="fav in favoritesList | limitTo:2"><a href="#"><span class="glyphicon glyphicon-minus-sign" data="{{fav.roomId}}" ng-click="deleteFavoritesRoom(fav.roomId)"></span> {{fav.roomName}}</a></li>
+            <li class="dropdown" ng-if="favoritesList.length > 2">
+          		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
+	          	<ul class="dropdown-menu">
+		            <li ng-repeat="fav in favoritesList | slice"><a href="#"><span class="glyphicon glyphicon-minus-sign" data="{{fav.roomId}}" ng-click="deleteFavoritesRoom(fav.roomId)"></span> {{fav.roomName}}</a></li>
+		          </ul>
+	        </li>
+          </ul>
+            <p class="navbar-text navbar-right">Welcome, Tom </p>
+            <p class="navbar-text navbar-right" > <a href="#deviceList" ng-click="showDivice()">Device</a></p>
+        </div>
+      </div>
+      <!-- Add favorite rooms starts here -->
+     <div class="container-fluid collapse" id="addFavoriteBox">
+       <div class="row">
+         <div class="col-md-4"></div>
+         <div class="col-md-4"></div>
+         <div class="col-md-4">
+           <div class="form-group">
+             <input type="text" class="form-control" placeholder="Search by Name" ng-model="search.roomName" ng-change="searchContent(search.roomName)"/>
+             <!--<span ng-if="searchArray.length==0">Result is Empty</span>-->
+           </div>
+         </div>
+
+     </div>
+     <div class="row">
+       <div class="col-md-2 col-sm-4" ng-repeat="res in searchArray | filter: search" ng-if="searchArray.length!=0">
+              <a class="navbar-text" href="#" data="{{res.roomId}}" ng-click="addFavorites(res.roomId)"><span class="glyphicon glyphicon-plus-sign"></span> {{res.roomName}}</a>
+       </div>
+
+     </div>
+     <div class="row">
+       <div class="col-md-12">&nbsp;</div>
+     </div>
+     </div>
+     <!-- Add favorite rooms ends here -->
+    </nav>
+
+    <div ng-view id="title"></div>
+
+
+     <!-- charts  -->
+    <div id="bodyContent">
+    <nav class="navbar" id="search">
+    <div class="container-fluid" id="roomLookupController" ng-controller="roomLookupController">
+    <!-- <div class="row">
+    
+		 <div class="col-md-2">
+		 	<div class="form-group">
+		   <label for="Region">Region</label>
+		   <select class="form-control input-sm" id="region" name="region" ng-model="selectedRegion" ng-change="getRegionDetails(selectedRegion);">
+		       <option ng-repeat="room in rooms | unique:'regionName'" value="{{room.regionId}}">{{room.regionName}}</option>
+		    </select>
+		 </div>
+		 </div>
+		 <div class="col-md-2">
+		 	<div class="form-group">
+		   <label for="Region">Location</label>
+		   <select class="form-control input-sm" id="campus" name="campus" ng-model="selectedCampus" ng-change="getCampusDetails(selectedCampus);">
+		   	   <option ng-repeat="room in rooms | unique:'campusName' | filter: {regionId : selectedRegion}" value="{{room.campusId}}">{{room.campusName}}</option>
+		   </select>
+		 </div>
+		 </div>
+		 <div class="col-md-2">
+		 	<div class="form-group">
+		   <label for="Region">Building</label>
+		   <select class="form-control input-sm" id="building" name="building" ng-model="selectedBuilding" ng-change="getBuildingDetails(selectedBuilding);">
+		   	<option ng-repeat="room in rooms | unique:'buildingName' | filter: {campusId : selectedCampus} | filter: {regionId : selectedRegion}" value="{{room.buildingId}}">{{room.buildingName}}</option>
+		   </select>
+		 </div>
+		 </div>
+		 <div class="col-md-2">
+	 	<div class="form-group">
+		   <label for="Region">Room</label>
+		   	<select class="form-control input-sm" id="room" name="room" ng-model="selectedRoom" ng-change="getRoomDetails(selectedRoom);">
+		   		<option ng-repeat="room in rooms | unique:'roomName' | filter: {buildingId : selectedBuilding} | filter: {campusId : selectedCampus} | filter: {regionId : selectedRegion}" value="{{room.roomId}}">{{room.roomName}}</option>
+		    </select>
+	 	</div>
+	 	</div>
+	 	
+	 	 <div class="col-md-2 " id="date-container">
+	 	<div class="form-group">
+		   <label for="startDate">From</label>
+		   <div class='input-group date pull-left' id="datepicker">
+			  <datepicker datepicker-show="{{ctrl.visibility}}" date-format="dd/MM/yyyy"   datepicker-class="test-custom-class" >
+				    <input id="startDate" name="startDate" ng-model="startDate" type="text" class="angular-datepicker-input form-control" placeholder="From Date "/>                   
+			   </datepicker>
+           </div>
+	 	</div>
+	 	</div>
+	 	 <div class="col-md-2 " id="date-container">
+	 	<div class="form-group">
+		   						<label for="endDate">To</label>
+		   						<div class='input-group date pull-left' id="datepicker">
+				                  <datepicker datepicker-show="{{ctrl.visibility}}" date-format="dd/MM/yyyy"   datepicker-class="test-custom-class" >
+				                     <input id="endDate" name="endDate" ng-model="endDate" type="text" class="angular-datepicker-input form-control" placeholder="To Date"/>
+				                     <input type="button" class="btn btn-info " name="apply" value="Apply" ng-click="getDetails(startDate, endDate)" >
+				                  </datepicker>
+				                  
+			         		 </div>
+			         		 <!-- <div class="pull-left" style="margin-left:10px;">
+			         		 	<input type="button" class="btn btn-info" name="apply" value="Apply" ng-click="getDetails(startDate, endDate)">
+			         		 </div>
+		   	
+	 	</div>
+	 	</div>
+	</div>-->
+	
+	<div class="row seven-cols sevencolRow" ng-controller="menuController">
+	
+		<div class="container">
+   			<div class="col-lg-1 col-md-3 col-sm-4 col-xs-6">
+		    		<div class="form-group">
+				   <label for="Region">Region</label>
+				   <select class="form-control input-sm" id="region" name="region" ng-model="selectedRegion" ng-change="getRegionDetails(selectedRegion);">
+				       <option ng-repeat="room in rooms | unique:'regionName'" value="{{room.regionId}}">{{room.regionName}}</option>
+				    </select>
+				 </div>    			
+    		</div>
+
+    		<div class="col-lg-1 col-md-3 col-sm-4 col-xs-6">
+		    			<div class="form-group">
+				   <label for="Region">Location</label>
+				   <select class="form-control input-sm" id="campus" name="campus" ng-model="selectedCampus" ng-change="getCampusDetails(selectedCampus);">
+				   	   <option ng-repeat="room in rooms | unique:'campusName' | filter: {regionId : selectedRegion}" value="{{room.campusId}}">{{room.campusName}}</option>
+				   </select>
+				 </div>
+    			
+    		</div>
+
+    		<div class="col-lg-1 col-md-3 col-sm-4 col-xs-6">
+    			<div class="form-group">
+		   <label for="Region">Building</label>
+		   <select class="form-control input-sm" id="building" name="building" ng-model="selectedBuilding" ng-change="getBuildingDetails(selectedBuilding);">
+		   	<option ng-repeat="room in rooms | unique:'buildingName' | filter: {campusId : selectedCampus} | filter: {regionId : selectedRegion}" value="{{room.buildingId}}">{{room.buildingName}}</option>
+		   </select>
+		 </div>
+    		</div>
+
+    		<div class="col-lg-1 col-md-3 col-sm-4 col-xs-6">
+    			<div class="form-group">
+				   <label for="Region">Room</label>
+				   	<select class="form-control input-sm" id="room" name="room" ng-model="selectedRoom" ng-change="getRoomDetails(selectedRoom);">
+				   		<option ng-repeat="room in rooms | unique:'roomName' | filter: {buildingId : selectedBuilding} | filter: {campusId : selectedCampus} | filter: {regionId : selectedRegion}" value="{{room.roomId}}">{{room.roomName}}</option>
+				    </select>
+			 	</div>
+    		</div>
+
+    		<div class="col-lg-1 col-md-3 col-sm-4 col-xs-6" id="date-container">
+    			<div class="form-group">
+				   <label for="startDate">From</label>
+				   <div class='input-group date pull-left' id="datepicker">
+					  <datepicker datepicker-show="{{ctrl.visibility}}" date-format="dd/MM/yyyy"   datepicker-class="test-custom-class" >
+						    <input id="startDate" name="startDate" ng-model="startDate" type="text" class="angular-datepicker-input form-control" placeholder=" "/>                   
+					   </datepicker>
+		           </div>
+	 			</div>
+    		</div>
+
+    		<div class="col-lg-1 col-md-3 col-sm-4 col-xs-6" id="date-container">
+    			<div class="form-group">
+				  <label for="endDate">To</label>
+		   			<div class='input-group date pull-left' id="datepicker">
+				        <datepicker datepicker-show="{{ctrl.visibility}}" date-format="dd/MM/yyyy"   datepicker-class="test-custom-class" >
+				        	 <input id="endDate" name="endDate" ng-model="endDate" type="text" class="angular-datepicker-input form-control" placeholder=""/>				              
+				        </datepicker>				                  
+			        </div>
+    			</div>
+    		</div>
+
+    		<div class="col-lg-1 col-md-3 col-sm-4 col-xs-6">    		 
+    		<input type="button" id= "applyId" class="btn btn-info" name="apply" value="Apply" ng-click="getDetails(startDate, endDate)">
+    		 </div>
+    	</div>	 
+    </div>
+    </nav>
+
+    <div class="container-fluid">
+      	<!-- title  -->
+     	<div id="title"  ng-controller="menuController">
+      		<div class="row">
+	      		<div class="col-md-6">
+	      			<h4>{{pageTitle}}</h4>
+		 			<span class='noRoomText'>{{(roomCount)?roomCount+" Rooms":''}}</span>
+		            <span class="controls" ng-show="showPropertyLink">
+		                  <a href="#editRoom" class="btn btn-info" role="button" ng-click="Hide()">Properties</a>
+		                  <a href="#" ng-click="Show()" class="btn btn-small">Details</a>
+		            </span>	
+	      		</div>
+	      		<div class="col-md-6" ng-hide="showExcel" >
+	      			 <p class="pull-right"><a href="#" ng-click="exportExcel1()" class="navbar-link">+Export to Excelddddd</a></p>      			
+	      		</div>
+      		</div>
+      		<!-- <div class="d-rowCenter">
+      			<div class="row" id="title"  ng-controller="menuController">
+      				<div class="col-md-2 text-right" style="padding:5px 0px;">
+      					Select Dates
+      				</div>
+      				<div class="col-md-10" id="date-container">
+      				<div class='input-group date pull-left fromD' id="datepicker">
+				                 <datepicker datepicker-show="{{ctrl.visibility}}" date-format="dd/MM/yyyy"   datepicker-class="test-custom-class" >
+				                    <input id="startDate" name="startDate" ng-model="startDate" type="text" class="angular-datepicker-input form-control" placeholder="From Date "/>                   
+				                 </datepicker>
+             		 		</div>
+             		 		<div class='input-group date pull-left' id="datepicker">
+				                  <datepicker datepicker-show="{{ctrl.visibility}}" date-format="dd/MM/yyyy"   datepicker-class="test-custom-class" >
+				                     <input id="endDate" name="endDate" ng-model="endDate" type="text" class="angular-datepicker-input form-control" placeholder="To Date"/>
+				                  </datepicker>
+			         		 </div>
+			         		 <div class="pull-left" style="margin-left:10px;">
+			         		 	<input type="button" class="btn btn-info" name="apply" value="Apply" ng-click="getDetails(startDate, endDate)">
+			         		 </div>
+      				</div>
+      				
+      			</div>    				
+			</div>-->
+      	   <!-- <div class="row" id="title"  ng-controller="menuController">
+      	   		<div class="col-md-3">
+      	   			<h4>{{pageTitle}}</h4>
+	 			<span class='noRoomText'>{{(roomCount)?roomCount+" Rooms":''}}</span>
+	            <span class="controls" ng-show="showPropertyLink">
+	                  <a href="#editRoom" class="btn btn-info" role="button" ng-click="Hide()">Properties</a>
+	                  <a href="#" ng-click="Show()" class="btn btn-small">Details</a>
+	            </span>	            
+      	   		</div>
+      	   		<div class="col-md-6" ng-controller="dateController">
+      	   			<div class="row" id="date-container">      	   				
+      	   				<div class="col-md-9" id="datepicker">
+      	   					 <div class='input-group date pull-left fromD' id="datepicker">
+				                 <datepicker datepicker-show="{{ctrl.visibility}}" date-format="dd/MM/yyyy"   datepicker-class="test-custom-class" >
+				                    <input id="startDate" name="startDate" ng-model="startDate" type="text" class="angular-datepicker-input form-control" placeholder="From Date "/>                   
+				                 </datepicker>
+             		 		</div>
+             		 		<div class='input-group date pull-left' id="datepicker">
+				                  <datepicker datepicker-show="{{ctrl.visibility}}" date-format="dd/MM/yyyy"   datepicker-class="test-custom-class" >
+				                     <input id="endDate" name="endDate" ng-model="endDate" type="text" class="angular-datepicker-input form-control" placeholder="To Date"/>
+				                  </datepicker>
+			         		 </div>
+      	   				</div>
+      	   				<div class="col-md-1">
+      	   					<input type="button" class="btn btn-info" name="apply" value="Apply" ng-click="getDetails(startDate, endDate)">
+      	   				</div>
+      	   				
+      	   			</div>
+      	   		</div>
+      	   		<div class="col-md-3">
+      	   			 <p class="pull-right"><a href="#" ng-click="exportExcel1()" class="navbar-link">+Export to Excel</a></p>
+      	   		</div>
+      	   </div>-->
+      	
+   		<!--  <div class="row" id="title"  ng-controller="menuController">
+	       	<div class="col-md-12" >
+	 			<h3>{{pageTitle}}</h3>
+	 			<span>{{(roomCount)?roomCount+" Rooms":''}}</span>
+	            <span class="controls" ng-show="showPropertyLink">
+	                  <a href="#editRoom" class="btn btn-info" role="button" ng-click="Hide()">Properties</a>
+	                  <a href="#" ng-click="Show()" class="btn btn-small">Details</a>
+	            </span>
+	            <p class="pull-right"><a href="#" ng-click="exportExcel1()" class="navbar-link">+Export to Excel</a></p>
+	       	</div>
+   		</div>-->
+
+	    	<!-- date section starts here -->
+      
+	       <!--  <div class="col-md-8 col-md-offset-4" ng-controller="dateController">
+	          	<div id="date-container" class="row">
+		            <div class="input-daterange input-group col-md-6 pull-left " id="datepicker">
+		             <div class='input-group date pull-left fromD' id="datepicker">
+		                 <datepicker datepicker-show="{{ctrl.visibility}}" date-format="dd/MM/yyyy"   datepicker-class="test-custom-class" >
+		                    <input id="startDate" name="startDate" ng-model="startDate" type="text" class="angular-datepicker-input form-control" placeholder="From Date "/>                   
+		                 </datepicker>
+             		 </div>
+             		 <div class='input-group date pull-left' id="datepicker">
+			                  <datepicker datepicker-show="{{ctrl.visibility}}" date-format="dd/MM/yyyy"   datepicker-class="test-custom-class" >
+			                     <input id="endDate" name="endDate" ng-model="endDate" type="text" class="angular-datepicker-input form-control" placeholder="To Date"/>
+			                  </datepicker>
+			          </div>
+		                <span class="input-group-addon">From</span>
+		                <input type="text" class="form-control input-sm" id="startDate" name="startDate" ng-model="startDate"/>
+		                <span class="input-group-addon">to</span>
+		                <input type="text" class="form-control input-sm" id="endDate" name="endDate" ng-model="endDate"/>
+		            </div>
+		            <div class="col-md-6">
+		              <input type="button" class="btn btn-info" name="apply" value="Apply" ng-click="getDetails(startDate, endDate)">
+		            </div>
+	          	</div>
+	       	</div>-->
+	       	<div class="col-md-3 col-md-offset-5"><br/></div>
+       	</div>
+       	<!-- date section ends here -->
+
+			<!-- chart section starts here -->
+	   		<div class="row" id="charts" ng-controller="statController">
+	   			<div class="col-md-6" >
+	 				<div id="hero"><highchart id="occupancyChart" config="occupancyChartOptions"></highchart></div>
+	       		</div>
+		       <div class="col-md-6" id="chart-event">
+			       	<div class="chart-event-label">Cancelation</div>
+			       	<div id="occupancyChartCancel"><highchart config="occupancyChartCancelOptions"></highchart></div>
+			        <div class="chart-event-label">Takeover</div>
+			       	<div  id="occupancyChartTakeover"><highchart config="occupancyChartTakeoverOptions"></highchart></div>
+			       	<div class="chart-event-label">Recovery</div>
+			       	<div id="occupancyChartRecovered"><highchart config="occupancyChartRecoveredOptions"></highchart></div>
+		       </div>
+	   		</div>
+	   		<!-- chart section ends here -->
+
+        <!-- slider start -->
+        <div class="panel-group metrics-accordion" id="accordion">
+        <div class="panel panel-default">
+	   		<!-- more metrics label starts here -->
+	   		<!--<div class="row" id="metrics-label">
+			   	<div class="col-md-12" >
+			 		<!<h3>More metrics<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></h3>
+				</div>
+        </div>-->
+        <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo">
+             <h3 class="ng-binding">More metrics</h3>
+        </div>
+		   	<!-- more metrics label ends here -->
+        <!-- menu collapse starts -->
+        <div id="collapseTwo" class="panel-collapse collapse">
+   			<!-- chart section 1 starts here -->
+   			<div class="row" id="metric-charts" ng-controller="statController">
+   				<div class="col-md-3 col-sm-6" >
+   					<div class="block">
+	               		<div class="title">Scheduled Events</div>
+		               	<div class="content">
+		                    <div id="schEvtid">
+		                       <highchart config="scheduledEventsOptions" ></highchart>
+		                    </div>
+		              	</div>
+	               		<div class="info"><a href="#" class="info-button open-button"></a></div>
+	               		<div class="info-content"><p><a href="#" class="info-button close-button"></a>This chart shows the percentage of successful room bookings compared to the total number of room bookings.  A successful booking is one where the user checked into their room on time.</p></div>
+	           		</div>
+   				</div>
+			   	<div class="col-md-3 col-sm-6" >
+			   		<div class="block" id="hours-recovered">
+			               <div class="title">Hours Recovered</div>
+			               <div class="content">
+			                   <div class="hours">
+			                       <div class="value">{{(recoveredHours)?recoveredHours:0}}</div>
+			                       <div class="units">hours</div>
+			                   </div>
+			               </div>
+			               <div class="footer box-btm">{{(recoveredFromCancellationInPercentage)?recoveredFromCancellationInPercentage:0}}% of the total of canceled hours have been recovered.</div>
+			               <div class="info"><a href="#" class="info-button open-button"></a></div>
+			               <div class="info-content"><p><a href="#" class="info-button close-button"></a>The Hours Recovered metric summarizes the time users have gained from being able to check in to a room that was canceled, because someone else didn't show up to their reserved room.</p></div>
+			         </div>
+			   	</div>
+   				<div class="col-md-6" >
+   					<div class="block double-block" id="meeting-length">
+               			<div class="title">Meeting Length</div>
+               			<div class="content">
+                   			<highchart id="pieChartMeetingLength" config="pieChartMeetingLengthOption"></highchart>
+                   			<div id="meeting-length-details">
+		                       	<div>
+		                           <span class="label">Popular</span>
+		                           <span class="value">{{(popularMeetingLength)?popularMeetingLength:0}} minutes</span>
+		                       	</div>
+		                       	<div>
+		                           <span class="label">Average</span>
+		                           <span class="value">{{(averageMeetingLength)?averageMeetingLength:0}} minutes</span>
+		                       	</div>
+		                       	<div>
+		                           <span class="label">Median</span>
+		                           <span class="value">{{(medianMeetingLength)?medianMeetingLength:0}} minutes</span>
+		                       	</div>
+                   			</div>
+               			</div>
+               			<div class="info"><a href="#" class="info-button open-button"></a></div>
+               			<div class="info-content"><p><a href="#" class="info-button close-button"></a>Meeting Length gives you a quick look at the most common meeting durations in your CheckIn enabled rooms.</p></div>
+           			</div>
+   				</div>
+   			</div>
+			<!-- chart section 1 ends here -->
+		   	<!-- chart section 2 starts here -->
+		   	<div class="row" ng-controller="statController">
+		   		<div class="col-md-3 col-sm-6">
+			   		<div class="block" id="recurring-bookings">
+			               <div class="title">Recurring Events</div>
+			               <div class="content">
+			                   <div class="pie-chart-medium"><highchart config="recurringEventsOptions"></highchart></div>
+			               </div>
+			               <div class="footer box-btm" style="text-align:left">{{(singleEventCnt)?singleEventCnt:0}} Single Events ({{(singleMeetingPercentage)?singleMeetingPercentage:0}}%)<br />{{(recurringEventCnt)?recurringEventCnt:0}} Recurring Events ({{(recurringMeetingPercentage)?recurringMeetingPercentage:0}}%)</div>
+			               <div class="info"><a href="#" class="info-button open-button"></a></div>
+			               <div class="info-content"><p><a href="#" class="info-button close-button"></a>This is the total number of reservations made in rooms that use CheckIn.</p></div>
+			        </div>
+		   		</div>
+   				<div class="col-md-3 col-sm-6">
+			   		<div class="block">
+			               <div class="title">Prime Time Utilization</div>
+			               <div class="content">
+			                   <div class="pie-chart-large" id="ptuid"><highchart config="primeTimeUtilization" ></highchart></div>
+			               </div>
+			               <div class="info"><a href="#" class="info-button open-button"></a></div>
+			               <div class="info-content"><p><a href="#" class="info-button close-button"></a>Prime Time Utilization gives you a look at data that includes includes 10am to noon and 1pm to 4pm.</p></div>
+			        </div>
+			   	</div>
+   				<div class="col-md-6">
+   					<div class="block double-block" id="usage-by-size">
+		               <div class="title">Utilization By Size</div>
+		               <div class="content">
+		               		<div class="usage-by-size-container">
+		                       <div class="pie-chart-medium"><highchart config="smallRoomSizeChartOption"></highchart></div>
+		                       <div class="pie-overlay pie-overlay-medium">{{(smallRoomOccupancyPercentage)?smallRoomOccupancyPercentage:0}}%<span class="pie-label">{{(smallRoomCount)?smallRoomCount:0}} rooms</span></div>
+		                       <div class="usage-by-size-label">Small<span>1-4 seats</span></div>
+		                   </div>
+		                   <div class="usage-by-size-container">
+		                       <div class="pie-chart-medium"><highchart config="mediumRoomSizeChartOption"></highchart></div>
+		                        <div class="pie-overlay pie-overlay-medium">{{(mediumRoomOccupancyPercentage)?mediumRoomOccupancyPercentage:0}}%<span class="pie-label">{{(mediumRoomCount)?mediumRoomCount:0}} rooms</span></div>
+		                        <div class="usage-by-size-label">Medium<span>5-9 seats</span></div>
+		                   </div>
+		                   <div class="usage-by-size-container">
+		                       <div class="pie-chart-medium"><highchart config="largeRoomSizeChartOption"></highchart></div>
+		                       <div class="pie-overlay pie-overlay-medium">{{(largeRoomOccupancyPercentage)?largeRoomOccupancyPercentage:0}}%<span class="pie-label">{{(largeRoomCount)?largeRoomCount:0}} rooms</span></div>
+		                       <div class="usage-by-size-label">Large<span>10+ seats</span></div>
+		                   </div>
+		               </div>
+		               <div class="info"><a href="#" class="info-button open-button"></a></div>
+		               <div class="info-content"><p><a href="#" class="info-button close-button"></a>This metric gives you insight into what room sizes are most popular.</p></div>
+		           	</div>
+   				</div>
+   			</div>
+   			<!-- chart 2 sections ends here -->
+      </div>
+      <!-- menu clopse end here -->
+     </div>
+    </div>
+      <!-- slide end -->
+    <!-- Event Controller starts here -->
+    <div ng-controller="eventController">
+		  <!-- campus list starts here -->
+		  <div class="row" ng-show="campusListView">
+		   	<div class="col-md-12"><h3>Campus</h3></div>
+		   	<div class="col-md-12">
+				<div class="panel panel-default checkin-panel">
+					<div class="panel-heading">&nbsp;</div>
+					<div class="panel-body">
+								<div class="col-md-12" ng-repeat="c in campusList">
+						     		{{c.name}} <p class="pull-right"><a href="#" data-id="{{c.id}}" onclick="dashboard.filterByCampus(this)">[Details]</a></p>
+
+						     	</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- campus list ends here -->
+
+		<!-- Building list starts here -->
+		<div class="row" ng-show="buildingListView">
+		   	<div class="col-md-12"><h3>Building</h3></div>
+		   	<div class="col-md-12">
+				    	<div class="panel panel-default checkin-panel">
+						  <div class="panel-heading">&nbsp;</div>
+						  <div class="panel-body">
+				            <div class="col-md-12" ng-repeat="b in buildingList">
+				              {{b.name}} <p class="pull-right"><a href="#" data-id={{b.id}} onclick="dashboard.filterByBuilding(this)">[Details]</a></p>
+				            </div>
+						  </div>
+					</div>
+			</div>
+		</div>
+		<!-- Buidling list ends here -->
+
+		<!-- Room list starts here -->
+		<div class="row" ng-show="roomListView">
+		   	<div class="col-md-12"><h3>Room</h3></div>
+		   	<div class="col-md-12">
+				    	<div class="panel panel-default checkin-panel">
+						  <div class="panel-heading">&nbsp;</div>
+						  <div class="panel-body">
+				            <div class="col-md-12" ng-repeat="r in roomList">
+				              {{r.name}} <p class="pull-right"><a href="#" data-id={{r.id}} onclick="dashboard.filterByRoom(this)">[Details]</a></p>
+				            </div>
+						  </div>
+						</div>
+					</div>
+		  </div>
+	  <!-- Room list ends here -->
+
+	<!-- event view starts here -->
+	<div class="row top-buffer" ng-show="eventListView">
+	  <!-- event list starts here -->
+      <div class="col-md-4">
+      <div class="">Events <a href="#events" ng-click="showEventsPage()" class="btn btn-small">{{(selectedEventData.length!=0)? "[View Details] ":''}}</a></div>
+     	<div class="panel panel-default checkin-panel">
+        <div class="panel-heading">{{(selectedEventData.length==0)? "No Events" :selectedEventData.length+" Events"}}</div>
+        <div class="panel-body">
+
+              <table class="table table-striped device_table" ng-if="selectedEventData.length!=0">
+                <thead>
+                    <tr>
+                        <th class="col-md-4">Event Name</th>
+                        <th class="col-md-4">Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="event in selectedEventData | limitTo:5:5">
+                      <td class="col-md-4">{{event.eventName}}</td>
+                      <td class="col-md-4">{{formatDate(event.startDate)}} - {{formatDate(event.endDate)}}</td>
+                    </tr>
+                </tbody>
+              </table>
+          </div>
+       </div>
+     </div>
+     <!-- Events list ends here  -->
+     <!-- no shows starts here -->
+     <div class="col-md-4">
+       <div class="">No Shows <a href="#noShows" ng-click="noShowPage()" class="btn btn-small">{{(noShowsCount!=0)? "[View Details] ":''}}</a></div>
+       <div class="panel panel-default checkin-panel">
+       <div class="panel-heading">{{(noShowsCount==0)? "No Events" :noShowsCount+" Events"}}</div>
+        <div class="panel-body">
+                   <table class="table table-striped device_table" ng-if="selectedEventData.length!=0">
+                       <thead>
+                           <tr>
+                               <th class="col-md-4">Event Name</th>
+                               <th class="col-md-4">Duration</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <tr ng-repeat="event in noShowsFilterData | limitTo:5:5">
+                               <td class="col-md-4">{{event.eventName}}</td>
+                               <td class="col-md-4">{{formatDate(event.startDate)}} - {{formatDate(event.endDate)}}</td>
+                           </tr>
+                       </tbody>
+                   </table>
+              </div>
+        </div>
+      </div>
+      <!-- no shows ends here -->
+      <!-- 3-strikes starts here -->
+      <div class="col-md-4">
+        <div class="">3 Strikes <a href="#strikes" ng-click="showStrikePage()" class="btn btn-small">{{(strikesCount!=0)? "[View Details] ":''}}</a></div>
+        <div class="panel panel-default checkin-panel">
+        <div class="panel-heading">{{(strikesCount==0)? "No Events" :strikesCount+" Events"}}</div>
+        <div class="panel-body">
+                    <table class="table table-striped device_table" ng-if="selectedEventData.length!=0">
+                        <thead>
+                            <tr>
+                                <th class="col-md-4">Event Name</th>
+                                <th class="col-md-4">Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="event in strikesFilterData | limitTo:5:5">
+                                <td class="col-md-4">{{event.eventName}}</td>
+                                <td class="col-md-4">{{formatDate(event.startDate)}} - {{formatDate(event.endDate)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+              </div>
+         </div>
+    </div>
+    <!-- 3-strikes  ends here -->
+  </div>
+  <!-- event list ends here -->
+</div>
+<!-- Event Controller ends here -->
+
+<!-- device  Starts here -->
+<div class="row" ng-controller="eventController" ng-show="deviceListView" >
+      <div class="col-md-12">
+          <div class="panel panel-default checkin-panel">
+          <div class="panel-heading">{{(deviceCount==0 || deviceCount=='')? "No Device" :deviceCount+" Device"}}</div>
+          <div class="panel-body">
+              <table ng-table="deviceTables" class="table table-striped table-bordered device_table">
+                <thead>
+                    <tr>
+                        <th class="col-md-3">Last Seen</th>
+                        <th class="col-md-3">Version</th>
+                        <th class="col-md-3">Model</th>
+                        <th class="col-md-3">Battery Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="devData in deviceFilterData | filter:{roomId:roomId}">
+                        <td class="col-md-3"><span class="{{(devData.devices.lastSeen)?colorClassForLastSeen(devData.devices.lastSeen):''}}">{{(devData.devices.lastSeen)?formatLastSeen(devData.devices.lastSeen):''}}</span></td>
+                        <td class="col-md-3">{{devData.devices.clientVersion}}</td>
+                        <td class="col-md-3">{{devData.devices.model}}</td>
+                        <td class="col-md-3">{{devData.devices.batteryLevel}}</td>
+                    </tr>
+                </tbody>
+                </table>
+              </div>
+          </div>
+      </div>
+    </div>
+   <!-- device list ends here -->
+</div>
+<!-- content end -->
+
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+  <!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+  <script src="js/ie-emulation-modes-warning.js"></script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <script src="js/jquery.js"></script>
+  <script src="js/angular.min.js"></script>
+  <script src="js/angular-resource.min.js"></script>
+  <script src="js/angular-route.min.js"></script>
+  <script src="js/ng-table.min.js"></script>
+
+  <script src="js/underscore-min.js"></script>
+  <script src="js/angular-underscore-module.js"></script>
+
+  <script src="js/angular-animate.min.js"></script>
+  <script src="js/angular-touch.min.js"></script>
+  <script src="js/angular-sanitize.js"></script>
+  <script src="js/angular-ui.min.js"></script>
+  <script src="js/angular-environment.min.js"></script>
+
+  <script src="js/bootstrap.min.js"></script>
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="js/ie10-viewport-bug-workaround.js"></script>
+ <!--   <script src="js/bootstrap-datepicker.min.js"></script>-->
+ <script src="js/angular-datepicker.js"></script> 
+  <script src="js/checkin.js"></script>
+  <script src="js/highcharts.js"></script>
+  <script src="js/highcharts-ng.js"></script>
+
+  <script src="app.js"></script>
+  <script src="index.js"></script>
+
+  <!-- Load the services & Config -->
+  <script src="components/data/config.js"></script>
+  <script src="components/data/service.js"></script>
+  <script src="components/data/run.js"></script>
+
+  <!-- Load the controllers -->
+  <script src="controllers/roomLookupController.js"></script>
+  <script src="controllers/eventController.js"></script>
+  <script src="controllers/menuController.js"></script>
+  <script src="controllers/statController.js"></script>
+  <script src="controllers/roomFormController.js"></script>
+  <script src="controllers/deviceController.js"></script>
+
+  <!-- Load the filters -->
+  <script src="components/filter/filter.js"></script>
+  </body>
+</html>
