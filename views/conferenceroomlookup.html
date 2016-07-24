@@ -1,42 +1,45 @@
-<section class="container ng-cloak" ng-controller="ConferenceRoom">
+<section class="container" ng-controller="ConferenceRoom">
     <h1 class="room-lookup-header">Conference Room Looukup</h1>
     <div class="login-info pull-right">Welcome Ketan <i class="btn-xs glyphicon glyphicon-menu-down"></i></div>
-
+    
     <div class="row room-lookup">
         <section class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
             <form class="form-horizontal">
                 <div class="form-group">
                     <label for="site" class="col-sm-2 col-md-2 col-lg-2 control-label">Site</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="site" class="input-width" ng-change="loadBuilding(lookupRoom.data)" ng-model="lookupRoom.data">
-                            <option ng-repeat="data in siteOptions.data" value="{{data.regionId}}">{{data.regionName}}</option>
+                        <select id="site" class="input-width form-control" ng-change="loadBuilding(lookupRoom.country)" ng-model="lookupRoom.country">
+                        <option value="">Select Site</option>
+                            <optgroup ng-repeat="region in siteOptions" label="{{region.regionName}}">
+							    <option ng-repeat="country in region.countries" value="{{country}}">{{country}}</option>
+                            </optgroup>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="building" class="col-sm-2 col-md-2 col-lg-2 control-label">Building</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="building" class="input-width" ng-change="loadRooms(lookupRoom.building)" ng-disabled="!disableBuilding" ng-model="lookupRoom.building">
-                            <option value="2">Select Building</option>
-                            <option ng-repeat="data in siteOptions.data" value="{{data.buildingId}}">{{data.buildingName}}</option>
+                        <select id="building" class="input-width form-control" ng-change="loadRooms(lookupRoom.building)" ng-disabled="!disableBuilding" ng-model="lookupRoom.building">
+                            <option value="">Select Building</option>
+                            <option ng-repeat="building in buildingOptions" value="{{building}}">{{building}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group" ng-if="enableFloor">
                     <label for="floor" class="col-sm-2 col-md-2 col-lg-2 control-label">Floor</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="floor" class="floor" ng-model="lookupRoom.data" ng-disabled="!disableFloor">
-                            <option value="3">Select Floor</option>
-                            <option ng-repeat="data in siteOptions.data" value="{{data.floorNumber}}">{{data.floorNumber}}</option>
+                        <select id="floor" class="floor form-control" ng-model="lookupRoom.floor" ng-disabled="!disableFloor">
+                            <option value="">Select Floor</option>
+                            <option ng-repeat="floor in floorOptions.floor" value="{{floor.value}}">{{floor.key}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="room" class="col-sm-2 col-md-2 col-lg-2 control-label">Room</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="room" class="input-width" ng-model="lookupRoom.data" ng-disabled="!disableRoom">
-                            <option value="4">Select Room</option>
-                            <option ng-repeat="data in siteOptions.data" value="{{data.roomId}}">{{data.roomName}}</option>
+                        <select id="room" class="input-width form-control" ng-model="lookupRoom.room" ng-disabled="!disableRoom">
+                            <option value="">Select Room</option>
+                            <option ng-repeat="room in roomOptions.room" value="{{room.value}}">{{room.key}}</option>
                         </select>
                         <div class="checkbox">
                             <label>
@@ -55,7 +58,7 @@
                 <div class="form-group">
                     <label for="timeRange" class="control-label col-sm-2 col-md-2 col-lg-2">Time Range<div class="optional">Optional</div></label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="timeRange" class="input-width" ng-model="lookupRoom.timeRange">
+                        <select id="timeRange" class="input-width form-control" ng-model="lookupRoom.timeRange">
                             <option value="">Select Time Range</option>
                             <option value="AnyTime" ng-selected=true>AnyTime</option>
                             <option value="Morning">Moring (9:00 AM - 12:00 PM) </option>
@@ -65,12 +68,12 @@
                     </div>
                     <div class="col-md-6 col-lg-8 " ng-if="lookupRoom.timeRange == 'SpecificTime'">
                         <label for="from" class="control-label">From:</label>
-                        <select id="from" class="floor" ng-model="lookupRoom.fromTime">
+                        <select id="from" class="form-control floor" ng-model="lookupRoom.fromTime">
                             <option value="">Select...</option>
                             <option ng-repeat="fromTime in timeFrom" value="{{fromTime.name}}">{{fromTime.name}}</option>
                         </select>
                         <label for="to" class="control-label">To</label>
-                        <select id="to" class="floor" ng-model="lookupRoom.toTime">
+                        <select id="to" class="form-control floor" ng-model="lookupRoom.toTime">
                             <option value="">Select...</option>
                             <option ng-repeat="toTime in timeTo" value="{{toTime.name}}">{{toTime.name}}</option>
                         </select>
@@ -79,7 +82,7 @@
                 <div class="form-group">
                     <label for="duration" class="control-label col-sm-2 col-md-2 col-lg-2">Duration <div class="optional">Optional</div></label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="duration" class="input-width" ng-model="durationTime.model">
+                        <select id="duration" class="input-width form-control" ng-model="durationTime.model">
                             <option value="">Selection Duration</option>
                             <option ng-repeat="option in durationTime.availableOptions" ng-value="option.value">{{option.name}}</option>
                         </select>
@@ -125,7 +128,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-md-6 col-lg-8">
-                        <button type="submit" class="btn btn-sm search-btn">Search</button>
+                        <button type="submit" class="btn btn-sm search-btn" ng-disabled="true">Search</button>
                     </div>
                 </div>
             </form>

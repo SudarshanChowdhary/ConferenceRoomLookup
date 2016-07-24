@@ -3,7 +3,7 @@
         "managed": 0,
         "buildingName": "CityView 1",
         "floorNumber": 2,
-        "regionId": 1,
+        "regionId":1,
         "appleTv": 0,
         "buildingCode": "CV01",
         "timezone": "America/Chicago",
