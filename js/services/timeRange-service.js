@@ -4,7 +4,7 @@ ConferenceRoomLookup.factory("timeRangeService", function() {
         getFromTimeOptions: function() {
             return [{
                 name: "12:00 AM",
-                value: "12:00 AM", 
+                value: "12:00 AM",
                 id: 0
             }, {
                 name: "12:15 AM",
@@ -287,12 +287,12 @@ ConferenceRoomLookup.factory("timeRangeService", function() {
                 value: "11:45 PM"
             }];
 
-        }, 
+        },
         getToTimeOptions:function(){
-        	//ToDo: Logic to show only greater values from From Time.
-        	return [{
+            //ToDo: Logic to show only greater values from From Time.
+            return [{
                 name: "12:00 AM",
-                value: "12:00 AM", 
+                value: "12:00 AM",
                 id: 0
             }, {
                 name: "12:15 AM",
