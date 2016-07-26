@@ -1,11 +1,13 @@
 'use strict'
 
-ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, buildingService, floorService, roomService, timeRangeService) {
+ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService) {
 
 	$scope.lookUpData = {};
-	$scope.enableFloor = false;
+	$scope.lookupRoom={};
 	$scope.siteOptions = [];
 	$scope.buildingOptions = [];
+	$scope.floorOptions=[];
+	$scope.roomOptions=[];
 
 	var uniqueData = function(dataObj, field) {
 		debugger;
@@ -34,13 +36,13 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 			}
 		});
 
-		var uniqueRegions = uniqueData($scope.lookUpData, "regionId")
+		var uniqueRegions = uniqueData($scope.lookUpData, "regionId");
 		var uniqueCountries = uniqueData($scope.lookUpData, "country");
 
 		for (var i = 0; i < uniqueRegions.length; i++) {
 			for (var j = 0; j < uniqueCountries.length; j++) {
 				for (var k = 0; k < $scope.lookUpData.length; k++) {
-					if ($scope.lookUpData[k].regionId == uniqueRegions[i] && $scope.lookUpData[k].country == uniqueCountries[j] 
+					if ($scope.lookUpData[k].regionId === uniqueRegions[i] && $scope.lookUpData[k].country === uniqueCountries[j] 
                         && $scope.siteOptions[i].countries.indexOf($scope.lookUpData[k].country) === -1) {
 						$scope.siteOptions[i].countries.push($scope.lookUpData[k].country);
 					}
@@ -49,199 +51,62 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 		}
 	});
 
-
-	console.log($scope.lookUpData)
-
-   // for (var j = 0; j < lookUpData.length; j++) {
-   //     for (var k = 0; k < $scope.floorData.length; k++) {
-   //         if ($scope.lookUpData[k].floorId == uniqueRegions[i] && $scope.lookUpData[k].country == uniqueCountries[j]
-   //             && $scope.siteOptions[i].countries.indexOf($scope.lookUpData[k].country) === -1) {
-   //             $scope.siteOptions[i].countries.push($scope.lookUpData[k].country);
-   //         }
-   //     }
-   // }
-
-
-	//$scope.buildingOptions=null;
-
-	/*$scope.durationTime = {
-		model: null,
-		availableOptions: [
-
-			{
-				name: "15 minutes",
-				value: "0.25"
-			}, {
-				name: "30 minutes",
-				value: "0.5"
-			}, {
-				name: "45 minutes",
-				value: "0.75"
-			}, {
-				name: "1 hour",
-				value: "1"
-			}, {
-				name: "1.15 minutes",
-				value: "1.15"
-			}, {
-				name: "1.30 minutes",
-				value: "1.5"
-			}, {
-				name: "1.45 minutes",
-				value: "1.75"
-			}, {
-				name: "2 hour",
-				value: "2"
-			}, {
-				name: "2.15 minutes",
-				value: "2.25"
-			}, {
-				name: "2.30 minutes",
-				value: "2.5"
-			}, {
-				name: "2.45 minutes",
-				value: "2.75"
-			}, {
-				name: "3 hour",
-				value: "3"
-			}, {
-				name: "3.15 minutes",
-				value: "3.25"
-			}, {
-				name: "3.30 minutes",
-				value: "3.5"
-			}, {
-				name: "3.45 minutes",
-				value: "3.75"
-			}, {
-				name: "4 hour",
-				value: "4"
-			}, {
-				name: "4.15 minutes",
-				value: "4.25"
-			}, {
-				name: "4.30 minutes",
-				value: "4.5"
-			}, {
-				name: "4.45 minutes",
-				value: "4.75"
-			}, {
-				name: "5 hour",
-				value: "5"
-			}, {
-				name: "5.15 minutes",
-				value: "5.25"
-			}, {
-				name: "5.30 minutes",
-				value: "5.5"
-			}, {
-				name: "5.45 minutes",
-				value: "5.75"
-			}, {
-				name: "6 hour",
-				value: "7"
-			}, {
-				name: "6.15 minutes",
-				value: "6.25"
-			}, {
-				name: "6.30 minutes",
-				value: "6.5"
-			}, {
-				name: "6.45 minutes",
-				value: "6.75"
-			}, {
-				name: "7 hour",
-				value: "7"
-			}, {
-				name: "7.15 minutes",
-				value: "7.25"
-			}, {
-				name: "7.30 minutes",
-				value: "7.5"
-			}, {
-				name: "7.45 minutes",
-				value: "7.75"
-			}, {
-				name: "8 hour",
-				value: "8"
-			}, {
-				name: "8.15 minutes",
-				value: "8.25"
-			}, {
-				name: "8.30 minutes",
-				value: "8.5"
-			}, {
-				name: "8.45 minutes",
-				value: "8.75"
-			}
-
-		]
-	};*/
-    $scope.durationTime = roomService.getDuration();
+    $scope.durationTime = durationService.getDuration();
 	$scope.timeFrom = timeRangeService.getFromTimeOptions();
 	$scope.timeTo = timeRangeService.getToTimeOptions();
 
-
-
 	$scope.loadBuilding = function(country) {
-
 		$scope.buildingOptions = [];
 		if (!country) {
+			$scope.lookupRoom.buildingName = null;
+			$scope.lookupRoom.floorNumber = null;
+			$scope.lookupRoom.roomName = null;			
 
 			$scope.disableBuilding = false;
-			$scope.lookupRoom.building = null;
-
 			$scope.disableFloor = false;
-			$scope.lookupRoom.floor = null;
-
 			$scope.disableRoom = false;
-			$scope.lookupRoom.room = null;
-
 		} else {
 			$scope.disableBuilding = true;
-			for (var i = 0; i < $scope.lookUpData.length; i++) {
-				if ($scope.lookUpData[i].country == country && $scope.buildingOptions.indexOf($scope.lookUpData[i].buildingName) === -1) {
-					$scope.buildingOptions.push($scope.lookUpData[i].buildingName);
+			angular.forEach($scope.lookUpData, function(obj, index) {
+				if (obj.country === country && $scope.buildingOptions.indexOf(obj.buildingName) === -1) {
+					$scope.buildingOptions.push(obj.buildingName);
 				}
-			}
+			})
 		}
 	};
 
-	$scope.loadRooms = function(building) {
-		if (!building) {
+	$scope.loadFloor = function(buildingName) {
+		$scope.floorOptions = [];
+		if (!buildingName) {
+			$scope.lookupRoom.floorNumber = null;
+			$scope.lookupRoom.roomName = null;			
+
+			$scope.disableFloor = false;
 			$scope.disableRoom = false;
-			$scope.roomData = null;
-			$scope.floorData = null;
 		} else {
-
-			//ToDo: When only one service gives all the data
-			// angular.forEach($scope.buildingOptions.building, function(obj, index) {
-			// 	console.log(obj, index);
-
-			// angular.forEach(obj, function(obj, index) {
-			// 	console.log(obj, index);
-			// });
-
-			// });
-
-
-			angular.forEach($scope.buildingOptions.building, function(obj, value) {
-				if (value == building) {
-					if (obj.floor) {
-						$scope.enableFloor = true;
-						$scope.floorOptions = floorService.get();
-						$scope.disableFloor = true;
-					} else {
-						$scope.disableFloor = false;
-						$scope.lookupRoom.floor = null;
-						$scope.floorOptions = null;
-						$scope.enableFloor = false;
-
-					}
+			$scope.disableFloor= true;
+			$scope.disableRoom = true;
+			angular.forEach($scope.lookUpData, function(obj) {
+				if(obj.country === $scope.lookupRoom.country && obj.buildingName === buildingName && $scope.floorOptions.indexOf(obj.floorNumber)===-1){
+					$scope.floorOptions.push(obj.floorNumber);
 				}
 			});
+		}
+	};
+
+
+	$scope.loadRoom = function(floorNumber) {
+		$scope.roomOptions = [];
+		if (!floorNumber) {
+			$scope.lookupRoom.roomName = null;			
+			$scope.disableRoom = false;
+		} else {
 			$scope.disableRoom = true;
-			$scope.roomOptions = roomService.getDuration();
+			angular.forEach($scope.lookUpData, function(obj) {
+				if(obj.country === $scope.lookupRoom.country && obj.buildingName === $scope.lookupRoom.buildingName && obj.floorNumber==floorNumber && $scope.roomOptions.indexOf(obj.roomName)===-1){
+					$scope.roomOptions.push(obj.roomName);
+				}
+			});
 		}
 	};
 

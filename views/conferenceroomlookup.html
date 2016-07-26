@@ -19,27 +19,27 @@
                 <div class="form-group">
                     <label for="building" class="col-sm-2 col-md-2 col-lg-2 control-label">Building</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="building" class="input-width " ng-change="loadRooms(lookupRoom.building)" ng-disabled="!disableBuilding" ng-model="lookupRoom.building">
+                        <select id="building" class="input-width " ng-change="loadFloor(lookupRoom.buildingName)" ng-disabled="!disableBuilding" ng-model="lookupRoom.buildingName">
                             <option value="">Select Building</option>
                             <option ng-repeat="building in buildingOptions" value="{{building}}">{{building}}</option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group" ng-if="enableFloor">
+                <div class="form-group">
                     <label for="floor" class="col-sm-2 col-md-2 col-lg-2 control-label">Floor</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="floor" class="floor " ng-model="lookupRoom.floor" ng-disabled="!disableFloor">
+                        <select id="floor" class="floor " ng-model="lookupRoom.floorNumber" ng-change="loadRoom(lookupRoom.floorNumber)" ng-disabled="!disableFloor">
                             <option value="">Select Floor</option>
-                            <option ng-repeat="floor in floorOptions.floor" value="{{floor.value}}">{{floor.key}}</option>
+                            <option ng-repeat="floorNumber in floorOptions | orderBy" value="{{floorNumber}}">{{floorNumber}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="room" class="col-sm-2 col-md-2 col-lg-2 control-label">Room</label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="room" class="input-width " ng-model="lookupRoom.room" ng-disabled="!disableRoom">
+                        <select id="room" class="input-width " ng-model="lookupRoom.roomName" ng-disabled="!disableRoom">
                             <option value="">Select Room</option>
-                            <option ng-repeat="room in roomOptions.room" value="{{room.value}}">{{room.key}}</option>
+                            <option ng-repeat="roomName in roomOptions" value="{{roomName}}">{{roomName}}</option>
                         </select>
                         <div class="checkbox">
                             <label>

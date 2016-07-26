@@ -1,5 +1,5 @@
 'use strict'
-ConferenceRoomLookup.factory("roomService", function($resource) {
+ConferenceRoomLookup.factory("durationService", function($resource) {
         return {
             getDuration: function () {
                 return[{
@@ -108,8 +108,6 @@ ConferenceRoomLookup.factory("roomService", function($resource) {
                     name: "8.45 minutes",
                     value: "8.75"
                 }
-
-
                 ]
                 
             }
