@@ -56,14 +56,18 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
     $scope.loadBuilding = function(campus) {
         $scope.buildingOptions = [];
+	    $scope.floorOptions=[];
+   		$scope.roomOptions=[];
+
         if (!campus) {
             $scope.lookupRoom.buildingName ="";
-            $scope.lookupRoom.floorNumber = null;
-            $scope.lookupRoom.roomName = null;
+            $scope.lookupRoom.floorNumber = "";
+            $scope.lookupRoom.roomName = "";
 
             $scope.disableBuilding = false;
-            $scope.disableFloor = false;
+            $scope.disableFloor = false;     
             $scope.disableRoom = false;
+
         } else {
             $scope.disableBuilding = true;
             angular.forEach($scope.lookUpData, function(obj, index) {
@@ -79,8 +83,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.roomOptions =[];
         if (!buildingName) {
 
-            $scope.lookupRoom.floorNumber = null;
-            $scope.lookupRoom.roomName = null;
+            $scope.lookupRoom.floorNumber = "";
+            $scope.lookupRoom.roomName = "";
 
             $scope.disableFloor = false;
             $scope.disableRoom = false;
@@ -94,8 +98,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     $scope.floorOptions.push(obj.floorNumber);
                 }
                 // Loading Rooms
-                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.roomOptions.indexOf(obj.roomName)===-1){
-                    $scope.roomOptions.push(obj.roomName);
+                var room={"roomUid":obj.roomUid, "roomName":obj.roomName};
+                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.roomOptions.indexOf(JSON.stringify(room))===-1){
+                    $scope.roomOptions.push(room);
                 }
             });
         }
@@ -106,32 +111,36 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.roomOptions = [];
         $scope.disableRoom = true;
         if (!floorNumber) {
-            $scope.lookupRoom.roomName = null;
+            $scope.lookupRoom.roomName = "";
             angular.forEach($scope.lookUpData, function(obj) {
                 // Loading Rooms
-                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName && $scope.roomOptions.indexOf(obj.roomName)===-1){
-                    $scope.roomOptions.push(obj.roomName);
+                var room={"roomUid":obj.roomUid, "roomName":obj.roomName};
+                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName && $scope.roomOptions.indexOf(JSON.stringify(room))===-1){
+                    $scope.roomOptions.push(room);
                 }
             });
         } else {
         	// Put all conditions for avoid duplicates 
             angular.forEach($scope.lookUpData, function(obj) {
-                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName &&  obj.floorNumber==floorNumber && $scope.roomOptions.indexOf(obj.roomName)===-1){
-                    $scope.roomOptions.push(obj.roomName);
+                var room={"roomUid":obj.roomUid, "roomName":obj.roomName};
+                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName && obj.floorNumber==floorNumber && $scope.roomOptions.indexOf(JSON.stringify(room))===-1){
+                    $scope.roomOptions.push(room);
                 }
             });
         }
     };
 
+    $scope.availableSeatsAndAmenities = function (room){
+		if (!room) {
 
-    $scope.availableSeatsAndAmenities = function (roomName){
-    	$scope.room={};
-		if (!roomName) {
+
+
         } else {
+
+        	alert("hi")
             angular.forEach($scope.lookUpData, function(obj) {
-                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName &&  obj.roomName===roomName){
+                if(obj.roomUid===room.roomUid){
                     $scope.room.seats =obj.size;
-                    $scope.room.room = {roomUid:obj.roomUid, roomName:obj.roomName};
 					$scope.room.amenities={"avcn": obj.avcn, "projector": obj.projector, "appleTv":obj.appleTv};
                 }
             });

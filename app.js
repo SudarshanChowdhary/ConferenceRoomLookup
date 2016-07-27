@@ -12,5 +12,9 @@ ConferenceRoomLookup.config(function($stateProvider, $urlRouterProvider) {
             url: "/home",
             templateUrl: "views/conferenceroomlookup.html"
         })
+        .state('searchresult', {
+            url: "/searchresult",
+            templateUrl: "views/searchResult.html"
+        })
 
 });
