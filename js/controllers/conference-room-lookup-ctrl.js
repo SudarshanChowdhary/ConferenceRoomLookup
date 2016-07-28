@@ -8,6 +8,14 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.floorOptions=[];
     $scope.roomOptions=[];
 
+
+
+    $scope.showA = false;
+    $scope.searchResult = function() {
+       // alert("hi");
+        $scope.showA = true;
+    };
+
     var uniqueData = function(dataObj, field) {
        // debugger;
         var unique = [];

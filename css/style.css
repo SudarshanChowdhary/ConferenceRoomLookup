@@ -38,5 +38,59 @@
 
  .control-label{
     font-weight: normal;
+
  }
+
+ .seat-available, .amenities-available, .specific-time{
+    font-size: 11px;
+}
+ /*This css for search result view*/
+
+.searchResults{
+
+    border-top: #1b6d85 solid 1px;
+    margin: 20px;
+    padding-top: 60px;
+
+}.searchResultBuilding{
+    display: inline-block;
+    font-size: 24px;
+
+ }
+ .matchingSearch{
+    width: 600px;
+    float: right;
+   
+
+ }
+ .previous{
+   display: inline-block;
+
+ }
+
+ span a:hover{
+
+    text-decoration: none;
+ }
+.whiteSpace{
+    padding-right: 20px;
+}
+.roomsName{
+    width: 400px;
+
+}
+.roomsNameList
+{
+    list-style-type: none;
+    line-height: 25px;
+    padding-left: 0px;
+}
+
+
+.roomsNameList li{
+    border-top: solid 1px #ccc;
+     border-bottom: solid 1px #ccc;
+}
+
+
 
