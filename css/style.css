@@ -91,6 +91,68 @@
     border-top: solid 1px #ccc;
      border-bottom: solid 1px #ccc;
 }
+.notFound{
+    text-align: center;
+}
 
+.searchGrid .table{
+  margin-bottom: 0px;    
+}
+.searchGrid .table > thead > tr > th,
+.searchGrid .table > tbody > tr > th,
+.searchGrid .table > tfoot > tr > th,
+.searchGrid .table > thead > tr > td,
+.searchGrid .table > tbody > tr > td,
+.searchGrid .table > tfoot > tr > td {
+  border: 1px solid #ccc;
+  border-top-width:0px;
+  border-bottom-width:0px;
+  border-right-width:0px;
+  padding: 0px;
 
+}
 
+.searchGrid .outer-table-top-row{
+    border-top-width: 0px !important;
+}
+.searchGrid .outer-table-bottom-row{
+    border-bottom-width: 0px !important;
+}
+
+.searchGrid > .table.outer-table{
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+}
+
+.searchGrid > .table.inner-table td{
+    border-left-width: 0px;
+}
+
+.table.duration-cells td{
+    border-left-width: 0px !important;
+}
+
+.searchGrid > .outer-table.table > thead > tr > th,
+.searchGrid > .outer-table.table > tbody > tr > th,
+.searchGrid > .outer-table.table > tfoot > tr > th,
+.searchGrid > .outer-table.table > thead > tr > td,
+.searchGrid > .outer-table.table > tbody > tr > td,
+.searchGrid > .outer-table.table > tfoot > tr > td {
+  border: 1px solid #dddddd;
+  border-left-width:0px;
+  border-right-width:0px;
+}
+
+.free{
+height: 30px;
+}
+.busy{
+    background-color: #ccc;
+    height: 30px;
+}
+.time-range{
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    width: 25%;
+}

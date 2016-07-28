@@ -52,8 +52,8 @@
                 <div class="form-group">
                     <label for="date" class="col-sm-2 col-md-2 col-lg-2 control-label">Date</label>
                     <div class="col-md-6 col-lg-8">
-                        <input id="date" type="text" datepickerMode class=" input-width form-control" ng-click="open2()" uib-datepicker-popup="{{format}} " ng-model="dt"
-                               is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"  />
+                        <input id="date" type="text" class="input-width form-control" ng-click="open2()" uib-datepicker-popup="EEEE, MMMM dd, yyyy" ng-model="dt"
+                             is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"  />
                     </div>
                 </div>
                 <div class="form-group">
@@ -129,7 +129,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-md-6 col-lg-8">
-                        <button type="submit" ng-click="checked()" class="btn btn-sm search-btn">Search</button>
+                        <button type="submit" ng-click="searchResult()" class="btn btn-sm search-btn">Search</button>
                     </div>
                 </div>
             </form>
@@ -150,42 +150,7 @@
     </div>
     </div>
     <!-- SEARCH RESULTS VIEW -->
-
-    <section class="searchResults" id="searchResults" ng-show="showA">
-        <div class="">
-
-            <div class="searchResultBuilding">Mary 1</div>
-            <button class="btn btn-group ">You are here</button>
-            <p>9 rooms matching your search</p>
-            <div class="matchingSearch">
-            <div class="previous">
-            <span class="whiteSpace"><a href="#">« Previous day</a></span>
-            <span><a href="#">‹ Previous 4 hours</a></span>
-            </div>
-            <div class="pull-right">
-            <span class="whiteSpace"><a href="#">Next 4 hours ›</a></span>
-            <span><a href="#">Next day »</a></span>
-            </div>
-            </div>
-            <div class="roomsName"><span>Rooms</span>
-            <span class="legend pull-right">legend</span></div>
-
-            <div>
-            <ul class="roomsNameList">
-                <li>Bomb Voyage [AVCN] (14) 2nd</li>
-                <li>Omnidroid (4) 2nd</li>
-                <li>{M} InfoSec War Room {RESTRICTED} (8) 2nd</li>
-                <li>Syndrome (14) 1st</li>
-                <li>Elastigirl (14) 1st</li>
-            </ul>            
-            </div>
-
-            <div class="">
-                <p>Not finding what you’re looking for?</p>
-                <p><a href="#">Search Nearby Buildings</a></p>
-
-
-            </div>
-        </div>
+<section class="searchResults" id="searchResults" ng-show="showA">
+    <div ng-include="'views/searchResult.html'"></div>
     </section>
 </section>
