@@ -8,8 +8,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.floorOptions=[];
     $scope.roomOptions=[];
 
-
-
     $scope.showA = false;
     $scope.searchResult = function() {
        // alert("hi");
@@ -17,7 +15,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     };
 
     var uniqueData = function(dataObj, field) {
-       // debugger;
+        // debugger;
         var unique = [];
         angular.forEach(dataObj, function(obj) {
             var index = unique.indexOf(obj[field]);
@@ -64,18 +62,14 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
     $scope.loadBuilding = function(campus) {
         $scope.buildingOptions = [];
-	    $scope.floorOptions=[];
-   		$scope.roomOptions=[];
-
         if (!campus) {
             $scope.lookupRoom.buildingName ="";
             $scope.lookupRoom.floorNumber = "";
             $scope.lookupRoom.roomName = "";
 
             $scope.disableBuilding = false;
-            $scope.disableFloor = false;     
+            $scope.disableFloor = false;
             $scope.disableRoom = false;
-
         } else {
             $scope.disableBuilding = true;
             angular.forEach($scope.lookUpData, function(obj, index) {
@@ -87,6 +81,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     };
 
     $scope.loadFloorsAndRooms = function(buildingName) {
+
         $scope.floorOptions = [];
         $scope.roomOptions =[];
         if (!buildingName) {
@@ -106,9 +101,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     $scope.floorOptions.push(obj.floorNumber);
                 }
                 // Loading Rooms
-                var room={"roomUid":obj.roomUid, "roomName":obj.roomName};
-                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.roomOptions.indexOf(JSON.stringify(room))===-1){
-                    $scope.roomOptions.push(room);
+                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.roomOptions.indexOf(obj.roomName)===-1){
+                    $scope.roomOptions.push(obj.roomName);
                 }
             });
         }
@@ -119,41 +113,42 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.roomOptions = [];
         $scope.disableRoom = true;
         if (!floorNumber) {
-            $scope.lookupRoom.roomName = "";
+            $scope.lookupRoom.roomName = null;
             angular.forEach($scope.lookUpData, function(obj) {
                 // Loading Rooms
-                var room={"roomUid":obj.roomUid, "roomName":obj.roomName};
-                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName && $scope.roomOptions.indexOf(JSON.stringify(room))===-1){
-                    $scope.roomOptions.push(room);
+                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName){
+                    $scope.roomOptions.push(obj.roomName);
                 }
             });
         } else {
-        	// Put all conditions for avoid duplicates 
+            // Put all conditions for avoid duplicates
             angular.forEach($scope.lookUpData, function(obj) {
-                var room={"roomUid":obj.roomUid, "roomName":obj.roomName};
-                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName && obj.floorNumber==floorNumber && $scope.roomOptions.indexOf(JSON.stringify(room))===-1){
-                    $scope.roomOptions.push(room);
+                //if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName &&  obj.floorNumber==floorNumber && $scope.roomOptions.indexOf(obj.roomName)===-1){
+                if(obj.floorNumber==floorNumber && obj.buildingName === $scope.lookupRoom.buildingName){
+                    $scope.roomOptions.push(obj.roomName);
                 }
             });
         }
     };
 
-    $scope.availableSeatsAndAmenities = function (room){
-		if (!room) {
 
-
-
+    $scope.availableSeatsAndAmenities = function (roomName){
+        $scope.room={};
+        if (!roomName) {
         } else {
-
-        	alert("hi")
             angular.forEach($scope.lookUpData, function(obj) {
-                if(obj.roomUid===room.roomUid){
+                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName &&  obj.roomName===roomName){
                     $scope.room.seats =obj.size;
-					$scope.room.amenities={"avcn": obj.avcn, "projector": obj.projector, "appleTv":obj.appleTv};
+                    $scope.room.room = {roomUid:obj.roomUid, roomName:obj.roomName};
+                    $scope.room.amenities={"avcn": obj.avcn, "projector": obj.projector, "appleTv":obj.appleTv};
+                    $scope.room.date = formats;
                 }
             });
         }
     };
+
+
+    //date picker component
 
     $scope.dt = new Date();
 
@@ -165,15 +160,26 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     };
     $scope.dateOptions = {
         startingDay: 1,
-        minDate: new Date("1/07/2016"),
+        minDate: new Date("1"),
         showWeeks: false
     };
 
 
+   //Search Result view 
+    //, "Omnidroid (4) 2nd", "{M} InfoSec War Room {RESTRICTED} (8) 2nd", "Syndrome (14) 1st", "Nomanisan Island (10) 2nd","Elastigirl (14) 1st",
 
 $scope.resultTimeRange=["9.00 AM", "10.00 AM", "11.00 AM", "12.00 AM"];
-$scope.resultRooms=["Bomb Voyage [AVCN] (14) 2nd", "Bomb Voyage [AVCN] (14) 2nd", "Bomb Voyage [AVCN] (14) 2nd", "Bomb Voyage [AVCN] (14) 2nd", "Bomb Voyage [AVCN] (14) 2nd", "Bomb Voyage [AVCN] (14) 2nd", "Bomb Voyage [AVCN] (14) 2nd", "Bomb Voyage [AVCN] (14) 2nd", "Bomb Voyage [AVCN] (14) 2nd", "Bomb Voyage [AVCN] (14) 2nd"];
-
-
+$scope.resultRooms=["Bomb Voyage [AVCN] (14) 2nd", "The Underminer [AVCN] (14) 2nd", "Omnidroid (4) 2nd", "Syndrome (14) 1st", "Nomanisan Island (10) 2nd","Elastigirl (14) 1st"];
 
 });
+
+
+
+
+
+
+
+
+
+
+

@@ -1,102 +1,92 @@
-.room-lookup-header{
+/*This css for Conference room lookup view*/
+
+.room-lookup-header {
     display: inline-block;
 }
 .login-info {
     padding: 30px 0;
 }
-.room-lookup{
+.room-lookup {
     margin-top: 30px;
 }
- .right-box{
-     border: 1px solid #DDDDDD;
-     border-radius: 5px;
-     padding:20px;
-
- }
- .input-width{
-	width:280px;
-    height: 25px;
-    padding-top: 2px;
-    padding-bottom: 2px; 
- }
- .floor{
-     width:107px;
-     display: inline-block;
-    height: 25px;
-    padding-top: 2px;
-    padding-bottom: 2px; 
-
- }
- .optional{
-     color:#BBBBBB;
- }
- .search-btn{
-     width:69px;
-     color: #fff;
-     background-color: #3384FB;
- }
-
- .control-label{
-    font-weight: normal;
-
- }
-
- .seat-available, .amenities-available, .specific-time{
+.right-box {
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;
+    padding: 20px;
+}
+.input-width {
+    width: 280px;
+    height: 20px;
+    padding-top: 0px;
+    padding-bottom: 2px;
     font-size: 11px;
 }
- /*This css for search result view*/
+.floor {
+    width: 107px;
+    display: inline-block;
+    height: 20px;
+    padding-top: 0px;
+    padding-bottom: 2px;
+}
+.optional {
+    color: #BBBBBB;
+    font-size: 11px;
+}
+.search-btn {
+    width: 69px;
+    color: #fff;
+    background-color: #3384FB;
+}
+.control-label {
+    font-weight: normal;
+}
+.seat-available,
+.amenities-available,
+.specific-time {
+    font-size: 11px;
+}
+/*This css for search result view*/
 
-.searchResults{
-
-    border-top: #1b6d85 solid 1px;
+.searchResults {
+    border-top: #ccc solid 1px;
     margin: 20px;
     padding-top: 60px;
-
-}.searchResultBuilding{
+}
+.searchResultBuilding {
     display: inline-block;
     font-size: 24px;
-
- }
- .matchingSearch{
+}
+.matchingSearch {
     width: 600px;
     float: right;
-   
-
- }
- .previous{
-   display: inline-block;
-
- }
-
- span a:hover{
-
+}
+.previous {
+    display: inline-block;
+}
+span a:hover {
     text-decoration: none;
- }
-.whiteSpace{
+}
+.whiteSpace {
     padding-right: 20px;
 }
-.roomsName{
+.roomsName {
     width: 400px;
-
 }
-.roomsNameList
-{
+.roomsNameList {
     list-style-type: none;
     line-height: 25px;
     padding-left: 0px;
 }
-
-
-.roomsNameList li{
+.roomsNameList li {
     border-top: solid 1px #ccc;
-     border-bottom: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
 }
-.notFound{
+.not-Found {
     text-align: center;
+    padding: 40px 0px;
 }
-
-.searchGrid .table{
-  margin-bottom: 0px;    
+.searchGrid .table {
+    margin-bottom: 0px;
 }
 .searchGrid .table > thead > tr > th,
 .searchGrid .table > tbody > tr > th,
@@ -104,55 +94,60 @@
 .searchGrid .table > thead > tr > td,
 .searchGrid .table > tbody > tr > td,
 .searchGrid .table > tfoot > tr > td {
-  border: 1px solid #ccc;
-  border-top-width:0px;
-  border-bottom-width:0px;
-  border-right-width:0px;
-  padding: 0px;
-
+    border: 1px solid #ccc;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    border-right-width: 0px;
+    padding: 0px;
 }
-
-.searchGrid .outer-table-top-row{
+.searchGrid .outer-table-top-row {
     border-top-width: 0px !important;
 }
-.searchGrid .outer-table-bottom-row{
+.searchGrid .outer-table-bottom-row {
     border-bottom-width: 0px !important;
 }
-
-.searchGrid > .table.outer-table{
+.searchGrid > .table.outer-table {
     border-top-width: 0px;
     border-bottom-width: 0px;
 }
-
-.searchGrid > .table.inner-table td{
+.searchGrid > .table.inner-table td {
     border-left-width: 0px;
 }
-
-.table.duration-cells td{
+.table.duration-cells td {
     border-left-width: 0px !important;
 }
-
 .searchGrid > .outer-table.table > thead > tr > th,
 .searchGrid > .outer-table.table > tbody > tr > th,
 .searchGrid > .outer-table.table > tfoot > tr > th,
 .searchGrid > .outer-table.table > thead > tr > td,
 .searchGrid > .outer-table.table > tbody > tr > td,
 .searchGrid > .outer-table.table > tfoot > tr > td {
-  border: 1px solid #dddddd;
-  border-left-width:0px;
-  border-right-width:0px;
+    border: 1px solid #dddddd;
+    border-left-width: 0px;
+    border-right-width: 0px;
 }
-
-.free{
-height: 30px;
+.free {
+    height: 30px;
 }
-.busy{
+.busy {
     background-color: #ccc;
     height: 30px;
 }
-.time-range{
+.time-range {
     padding: 15px;
     text-align: center;
     font-weight: bold;
     width: 25%;
+}
+.resultRoomsName {
+    padding-top: 5px;
+}
+.search-result-footer {
+    border-top: solid #ccc 1px;
+}
+.search-result-footer p {
+    padding-top: 20px;
+}
+.resultRoomsName:hover {
+    text-decoration-line: none;
 }

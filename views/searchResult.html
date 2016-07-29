@@ -1,69 +1,58 @@
-            <h3>Mary 1 <button class="btn btn-default btn-xs">You are here</button></h3>
+<h3>Mary 1 <button class="btn btn-default btn-xs">You are here</button></h3>
 <div class="row">
-            <div class="col-md-4">9 rooms matching your search</div>
-
-            <div class="col-md-8">
-            	
-            	<div class="col-md-3"><button class="btn btn-link">« Previous day</button></div>
-				<div class="col-md-2"><button class="btn btn-link">‹ Previous 4 Hours</button></div>
-				<div class="col-md-2"></div>
-				<div class="col-md-2"><button class="btn btn-link">Next 4 Hours ›</button></div>
-				<div class="col-md-3"><button class="btn btn-link">Next day »</button></div>
-
-            </div>
+   <div class="col-md-5">9 rooms matching your search</div>
+   <div class="col-md-7">
+      <div class="col-md-3 col-sm-3"><button class="btn btn-link">« Previous day</button></div>
+      <div class="col-md-2 col-sm-2"><button class="btn btn-link">‹ Previous 4 Hours</button></div>
+      <div class="col-md-2 col-sm-2"></div>
+      <div class="col-md-2 col-sm-2"><button class="btn btn-link">Next 4 Hours ›</button></div>
+      <div class="col-md-3 col-sm-3"><button class="btn btn-link">Next day »</button></div>
+   </div>
 </div>
-
-
 <div class="searchGrid">
 <table class="table outer-table">
-	<thead>
-		<tr>
-			<th class="outer-table-top-row">Room <span class="pull-right">Legend</span></th>
-			<td class="outer-table-top-row">
-				
-							<table class="table inner-table">
-<tr>
-			<th ng-repeat="tr in resultTimeRange track by $index" class="time-range">
-				{{tr}}
-			</th>
-</tr>
+   <thead>
+      <tr>
+         <th class="outer-table-top-row">Room <span class="pull-right">Legend</span></th>
+         <td class="outer-table-top-row">
+            <table class="table inner-table">
+               <tr>
+                  <th ng-repeat="tr in resultTimeRange track by $index" class="time-range">
+                     {{tr}}
+                  </th>
+               </tr>
+            </table>
+         </td>
+      </tr>
+   </thead>
+   <tbody>
+      <tr ng-repeat="rm in resultRooms track by $index">
+         <td class="btn-link resultRoomsName">{{rm}}</td>
+         <td>
+            <table class="table inner-table">
+               <tr>
+                  <td ng-repeat="tr in resultTimeRange track by $index">
+                     <table class="table duration-cells">
+                        <tr>
+                           <td class="free"></td>
+                           <td class="busy"></td>
+                           <td class="free"></td>
+                           <td class="busy"></td>
+                        </tr>
+                     </table>
+                  </td>
+               </tr>
+            </table>
+         </td>
+      </tr>
+   </tbody>
 </table>
+<div class="not-Found">
+   <p>Not finding what you’re looking for?</p>
+   <p><a href="#">Search Nearby Buildings</a></p>
+</div>
 
-			</td>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="rm in resultRooms track by $index">
-			<td>{{rm}}</td><td>
-			<table class="table inner-table">
-<tr>
-			<td ng-repeat="tr in resultTimeRange track by $index">
-			
+<footer class="search-result-footer">
+	<p>Copyright Apple, Inc. All rights reserved.</p>
 
-
-<table class="table duration-cells">
-<tr>
-			<td class="free"></td>
-			<td class="busy"></td><td class="free"></td><td class="busy"></td>
-</tr>
-</table>
-
-
-
-			</td>
-</tr>
-</table>
-
-			</td>
-		</tr>
-	</tbody>
-</table>
-
-
-
-            <div class="notFound">
-                <p>Not finding what you’re looking for?</p>
-                <p><a href="#">Search Nearby Buildings</a></p>
-
-
-            </div>
+</footer>
