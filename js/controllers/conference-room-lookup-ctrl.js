@@ -56,6 +56,13 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         }
     });
 
+
+    // if(getFromTimeOptions.name === lookupRoom.fromTime => getToTimeOptions.name === lookupRoom.toTime){
+
+    //     getToTimeOptions.name.disabletoTime();
+    // }
+
+
     $scope.durationTime = durationService.getDuration();
     $scope.timeFrom = timeRangeService.getFromTimeOptions();
     $scope.timeTo = timeRangeService.getToTimeOptions();
