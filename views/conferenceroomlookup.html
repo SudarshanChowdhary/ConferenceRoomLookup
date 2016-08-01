@@ -3,7 +3,7 @@
    <div class="login-info pull-right">Welcome Ketan <i class="btn-xs glyphicon glyphicon-menu-down"></i></div>
    <div class="row room-lookup">
       <section class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-         <form class="form-horizontal">
+         <form class="form-horizontal" name="roomLookupForm">
             <div class="form-group">
                <label for="site" class="col-sm-2 col-md-2 col-lg-2 control-label">Site</label>
                <div class="col-md-6 col-lg-8">
@@ -18,8 +18,7 @@
             <div class="form-group">
                <label for="building" class="col-sm-2 col-md-2 col-lg-2 control-label">Building</label>
                <div class="col-md-6 col-lg-8">
-                  <!-- <select id="building" class="input-width " ng-change="loadFloor(lookupRoom.buildingName)" ng-disabled="!disableBuilding" ng-model="lookupRoom.buildingName">-->
-                  <select id="building" class="input-width " ng-change="loadFloorsAndRooms(lookupRoom.buildingName)" ng-model="lookupRoom.buildingName">
+                  <select id="building" class="input-width" ng-disabled="!lookupRoom.campusName" ng-change="loadFloorsAndRooms(lookupRoom.buildingName)" ng-model="lookupRoom.buildingName" required>
                      <option value="">Select Building</option>
                      <option ng-repeat="building in buildingOptions" value="{{building}}">{{building}}</option>
                   </select>
@@ -38,7 +37,7 @@
                <label for="room" class="col-sm-2 col-md-2 col-lg-2 control-label">Room</label>
                <div class="col-md-6 col-lg-8">
                   <!--<select id="room" class="input-width " ng-model="lookupRoom.roomName" ng-disabled="!disableRoom">-->
-                  <select id="room" class="input-width " ng-model="lookupRoom.roomName" ng-change="availableSeatsAndAmenities(lookupRoom.roomName)">
+                  <select id="room" class="input-width " ng-model="lookupRoom.roomName" ng-disabled="!lookupRoom.buildingName" ng-change="availableSeatsAndAmenities(lookupRoom.roomName)">
                      <option value="">Select Room</option>
                      <option ng-repeat="roomName in roomOptions" value="{{roomName}}">{{roomName}}</option>
                   </select>
@@ -53,7 +52,7 @@
                <label for="date" class="col-sm-2 col-md-2 col-lg-2 control-label">Date</label>
                <div class="col-md-6 col-lg-8">
                   <input id="date" type="text" datepickerMode class=" input-width form-control" ng-click="open2()" uib-datepicker-popup="EEEE, MMMM dd, yyyy" ng-model="dt"
-                     ng-model="dt" ng-model="{lookupRoom | date : 'yyyyMMdd'}" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"  />
+                     ng-model="dt" ng-model="{lookupRoom | date : 'yyyyMMdd'}" is-open="popup2.opened" datepicker-options="dateOptions" required close-text="Close"  />
                </div>
             </div>
             <div class="form-group">
@@ -62,7 +61,7 @@
                   <div class="optional">Optional</div>
                </label>
                <div class="col-md-6 col-lg-8">
-                  <select id="timeRange" class="input-width " ng-model="lookupRoom.timeRange">
+                  <select id="timeRange" class="input-width" ng-change="changeTimeRange(lookupRoom.timeRange)"  ng-model="lookupRoom.timeRange">
                      <option value="">Select Time Range</option>
                      <option value="AnyTime" ng-selected=true>AnyTime</option>
                      <option value="Morning">Moring (9:00 AM - 12:00 PM) </option>
@@ -70,16 +69,16 @@
                      <option value="SpecificTime">Specific Time</option>
                   </select>
                </div>
-               <div class="col-md-6 col-lg-8 " ng-if="lookupRoom.timeRange == 'SpecificTime'">
+               <div class="col-md-6 col-lg-8 " ng-if="specificTime">
                   <label for="from" class="control-label">From:</label>
-                  <select id="from" class=" floor specific-time" ng-model="lookupRoom.fromTime">
+                  <select id="from" class=" floor specific-time" ng-model="lookupRoom.fromTime" ng-change="changeSpecificFromTime(lookupRoom.timeRange, lookupRoom.fromTime)" ng-required="specificTime">
                      <option value="">Select...</option>
-                     <option ng-repeat="fromTime in timeFrom" value="{{fromTime.name}}">{{fromTime.name}}</option>
+                     <option ng-repeat="fromTime in timeFrom" value="{{fromTime}}">{{fromTime}}</option>
                   </select>
                   <label for="to" class="control-label">To:</label>
-                  <select id="to" class=" floor specific-time" ng-model="lookupRoom.toTime">
-                     <option value="">Select...</option>
-                     <option ng-repeat="toTime in timeTo" value="{{toTime.name}}">{{toTime.name}}</option>
+                  <select id="to" class=" floor specific-time" ng-disabled="!lookupRoom.fromTime" ng-model="lookupRoom.toTime" ng-required="specificTime">
+                     <option value="" ng-selected="true">Select...</option>
+                     <option ng-repeat="toTime in timeTo" value="{{toTime}}" ng-disabled="$index < timeFrom.indexOf(lookupRoom.fromTime)">{{toTime}}</option>
                   </select>
                </div>
             </div>
@@ -139,7 +138,7 @@
             </div>
             <div class="form-group">
                <div class="col-sm-offset-2 col-md-6 col-lg-8">
-                  <button type="submit" ng-click="searchResult()" class="btn btn-sm search-btn">Search</button>
+                  <button type="submit" ng-click="searchResult()" ng-disabled="roomLookupForm.$invalid" class="btn btn-sm search-btn">Search</button>
                </div>
             </div>
          </form>

@@ -2,15 +2,18 @@
 
 ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService) {
     $scope.lookUpData = {};
-    $scope.lookupRoom={};
+    $scope.lookupRoom = {};
     $scope.siteOptions = [];
     $scope.buildingOptions = [];
-    $scope.floorOptions=[];
-    $scope.roomOptions=[];
+    $scope.floorOptions = [];
+    $scope.roomOptions = [];
+    $scope.specificTime = false;
+    $scope.timeFrom = timeRangeService.getFromTimeOptions();
 
     $scope.showA = false;
+
     $scope.searchResult = function() {
-       // alert("hi");
+        // alert("hi");
         $scope.showA = true;
     };
 
@@ -47,8 +50,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         for (var i = 0; i < uniqueRegions.length; i++) {
             for (var j = 0; j < uniqueCampus.length; j++) {
                 for (var k = 0; k < $scope.lookUpData.length; k++) {
-                    if ($scope.lookUpData[k].regionId === uniqueRegions[i] && $scope.lookUpData[k].campusName === uniqueCampus[j]
-                        && $scope.siteOptions[i].campus.indexOf($scope.lookUpData[k].campusName) === -1) {
+                    if ($scope.lookUpData[k].regionId === uniqueRegions[i] && $scope.lookUpData[k].campusName === uniqueCampus[j] && $scope.siteOptions[i].campus.indexOf($scope.lookUpData[k].campusName) === -1) {
                         $scope.siteOptions[i].campus.push($scope.lookUpData[k].campusName);
                     }
                 }
@@ -64,13 +66,11 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
 
     $scope.durationTime = durationService.getDuration();
-    $scope.timeFrom = timeRangeService.getFromTimeOptions();
-    $scope.timeTo = timeRangeService.getToTimeOptions();
 
     $scope.loadBuilding = function(campus) {
         $scope.buildingOptions = [];
         if (!campus) {
-            $scope.lookupRoom.buildingName ="";
+            $scope.lookupRoom.buildingName = "";
             $scope.lookupRoom.floorNumber = "";
             $scope.lookupRoom.roomName = "";
 
@@ -90,7 +90,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.loadFloorsAndRooms = function(buildingName) {
 
         $scope.floorOptions = [];
-        $scope.roomOptions =[];
+        $scope.roomOptions = [];
         if (!buildingName) {
 
             $scope.lookupRoom.floorNumber = "";
@@ -99,16 +99,16 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.disableFloor = false;
             $scope.disableRoom = false;
         } else {
-            $scope.disableFloor= true;
+            $scope.disableFloor = true;
             $scope.disableRoom = true;
             angular.forEach($scope.lookUpData, function(obj) {
 
                 // Loading Floors
-                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.floorOptions.indexOf(obj.floorNumber)===-1){
+                if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.floorOptions.indexOf(obj.floorNumber) === -1) {
                     $scope.floorOptions.push(obj.floorNumber);
                 }
                 // Loading Rooms
-                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.roomOptions.indexOf(obj.roomName)===-1){
+                if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.roomOptions.indexOf(obj.roomName) === -1) {
                     $scope.roomOptions.push(obj.roomName);
                 }
             });
@@ -123,7 +123,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.lookupRoom.roomName = null;
             angular.forEach($scope.lookUpData, function(obj) {
                 // Loading Rooms
-                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName){
+                if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName) {
                     $scope.roomOptions.push(obj.roomName);
                 }
             });
@@ -131,23 +131,49 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             // Put all conditions for avoid duplicates
             angular.forEach($scope.lookUpData, function(obj) {
                 //if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName &&  obj.floorNumber==floorNumber && $scope.roomOptions.indexOf(obj.roomName)===-1){
-                if(obj.floorNumber==floorNumber && obj.buildingName === $scope.lookupRoom.buildingName){
+                if (obj.floorNumber == floorNumber && obj.buildingName === $scope.lookupRoom.buildingName) {
                     $scope.roomOptions.push(obj.roomName);
                 }
             });
         }
     };
 
+    $scope.changeTimeRange = function(timeRange) {
+        if (timeRange === "SpecificTime") {
+            $scope.specificTime = true;
+        } else {
+            $scope.specificTime = false;
+        }
 
-    $scope.availableSeatsAndAmenities = function (roomName){
-        $scope.room={};
-        if (!roomName) {
+    }
+
+    $scope.changeSpecificFromTime = function(timeRange, fromTime) {
+        $scope.timeTo = [];
+        $scope.lookupRoom.toTime = null;
+        if (timeRange === "SpecificTime") {
+
+            $scope.timeTo = timeRangeService.getToTimeOptions($scope.timeFrom.indexOf(fromTime));
+        }
+
+    }
+
+    $scope.availableSeatsAndAmenities = function(room) {
+        if (!room) {
+                    $scope.room.amenities = {
+                        "avcn": 0,
+                        "projector":0,
+                        "appleTv": 0
+                    };
+
         } else {
             angular.forEach($scope.lookUpData, function(obj) {
-                if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName &&  obj.roomName===roomName){
-                    $scope.room.seats =obj.size;
-                    $scope.room.room = {roomUid:obj.roomUid, roomName:obj.roomName};
-                    $scope.room.amenities={"avcn": obj.avcn, "projector": obj.projector, "appleTv":obj.appleTv};
+                if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName && obj.roomName === roomName) {
+                    $scope.room.seats = obj.size;
+                    $scope.room.amenities = {
+                        "avcn": obj.avcn,
+                        "projector": obj.projector,
+                        "appleTv": obj.appleTv
+                    };
                     $scope.room.date = formats;
                 }
             });
@@ -172,21 +198,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     };
 
 
-   //Search Result view 
+    //Search Result view 
     //, "Omnidroid (4) 2nd", "{M} InfoSec War Room {RESTRICTED} (8) 2nd", "Syndrome (14) 1st", "Nomanisan Island (10) 2nd","Elastigirl (14) 1st",
 
-$scope.resultTimeRange=["9.00 AM", "10.00 AM", "11.00 AM", "12.00 AM"];
-$scope.resultRooms=["Bomb Voyage [AVCN] (14) 2nd", "The Underminer [AVCN] (14) 2nd", "Omnidroid (4) 2nd", "Syndrome (14) 1st", "Nomanisan Island (10) 2nd","Elastigirl (14) 1st"];
+    $scope.resultTimeRange = ["9.00 AM", "10.00 AM", "11.00 AM", "12.00 AM"];
+    $scope.resultRooms = ["Bomb Voyage [AVCN] (14) 2nd", "The Underminer [AVCN] (14) 2nd", "Omnidroid (4) 2nd", "Syndrome (14) 1st", "Nomanisan Island (10) 2nd", "Elastigirl (14) 1st"];
 
 });
-
-
-
-
-
-
-
-
-
-
-
