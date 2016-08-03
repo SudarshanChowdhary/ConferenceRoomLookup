@@ -108,8 +108,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     $scope.floorOptions.push(obj.floorNumber);
                 }
                 // Loading Rooms
-                if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.roomOptions.indexOf(obj.roomName) === -1) {
-                    $scope.roomOptions.push(obj.roomName);
+                var room={"roomName":obj.roomName, "roomUid":obj.roomUid}
+                if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.roomOptions.indexOf(JSON.stringify(room)) === -1) {
+                    $scope.roomOptions.push(room);
                 }
             });
         }
@@ -123,29 +124,38 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.lookupRoom.roomName = null;
             angular.forEach($scope.lookUpData, function(obj) {
                 // Loading Rooms
+                var room={"roomName":obj.roomName, "roomUid":obj.roomUid};
                 if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName) {
-                    $scope.roomOptions.push(obj.roomName);
+                    $scope.roomOptions.push(room);
                 }
             });
         } else {
             // Put all conditions for avoid duplicates
             angular.forEach($scope.lookUpData, function(obj) {
-                //if(obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName &&  obj.floorNumber==floorNumber && $scope.roomOptions.indexOf(obj.roomName)===-1){
+                var room={"roomName":obj.roomName, "roomUid":obj.roomUid};
                 if (obj.floorNumber == floorNumber && obj.buildingName === $scope.lookupRoom.buildingName) {
-                    $scope.roomOptions.push(obj.roomName);
+                    $scope.roomOptions.push(room);
                 }
             });
         }
     };
 
     $scope.changeTimeRange = function(timeRange) {
-        if (timeRange === "SpecificTime") {
-            $scope.specificTime = true;
-        } else {
-            $scope.specificTime = false;
-        }
+        $scope.specificTime = false;
 
-    }
+        //TODO: Convert time into minutes and divide by 15
+
+        if(timeRange=="AnyTime")
+       {
+            $scope.durationCount=(24 * 60)/15 ;
+        }else if(timeRange==="Morning"){
+            $scope.durationCount=(3 * 60)/15 ;
+        }else if(timeRange==="Afternoon"){
+            $scope.durationCount=(4 * 60)/15 ;
+        }else if (timeRange === "SpecificTime") {
+            $scope.specificTime = true;
+        } 
+    };
 
     $scope.changeSpecificFromTime = function(timeRange, fromTime) {
         $scope.timeTo = [];
@@ -155,47 +165,93 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.timeTo = timeRangeService.getToTimeOptions($scope.timeFrom.indexOf(fromTime));
         }
 
+    };
+
+    $scope.changeSpecificToTime= function(){
+        //TODO: Convert time into minutes and divide by 15
+        //TODO: add the method in markup
+            $scope.durationCount=(($scope.timeFrom.indexOf($scope.fromTime)-$scope.timeTo.indexOf($scope.toTime)) * 60)/15 ;
     }
+
+
+    //TODO: Not getting added to an object 
+    $scope.date=new Date();
+    $scope.popup2 = {
+        opened: false
+    };
+
+    $scope.open2 = function() {
+        $scope.popup2.opened = true;
+    };
+
+    $scope.dateOptions = {
+        startingDay: 1,
+//        minDate: date(),
+        showWeeks: false
+    };
+
+
+            $scope.seats = [{
+                "disable": 1,
+                "size": 4,
+                "checked": 0,
+                "label": "2-4"
+            }, {
+                "disable": 1,
+                "size": 8,"checked": 0,
+                "label": "5-8"
+            }, {
+                "disable": 1,
+                "size": 12, "checked": 0,
+                "label": "9-12"
+            }, {
+                "disable": 1,
+                "size": 20, "checked": 0,
+                "label": "13-20"
+            }, {
+                "disable": 1,
+                "size": 21, "checked": 0,
+                "label": "20+"
+            }];
+
+            $scope.amenities=[{"disable":1, "checked": 0, "label":"avcn"},{"disable":1,"checked": 0, "label":"projector"},{"disable":1,"checked": 0, "label":"appleTv"} ]
 
     $scope.availableSeatsAndAmenities = function(room) {
         if (!room) {
-                    $scope.room.amenities = {
-                        "avcn": 0,
-                        "projector":0,
-                        "appleTv": 0
-                    };
+            $scope.seats[0].disable = 1;
+            $scope.seats[1].disable = 1;
+            $scope.seats[2].disable = 1;
+            $scope.seats[3].disable = 1;
+            $scope.seats[4].disable = 1;
+
+            $scope.amenities[0].disable=1;
+            $scope.amenities[1].disable=1;
+            $scope.amenities[2].disable=1;
 
         } else {
             angular.forEach($scope.lookUpData, function(obj) {
-                if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName && obj.roomName === roomName) {
-                    $scope.room.seats = obj.size;
-                    $scope.room.amenities = {
-                        "avcn": obj.avcn,
-                        "projector": obj.projector,
-                        "appleTv": obj.appleTv
-                    };
-                    $scope.room.date = formats;
+                if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName && obj.roomUid == room.roomUid) {
+                console.log(obj.size)
+
+                    angular.forEach($scope.seats, function(seat) {
+                        if (seat.size <= obj.size) {
+                            seat.disable = 1;
+                        } else {
+                            seat.disable = 0;
+                        }
+
+                    });
+
+                    console.log(obj.avcn, obj.projector, obj.appleTv);
+
+            $scope.amenities[0].disable=obj.avcn;
+            $scope.amenities[1].disable=obj.projector;
+            $scope.amenities[2].disable=obj.appleTv;
                 }
             });
         }
     };
 
-
-    //date picker component
-
-    $scope.dt = new Date();
-
-    $scope.popup2 = {
-        opened: false
-    };
-    $scope.open2 = function() {
-        $scope.popup2.opened = true;
-    };
-    $scope.dateOptions = {
-        startingDay: 1,
-        minDate: new Date("1"),
-        showWeeks: false
-    };
 
 
     //Search Result view 

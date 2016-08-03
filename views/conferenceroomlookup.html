@@ -3,7 +3,7 @@
    <div class="login-info pull-right">Welcome Ketan <i class="btn-xs glyphicon glyphicon-menu-down"></i></div>
    <div class="row room-lookup">
       <section class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-         <form class="form-horizontal" name="roomLookupForm">
+         <form class="form-horizontal" name="lookupRoom">
             <div class="form-group">
                <label for="site" class="col-sm-2 col-md-2 col-lg-2 control-label">Site</label>
                <div class="col-md-6 col-lg-8">
@@ -37,9 +37,8 @@
                <label for="room" class="col-sm-2 col-md-2 col-lg-2 control-label">Room</label>
                <div class="col-md-6 col-lg-8">
                   <!--<select id="room" class="input-width " ng-model="lookupRoom.roomName" ng-disabled="!disableRoom">-->
-                  <select id="room" class="input-width " ng-model="lookupRoom.roomName" ng-disabled="!lookupRoom.buildingName" ng-change="availableSeatsAndAmenities(lookupRoom.roomName)">
-                     <option value="">Select Room</option>
-                     <option ng-repeat="roomName in roomOptions" value="{{roomName}}">{{roomName}}</option>
+                  <select id="room" class="input-width " ng-model="lookupRoom.room" ng-disabled="!lookupRoom.buildingName" ng-change="availableSeatsAndAmenities(lookupRoom.room)" ng-options="room.roomName for room in roomOptions">
+                  <option value="">Select Room</option>
                   </select>
                   <div class="checkbox">
                      <label>
@@ -51,8 +50,7 @@
             <div class="form-group">
                <label for="date" class="col-sm-2 col-md-2 col-lg-2 control-label">Date</label>
                <div class="col-md-6 col-lg-8">
-                  <input id="date" type="text" datepickerMode class=" input-width form-control" ng-click="open2()" uib-datepicker-popup="EEEE, MMMM dd, yyyy" ng-model="dt"
-                     ng-model="dt" ng-model="{lookupRoom | date : 'yyyyMMdd'}" is-open="popup2.opened" datepicker-options="dateOptions" required close-text="Close"  />
+                  <input id="date" type="text" datepickerMode class="input-width form-control" ng-click="open2()" uib-datepicker-popup="EEEE, MMMM dd, yyyy" ng-model="date" is-open="popup2.opened" datepicker-options="dateOptions" required close-text="Close"  />
                </div>
             </div>
             <div class="form-group">
@@ -76,7 +74,7 @@
                      <option ng-repeat="fromTime in timeFrom" value="{{fromTime}}">{{fromTime}}</option>
                   </select>
                   <label for="to" class="control-label">To:</label>
-                  <select id="to" class=" floor specific-time" ng-disabled="!lookupRoom.fromTime" ng-model="lookupRoom.toTime" ng-required="specificTime">
+                  <select id="to" class=" floor specific-time" ng-disabled="!lookupRoom.fromTime" ng-change="changeSpecificToTime()" ng-model="lookupRoom.toTime" ng-required="specificTime">
                      <option value="" ng-selected="true">Select...</option>
                      <option ng-repeat="toTime in timeTo" value="{{toTime}}" ng-disabled="$index < timeFrom.indexOf(lookupRoom.fromTime)">{{toTime}}</option>
                   </select>
@@ -88,9 +86,9 @@
                   <div class="optional">Optional</div>
                </label>
                <div class="col-md-6 col-lg-8">
-                  <select id="duration" class="input-width " ng-model="durationTime.model">
+                  <select id="duration" class="input-width " ng-model="lookupRoom.duration">
                      <option value="">Selection Duration</option>
-                     <option ng-repeat="option in durationTime" ng-value="option.value">{{option.name}}</option>
+                     <option ng-repeat="option in durationTime" ng-disabled="$index > durationCount" ng-value="option.value">{{option.name}}</option>
                   </select>
                </div>
             </div>
@@ -100,20 +98,9 @@
                   <div class="optional">Optional</div>
                </label>
                <div class="col-md-6 col-lg-8" >
-                  <label class="checkbox-inline">
-                  <input type="checkbox" id="Checkbox1" ng-model="lookupRoom.value" value="2-4"><span class="seat-available"> 2-4</span>
-                  </label>
-                  <label class="checkbox-inline">
-                  <input type="checkbox" id="Checkbox2" value="5-8"><span class="seat-available">5-8</span>
-                  </label>
-                  <label class="checkbox-inline">
-                  <input type="checkbox" id="Checkbox3" value="9-12"><span class="seat-available"> 9-12</span>
-                  </label>
-                  <label class="checkbox-inline">
-                  <input type="checkbox" id="Checkbox4" value="13-20"><span class="seat-available"> 13-20</span>
-                  </label>
-                  <label class="checkbox-inline">
-                  <input type="checkbox" id="Checkbox5" value="20+"><span class="seat-available"> 20+</span>
+                  <label class="checkbox-inline" for="seats_{{$index}}" ng-repeat="seat in seats">
+                  <!-- ng-model="lookupRoom[seat.label]" -->
+                  <input type="checkbox" id="seat_{{$index}}" name="seat_{{$index}}" value="{{seat.checked}}" ng-disabled="!seat.disable"><span class="seat-available">{{seat.label}}</span>
                   </label>
                </div>
             </div>
@@ -125,20 +112,16 @@
                   </label>
                </div>
                <div id="amenities" class="col-md-6 col-lg-8">
-                  <label class="checkbox-inline">
-                  <input type="checkbox" name="avcn" value="1" ng-disabled="!room.amenities.avcn"><span class="amenities-available"> AVCN</span>
-                  </label>
-                  <label class="checkbox-inline">
-                  <input type="checkbox" name="projector" value="1" ng-disabled="!room.amenities.projector"><span class="amenities-available"> Projector</span>
-                  </label>
-                  <label class="checkbox-inline">
-                  <input type="checkbox" name="appleTv" value="1" ng-disabled="!room.amenities.appleTv"><span class="amenities-available"> TV</span>
+               <!-- ng-model="lookupRoom[amenity.label]" -->
+                  <label class="checkbox-inline" for="amenity_{{$index}}" ng-repeat="amenity in amenities">
+                  <input type="checkbox" name="amenity_{{$index}}" value="{{amenity.checked}}" ng-disabled="!amenity.disable"><span class="amenities-available"> {{amenity.label}}</span>
                   </label>
                </div>
             </div>
-            <div class="form-group">
+<!--             {{lookupRoom}}
+ -->            <div class="form-group">
                <div class="col-sm-offset-2 col-md-6 col-lg-8">
-                  <button type="submit" ng-click="searchResult()" ng-disabled="roomLookupForm.$invalid" class="btn btn-sm search-btn">Search</button>
+                  <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoom.$invalid" class="btn btn-sm search-btn">Search</button>
                </div>
             </div>
          </form>

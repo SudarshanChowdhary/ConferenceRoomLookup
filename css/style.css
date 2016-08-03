@@ -156,11 +156,11 @@ span a:hover {
 
 /*scroll for slot*/
 
-
+/*
 table {
   table-layout: fixed; 
   width: 100%;
-  *margin-left: -100px;/*ie7*/
+  margin-left: -100px;
 }
 td, th {
   vertical-align: top;
@@ -170,7 +170,7 @@ td, th {
 }
 th {
   position:absolute;
-  *position: relative; /*ie7*/
+  position: relative;
   left:0; 
   width:100px;
 }
@@ -183,3 +183,4 @@ th {
  margin-left: 225px;
 }
 
+*/
