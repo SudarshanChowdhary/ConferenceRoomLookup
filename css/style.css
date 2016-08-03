@@ -112,6 +112,8 @@ span a:hover {
 }
 .searchGrid > .table.inner-table td {
     border-left-width: 0px;
+   /* overflow-y:hidden;
+     width:750px;*/
 }
 .table.duration-cells td {
     border-left-width: 0px !important;
@@ -137,7 +139,7 @@ span a:hover {
     padding: 15px;
     text-align: center;
     font-weight: bold;
-    width: 25%;
+    width: 14.2%;
 }
 .resultRoomsName {
     padding-top: 5px;
@@ -151,3 +153,33 @@ span a:hover {
 .resultRoomsName:hover {
     text-decoration-line: none;
 }
+
+/*scroll for slot*/
+
+
+table {
+  table-layout: fixed; 
+  width: 100%;
+  *margin-left: -100px;/*ie7*/
+}
+td, th {
+  vertical-align: top;
+  border-top: 1px solid #ccc;
+  padding:10px;
+  width:200px;
+}
+th {
+  position:absolute;
+  *position: relative; /*ie7*/
+  left:0; 
+  width:100px;
+}
+.outer {position:relative;
+        }
+.inner {
+  overflow-x:scroll;
+  overflow-y:visible;
+  width:80%; 
+ margin-left: 225px;
+}
+
