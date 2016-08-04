@@ -1,6 +1,6 @@
 'use strict'
 
-var ConferenceRoomLookup = angular.module("ConferenceRoomLookup", ["ui.bootstrap", "ui.router", "ngResource"]);
+var ConferenceRoomLookup = angular.module("ConferenceRoomLookup", ["ui.bootstrap", "ui.router", "ngResource", "ui.grid"]);
 ConferenceRoomLookup.config(function($stateProvider, $urlRouterProvider) {
     //
     // For any unmatched url, redirect to /state1
@@ -12,7 +12,7 @@ ConferenceRoomLookup.config(function($stateProvider, $urlRouterProvider) {
             url: "/home",
             templateUrl: "views/conferenceroomlookup.html"
         })
-        .state('searchresult', {
+         .state('searchresult', {
             url: "/searchresult",
             templateUrl: "views/searchResult.html"
         })

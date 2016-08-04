@@ -1,12 +1,15 @@
+
+ <!-- <div class="gridStyle" ng-grid="gridOptions">asasdfasdf</div> -->
+
 <h3>Mary 1 <button class="btn btn-default btn-xs">You are here</button></h3>
 <div class="row">
    <div class="col-md-5">6 rooms matching your search</div>
    <div class="col-md-7">
-      <div class="col-md-3 col-sm-3"><button class="btn btn-link" onclick="PreviousDay()">« Previous day</button></div>
-      <div class="col-md-2 col-sm-2"><button class="btn btn-link" onclick="Previous4Hours()">‹ Previous 4 Hours</button></div>
+      <div class="col-md-3 col-sm-3"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
+      <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="Previous4Hours()">‹ Previous 4 Hours</button></div>
       <div class="col-md-2 col-sm-2"></div>
-      <div class="col-md-2 col-sm-2"><button class="btn btn-link" onclick="next4hours()">Next 4 Hours ›</button></div>
-      <div class="col-md-3 col-sm-3"><button class="btn btn-link" onclick="nestDay()">Next day »</button></div>
+      <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="Next4hours()">Next 4 Hours ›</button></div>
+      <div class="col-md-3 col-sm-3"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
    </div>
 </div>
 <div class="searchGrid">

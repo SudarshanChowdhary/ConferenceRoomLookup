@@ -109,9 +109,9 @@ ConferenceRoomLookup.factory("durationService", function($resource) {
                     value: "8.75"
                 }
                 ]
-                
+
             }
-            
+
         }
     }
-)
+);
