@@ -1,0 +1,49 @@
+{
+   "data": [
+       {
+           "roomUid": "4F29105D-28B5-47DD-A0E5-AFD9FE0CD992",
+           "roomName": "ABBA [AVCN] (12) [SGP] SNGMG 1st",
+           "status": "",
+           "busyslot": [
+               {
+                   "startDateTime": "2016-07-25T01:15:00",
+                   "endDateTime": "2016-07-25T02:15:00",
+                   "type": "busy"
+               },
+               {
+                   "startDateTime": "2016-07-25T03:00:00",
+                   "endDateTime": "2016-07-25T05:00:00",
+                   "type": "busy"
+               },
+               {
+                   "startDateTime": "2016-07-25T06:00:00",
+                   "endDateTime": "2016-07-25T09:30:00",
+                   "type": "busy"
+               }
+           ]
+       },
+       {
+           "roomUid": "DBE45EB2-FEFF-4385-BAFC-B02E8035F46B",
+           "roomName": "Coldplay [AVCN] (7) [SGP] SNGMG 1st",
+           "status": "",
+           "busyslot": [
+               {
+                   "startDateTime": "2016-07-25T01:00:00",
+                   "endDateTime": "2016-07-25T03:00:00",
+                   "type": "busy"
+               },
+               {
+                   "startDateTime": "2016-07-25T04:00:00",
+                   "endDateTime": "2016-07-25T06:00:00",
+                   "type": "busy"
+               },
+               {
+                   "startDateTime": "2016-07-25T06:30:00",
+                   "endDateTime": "2016-07-25T10:00:00",
+                   "type": "busy"
+               }
+           ]
+       }
+   ],
+   "success": "true"
+}

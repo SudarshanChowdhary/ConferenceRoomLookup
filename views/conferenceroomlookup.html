@@ -142,6 +142,134 @@
    </div>
    <!-- SEARCH RESULTS VIEW -->
    <section class="searchResults" id="searchResults" ng-show="showA">
-      <div ng-include="'views/searchResult.html'"></div>
+
+<h3>Mary 1 <button class="btn btn-default btn-xs">You are here</button></h3>
+<div class="row">
+   <div class="col-md-5">6 rooms matching your search</div>
+   <div class="col-md-7">
+      <div class="col-md-3 col-sm-3"><button class="btn btn-link" onclick="PreviousDay()">« Previous day</button></div>
+      <div class="col-md-2 col-sm-2"><button class="btn btn-link" onclick="Previous4Hours()">‹ Previous 4 Hours</button></div>
+      <div class="col-md-2 col-sm-2"></div>
+      <div class="col-md-2 col-sm-2"><button class="btn btn-link" onclick="next4hours()">Next 4 Hours ›</button></div>
+      <div class="col-md-3 col-sm-3"><button class="btn btn-link" onclick="nestDay()">Next day »</button></div>
+   </div>
+</div>
+<div class="searchGrid">
+<!-- <table>
+<th class="outer-table-top-row">Room<span class="pull-right">Legend</span></th>
+         <td class="outer-table-top-row">
+            <table class="table inner-table">
+               <tr>
+                  <th ng-repeat="tr in resultTimeRange track by $index" class="time-range">
+                     {{tr}}
+                  </th>
+               </tr>
+            </table>
+         </td>
+</table> -->
+<div class="outer">
+  <div class="inner">
+    <table>
+
+         <tr ng-repeat="rm in resultRooms track by $index">
+         <th style="width:700px;" class="btn-link resultRoomsName">{{rm}}</th>
+         <td style="width:50px;" class="free">1222</td>
+         <td style="width:50px;" class="busy">2</td>
+         <td style="width:50px;" class="free">3</td>
+         <td style="width:50px;" class="busy">4</td>
+         <td style="width:50px;" class="free">1</td>
+         <td style="width:50px;" class="busy">2</td>
+         <td style="width:50px;" class="free">3</td>
+         <td style="width:50px;" class="busy">4</td>
+         <td style="width:50px;" class="free">1</td>
+         <td style="width:50px;" class="busy">2</td>
+         <td style="width:50px;" class="free">3</td>
+         <td style="width:50px;" class="busy">4</td>
+         <td style="width:50px;" class="free">1</td>
+         <td style="width:50px;" class="busy">2</td>
+         <td style="width:50px;" class="free">3</td>
+         <td style="width:50px;" class="busy">4</td>
+         <td style="width:50px;" class="free">1</td>
+         <td style="width:50px;" class="busy">2</td>
+         <td style="width:50px;" class="free">3</td>
+         <td style="width:50px;" class="busy">4</td>
+         <td style="width:50px;" class="free">1</td>
+         <td style="width:50px;" class="busy">2</td>
+         <td style="width:50px;" class="free">3</td>
+         <td style="width:50px;" class="busy">5</td>
+         <td style="width:50px;" class="free">3</td>
+         <td style="width:50px;" class="busy">4</td>
+         <td style="width:50px;" class="free">1</td>
+         <td style="width:50px;" class="busy">2</td>
+         <td style="width:50px;" class="free">3</td>
+         <td style="width:50px;" class="busy">4</td>
+         <td style="width:50px;" class="free">1</td>
+         <td style="width:50px;" class="busy">2</td>
+         <td style="width:50px;" class="free">3</td>
+         <td style="width:50px;" class="busy">4</td>
+         <td style="width:50px;" class="free">1</td>
+         <td style="width:50px;" class="busy">2</td>
+         <td style="width:50px;" class="free">3</td>
+         <td style="width:50px;" class="busy">4444</td>
+       
+        </tr>
+        
+    </table>
+  </div>
+</div>
+
+
+<!-- <table class="table outer-table">
+   <thead>
+      <tr>
+         <th class="outer-table-top-row">Room <span class="pull-right">Legend</span></th>
+         <td class="outer-table-top-row">
+            <table class="table inner-table">
+               <tr>
+                  <th ng-repeat="tr in resultTimeRange track by $index" class="time-range">
+                     {{tr}}
+                  </th>
+               </tr>
+            </table>
+         </td>
+      </tr>
+   </thead>
+   <tbody>
+      <tr ng-repeat="rm in resultRooms track by $index">
+         <td class="btn-link resultRoomsName">{{rm}}</td>
+         <td>
+
+         <div class="slotsSection">
+            <table class="table inner-table">
+               <tr>
+                  <td ng-repeat="tr in resultTimeRange track by $index">
+                     <table class="table duration-cells">
+                        <tr>
+                        <td ng-repeat = "slots in slot">{{}}</td>
+                           <td class="free">1</td>
+                           <td class="busy">2</td>
+                           <td class="free">3</td>
+                           <td class="busy">4</td>
+                        </tr>
+                     </table>
+                  </td>
+               </tr>
+            </table>
+               </div>
+
+         </td>
+      </tr>
+   </tbody>
+</table> -->
+<div class="not-Found">
+   <p>Not finding what you’re looking for?</p>
+   <p><a href="#">Search Nearby Buildings</a></p>
+</div>
+
+<footer class="search-result-footer">
+   <p>Copyright Apple, Inc. All rights reserved.</p>
+
+</footer>
+
    </section>
 </section>

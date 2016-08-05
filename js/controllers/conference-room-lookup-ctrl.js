@@ -1,6 +1,6 @@
 'use strict'
 
-ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService) {
+ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid) {
     $scope.lookUpData = {};
     $scope.lookupRoom = {};
     $scope.siteOptions = [];
@@ -17,7 +17,55 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.showA = true;
     };
 
+    responseGrid.getResponseGridData().then(function(res) {
+        $scope.gridData = res.data;
+        angular.forEach($scope.gridData, function(room, m) {
+            var temp = new Date("2016-07-25T00:00:00");
+            var endDayTime = new Date("2016-07-25T24:00:00");
+            console.log("temp", temp)
+            room.slot = [];
 
+            angular.forEach(room.busyslot, function(slot, n) {
+                var sdt = new Date(slot.startDateTime);
+                var edt = new Date(slot.endDateTime);
+                var freeTime = sdt.getTime() - temp.getTime();
+                freeTime = ((freeTime / 1000) / 60) / 15;
+                console.log(freeTime);
+                for (var i = 0; i < freeTime; i++) {
+                    room.slot.push({
+                        "type": "free"
+                    });
+                }
+                var busyTime = edt.getTime() - sdt.getTime();
+                busyTime = ((busyTime / 1000) / 60) / 15;
+                console.log(busyTime);
+                for (var i = 0; i < busyTime; i++) {
+                    room.slot.push({
+                        "type": "busy"
+                    });
+                }
+                temp = edt;
+
+                if (n == room.busyslot.length - 1 && edt.getTime() < endDayTime.getTime()) {
+                    var freeTime = endDayTime.getTime() - temp.getTime();
+                    console.log("EndDayTime: ", endDayTime.getTime(), temp.getTime())
+                    freeTime = ((freeTime / 1000) / 60) / 15;
+                    console.log(freeTime);
+                    for (var i = 0; i < freeTime; i++) {
+                        room.slot.push({
+                            "startDateTime": sdt,
+                            //                        "endDateTime": sdt+freeTime
+                            "type": "free"
+                        });
+                    }
+
+                }
+
+            })
+            console.log(room.slot)
+        })
+
+    });
 
 
 
@@ -107,7 +155,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     $scope.floorOptions.push(obj.floorNumber);
                 }
                 // Loading Rooms
-                var room={"roomName":obj.roomName, "roomUid":obj.roomUid}
+                var room = {
+                    "roomName": obj.roomName,
+                    "roomUid": obj.roomUid
+                }
                 if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.roomOptions.indexOf(JSON.stringify(room)) === -1) {
                     $scope.roomOptions.push(room);
                 }
@@ -123,7 +174,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.lookupRoom.roomName = null;
             angular.forEach($scope.lookUpData, function(obj) {
                 // Loading Rooms
-                var room={"roomName":obj.roomName, "roomUid":obj.roomUid};
+                var room = {
+                    "roomName": obj.roomName,
+                    "roomUid": obj.roomUid
+                };
                 if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName) {
                     $scope.roomOptions.push(room);
                 }
@@ -131,7 +185,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         } else {
             // Put all conditions for avoid duplicates
             angular.forEach($scope.lookUpData, function(obj) {
-                var room={"roomName":obj.roomName, "roomUid":obj.roomUid};
+                var room = {
+                    "roomName": obj.roomName,
+                    "roomUid": obj.roomUid
+                };
                 if (obj.floorNumber == floorNumber && obj.buildingName === $scope.lookupRoom.buildingName) {
                     $scope.roomOptions.push(room);
                 }
@@ -144,16 +201,15 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
         //TODO: Convert time into minutes and divide by 15
 
-        if(timeRange=="AnyTime")
-       {
-            $scope.durationCount=(24 * 60)/15 ;
-        }else if(timeRange==="Morning"){
-            $scope.durationCount=(3 * 60)/15 ;
-        }else if(timeRange==="Afternoon"){
-            $scope.durationCount=(4 * 60)/15 ;
-        }else if (timeRange === "SpecificTime") {
+        if (timeRange == "AnyTime") {
+            $scope.durationCount = (24 * 60) / 15;
+        } else if (timeRange === "Morning") {
+            $scope.durationCount = (3 * 60) / 15;
+        } else if (timeRange === "Afternoon") {
+            $scope.durationCount = (4 * 60) / 15;
+        } else if (timeRange === "SpecificTime") {
             $scope.specificTime = true;
-        } 
+        }
     };
 
     $scope.changeSpecificFromTime = function(timeRange, fromTime) {
@@ -166,15 +222,15 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
     };
 
-    $scope.changeSpecificToTime= function(){
+    $scope.changeSpecificToTime = function() {
         //TODO: Convert time into minutes and divide by 15
         //TODO: add the method in markup
-            $scope.durationCount=(($scope.timeFrom.indexOf($scope.fromTime)-$scope.timeTo.indexOf($scope.toTime)) * 60)/15 ;
+        $scope.durationCount = (($scope.timeFrom.indexOf($scope.fromTime) - $scope.timeTo.indexOf($scope.toTime)) * 60) / 15;
     }
 
 
     //TODO: Not getting added to an object 
-    $scope.date=new Date();
+    $scope.date = new Date();
     $scope.popup2 = {
         opened: false
     };
@@ -185,35 +241,51 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
     $scope.dateOptions = {
         startingDay: 1,
-//        minDate: date(),
+        //        minDate: date(),
         showWeeks: false
     };
 
 
-            $scope.seats = [{
-                "disable": 1,
-                "size": 4,
-                "checked": 0,
-                "label": "2-4"
-            }, {
-                "disable": 1,
-                "size": 8,"checked": 0,
-                "label": "5-8"
-            }, {
-                "disable": 1,
-                "size": 12, "checked": 0,
-                "label": "9-12"
-            }, {
-                "disable": 1,
-                "size": 20, "checked": 0,
-                "label": "13-20"
-            }, {
-                "disable": 1,
-                "size": 21, "checked": 0,
-                "label": "20+"
-            }];
+    $scope.seats = [{
+        "disable": 1,
+        "size": 4,
+        "checked": 0,
+        "label": "2-4"
+    }, {
+        "disable": 1,
+        "size": 8,
+        "checked": 0,
+        "label": "5-8"
+    }, {
+        "disable": 1,
+        "size": 12,
+        "checked": 0,
+        "label": "9-12"
+    }, {
+        "disable": 1,
+        "size": 20,
+        "checked": 0,
+        "label": "13-20"
+    }, {
+        "disable": 1,
+        "size": 21,
+        "checked": 0,
+        "label": "20+"
+    }];
 
-            $scope.amenities=[{"disable":1, "checked": 0, "label":"avcn"},{"disable":1,"checked": 0, "label":"projector"},{"disable":1,"checked": 0, "label":"appleTv"} ]
+    $scope.amenities = [{
+        "disable": 1,
+        "checked": 0,
+        "label": "avcn"
+    }, {
+        "disable": 1,
+        "checked": 0,
+        "label": "projector"
+    }, {
+        "disable": 1,
+        "checked": 0,
+        "label": "appleTv"
+    }]
 
     $scope.availableSeatsAndAmenities = function(room) {
         if (!room) {
@@ -223,14 +295,14 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.seats[3].disable = 1;
             $scope.seats[4].disable = 1;
 
-            $scope.amenities[0].disable=1;
-            $scope.amenities[1].disable=1;
-            $scope.amenities[2].disable=1;
+            $scope.amenities[0].disable = 1;
+            $scope.amenities[1].disable = 1;
+            $scope.amenities[2].disable = 1;
 
         } else {
             angular.forEach($scope.lookUpData, function(obj) {
                 if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName && obj.roomUid == room.roomUid) {
-                console.log(obj.size)
+                    console.log(obj.size)
 
                     angular.forEach($scope.seats, function(seat) {
                         if (seat.size <= obj.size) {
@@ -243,59 +315,130 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
                     console.log(obj.avcn, obj.projector, obj.appleTv);
 
-            $scope.amenities[0].disable=obj.avcn;
-            $scope.amenities[1].disable=obj.projector;
-            $scope.amenities[2].disable=obj.appleTv;
+                    $scope.amenities[0].disable = obj.avcn;
+                    $scope.amenities[1].disable = obj.projector;
+                    $scope.amenities[2].disable = obj.appleTv;
                 }
             });
         }
     };
 
 
-   
-
-    //Search Result view 
-    //, "Omnidroid (4) 2nd", "{M} InfoSec War Room {RESTRICTED} (8) 2nd", "Syndrome (14) 1st", "Nomanisan Island (10) 2nd","Elastigirl (14) 1st",
 
 
 
-         $scope.PreviousDay= function(){
+
+
+
+
+    $scope.PreviousDay = function() {
         alert("PreviousDay");
     }
-     $scope.Previous4Hours= function(){
+    $scope.Previous4Hours = function() {
         alert("Previous4Hours");
     }
-     $scope.Next4hours= function(){
+    $scope.Next4hours = function() {
         alert("Next4hours");
     }
-     $scope.NextDay= function(){
+    $scope.NextDay = function() {
         alert("NextDay");
     }
 
 
-        $scope.gridOptions = {
+    $scope.gridOptions = {
         data: 'myData',
         enablePinning: false,
-        columnDefs: [{ field: "name", width: 120, pinned: true },
-                    { field: "age", width: 120 },
-                    { field: "birthday", width: 120 },
-                    { field: "salary", width: 120 }]
+        columnDefs: [{
+            field: "name",
+            width: 120,
+            pinned: true
+        }, {
+            field: "age",
+            width: 120
+        }, {
+            field: "birthday",
+            width: 120
+        }, {
+            field: "salary",
+            width: 120
+        }]
     };
-    $scope.myData = [{ name: "Moroni", age: 50, birthday: "Oct 28, 1970", salary: "60,000" },
-                    { name: "Tiancum", age: 43, birthday: "Feb 12, 1985", salary: "70,000" },
-                    { name: "Jacob", age: 27, birthday: "Aug 23, 1983", salary: "50,000" },
-                    { name: "Nephi", age: 29, birthday: "May 31, 2010", salary: "40,000" },
-                    { name: "Enos", age: 34, birthday: "Aug 3, 2008", salary: "30,000" },
-                    { name: "Moroni", age: 50, birthday: "Oct 28, 1970", salary: "60,000" },
-                    { name: "Tiancum", age: 43, birthday: "Feb 12, 1985", salary: "70,000" },
-                    { name: "Jacob", age: 27, birthday: "Aug 23, 1983", salary: "40,000" },
-                    { name: "Nephi", age: 29, birthday: "May 31, 2010", salary: "50,000" },
-                    { name: "Enos", age: 34, birthday: "Aug 3, 2008", salary: "30,000" },
-                    { name: "Moroni", age: 50, birthday: "Oct 28, 1970", salary: "60,000" },
-                    { name: "Tiancum", age: 43, birthday: "Feb 12, 1985", salary: "70,000" },
-                    { name: "Jacob", age: 27, birthday: "Aug 23, 1983", salary: "40,000" },
-                    { name: "Nephi", age: 29, birthday: "May 31, 2010", salary: "50,000" },
-                    { name: "Enos", age: 34, birthday: "Aug 3, 2008", salary: "30,000" }];
+    $scope.myData = [{
+        name: "Moroni",
+        age: 50,
+        birthday: "Oct 28, 1970",
+        salary: "60,000"
+    }, {
+        name: "Tiancum",
+        age: 43,
+        birthday: "Feb 12, 1985",
+        salary: "70,000"
+    }, {
+        name: "Jacob",
+        age: 27,
+        birthday: "Aug 23, 1983",
+        salary: "50,000"
+    }, {
+        name: "Nephi",
+        age: 29,
+        birthday: "May 31, 2010",
+        salary: "40,000"
+    }, {
+        name: "Enos",
+        age: 34,
+        birthday: "Aug 3, 2008",
+        salary: "30,000"
+    }, {
+        name: "Moroni",
+        age: 50,
+        birthday: "Oct 28, 1970",
+        salary: "60,000"
+    }, {
+        name: "Tiancum",
+        age: 43,
+        birthday: "Feb 12, 1985",
+        salary: "70,000"
+    }, {
+        name: "Jacob",
+        age: 27,
+        birthday: "Aug 23, 1983",
+        salary: "40,000"
+    }, {
+        name: "Nephi",
+        age: 29,
+        birthday: "May 31, 2010",
+        salary: "50,000"
+    }, {
+        name: "Enos",
+        age: 34,
+        birthday: "Aug 3, 2008",
+        salary: "30,000"
+    }, {
+        name: "Moroni",
+        age: 50,
+        birthday: "Oct 28, 1970",
+        salary: "60,000"
+    }, {
+        name: "Tiancum",
+        age: 43,
+        birthday: "Feb 12, 1985",
+        salary: "70,000"
+    }, {
+        name: "Jacob",
+        age: 27,
+        birthday: "Aug 23, 1983",
+        salary: "40,000"
+    }, {
+        name: "Nephi",
+        age: 29,
+        birthday: "May 31, 2010",
+        salary: "50,000"
+    }, {
+        name: "Enos",
+        age: 34,
+        birthday: "Aug 3, 2008",
+        salary: "30,000"
+    }];
 
 
 
