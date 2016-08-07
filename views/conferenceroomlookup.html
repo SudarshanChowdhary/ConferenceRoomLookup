@@ -3,7 +3,7 @@
    <div class="login-info pull-right">Welcome Ketan <i class="btn-xs glyphicon glyphicon-menu-down"></i></div>
    <div class="row room-lookup">
       <section class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-         <form class="form-horizontal" name="lookupRoom">
+         <form class="form-horizontal" name="lookupRoomForm">
             <div class="form-group">
                <label for="site" class="col-sm-2 col-md-2 col-lg-2 control-label">Site</label>
                <div class="col-md-6 col-lg-8">
@@ -42,7 +42,7 @@
                   </select>
                   <div class="checkbox">
                      <label>
-                     <input type="checkbox" ng-model="lookupRoom.unavailable"> <span class="optional"> Include Unavailable Rooms</span>
+                     <input type="checkbox" ng-model="lookupRoom.unavailable" ng-true-value="1" ng-false-value="0"> <span class="optional"> Include Unavailable Rooms</span>
                      </label>
                   </div>
                </div>
@@ -50,7 +50,7 @@
             <div class="form-group">
                <label for="date" class="col-sm-2 col-md-2 col-lg-2 control-label">Date</label>
                <div class="col-md-6 col-lg-8">
-                  <input id="date" type="text" datepickerMode class="input-width form-control" ng-click="open2()" uib-datepicker-popup="EEEE, MMMM dd, yyyy" ng-model="date" is-open="popup2.opened" datepicker-options="dateOptions" required close-text="Close"  />
+                  <input id="date" type="text" datepickerMode class="input-width form-control" ng-click="open2()" uib-datepicker-popup="EEEE, MMMM dd, yyyy" ng-model="lookupRoom.date" is-open="popup2.opened" datepicker-options="dateOptions" required close-text="Close"  />
                </div>
             </div>
             <div class="form-group">
@@ -121,7 +121,7 @@
 <!--             {{lookupRoom}}
  -->            <div class="form-group">
                <div class="col-sm-offset-2 col-md-6 col-lg-8">
-                  <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoom.$invalid" class="btn btn-sm search-btn">Search</button>
+                  <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoomForm.$invalid" class="btn btn-sm search-btn">Search</button>
                </div>
             </div>
          </form>
@@ -145,7 +145,7 @@
 
 <h3>Mary 1 <button class="btn btn-default btn-xs">You are here</button></h3>
 <div class="row">
-   <div class="col-md-5">6 rooms matching your search</div>
+   <div class="col-md-5">{{gridData.length}} rooms matching your search</div>
    <div class="col-md-7">
       <div class="col-md-3 col-sm-3"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
       <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="Previous4Hours()">‹ Previous 4 Hours</button></div>
@@ -154,7 +154,7 @@
       <div class="col-md-3 col-sm-3"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
    </div>
 </div>
-<section class="searchGrid">
+<section class="searchGrid" id="searchRoomGrid">
 <div fixed-first-column >
     <table class="table table-condensed">
     <thead>

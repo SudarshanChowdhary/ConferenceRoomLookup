@@ -1,8 +1,13 @@
 'use strict'
 
-ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid) {
+ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll) {
     $scope.lookUpData = {};
-    $scope.lookupRoom = {};
+    $scope.lookupRoom = {
+        "campusName": "",
+        "buildingName": "",
+        "date": new Date(),
+        "unavailable": 0
+    };
     $scope.siteOptions = [];
     $scope.buildingOptions = [];
     $scope.floorOptions = [];
@@ -10,73 +15,78 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.specificTime = false;
     $scope.timeFrom = timeRangeService.getFromTimeOptions();
 
-    $scope.showSearchResult = true;
+    $scope.showSearchResult = false;
 
     $scope.searchResult = function() {
-        // alert("hi");
-        $scope.showSearchResult = true;
+        if ($scope.lookupRoomForm.$valid) {
+            if (!$scope.lookupRoom.room) {
+                $scope.lookupRoom.room = $scope.roomOptions;
+                $scope.showSearchResult = true;
+                $anchorScroll("searchRoomGrid");
+
+                $scope.searchRooms($scope.lookupRoom);
+            }
+        }
     };
 
-    responseGrid.getResponseGridData().then(function(res) {
-        $scope.gridData = res.data;
-        var dt = $scope.gridData[0].busyslot[0].startDateTime;
+    $scope.searchRooms = function(searchFormData) {
+        responseGrid.getResponseGridData(searchFormData).then(function(res) {
+            $scope.gridData = res.data;
+            var dt = $scope.gridData[0].busyslot[0].startDateTime;
             dt = dt.split("T");
-
-        console.log(dt);
-
-        angular.forEach($scope.gridData, function(room, m) {
-            var temp = new Date(dt[0]+"T00:00:00");
-            var endDayTime = new Date(dt[0]+"T24:00:00");
-            console.log("temp", temp)
-            room.slot = [];
-            angular.forEach(room.busyslot, function(slot, n) {
-                var sdt = new Date(slot.startDateTime);
-                var edt = new Date(slot.endDateTime);
-                var freeTime = sdt.getTime() - temp.getTime();
-                freeTime = ((freeTime / 1000) / 60) / 15;
-                console.log(freeTime);
-                for (var i = 0; i < freeTime; i++) {
-                    room.slot.push({
-                        "type": "free"
-                    });
-                }
-                var busyTime = edt.getTime() - sdt.getTime();
-                busyTime = ((busyTime / 1000) / 60) / 15;
-                console.log(busyTime);
-                for (var i = 0; i < busyTime; i++) {
-                    room.slot.push({
-                        "type": "busy"
-                    });
-                }
-                temp = edt;
-
-                if (n == room.busyslot.length - 1 && edt.getTime() < endDayTime.getTime()) {
-                    var freeTime = endDayTime.getTime() - temp.getTime();
-                    console.log("EndDayTime: ", endDayTime.getTime(), temp.getTime())
+            angular.forEach($scope.gridData, function(room, m) {
+                var temp = new Date(dt[0] + "T00:00:00");
+                var endDayTime = new Date(dt[0] + "T24:00:00");
+                console.log("temp", temp)
+                room.slot = [];
+                angular.forEach(room.busyslot, function(slot, n) {
+                    var sdt = new Date(slot.startDateTime);
+                    var edt = new Date(slot.endDateTime);
+                    var freeTime = sdt.getTime() - temp.getTime();
                     freeTime = ((freeTime / 1000) / 60) / 15;
                     console.log(freeTime);
-                    //        tempHours=tempHours.getTime()+(15 * 60 * 1000);
                     for (var i = 0; i < freeTime; i++) {
                         room.slot.push({
                             "type": "free"
                         });
                     }
+                    var busyTime = edt.getTime() - sdt.getTime();
+                    busyTime = ((busyTime / 1000) / 60) / 15;
+                    console.log(busyTime);
+                    for (var i = 0; i < busyTime; i++) {
+                        room.slot.push({
+                            "type": "busy"
+                        });
+                    }
+                    temp = edt;
 
-                }
+                    if (n == room.busyslot.length - 1 && edt.getTime() < endDayTime.getTime()) {
+                        var freeTime = endDayTime.getTime() - temp.getTime();
+                        console.log("EndDayTime: ", endDayTime.getTime(), temp.getTime())
+                        freeTime = ((freeTime / 1000) / 60) / 15;
+                        console.log(freeTime);
+                        //        tempHours=tempHours.getTime()+(15 * 60 * 1000);
+                        for (var i = 0; i < freeTime; i++) {
+                            room.slot.push({
+                                "type": "free"
+                            });
+                        }
 
+                    }
+
+                })
+                console.log(room.slot);
             })
-            console.log(room.slot);
-        })
 
-        var tempHours = new Date("2016-07-25T00:00:00");
-        $scope.hours = [];
+            var tempHours = new Date("2016-07-25T00:00:00");
+            $scope.hours = [];
 
-        for (var i = 0; i < $scope.gridData[0].slot.length; i = i + 4) {
-            $scope.hours.push(tempHours);
-            tempHours = new Date(tempHours.getTime() + (60 * 60 * 1000));
-        }
-    });
-
+            for (var i = 0; i < $scope.gridData[0].slot.length; i = i + 4) {
+                $scope.hours.push(tempHours);
+                tempHours = new Date(tempHours.getTime() + (60 * 60 * 1000));
+            }
+        });
+    }
 
 
     $scope.PreviousDay = function() {
@@ -251,9 +261,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.durationCount = (($scope.timeFrom.indexOf($scope.fromTime) - $scope.timeTo.indexOf($scope.toTime)) * 60) / 15;
     }
 
-
-    //TODO: Not getting added to an object 
-    $scope.date = new Date();
     $scope.popup2 = {
         opened: false
     };

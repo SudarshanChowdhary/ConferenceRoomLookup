@@ -1,13 +1,14 @@
 'use strict'
 ConferenceRoomLookup.factory("responseGrid", function($resource) {
     return {
-        getResponseGridData: function() {
-            var siteData = $resource('js/services/responseGrid-data.json', {}, {
-                'get': {
-                    method: 'GET'
+        getResponseGridData: function(searchFormData) {
+            console.log("service search form data : ", searchFormData)
+            var siteData = $resource('js/services/responseGrid-data.json', searchFormData, {
+                'post': {
+                    method: 'get'
                 }
             })
-            return siteData.get().$promise
+            return siteData.post().$promise
         },
         getMinutesPerDay: function(){
         	return [
