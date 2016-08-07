@@ -22,7 +22,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             if (!$scope.lookupRoom.room) {
                 $scope.lookupRoom.room = $scope.roomOptions;
                 $scope.showSearchResult = true;
-                $anchorScroll("searchRoomGrid");
+               
 
                 $scope.searchRooms($scope.lookupRoom);
             }
@@ -85,7 +85,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 $scope.hours.push(tempHours);
                 tempHours = new Date(tempHours.getTime() + (60 * 60 * 1000));
             }
+             $anchorScroll("searchRoomGrid");
         });
+
     }
 
 
