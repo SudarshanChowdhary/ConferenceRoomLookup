@@ -85,56 +85,33 @@ span a:hover {
     text-align: center;
     padding: 40px 0px;
 }
-.searchGrid .table {
-    margin-bottom: 0px;
-}
-.searchGrid .table > thead > tr > th,
-.searchGrid .table > tbody > tr > th,
-.searchGrid .table > tfoot > tr > th,
-.searchGrid .table > thead > tr > td,
-.searchGrid .table > tbody > tr > td,
-.searchGrid .table > tfoot > tr > td {
-    border: 1px solid #ccc;
-    border-top-width: 0px;
-    border-bottom-width: 0px;
-    border-right-width: 0px;
-    padding: 0px;
-}
-.searchGrid .outer-table-top-row {
-    border-top-width: 0px !important;
-}
-.searchGrid .outer-table-bottom-row {
-    border-bottom-width: 0px !important;
-}
-.searchGrid > .table.outer-table {
-    border-top-width: 0px;
-    border-bottom-width: 0px;
-}
-.searchGrid > .table.inner-table td {
-    border-left-width: 0px;
-   /* overflow-y:hidden;
-     width:750px;*/
-}
-.table.duration-cells td {
-    border-left-width: 0px !important;
-}
-.searchGrid > .outer-table.table > thead > tr > th,
-.searchGrid > .outer-table.table > tbody > tr > th,
-.searchGrid > .outer-table.table > tfoot > tr > th,
-.searchGrid > .outer-table.table > thead > tr > td,
-.searchGrid > .outer-table.table > tbody > tr > td,
-.searchGrid > .outer-table.table > tfoot > tr > td {
-    border: 1px solid #dddddd;
-    border-left-width: 0px;
-    border-right-width: 0px;
-}
-.free {
-    height: 30px;
-}
+
 .busy {
     background-color: #ccc;
-    height: 30px;
 }
+
+div.gridData, div.gridHeader{
+    white-space: nowrap;
+}
+div.gridHeader div{
+    width: 100px !important;
+    display: inline-block;
+    border-right:1px solid #ddd;
+    text-align: center;
+    height: 25px;
+}
+div.gridData div{
+    height: 29px;
+    width: 25px !important;
+    display: inline-block;
+    border-right:1px solid #ccc;
+}
+
+div.gridData div:nth-child(4n){
+    border-right:1px solid #ddd;
+}
+
+
 .time-range {
     padding: 15px;
     text-align: center;
@@ -154,40 +131,31 @@ span a:hover {
     text-decoration-line: none;
 }
 
-/*scroll for slot*/
 
-
-table {
-  table-layout: fixed; 
-  width: 100%;
- 
-}
-td, th {
-  vertical-align: top;
-  border-top: 1px solid #ccc;
-  padding:10px;
-  width:200px;
-}
-th {
-  position:absolute;
- 
-  left:0; 
-  width:100px;
-}
-.outer {position:relative;
-        }
-.inner {
-  overflow-x:scroll;
-  overflow-y:visible;
-  width:80%; 
- margin-left: 225px;
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+    border-top:none;
+    border-bottom: 1px solid #ddd;
+    padding: 0px;
 }
 
+/* First column fixed css */
 
-.gridStyle {
-    border: 1px solid rgb(212,212,212);
-    width: 400px; 
-    height: 300px;
+[fixed-first-column] {position:relative}
+[fixed-first-column]>.table-responsive {margin-left:350px;}
+[fixed-first-column]>.table-responsive .table {padding: 0; margin-bottom: 0px;}
+
+[fixed-first-column]>.table-responsive .table>thead>tr>td:first-child,
+[fixed-first-column]>.table-responsive .table>tbody>tr>td:first-child,
+[fixed-first-column]>.table-responsive .table>thead>tr>th:first-child,
+[fixed-first-column]>.table-responsive .table>tbody>tr>th:first-child {
+    position: absolute;
+    min-width: 350px;
+    width: 350px;
+    border-top:none;
+    border-bottom: 1px solid #ddd;
+    border-right:1px solid #ddd;
+    left:0;
+    top:auto;
+    padding:5px 8px !important;
 }
-
 
