@@ -154,12 +154,7 @@
       <div class="col-md-3 col-sm-3"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
    </div>
 </div>
-
-
-
 <section class="searchGrid">
-
-
 <div fixed-first-column >
     <table class="table table-condensed">
     <thead>
@@ -170,12 +165,11 @@
                <div ng-repeat="hour in hours">{{hour | date:'h a'}}</div>
             </div>
             </th>
-
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="room in gridData track by $index">
-            <td><div>{{room.roomName}}</div></td>
+            <td class=""><div>{{room.roomName}}</div></td>
             <td>
                <div class="gridData">
                   <div ng-repeat="slot in room.slot" ng-class="(slot.type=='free') ? 'free' : 'busy'">&nbsp;</div>
