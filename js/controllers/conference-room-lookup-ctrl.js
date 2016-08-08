@@ -2,12 +2,13 @@
 
 ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll) {
     $scope.lookUpData = {};
-    $scope.lookupRoom = {
-        "campusName": "",
-        "buildingName": "",
-        "date": new Date(),
-        "unavailable": 0
-    };
+    // $scope.lookupRoom = {
+    //     // "campusName": "",
+    //     // "buildingName": "",
+    //     "date": new Date(),
+    //     "unavailable": 0,
+    //     "timezone":""
+    // };
     $scope.siteOptions = [];
     $scope.buildingOptions = [];
     $scope.floorOptions = [];
@@ -20,14 +21,49 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.searchResult = function() {
         if ($scope.lookupRoomForm.$valid) {
             if (!$scope.lookupRoom.room) {
-                $scope.lookupRoom.room = $scope.roomOptions;
+                //$scope.lookupRoom.room = $scope.roomOptions;
                 $scope.showSearchResult = true;
                
+                //$scope.searchRooms($scope.lookupRoom);
+                
+                var jsonrooms = [];
 
-                $scope.searchRooms($scope.lookupRoom);
+                angular.forEach($scope.roomOptions, function(roomName, roomUid){
+                    var eachroom = {};
+                    eachroom.roomName = roomName;
+                    eachroom.roomUid = roomUid;
+                    jsonrooms.push(eachroom);
+                });
+
+                var smroom = $scope.lookupRoom;
+                var from_time = "00:00:00";
+                var to_time = "23:59:59";
+                switch (smroom.timeRange) {
+                    case "1" : from_time = "09:00:00";to_time = "12:00:00";break;
+                    case "2" : from_time = "13:00:00";to_time = "17:00:00";break;
+                    case "3" : from_time = smroom.fromTime;
+                               to_time = smroom.toTime;
+                              break;
+                    default: break;
+                }          
+                var inputData = {}
+                inputData.room = jsonrooms;
+                inputData.timeRange = {"from" : from_time, "to" : to_time};
+                inputData.timezone = smroom.timezone;
+                inputData.unavailable = smroom.unavailable;                
+                var d = new Date(smroom.date);
+                inputData.searchDate = d.getFullYear() + "" +  $scope.appendZero(d.getMonth()+1) + "" + $scope.appendZero(d.getDate());
+               // alert("request object",$scope.lookupRoom);
+               $scope.searchRooms(inputData);
             }
         }
     };
+
+    $scope.appendZero = function(inNumber) {
+        return (inNumber <=9 ) ? "0"+inNumber : inNumber;
+    }
+
+
 
     $scope.searchRooms = function(searchFormData) {
         responseGrid.getResponseGridData(searchFormData).then(function(res) {
@@ -92,16 +128,16 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
 
     $scope.PreviousDay = function() {
-        alert("PreviousDay");
+//        alert("PreviousDay");
     }
     $scope.Previous4Hours = function() {
-        alert("Previous4Hours");
+  //      alert("Previous4Hours");
     }
     $scope.Next4hours = function() {
-        alert("Next4hours");
+    //    alert("Next4hours");
     }
     $scope.NextDay = function() {
-        alert("NextDay");
+     //   alert("NextDay");
     }
 
 
@@ -183,6 +219,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         } else {
             $scope.disableFloor = true;
             $scope.disableRoom = true;
+            $scope.lookupRoom.timezone = "";
+
             angular.forEach($scope.lookUpData, function(obj) {
 
                 // Loading Floors
@@ -196,6 +234,11 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 }
                 if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.roomOptions.indexOf(JSON.stringify(room)) === -1) {
                     $scope.roomOptions.push(room);
+                }
+
+                //Getting Timezone for selected building
+                if (obj.buildingName == buildingName){
+                    $scope.lookupRoom.timezone = obj.timezone;
                 }
             });
         }
@@ -236,13 +279,13 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
         //TODO: Convert time into minutes and divide by 15
 
-        if (timeRange == "AnyTime") {
+        if (timeRange == "0") {
             $scope.durationCount = (24 * 60) / 15;
-        } else if (timeRange === "Morning") {
+        } else if (timeRange === "1") {
             $scope.durationCount = (3 * 60) / 15;
-        } else if (timeRange === "Afternoon") {
+        } else if (timeRange === "2") {
             $scope.durationCount = (4 * 60) / 15;
-        } else if (timeRange === "SpecificTime") {
+        } else if (timeRange === "3") {
             $scope.specificTime = true;
         }
     };
@@ -250,7 +293,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.changeSpecificFromTime = function(timeRange, fromTime) {
         $scope.timeTo = [];
         $scope.lookupRoom.toTime = null;
-        if (timeRange === "SpecificTime") {
+        if (timeRange === "3") {
 
             $scope.timeTo = timeRangeService.getToTimeOptions($scope.timeFrom.indexOf(fromTime));
         }

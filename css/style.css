@@ -20,6 +20,10 @@
     padding-top: 0px;
     padding-bottom: 2px;
     font-size: 11px;
+
+}
+.data-input {
+    padding: 0 8px 2px 8px;
 }
 .floor {
     width: 107px;
@@ -141,7 +145,7 @@ div.gridData div:nth-child(4n){
 /* First column fixed css */
 
 [fixed-first-column] {position:relative}
-[fixed-first-column]>.table-responsive {margin-left:350px;}
+[fixed-first-column]>.table-responsive {margin-left:400px;}
 [fixed-first-column]>.table-responsive .table {padding: 0; margin-bottom: 0px;}
 
 [fixed-first-column]>.table-responsive .table>thead>tr>td:first-child,
@@ -149,8 +153,8 @@ div.gridData div:nth-child(4n){
 [fixed-first-column]>.table-responsive .table>thead>tr>th:first-child,
 [fixed-first-column]>.table-responsive .table>tbody>tr>th:first-child {
     position: absolute;
-    min-width: 350px;
-    width: 350px;
+    min-width: 400px;
+    width: 400px;
     border-top:none;
     border-bottom: 1px solid #ddd;
     border-right:1px solid #ddd;

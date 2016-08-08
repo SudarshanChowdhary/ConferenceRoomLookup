@@ -50,7 +50,7 @@
             <div class="form-group">
                <label for="date" class="col-sm-2 col-md-2 col-lg-2 control-label">Date</label>
                <div class="col-md-6 col-lg-8">
-                  <input id="date" type="text" datepickerMode class="input-width form-control" ng-click="open2()" uib-datepicker-popup="EEEE, MMMM dd, yyyy" ng-model="lookupRoom.date" is-open="popup2.opened" datepicker-options="dateOptions" required close-text="Close"  />
+                  <input id="date" type="text" datepickerMode class="input-width form-control data-input" ng-click="open2()" uib-datepicker-popup="EEEE, MMMM dd, yyyy" ng-model="lookupRoom.date" is-open="popup2.opened" datepicker-options="dateOptions" required close-text="Close"  />
                </div>
             </div>
             <div class="form-group">
@@ -61,10 +61,10 @@
                <div class="col-md-6 col-lg-8">
                   <select id="timeRange" class="input-width" ng-change="changeTimeRange(lookupRoom.timeRange)"  ng-model="lookupRoom.timeRange">
                      <option value="">Select Time Range</option>
-                     <option value="AnyTime" ng-selected=true>AnyTime</option>
-                     <option value="Morning">Moring (9:00 AM - 12:00 PM) </option>
-                     <option value="Afternoon">Afternoon (1:00 PM - 5:00 PM) </option>
-                     <option value="SpecificTime">Specific Time</option>
+                     <option value="0" ng-selected=true>AnyTime</option>
+                     <option value="1">Moring (9:00 AM - 12:00 PM) </option>
+                     <option value="2">Afternoon (1:00 PM - 5:00 PM) </option>
+                     <option value="3">Specific Time</option>
                   </select>
                </div>
                <div class="col-md-6 col-lg-8 " ng-if="specificTime">
@@ -118,8 +118,8 @@
                   </label>
                </div>
             </div>
-<!--             {{lookupRoom}}
- -->            <div class="form-group">
+<!--             {{lookupRoom}}  -->
+            <div class="form-group">
                <div class="col-sm-offset-2 col-md-6 col-lg-8">
                   <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoomForm.$invalid" class="btn btn-sm search-btn">Search</button>
                </div>
@@ -143,19 +143,23 @@
    <!-- SEARCH RESULTS VIEW -->
    <section class="searchResults" id="searchResults" ng-show="showSearchResult">
 
-<h3>Mary 1 <button class="btn btn-default btn-xs">You are here</button></h3>
+<h3>{{lookupRoom.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
 <div class="row">
-   <div class="col-md-5">{{gridData.length}} rooms matching your search</div>
-   <div class="col-md-7">
-      <div class="col-md-3 col-sm-3"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
+   <div class="col-md-4">{{gridData.length}} rooms matching your search</div>
+   <div class="col-md-8">
+      <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
       <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="Previous4Hours()">‹ Previous 4 Hours</button></div>
       <div class="col-md-2 col-sm-2"></div>
+      <div class="col-md-2 col-sm-2"></div>
       <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="Next4hours()">Next 4 Hours ›</button></div>
-      <div class="col-md-3 col-sm-3"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
+      <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
    </div>
 </div>
 <section class="searchGrid" id="searchRoomGrid">
-<div fixed-first-column >
+
+<!-- fixed-first-column -->
+
+<div fixed-first-column>
     <table class="table table-condensed">
     <thead>
         <tr>
