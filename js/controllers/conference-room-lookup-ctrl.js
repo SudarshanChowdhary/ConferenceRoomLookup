@@ -15,6 +15,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.roomOptions = [];
     $scope.specificTime = false;
     $scope.timeFrom = timeRangeService.getFromTimeOptions();
+    $scope.lookupRoom = {
+        "date":new Date(),
+        "unavailable":0
+    };
 
     $scope.showSearchResult = false;
 
@@ -122,6 +126,12 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 tempHours = new Date(tempHours.getTime() + (60 * 60 * 1000));
             }
              $anchorScroll("searchRoomGrid");
+
+
+             var elmnt = document.getElementById("searchGridColumns");
+             var column = document.getElementById("9AM").offset().left;
+
+             elmnt.scrollLeft=column;
         });
 
     }

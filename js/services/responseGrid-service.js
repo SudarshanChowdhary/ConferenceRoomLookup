@@ -5,7 +5,7 @@ ConferenceRoomLookup.factory("responseGrid", function($resource) {
             console.log("service search form data : ", searchFormData)
             var siteData = $resource('js/services/responseGrid-data.json', searchFormData, {
                 'post': {
-                    method: 'get'
+                    method: 'GET'
                 }
             })
             return siteData.post().$promise
