@@ -15,6 +15,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.roomOptions = [];
     $scope.specificTime = false;
     $scope.timeFrom = timeRangeService.getFromTimeOptions();
+    $scope.timeTo = timeRangeService.getToTimeOptions();
     $scope.lookupRoom = {
         "date":new Date(),
         "unavailable":0
@@ -128,10 +129,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
              $anchorScroll("searchRoomGrid");
 
 
-             var elmnt = document.getElementById("searchGridColumns");
-             var column = document.getElementById("9AM").offset().left;
+             // var elmnt = document.getElementById("searchGridColumns");
+             // var column = document.getElementById("9AM").offset().left;
 
-             elmnt.scrollLeft=column;
+             // elmnt.scrollLeft=column;
         });
 
     }
@@ -304,7 +305,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.timeTo = [];
         $scope.lookupRoom.toTime = null;
         if (timeRange === "3") {
-
+                debugger
             $scope.timeTo = timeRangeService.getToTimeOptions($scope.timeFrom.indexOf(fromTime));
         }
 
