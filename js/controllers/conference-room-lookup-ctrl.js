@@ -1,6 +1,6 @@
 'use strict'
 
-ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll) {
+ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll, $document, $timeout) {
     $scope.lookUpData = {};
     // $scope.lookupRoom = {
     //     // "campusName": "",
@@ -22,6 +22,17 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     };
 
     $scope.showSearchResult = false;
+
+    $scope.scrollToTime = function(divId){
+        $timeout(function(){
+            var column= $document.find(divId);
+            var el= $document.find("#searchRoomGrid .table-responsive")
+    //        el.scrollLeft(column.offset().left - 495)
+            el.animate({ scrollLeft:column.offset().left - 495}, 800, function() { });
+
+        }, 1000);
+
+    }
 
     $scope.searchResult = function() {
         if ($scope.lookupRoomForm.$valid) {
@@ -46,8 +57,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 switch (smroom.timeRange) {
                     case "1" : from_time = "09:00:00";to_time = "12:00:00";break;
                     case "2" : from_time = "13:00:00";to_time = "17:00:00";break;
-                    case "3" : from_time = smroom.fromTime;
+                    case "3" : from_time = smroom.fromTime.value;
+
                                to_time = smroom.toTime;
+                    console.log(from_time, to_time)
                               break;
                     default: break;
                 }          
@@ -127,6 +140,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 tempHours = new Date(tempHours.getTime() + (60 * 60 * 1000));
             }
              $anchorScroll("searchRoomGrid");
+             $scope.scrollToTime("#9AM");
 
 
              // var elmnt = document.getElementById("searchGridColumns");
@@ -305,10 +319,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.timeTo = [];
         $scope.lookupRoom.toTime = null;
         if (timeRange === "3") {
-                debugger
+              //  debugger
             $scope.timeTo = timeRangeService.getToTimeOptions($scope.timeFrom.indexOf(fromTime));
         }
-
     };
 
     $scope.changeSpecificToTime = function() {

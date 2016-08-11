@@ -69,9 +69,9 @@
                </div>
                <div class="col-md-6 col-lg-8 " ng-if="specificTime">
                   <label for="from" class="control-label">From:</label>
-                  <select id="from" class=" floor specific-time" ng-model="lookupRoom.fromTime" ng-change="changeSpecificFromTime(lookupRoom.timeRange, lookupRoom.fromTime)" ng-required="specificTime">
+                  <select id="from" class=" floor specific-time" ng-model="lookupRoom.fromTime" ng-change="changeSpecificFromTime(lookupRoom.timeRange, lookupRoom.fromTime)" ng-required="specificTime" ng-options="fromTime.name for fromTime in timeFrom">
                      <option value="">Select...</option>
-                     <option ng-repeat="fromTime in timeFrom" value="{{fromTime.value}}">{{fromTime.name}}</option>
+<!--                      <option ng-repeat="fromTime in timeFrom" value="{{fromTime.value}}">{{fromTime.name}}</option> -->
                   </select>
                   <label for="to" class="control-label">To:</label>
                   <select id="to" class=" floor specific-time" ng-disabled="!lookupRoom.fromTime" ng-change="changeSpecificToTime()" ng-model="lookupRoom.toTime" ng-required="specificTime">
@@ -141,7 +141,7 @@
       </section>
    </div>
    <!-- SEARCH RESULTS VIEW -->
-   <section class="searchResults" id="searchResults" ng-show="showSearchResult">
+   <section class="searchResults" id="searchResults" ng-if="showSearchResult">
 
 <h3>{{lookupRoom.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
 <div class="row">
@@ -166,7 +166,7 @@
             <th><span>Room</span><span class="pull-right">Legend</span></th>
             <th>      
             <div class="gridHeader">
-               <div ng-repeat="hour in hours">{{hour | date:'h a'}}</div>
+               <div ng-repeat="hour in hours" id="{{hour | date:'ha'}}">{{hour | date:'h a'}}</div>
             </div>
             </th>
         </tr>
