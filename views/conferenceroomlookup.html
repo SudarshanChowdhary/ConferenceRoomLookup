@@ -166,7 +166,7 @@
             <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th>
             <th>      
             <div class="gridHeader">
-               <div ng-repeat="hour in hours">{{hour | date:'h a'}}</div>
+               <div id="{{hour | date:'ha'}}" ng-repeat="hour in hours">{{hour | date:'h a'}}</div>
             </div>
             </th>
         </tr>

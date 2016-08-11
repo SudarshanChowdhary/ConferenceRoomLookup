@@ -1,6 +1,6 @@
 'use strict'
 
-ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll) {
+ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll, $document, $timeout) {
     $scope.lookUpData = {};
     // $scope.lookupRoom = {
     //     // "campusName": "",
@@ -127,7 +127,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 tempHours = new Date(tempHours.getTime() + (60 * 60 * 1000));
             }
              $anchorScroll("searchRoomGrid");
-
+                $scope.scrollToTime("#9AM");
 
              // var elmnt = document.getElementById("searchGridColumns");
              // var column = document.getElementById("9AM").offset().left;
@@ -137,6 +137,17 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         
         });
         }
+
+           $scope.scrollToTime = function(divId){
+        $timeout(function(){
+             var column= $document.find(divId);
+             var el= $document.find("#searchRoomGrid .table-responsive")
+     //        el.scrollLeft(column.offset().left - 495)
+             el.animate({ scrollLeft:column.offset().left - 525}, 1, function() { });
+ 
+         }, 10);
+ 
+     }
 
    
 
