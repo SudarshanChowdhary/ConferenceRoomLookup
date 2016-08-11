@@ -1,6 +1,6 @@
 'use strict'
 
-ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll, $document, $timeout) {
+ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll) {
     $scope.lookUpData = {};
     // $scope.lookupRoom = {
     //     // "campusName": "",
@@ -22,17 +22,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     };
 
     $scope.showSearchResult = false;
-
-    $scope.scrollToTime = function(divId){
-        $timeout(function(){
-            var column= $document.find(divId);
-            var el= $document.find("#searchRoomGrid .table-responsive")
-    //        el.scrollLeft(column.offset().left - 495)
-            el.animate({ scrollLeft:column.offset().left - 495}, 800, function() { });
-
-        }, 1000);
-
-    }
 
     $scope.searchResult = function() {
         if ($scope.lookupRoomForm.$valid) {
@@ -58,9 +47,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     case "1" : from_time = "09:00:00";to_time = "12:00:00";break;
                     case "2" : from_time = "13:00:00";to_time = "17:00:00";break;
                     case "3" : from_time = smroom.fromTime.value;
-
                                to_time = smroom.toTime;
-                    console.log(from_time, to_time)
                               break;
                     default: break;
                 }          
@@ -91,22 +78,22 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             angular.forEach($scope.gridData, function(room, m) {
                 var temp = new Date(dt[0] + "T00:00:00");
                 var endDayTime = new Date(dt[0] + "T24:00:00");
-                console.log("temp", temp)
+                //console.log("temp", temp)
                 room.slot = [];
                 angular.forEach(room.busyslot, function(slot, n) {
                     var sdt = new Date(slot.startDateTime);
                     var edt = new Date(slot.endDateTime);
                     var freeTime = sdt.getTime() - temp.getTime();
                     freeTime = ((freeTime / 1000) / 60) / 15;
-                    console.log(freeTime);
+                    //console.log(freeTime);
                     for (var i = 0; i < freeTime; i++) {
                         room.slot.push({
                             "type": "free"
                         });
-                    }
+                    
                     var busyTime = edt.getTime() - sdt.getTime();
                     busyTime = ((busyTime / 1000) / 60) / 15;
-                    console.log(busyTime);
+                    //console.log(busyTime);
                     for (var i = 0; i < busyTime; i++) {
                         room.slot.push({
                             "type": "busy"
@@ -116,9 +103,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
                     if (n == room.busyslot.length - 1 && edt.getTime() < endDayTime.getTime()) {
                         var freeTime = endDayTime.getTime() - temp.getTime();
-                        console.log("EndDayTime: ", endDayTime.getTime(), temp.getTime())
+                        //console.log("EndDayTime: ", endDayTime.getTime(), temp.getTime())
                         freeTime = ((freeTime / 1000) / 60) / 15;
-                        console.log(freeTime);
+                        //console.log(freeTime);
                         //        tempHours=tempHours.getTime()+(15 * 60 * 1000);
                         for (var i = 0; i < freeTime; i++) {
                             room.slot.push({
@@ -128,9 +115,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
                     }
 
-                })
-                console.log(room.slot);
-            })
+                }
+                //console.log(room.slot);
+            });
 
             var tempHours = new Date("2016-07-25T00:00:00");
             $scope.hours = [];
@@ -140,7 +127,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 tempHours = new Date(tempHours.getTime() + (60 * 60 * 1000));
             }
              $anchorScroll("searchRoomGrid");
-             $scope.scrollToTime("#9AM");
 
 
              // var elmnt = document.getElementById("searchGridColumns");
@@ -148,8 +134,11 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
              // elmnt.scrollLeft=column;
         });
+        
+        });
+        }
 
-    }
+   
 
 
     $scope.PreviousDay = function() {
@@ -167,7 +156,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
 
     var uniqueData = function(dataObj, field) {
-        // debugger;
         var unique = [];
         angular.forEach(dataObj, function(obj) {
             var index = unique.indexOf(obj[field]);
@@ -319,9 +307,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.timeTo = [];
         $scope.lookupRoom.toTime = null;
         if (timeRange === "3") {
-              //  debugger
             $scope.timeTo = timeRangeService.getToTimeOptions($scope.timeFrom.indexOf(fromTime));
         }
+
     };
 
     $scope.changeSpecificToTime = function() {
@@ -401,7 +389,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         } else {
             angular.forEach($scope.lookUpData, function(obj) {
                 if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName && obj.roomUid == room.roomUid) {
-                    console.log(obj.size)
+                    //console.log(obj.size)
 
                     angular.forEach($scope.seats, function(seat) {
                         if (seat.size <= obj.size) {
@@ -412,7 +400,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
                     });
 
-                    console.log(obj.avcn, obj.projector, obj.appleTv);
+                    //console.log(obj.avcn, obj.projector, obj.appleTv);
 
                     $scope.amenities[0].disable = obj.avcn;
                     $scope.amenities[1].disable = obj.projector;

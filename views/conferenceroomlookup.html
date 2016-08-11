@@ -141,7 +141,7 @@
       </section>
    </div>
    <!-- SEARCH RESULTS VIEW -->
-   <section class="searchResults" id="searchResults" ng-if="showSearchResult">
+   <section class="searchResults" id="searchResults" ng-show="showSearchResult">
 
 <h3>{{lookupRoom.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
 <div class="row">
@@ -163,17 +163,17 @@
     <table class="table table-condensed">
     <thead>
         <tr>
-            <th><span>Room</span><span class="pull-right">Legend</span></th>
+            <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th>
             <th>      
             <div class="gridHeader">
-               <div ng-repeat="hour in hours" id="{{hour | date:'ha'}}">{{hour | date:'h a'}}</div>
+               <div ng-repeat="hour in hours">{{hour | date:'h a'}}</div>
             </div>
             </th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="room in gridData track by $index">
-            <td class=""><div>{{room.roomName}}</div></td>
+            <td><a href="#"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
             <td>
                <div class="gridData">
                   <div ng-repeat="slot in room.slot" ng-class="(slot.type=='free') ? 'free' : 'busy'">&nbsp;</div>

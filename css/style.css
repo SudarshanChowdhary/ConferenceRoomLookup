@@ -20,6 +20,7 @@
     padding-top: 0px;
     padding-bottom: 2px;
     font-size: 11px;
+
 }
 .data-input {
     padding: 0 8px 2px 8px;
@@ -92,7 +93,10 @@ span a:hover {
 .busy {
     background-color: #ccc;
 }
-
+.free:hover{
+    cursor: pointer;
+    background-color: #3384FB;
+}
 div.gridData, div.gridHeader{
     white-space: nowrap;
 }
@@ -161,4 +165,35 @@ div.gridData div:nth-child(4n){
     top:auto;
     padding:5px 8px !important;
 }
+.grid-room-name{
+    color: #3384FB;
+    font-size: 13px;
+    cursor: pointer;
+    padding-left: 11px;
+}
+.info-icon {
+    border-radius: 100%;
+    border: 1px solid #0c84db;
+    background: #fff;
+    color: #0c84db;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Georgia";
+    font-size: 11px;
+    font-variant: normal;
+    font-weight: bold;
+    line-height: 1.25;
+    height: 15px;
+    position: relative;
+    text-align: center;
+    width: 15px;
+  
+}
+.searchResults .row div button, .not-Found p a{
+    color: #3384FB;
+    text-decoration: inherit !important;
+}
+
+
+
 
