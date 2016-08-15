@@ -33,11 +33,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 
                 var jsonrooms = [];
 
-                angular.forEach($scope.roomOptions, function(roomName, roomUid){
-                    var eachroom = {};
-                    eachroom.roomName = roomName;
-                    eachroom.roomUid = roomUid;
-                    jsonrooms.push(eachroom);
+                angular.forEach($scope.roomOptions, function(room){
+                    jsonrooms.push({roomName:room.roomName, roomUid:room.roomUid});
                 });
 
                 var smroom = $scope.lookupRoom;
@@ -52,14 +49,14 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     default: break;
                 }          
                 var inputData = {}
-                inputData.room = jsonrooms;
-                inputData.timeRange = {"from" : from_time, "to" : to_time};
+                inputData.room = JSON.stringify(jsonrooms);
+                inputData.timeRange = JSON.stringify({"from" : from_time, "to" : to_time});
                 inputData.timezone = smroom.timezone;
                 inputData.unavailable = smroom.unavailable;                
                 var d = new Date(smroom.date);
                 inputData.searchDate = d.getFullYear() + "" +  $scope.appendZero(d.getMonth()+1) + "" + $scope.appendZero(d.getDate());
                // alert("request object",$scope.lookupRoom);
-               $scope.searchRooms(inputData);
+               $scope.searchRooms(JSON.stringify(inputData));
             }
         }
     };
@@ -72,7 +69,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
     $scope.searchRooms = function(searchFormData) {
         responseGrid.getResponseGridData(searchFormData).then(function(res) {
+            alert("hi");
+
             $scope.gridData = res.data;
+
             var dt = $scope.gridData[0].busyslot[0].startDateTime;
             dt = dt.split("T");
             angular.forEach($scope.gridData, function(room, m) {

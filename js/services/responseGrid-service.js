@@ -1,21 +1,21 @@
 'use strict'
-ConferenceRoomLookup.factory("responseGrid", function($resource, $q, $http, $log) {
+ConferenceRoomLookup.factory("responseGrid", function($resource, $q, $http, $log, $httpParamSerializer) {
     return {
         getResponseGridData1: function(searchFormData) {
             console.log("service search form data : ", searchFormData)
             var siteData = $resource('js/services/responseGrid-data.json', searchFormData, {
-                'post': {
-                    method: 'GET'
+                'search': {
+                    method: 'POST'
                 }
             })
-            return siteData.post().$promise
+            return siteData.search().$promise
         },
-        getResponseGridData: function(searchFormData) {
+        getResponseGridData1: function(searchFormData) {
 
             console.log(searchFormData);
             var deferred = $q.defer();
             $http({
-                method: 'get',
+                method: 'POST',
                 url: 'js/services/responseGrid-data.json',
                 data: searchFormData,
                 headers: {
@@ -25,10 +25,25 @@ ConferenceRoomLookup.factory("responseGrid", function($resource, $q, $http, $log
                 deferred.resolve(data);
             }).error(function(msg, code) {
                 deferred.reject(msg);
-                  $log.error(msg, code);
+                $log.error(msg, code);
             });
             return deferred.promise;
         },
+
+        getResponseGridData: function(searchFormData) {
+            console.log(searchFormData)
+            var promise = $http({
+                method: 'POST',
+                url: 'js/services/responseGrid-data.json',
+                //url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/get_rooms_search/',
+                data: searchFormData,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+            return promise;
+        },
+
         getMinutesPerDay: function() {
             return [{
                 "time": "00:00:00"
