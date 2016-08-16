@@ -47,8 +47,19 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                                to_time = smroom.toTime;
                               break;
                     default: break;
-                }          
-                var inputData = {}
+                } 
+
+                 var inputData = {}
+                inputData.room = jsonrooms;
+                inputData.timeRange = {"from" : from_time, "to" : to_time};
+                inputData.timezone = smroom.timezone;
+                inputData.unavailable = smroom.unavailable;                
+                var d = new Date(smroom.date);
+                inputData.searchDate = d.getFullYear() + "" +  $scope.appendZero(d.getMonth()+1) + "" + $scope.appendZero(d.getDate());
+               // alert("request object",$scope.lookupRoom);
+               $scope.searchRooms(inputData);
+
+                /*var inputData = {}
                 inputData.room = JSON.stringify(jsonrooms);
                 inputData.timeRange = JSON.stringify({"from" : from_time, "to" : to_time});
                 inputData.timezone = smroom.timezone;
@@ -56,7 +67,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 var d = new Date(smroom.date);
                 inputData.searchDate = d.getFullYear() + "" +  $scope.appendZero(d.getMonth()+1) + "" + $scope.appendZero(d.getDate());
                // alert("request object",$scope.lookupRoom);
-               $scope.searchRooms(JSON.stringify(inputData));
+               $scope.searchRooms(JSON.stringify(inputData));*/
             }
         }
     };
@@ -69,8 +80,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
     $scope.searchRooms = function(searchFormData) {
         responseGrid.getResponseGridData(searchFormData).then(function(res) {
-            alert("hi");
-
             $scope.gridData = res.data;
 
             var dt = $scope.gridData[0].busyslot[0].startDateTime;
@@ -83,14 +92,20 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 angular.forEach(room.busyslot, function(slot, n) {
                     var sdt = new Date(slot.startDateTime);
                     var edt = new Date(slot.endDateTime);
+                    console.log(sdt.getTime(), temp.getTime());
+
                     var freeTime = sdt.getTime() - temp.getTime();
+                    console.log(freeTime);
+
                     freeTime = ((freeTime / 1000) / 60) / 15;
-                    //console.log(freeTime);
+                    console.log(freeTime);
+                    // Close loop properly
+
                     for (var i = 0; i < freeTime; i++) {
                         room.slot.push({
                             "type": "free"
                         });
-                    
+                    }
                     var busyTime = edt.getTime() - sdt.getTime();
                     busyTime = ((busyTime / 1000) / 60) / 15;
                     //console.log(busyTime);
@@ -115,7 +130,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
                     }
 
-                }
+                //Close function properly
                 //console.log(room.slot);
             });
 
@@ -127,7 +142,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 tempHours = new Date(tempHours.getTime() + (60 * 60 * 1000));
             }
              $anchorScroll("searchRoomGrid");
-                $scope.scrollToTime("#9AM");
+        //        $scope.scrollToTime("#9AM");
 
              // var elmnt = document.getElementById("searchGridColumns");
              // var column = document.getElementById("9AM").offset().left;
@@ -143,7 +158,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
              var column= $document.find(divId);
              var el= $document.find("#searchRoomGrid .table-responsive")
      //        el.scrollLeft(column.offset().left - 495)
-             el.animate({ scrollLeft:column.offset().left - 525}, 1, function() { });
+             el.animate({scrollLeft:column.offset().left - 525}, 1, function() { });
  
          }, 10);
  
