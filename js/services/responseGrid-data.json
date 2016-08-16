@@ -1,51 +1,54 @@
 {
-   "data": [
-       {
-
-           "roomUid": "4F29105D-28B5-47DD-A0E5-AFD9FE0CD992",
-           "roomName": "ABBA [AVCN] (12) [SGP] SNGMG 1st",
-           "status": "",
-           "busyslot": [
-               {
-                   "startDateTime": "2016-07-25T01:15:00",
-                   "endDateTime": "2016-07-25T02:15:00",
-                   "type": "busy"
-               },
-               {
-                   "startDateTime": "2016-07-25T03:00:00",
-                   "endDateTime": "2016-07-25T05:00:00",
-                   "type": "busy"
-               },
-               {
-                   "startDateTime": "2016-07-25T06:00:00",
-                   "endDateTime": "2016-07-25T09:30:00",
-                   "type": "busy"
-               }
-           ]
-       },
-       {
-           "roomUid": "DBE45EB2-FEFF-4385-BAFC-B02E8035F46B",
-           "roomName": "Coldplay [AVCN] (7) [SGP] SNGMG 1st",
-           "status": "",
-           "busyslot": [
-               {
-                   "startDateTime": "2016-07-25T01:00:00",
-                   "endDateTime": "2016-07-25T03:00:00",
-                   "type": "busy"
-               },
-               {
-                   "startDateTime": "2016-07-25T04:00:00",
-                   "endDateTime": "2016-07-25T06:00:00",
-                   "type": "busy"
-               },
-               {
-                   "startDateTime": "2016-07-25T06:30:00",
-                   "endDateTime": "2016-07-25T10:00:00",
-                   "type": "busy"
-               }
-           ]
-       }
-   ],
-   "date": "2016-07-25",
-   "success": "true"
+    "data": [
+        {
+            "roomUid": "7E4B7760-9EE8-79A3-A191-8A8720751A00",
+            "roomName": "Gandalf [AVCN] (10) PL01 2nd",
+            "status": "",
+            "busyslot": [
+                {
+                    "startDateTime": "2016-08-16T07:00:00",
+                    "endDateTime": "2016-08-16T07:15:00",
+                    "type": "busy"
+                },
+                {
+                    "startDateTime": "2016-08-16T15:00:00",
+                    "endDateTime": "2016-08-16T17:00:00",
+                    "type": "busy"
+                },
+                {
+                    "startDateTime": "2016-08-16T17:30:00",
+                    "endDateTime": "2016-08-16T18:30:00",
+                    "type": "busy"
+                },
+                {
+                    "startDateTime": "2016-08-16T19:30:00",
+                    "endDateTime": "2016-08-16T22:30:00",
+                    "type": "busy"
+                },
+                {
+                    "startDateTime": "2016-08-17T01:00:00",
+                    "endDateTime": "2016-08-17T01:15:00",
+                    "type": "busy"
+                }
+            ]
+        },
+        {
+            "roomUid": "9DB9294C-59A8-EEB5-A281-2C3A5830D5E1",
+            "roomName": "Frodo (10) PL01 2nd",
+            "status": "",
+            "busyslot": [
+                {
+                    "startDateTime": "2016-08-16T14:00:00",
+                    "endDateTime": "2016-08-16T17:30:00",
+                    "type": "busy"
+                },
+                {
+                    "startDateTime": "2016-08-16T19:00:00",
+                    "endDateTime": "2016-08-16T21:30:00",
+                    "type": "busy"
+                }
+            ]
+        }
+    ],
+    "success": "true"
 }

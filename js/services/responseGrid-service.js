@@ -1,7 +1,7 @@
 'use strict'
 ConferenceRoomLookup.factory("responseGrid", function($resource, $q, $http, $log, $httpParamSerializer) {
     return {
-        getResponseGridData1: function(searchFormData) {
+        getResponseGridData: function(searchFormData) {
             console.log("service search form data : ", searchFormData)
             var siteData = $resource('js/services/responseGrid-data.json', searchFormData, {
                 'search': {
@@ -10,7 +10,7 @@ ConferenceRoomLookup.factory("responseGrid", function($resource, $q, $http, $log
             })
             return siteData.search().$promise
         },
-        getResponseGridData1: function(searchFormData) {
+        getResponseGridData2: function(searchFormData) {
 
             console.log(searchFormData);
             var deferred = $q.defer();
@@ -30,12 +30,12 @@ ConferenceRoomLookup.factory("responseGrid", function($resource, $q, $http, $log
             return deferred.promise;
         },
 
-        getResponseGridData: function(searchFormData) {
+        getResponseGridData6: function(searchFormData) {
             console.log(searchFormData)
             var promise = $http({
                 method: 'POST',
                 url: 'js/services/responseGrid-data.json',
-                //url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/get_rooms_search/',
+               // url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/get_rooms_search/',
                 data: searchFormData,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
