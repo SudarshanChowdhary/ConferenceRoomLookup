@@ -145,7 +145,7 @@
 
 <h3>{{lookupRoom.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
 <div class="row">
-   <div class="col-md-4">{{gridData.length}} rooms matching your search</div>
+   <div class="col-md-4">{{grid_data.length}} rooms matching your search</div>
    <div class="col-md-8">
       <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
       <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="Previous4Hours()">‹ Previous 4 Hours</button></div>
@@ -166,13 +166,13 @@
             <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th>
             <th>      
             <div class="gridHeader">
-               <div id="{{hour | date:'ha'}}" ng-repeat="hour in hours">{{hour | date:'h a'}}</div>
+               <div ng-repeat="hour in hours">{{hour | date:'h a'}}</div>
             </div>
             </th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="room in gridData track by $index">
+        <tr ng-repeat="room in grid_data track by $index">
             <td><a href="#"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
             <td>
                <div class="gridData">
