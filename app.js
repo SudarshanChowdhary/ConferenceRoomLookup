@@ -1,6 +1,6 @@
 'use strict'
 
-var ConferenceRoomLookup = angular.module("ConferenceRoomLookup", ["ui.bootstrap", "ui.router", "ngResource", "ui.grid"]);
+var ConferenceRoomLookup = angular.module("ConferenceRoomLookup", ["ui.bootstrap", "ui.router", "ngResource"]);
 ConferenceRoomLookup.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
       $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';

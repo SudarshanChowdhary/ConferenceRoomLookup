@@ -21,13 +21,22 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         "unavailable":0
     };
 
-    $scope.showSearchResult = false;
+
+//  console.log($scope.lookupRoomForm.$pristine)
+// if(!$scope.lookupRoomForm.$pristine){
+//   $scope.showSearchResult = false;  
+// }
+
 
     $scope.searchResult = function() {
+
+
         if ($scope.lookupRoomForm.$valid) {
             if (!$scope.lookupRoom.room) {
                 //$scope.lookupRoom.room = $scope.roomOptions;
                 $scope.showSearchResult = true;
+              //  $scope.lookupRoomForm.$setPristine(false);
+
                
                 //$scope.searchRooms($scope.lookupRoom);
                 
@@ -49,15 +58,15 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     default: break;
                 } 
 
-                 var inputData = {}
-                inputData.room = jsonrooms;
-                inputData.timeRange = {"from" : from_time, "to" : to_time};
-                inputData.timezone = smroom.timezone;
-                inputData.unavailable = smroom.unavailable;                
+                 $scope.inputData = {}
+                $scope.inputData.room = jsonrooms;
+                $scope.inputData.timeRange = {"from" : from_time, "to" : to_time};
+                $scope.inputData.timezone = smroom.timezone;
+                $scope.inputData.unavailable = smroom.unavailable;                
                 var d = new Date(smroom.date);
-                inputData.searchDate = d.getFullYear() + "" +  $scope.appendZero(d.getMonth()+1) + "" + $scope.appendZero(d.getDate());
+                $scope.inputData.searchDate = d.getFullYear() + "-" +  $scope.appendZero(d.getMonth()+1) + "-" + $scope.appendZero(d.getDate());
                // alert("request object",$scope.lookupRoom);
-               $scope.searchRooms(inputData);
+               $scope.searchRooms($scope.inputData);
 
                 /*var inputData = {}
                 inputData.room = JSON.stringify(jsonrooms);
@@ -79,10 +88,12 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
 
     $scope.searchRooms = function(searchFormData) {
+        $scope.loader = true;
       $http({url: "js/services/responseGrid-data.json",
         method:"POST",
         data: "searchFormData"
         }).then(function(res) {
+            $scope.loader = false;
             $scope.grid_data = res.data.data;
             console.log($scope.grid_data);
 
@@ -155,43 +166,59 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 tempHours = new Date(tempHours.getTime() + (60 * 60 * 1000));
             }
              $anchorScroll("searchRoomGrid");
-            //    $scope.scrollToTime("#9AM");
-
-             // var elmnt = document.getElementById("searchGridColumns");
-             // var column = document.getElementById("9AM").offset().left;
-
-             // elmnt.scrollLeft=column;
+                $scope.initScroll=9;
+                $timeout(function(){
+//                    $scope.initScrollDiv=$document.find("#"+$scope.initScroll).offset().left - 525;
+                    $scope.initScrollDiv=900;
+                    console.log($scope.initScrollDiv)
+                    $scope.scrollToTime($scope.initScrollDiv);
+                }, 10);
         });
         
         });
         }
 
-           $scope.scrollToTime = function(divId){
-        $timeout(function(){
-             var column= $document.find(divId);
+        $scope.scrollToTime = function(initScrollDiv){
              var el= $document.find("#searchRoomGrid .table-responsive")
-     //        el.scrollLeft(column.offset().left - 495)
-           //  el.animate({ scrollLeft:column.offset().left - 525}, 1, function() { });
- 
-         }, 10);
- 
-     }
-
-   
+             console.log(initScrollDiv);
+             el.scrollLeft(initScrollDiv)
+//             el.animate({ scrollLeft:initScrollDiv}, 1, function() { });
+        }
+  
 
 
     $scope.PreviousDay = function() {
-//        alert("PreviousDay");
+                 var PrevDay = new Date($scope.inputData.searchDate);
+                 PrevDay.setDate(PrevDay.getDate() - 1)
+                 $scope.inputData.searchDate= PrevDay;
+                 $scope.searchRooms($scope.inputData);
+                 console.log($scope.inputData.searchDate);
     }
     $scope.Previous4Hours = function() {
-  //      alert("Previous4Hours");
+        if($scope.initScroll>3){
+            $scope.initScroll-=4;
+            $scope.initScrollDiv-=400;
+            $scope.scrollToTime($scope.initScrollDiv);
+            console.log($scope.initScrollDiv)
+        }
+
     }
     $scope.Next4hours = function() {
-    //    alert("Next4hours");
+
+        if($scope.initScroll<19){
+            $scope.initScroll+=4;
+            $scope.initScrollDiv +=400;
+            $scope.scrollToTime($scope.initScrollDiv);
+            console.log($scope.initScrollDiv)
+        }
     }
     $scope.NextDay = function() {
-     //   alert("NextDay");
-    }
+             var NextDay = new Date($scope.inputData.searchDate);
+                 NextDay.setDate(NextDay.getDate() + 1)
+                 $scope.inputData.searchDate= NextDay;
+                 $scope.searchRooms($scope.inputData);
+                 console.log($scope.inputData.searchDate);    
+             }
 
 
     var uniqueData = function(dataObj, field) {
