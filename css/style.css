@@ -197,3 +197,48 @@ div.gridData div:nth-child(4n){
 
 
 
+/* single room search*/
+
+.sr-img{
+    padding-left: 7px;
+}
+
+.sr-time{
+width: 8%;
+display: inline-block;
+text-align: center;
+
+}
+
+.sr-booked{
+    display: inline-block;
+    width: 90%;
+    padding-right: 10px;
+}
+.border-line{
+    border-bottom: 1px solid rgb(204, 204, 204);
+    border-right: 1px solid rgb(204, 204, 204);
+    padding-left: 10px;
+
+}
+.ScrollStyle
+{
+    width: 100%;
+    max-height: 150px;
+    overflow-y: scroll;
+}
+.ScrollStyle table tbody tr td:hover{
+    cursor: pointer;
+    background-color: #3384FB;
+}
+
+.ScrollStyle table tbody tr td:first-child{ width: 8%; 
+     }
+.ScrollStyle table tbody tr.sr-white:hover{background-color: #fff;}
+
+.ScrollStyle table tbody tr td:nth-child(2){
+    width: 90.5%;
+}
+
+
+

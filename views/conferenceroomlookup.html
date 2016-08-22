@@ -38,7 +38,7 @@
                <div class="col-md-6 col-lg-8">
                   <!--<select id="room" class="input-width " ng-model="lookupRoom.roomName" ng-disabled="!disableRoom">-->
                   <select id="room" class="input-width " ng-model="lookupRoom.room" ng-disabled="!lookupRoom.buildingName" ng-change="availableSeatsAndAmenities(lookupRoom.room)" ng-options="room.roomName for room in roomOptions">
-                  <option value="">Select Room</option>
+                     <option value="">Select Room</option>
                   </select>
                   <div class="checkbox">
                      <label>
@@ -71,7 +71,7 @@
                   <label for="from" class="control-label">From:</label>
                   <select id="from" class=" floor specific-time" ng-model="lookupRoom.fromTime" ng-change="changeSpecificFromTime(lookupRoom.timeRange, lookupRoom.fromTime)" ng-required="specificTime" ng-options="fromTime.name for fromTime in timeFrom">
                      <option value="">Select...</option>
-<!--                      <option ng-repeat="fromTime in timeFrom" value="{{fromTime.value}}">{{fromTime.name}}</option> -->
+                     <!--                      <option ng-repeat="fromTime in timeFrom" value="{{fromTime.value}}">{{fromTime.name}}</option> -->
                   </select>
                   <label for="to" class="control-label">To:</label>
                   <select id="to" class=" floor specific-time" ng-disabled="!lookupRoom.fromTime" ng-change="changeSpecificToTime()" ng-model="lookupRoom.toTime" ng-required="specificTime">
@@ -99,8 +99,8 @@
                </label>
                <div class="col-md-6 col-lg-8" >
                   <label class="checkbox-inline" for="seats_{{$index}}" ng-repeat="seat in seats">
-                  <!-- ng-model="lookupRoom[seat.label]" -->
-                  <input type="checkbox" id="seat_{{$index}}" name="seat_{{$index}}" value="{{seat.checked}}" ng-disabled="!seat.disable"><span class="seat-available">{{seat.label}}</span>
+                     <!-- ng-model="lookupRoom[seat.label]" -->
+                     <input type="checkbox" id="seat_{{$index}}" name="seat_{{$index}}" value="{{seat.checked}}" ng-disabled="!seat.disable"><span class="seat-available">{{seat.label}}</span>
                   </label>
                </div>
             </div>
@@ -112,13 +112,13 @@
                   </label>
                </div>
                <div id="amenities" class="col-md-6 col-lg-8">
-               <!-- ng-model="lookupRoom[amenity.label]" -->
+                  <!-- ng-model="lookupRoom[amenity.label]" -->
                   <label class="checkbox-inline" for="amenity_{{$index}}" ng-repeat="amenity in amenities">
                   <input type="checkbox" name="amenity_{{$index}}" value="{{amenity.checked}}" ng-disabled="!amenity.disable"><span class="amenities-available"> {{amenity.label}}</span>
                   </label>
                </div>
             </div>
-<!--             {{lookupRoom}}  -->
+            <!--             {{lookupRoom}}  -->
             <div class="form-group">
                <div class="col-sm-offset-2 col-md-6 col-lg-8">
                   <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoomForm.$invalid" class="btn btn-sm search-btn">Search</button>
@@ -140,62 +140,209 @@
          </div>
       </section>
    </div>
+
+
+   <!-- Single Room Search -->
+   
+<!-- 
+   <section class="single-room-search">
+      <h2>{{lookupRoom.date | date: "EEEE, MMMM dd, yyyy"}}</h2>
+      <h4>{{lookupRoom.room.roomName}}</h4>
+      <div>
+         <span><a href="#"><img src="images/adir.png"><span class="sr-img">Open in Apple Directory</span></a></span> 
+         <span>
+            <a href="#">
+               <img class="sr-img" src="images/adir.png">
+               <spam class="sr-img">Email all bookers</spam>
+            </a>
+         </span>
+         <span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
+      </div>
+      <div class="single-room-header sr-header">
+         <div class="sr-time border-line">
+            Time
+          
+         </div>
+         <div class="sr-booked border-line">
+            <span class="sr-header">Booked time</span>
+            <span class="pull-right">Booked By</span>
+         </div>
+      </div>
+      <div>
+         <div class="ScrollStyle">
+            <table>
+               <tr>
+                  <td class="border-line sr-white">12 AM</td>
+                  <td  class="border-line"></td>
+               </tr>
+               <tr>
+                  <td rowspan="3" class="sr-white"></td>
+                  <td class="border-line">asd</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asf</td>
+               </tr>
+               <tr>
+                  <td class="border-line">as</td>
+               </tr>
+               <tr>
+                  <td class="border-line sr-white">12 AM</td>
+                  <td  class="border-line"></td>
+               </tr>
+               <tr>
+                  <td rowspan="3"></td>
+                  <td class="border-line">asfasf</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asdfas</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asfasfd</td>
+               </tr>
+               <tr>
+                  <td class="border-line" style="width: 108px;">12 AM</td>
+                  <td  class="border-line" style="width: 90.5%;">safasdfs</td>
+               </tr>
+               <tr>
+                  <td rowspan="3"></td>
+                  <td class="border-line">asfasf</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asdfas</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asfasfd</td>
+               </tr>
+               <tr>
+                  <td class="border-line" style="">12 AM</td>
+                  <td  class="border-line" style="width: 90.5%;">safasdfs</td>
+               </tr>
+               <tr>
+                  <td rowspan="3"></td>
+                  <td class="border-line">asfasf</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asdfas</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asfasfd</td>
+               </tr>
+               <tr>
+                  <td class="border-line" style="">12 AM</td>
+                  <td  class="border-line" style="width: 90.5%;">safasdfs</td>
+               </tr>
+               <tr>
+                  <td rowspan="3"></td>
+                  <td class="border-line">asfasf</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asdfas</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asfasfd</td>
+               </tr>
+               <tr>
+                  <td class="border-line" style="">12 AM</td>
+                  <td  class="border-line" style="width: 90.5%;">safasdfs</td>
+               </tr>
+               <tr>
+                  <td rowspan="3"></td>
+                  <td class="border-line">asfasf</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asdfas</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asfasfd</td>
+               </tr>
+               <tr>
+                  <td class="border-line" style="">12 AM</td>
+                  <td  class="border-line" style="width: 90.5%;">safasdfs</td>
+               </tr>
+               <tr>
+                  <td rowspan="3"></td>
+                  <td class="border-line">asfasf</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asdfas</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asfasfd</td>
+               </tr>
+               <tr>
+                  <td class="border-line" style="">12 AM</td>
+                  <td  class="border-line" style="width: 90.5%;">safasdfs</td>
+               </tr>
+               <tr>
+                  <td rowspan="3"></td>
+                  <td class="border-line">asfasf</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asdfas</td>
+               </tr>
+               <tr>
+                  <td class="border-line">asfasfd</td>
+               </tr>
+
+            </table>
+         </div>
+      </div>
+      <footer class="search-result-footer">
+         <p>Copyright Apple, Inc. All rights reserved.</p>
+      </footer>
+   </section>
+ -->
+   <!-- end of single room search -->
+   
+
+
    <!-- SEARCH RESULTS VIEW -->
    <section class="searchResults" id="searchResults" ng-show="showSearchResult">
-
-<h3>{{lookupRoom.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
-<div class="row">
-   <div class="col-md-4">{{grid_data.length}} rooms matching your search</div>
-   <div class="col-md-8">
-      <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
-      <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll<3" ng-click="Previous4Hours()">‹ Previous 4 Hours</button></div>
-      <div class="col-md-2 col-sm-2"></div>
-      <div class="col-md-2 col-sm-2"></div>
-      <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll>19" ng-click="Next4hours()">Next 4 Hours ›</button></div>
-      <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
-   </div>
-</div>
-<section class="searchGrid" id="searchRoomGrid">
-
-<!-- fixed-first-column -->
-
-<div fixed-first-column>
-    <table class="table table-condensed">
-    <thead>
-        <tr>
-            <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th>
-            <th>      
-            <div class="gridHeader">
-               <div ng-repeat="hour in hours" id="{{hour | date:'H'}}">{{hour | date:'h a'}}</div>
-            </div>
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="room in grid_data track by $index">
-            <td><a href="#"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
-            <td>
-               <div class="gridData">
-                  <div ng-repeat="slot in room.slot" ng-class="(slot.type=='free') ? 'free' : 'busy'">&nbsp;</div>
-               </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-</section> 
-
-
-<div class="not-Found">
-   <p>Not finding what you’re looking for?</p>
-   <p><a href="#">Search Nearby Buildings</a></p>
-</div>
-
-<footer class="search-result-footer">
-   <p>Copyright Apple, Inc. All rights reserved.</p>
-
-</footer>
-
+      <h3>{{lookupRoom.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
+      <div class="row">
+         <div class="col-md-4">{{grid_data.length}} rooms matching your search</div>
+         <div class="col-md-8">
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll<3" ng-click="Previous4Hours()">‹ Previous 4 Hours</button></div>
+            <div class="col-md-2 col-sm-2"></div>
+            <div class="col-md-2 col-sm-2"></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll>19" ng-click="Next4hours()">Next 4 Hours ›</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
+         </div>
+      </div>
+      <section class="searchGrid" id="searchRoomGrid">
+         <!-- fixed-first-column -->
+         <div fixed-first-column>
+            <table class="table table-condensed">
+               <thead>
+                  <tr>
+                     <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th>
+                     <th>
+                        <div class="gridHeader">
+                           <div ng-repeat="hour in hours" id="{{hour | date:'H'}}">{{hour | date:'h a'}}</div>
+                        </div>
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr ng-repeat="room in grid_data track by $index">
+                     <td><a href="#"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
+                     <td>
+                        <div class="gridData">
+                           <div ng-repeat="slot in room.slot" ng-class="(slot.type=='free') ? 'free' : 'busy'">&nbsp;</div>
+                        </div>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </section>
+      <div class="not-Found">
+         <p>Not finding what you’re looking for?</p>
+         <p><a href="#">Search Nearby Buildings</a></p>
+      </div>
+      <footer class="search-result-footer">
+         <p>Copyright Apple, Inc. All rights reserved.</p>
+      </footer>
    </section>
 </section>
