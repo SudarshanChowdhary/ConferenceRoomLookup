@@ -21,6 +21,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         "unavailable":0
     };
 
+     $scope.showSearchResult = false;
+    $scope.showSingleRoom = false;
+
 
 //  console.log($scope.lookupRoomForm.$pristine)
 // if(!$scope.lookupRoomForm.$pristine){
@@ -77,6 +80,11 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 inputData.searchDate = d.getFullYear() + "" +  $scope.appendZero(d.getMonth()+1) + "" + $scope.appendZero(d.getDate());
                // alert("request object",$scope.lookupRoom);
                $scope.searchRooms(JSON.stringify(inputData));*/
+            }
+            else{
+                  $scope.showSingleRoom = true;
+                  $scope.showSearchResult = false;
+
             }
         }
     };

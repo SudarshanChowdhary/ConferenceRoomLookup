@@ -144,19 +144,18 @@
 
    <!-- Single Room Search -->
    
-<!-- 
-   <section class="single-room-search">
+<section class="single-room-search" ng-show="showSingleRoom">
       <h2>{{lookupRoom.date | date: "EEEE, MMMM dd, yyyy"}}</h2>
       <h4>{{lookupRoom.room.roomName}}</h4>
-      <div>
+      <div class="sr-header">
          <span><a href="#"><img src="images/adir.png"><span class="sr-img">Open in Apple Directory</span></a></span> 
          <span>
             <a href="#">
-               <img class="sr-img" src="images/adir.png">
+               <img class="sr-img" src="images/email.png">
                <spam class="sr-img">Email all bookers</spam>
             </a>
          </span>
-         <span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
+         <span class="pull-right info-image">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
       </div>
       <div class="single-room-header sr-header">
          <div class="sr-time border-line">
@@ -173,116 +172,117 @@
             <table>
                <tr>
                   <td class="border-line sr-white">12 AM</td>
-                  <td  class="border-line"></td>
+                  <td  class="border-line">&nbsp;</td>
+               </tr>
+               <tr>
+                  <td rowspan="3" class="sr-white">&nbsp;</td>
+                  <td class="border-line">&nbsp;</td>
+               </tr>
+               <tr>
+                  <td class="border-line">&nbsp;</td>
+               </tr>
+               <tr>
+                  <td class="border-line">&nbsp;</td>
+               </tr>
+               <tr>
+                  <td class="border-line sr-white">1 AM</td>
+                  <td  class="border-line">&nbsp;</td>
                </tr>
                <tr>
                   <td rowspan="3" class="sr-white"></td>
-                  <td class="border-line">asd</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asf</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">as</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line sr-white">12 AM</td>
-                  <td  class="border-line"></td>
+                  <td class="border-line sr-white">2 AM</td>
+                  <td  class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td rowspan="3"></td>
-                  <td class="border-line">asfasf</td>
+                  <td rowspan="3" class="sr-white"></td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asdfas</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asfasfd</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line" style="width: 108px;">12 AM</td>
-                  <td  class="border-line" style="width: 90.5%;">safasdfs</td>
+                  <td class="border-line sr-white">3 AM</td>
+                  <td  class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td rowspan="3"></td>
-                  <td class="border-line">asfasf</td>
+                  <td rowspan="3" class="sr-white"></td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asdfas</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asfasfd</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line" style="">12 AM</td>
-                  <td  class="border-line" style="width: 90.5%;">safasdfs</td>
+                  <td class="border-line sr-white">4 AM</td>
+                  <td  class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td rowspan="3"></td>
-                  <td class="border-line">asfasf</td>
+                  <td rowspan="3" class="sr-white"></td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asdfas</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asfasfd</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line" style="">12 AM</td>
-                  <td  class="border-line" style="width: 90.5%;">safasdfs</td>
+                  <td class="border-line sr-white">5 AM</td>
+                  <td  class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td rowspan="3"></td>
-                  <td class="border-line">asfasf</td>
+                  <td rowspan="3" class="sr-white"></td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asdfas</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asfasfd</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line" style="">12 AM</td>
-                  <td  class="border-line" style="width: 90.5%;">safasdfs</td>
+                  <td class="border-line sr-white">6 AM</td>
+                  <td  class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td rowspan="3"></td>
-                  <td class="border-line">asfasf</td>
+                  <td rowspan="3" class="sr-white"></td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asdfas</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asfasfd</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line" style="">12 AM</td>
-                  <td  class="border-line" style="width: 90.5%;">safasdfs</td>
+                  <td class="border-line sr-white">7 AM</td>
+                  <td  class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td rowspan="3"></td>
-                  <td class="border-line">asfasf</td>
+                  <td rowspan="3" class="sr-white"></td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asdfas</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
                <tr>
-                  <td class="border-line">asfasfd</td>
+                  <td class="border-line">&nbsp;</td>
                </tr>
-               <tr>
-                  <td class="border-line" style="">12 AM</td>
-                  <td  class="border-line" style="width: 90.5%;">safasdfs</td>
-               </tr>
-               <tr>
-                  <td rowspan="3"></td>
-                  <td class="border-line">asfasf</td>
-               </tr>
-               <tr>
-                  <td class="border-line">asdfas</td>
-               </tr>
-               <tr>
-                  <td class="border-line">asfasfd</td>
-               </tr>
+               
 
             </table>
          </div>
@@ -291,7 +291,7 @@
          <p>Copyright Apple, Inc. All rights reserved.</p>
       </footer>
    </section>
- -->
+ 
    <!-- end of single room search -->
    
 

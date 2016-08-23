@@ -221,23 +221,32 @@ text-align: center;
     padding-left: 10px;
 
 }
+
+.sr-header{
+    padding-bottom: 20px;
+}
+.info-image{
+    padding-right: 20px;
+}
 .ScrollStyle
 {
     width: 100%;
-    max-height: 150px;
+    max-height: 450px;
     overflow-y: scroll;
+    padding-top: 10px;
 }
 .ScrollStyle table tbody tr td:hover{
     cursor: pointer;
     background-color: #3384FB;
 }
 
-.ScrollStyle table tbody tr td:first-child{ width: 8%; 
+.ScrollStyle table tbody tr td:first-child{ width: 88px;
+    background-color: #fff; 
      }
-.ScrollStyle table tbody tr.sr-white:hover{background-color: #fff;}
+
 
 .ScrollStyle table tbody tr td:nth-child(2){
-    width: 90.5%;
+    width: 993px;
 }
 
 
