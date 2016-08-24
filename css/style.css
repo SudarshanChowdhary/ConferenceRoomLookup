@@ -51,7 +51,7 @@
 }
 /*This css for search result view*/
 
-.searchResults {
+.searchResults, .single-room-search {
     border-top: #ccc solid 1px;
     margin: 20px;
     padding-top: 60px;
@@ -193,8 +193,35 @@ div.gridData div:nth-child(4n){
     color: #3384FB;
     text-decoration: inherit !important;
 }
+.legend-tooltip{
+  
+position: absolute;
+ border: 1px solid rgba(0, 0, 0, 0.2);
+width: 420px;
+text-align: left;
+margin-right: 50px;
 
+border-radius: 4px;
+margin-top: 29px;
+margin-left: 178px;
+background: #fff;
+z-index: 20;
 
+}
+
+.legend-tooltip:before{content: ' ';
+ position: absolute;
+left: 197px;
+top: -8px;
+width: 14px;
+height: 14px;
+background-color: #fff;
+border-top: 1px solid rgba(0, 0, 0, 0.2);
+border-left: 1px solid rgba(0, 0, 0, 0.2);
+transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+}
 
 
 /* single room search*/
@@ -248,6 +275,7 @@ text-align: center;
 .ScrollStyle table tbody tr td:nth-child(2){
     width: 993px;
 }
+
 
 
 

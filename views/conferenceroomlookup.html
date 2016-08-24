@@ -316,7 +316,8 @@
             <table class="table table-condensed">
                <thead>
                   <tr>
-                     <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th>
+                     <!-- <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th> -->
+                      <th><span>Room</span><span ng-click="legendInfo = !legendInfo" class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th>
                      <th>
                         <div class="gridHeader">
                            <div ng-repeat="hour in hours" id="{{hour | date:'H'}}">{{hour | date:'h a'}}</div>
@@ -326,7 +327,7 @@
                </thead>
                <tbody>
                   <tr ng-repeat="room in grid_data track by $index">
-                     <td><a href="#"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
+                     <td><a href="adir://conferencerooms/<dsid>"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
                      <td>
                         <div class="gridData">
                            <div ng-repeat="slot in room.slot" ng-class="(slot.type=='free') ? 'free' : 'busy'">&nbsp;</div>
