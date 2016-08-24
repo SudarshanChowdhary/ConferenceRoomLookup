@@ -317,7 +317,37 @@
                <thead>
                   <tr>
                      <!-- <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th> -->
-                      <th><span>Room</span><span ng-click="legendInfo = !legendInfo" class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th>
+                      <th><span>Room</span><span ng-click="legendInfo()" class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th>
+                      <div class="legend-tooltip" ng-show="htmlTooltip">
+                        <div class="legend-tooltip-container">
+                           <h4>{M} Chambre [AVCN] (8) {RESTRICTED} <br>[DEU] EMA 2nd</h4>
+                           <div class="legend-details">
+                              <p><span class="text-color">{M}</span> = Managed room. Reservations must be approved by the room manager.</p>
+                              <p><span class="text-color">Chambre</span> = Room name</p>
+                              <p><span class="text-color">[AVCN]</span> = Apple Video Conferencing Network</p>
+                              <p><span class="text-color">(8)</span> = Room Capacity
+                              <p><span class="text-color">{RESTRICTED}</span> = Badge-restricted room access.</p>
+                              <p><span class="text-color">[DEU]</span> = Country</p>
+                              <p><span class="text-color">EMA</span> = Building</p>
+                              <p><span class="text-color">2nd</span> = Floor</p>
+                           </div>
+                           <div class="color-indicate"><span class="white-box"></span><strong>Available</strong>
+                           <span class="gray-box"></span><strong>Booked</strong>
+                           <span class="blue-box"></span><strong>Reserved</strong>
+
+                           </div>
+                              
+                           </div>
+                              
+                           </div>
+
+                        </div>
+                           
+                        </div>
+
+                      </div>
+                         
+                      </div>
                      <th>
                         <div class="gridHeader">
                            <div ng-repeat="hour in hours" id="{{hour | date:'H'}}">{{hour | date:'h a'}}</div>

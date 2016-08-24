@@ -193,24 +193,21 @@ div.gridData div:nth-child(4n){
     color: #3384FB;
     text-decoration: inherit !important;
 }
-.legend-tooltip{
-  
+.legend-tooltip{ 
 position: absolute;
  border: 1px solid rgba(0, 0, 0, 0.2);
 width: 420px;
-text-align: left;
 margin-right: 50px;
-
 border-radius: 4px;
 margin-top: 29px;
-margin-left: 178px;
+left: 178px;
 background: #fff;
 z-index: 20;
-
 }
 
-.legend-tooltip:before{content: ' ';
- position: absolute;
+.legend-tooltip:before{
+content: ' ';
+position: absolute;
 left: 197px;
 top: -8px;
 width: 14px;
@@ -222,6 +219,26 @@ transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
 }
+
+.legend-tooltip-container{
+    padding: 15px;
+}
+.legend-details{border-bottom: 1px solid rgb(204, 204, 204);
+}
+.text-color{color: blue;}
+.white-box, .gray-box, .blue-box{
+    display: inline-block;
+    width: 20px;
+    height: 20px; 
+    border: 1px solid #ccc;
+}
+.white-box{background-color:#fff;}
+.gray-box{background-color:#ccc;}
+.blue-box{background-color:blue}
+
+.color-indicate{margin-top: 15px;}
+.color-indicate span{margin-right: 5px;}
+.color-indicate strong{margin-right: 10px; vertical-align: 5px;}
 
 
 /* single room search*/

@@ -197,8 +197,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
   $scope.htmlTooltip = false;
 
   $scope.legendInfo = function() {
-   
-     $scope.htmlTooltip = !$scope.htmlTooltip;
+
+   $scope.htmlTooltip = $scope.htmlTooltip ? false : true;
     
   }
 
