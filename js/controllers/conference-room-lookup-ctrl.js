@@ -194,13 +194,14 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         }
   
 
-  $scope.htmlTooltip = false;
+// popover code
+                $scope.dynamicPopover = {
+                    templateUrl: 'myPopoverTemplate.html',
+                    outsideClick: "outsideClick",
+                  };
 
-  $scope.legendInfo = function() {
-
-   $scope.htmlTooltip = $scope.htmlTooltip ? false : true;
-    
-  }
+ 
+// popover code end
 
 
 

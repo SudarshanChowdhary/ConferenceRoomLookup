@@ -193,36 +193,17 @@ div.gridData div:nth-child(4n){
     color: #3384FB;
     text-decoration: inherit !important;
 }
-.legend-tooltip{ 
-position: absolute;
- border: 1px solid rgba(0, 0, 0, 0.2);
-width: 420px;
-margin-right: 50px;
-border-radius: 4px;
-margin-top: 29px;
-left: 178px;
-background: #fff;
-z-index: 20;
+
+/*popover css*/
+.popover{
+    max-width: 420px !important;
+    top: 28px;
+    left: 174px !important;
+}
+.popover-content{
+    width: 420px !important;
 }
 
-.legend-tooltip:before{
-content: ' ';
-position: absolute;
-left: 197px;
-top: -8px;
-width: 14px;
-height: 14px;
-background-color: #fff;
-border-top: 1px solid rgba(0, 0, 0, 0.2);
-border-left: 1px solid rgba(0, 0, 0, 0.2);
-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-}
-
-.legend-tooltip-container{
-    padding: 15px;
-}
 .legend-details{border-bottom: 1px solid rgb(204, 204, 204);
 }
 .text-color{color: blue;}
@@ -240,6 +221,7 @@ transform: rotate(45deg);
 .color-indicate span{margin-right: 5px;}
 .color-indicate strong{margin-right: 10px; vertical-align: 5px;}
 
+/*end popover css*/
 
 /* single room search*/
 
