@@ -95,7 +95,7 @@ span a:hover {
 }
 .free:hover{
     cursor: pointer;
-    background-color: #3384FB;
+    background-color: #DBE9FF;
 }
 div.gridData, div.gridHeader{
     white-space: nowrap;
