@@ -82,19 +82,19 @@
             </div>
             <div class="form-group">
                <label for="duration" class="control-label col-sm-2 col-md-2 col-lg-2">
-                  Duration 
+                  Duration
                   <div class="optional">Optional</div>
                </label>
                <div class="col-md-6 col-lg-8">
-                  <select id="duration" class="input-width " ng-model="lookupRoom.duration">
+                  <select id="duration" class="input-width " ng-model="lookupRoom.duration" ng-options="dur.name for dur in durationTime">
                      <option value="">Selection Duration</option>
-                     <option ng-repeat="option in durationTime" ng-disabled="$index > durationCount" ng-value="option.value">{{option.name}}</option>
+                     <!-- <option ng-repeat="option in durationTime" ng-disabled="$index > durationCount" ng-value="option.value">{{option.name}}</option> -->
                   </select>
                </div>
             </div>
             <div class="form-group">
                <label class="control-label col-sm-2 col-md-2 col-lg-2">
-                  Seats 
+                  Seats
                   <div class="optional">Optional</div>
                </label>
                <div class="col-md-6 col-lg-8" >
@@ -107,7 +107,7 @@
             <div class="form-group">
                <div class="">
                   <label for="amenities" class="control-label col-sm-2 col-md-2 col-lg-2">
-                     Amenities 
+                     Amenities
                      <div class="optional">Optional</div>
                   </label>
                </div>
@@ -143,12 +143,12 @@
 
 
    <!-- Single Room Search -->
-   
+
 <section class="single-room-search" ng-show="showSingleRoom">
       <h2>{{lookupRoom.date | date: "EEEE, MMMM dd, yyyy"}}</h2>
       <h4>{{lookupRoom.room.roomName}}</h4>
       <div class="sr-header">
-         <span><a href="#"><img src="images/adir.png"><span class="sr-img">Open in Apple Directory</span></a></span> 
+         <span><a href="#"><img src="images/adir.png"><span class="sr-img">Open in Apple Directory</span></a></span>
          <span>
             <a href="#">
                <img class="sr-img" src="images/email.png">
@@ -160,7 +160,7 @@
       <div class="single-room-header sr-header">
          <div class="sr-time border-line">
             Time
-          
+
          </div>
          <div class="sr-booked border-line">
             <span class="sr-header">Booked time</span>
@@ -282,7 +282,7 @@
                <tr>
                   <td class="border-line">&nbsp;</td>
                </tr>
-               
+
 
             </table>
          </div>
@@ -291,9 +291,9 @@
          <p>Copyright Apple, Inc. All rights reserved.</p>
       </footer>
    </section>
- 
+
    <!-- end of single room search -->
-   
+
 
 
    <!-- SEARCH RESULTS VIEW -->
@@ -341,9 +341,9 @@
 
 
                        <!-- popover end -->
-                     </div>                
+                     </div>
                   </div>
-               </div>          
+               </div>
              </div>
                      <th>
                         <div class="gridHeader">
@@ -357,9 +357,11 @@
                      <td><a href="adir://conferencerooms/<dsid>"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
                      <td>
                         <div class="gridData">
-                           <div ng-repeat="slot in room.slot" ng-class="(slot.type=='free') ? 'free' : 'busy'">&nbsp;</div>
+                           <div ng-repeat="slot in room.slot" ng-class="{'free':slot.type=='free', 'busy':slot.type!='free'}">
+                             <div ng-mouseover="addDurationClass($parent.$index, $index)" ng-mouseout="removeDurationClass($parent.$index, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
+                           </div>
                         </div>
-                     </td>
+                     </td> ? '
                   </tr>
                </tbody>
             </table>

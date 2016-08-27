@@ -27,7 +27,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
 //  console.log($scope.lookupRoomForm.$pristine)
 // if(!$scope.lookupRoomForm.$pristine){
-//   $scope.showSearchResult = false;  
+//   $scope.showSearchResult = false;
 // }
 
 
@@ -40,9 +40,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 $scope.showSearchResult = true;
               //  $scope.lookupRoomForm.$setPristine(false);
 
-               
+
                 //$scope.searchRooms($scope.lookupRoom);
-                
+
                 var jsonrooms = [];
 
                 angular.forEach($scope.roomOptions, function(room){
@@ -59,13 +59,13 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                                to_time = smroom.toTime;
                               break;
                     default: break;
-                } 
+                }
 
                  $scope.inputData = {}
                 $scope.inputData.room = jsonrooms;
                 $scope.inputData.timeRange = {"from" : from_time, "to" : to_time};
                 $scope.inputData.timezone = smroom.timezone;
-                $scope.inputData.unavailable = smroom.unavailable;                
+                $scope.inputData.unavailable = smroom.unavailable;
                 var d = new Date(smroom.date);
                 $scope.inputData.searchDate = d.getFullYear() + "-" +  $scope.appendZero(d.getMonth()+1) + "-" + $scope.appendZero(d.getDate());
                // alert("request object",$scope.lookupRoom);
@@ -75,7 +75,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 inputData.room = JSON.stringify(jsonrooms);
                 inputData.timeRange = JSON.stringify({"from" : from_time, "to" : to_time});
                 inputData.timezone = smroom.timezone;
-                inputData.unavailable = smroom.unavailable;                
+                inputData.unavailable = smroom.unavailable;
                 var d = new Date(smroom.date);
                 inputData.searchDate = d.getFullYear() + "" +  $scope.appendZero(d.getMonth()+1) + "" + $scope.appendZero(d.getDate());
                // alert("request object",$scope.lookupRoom);
@@ -98,7 +98,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.searchRooms = function(searchFormData) {
         $scope.loader = true;
       $http({url: "js/services/responseGrid-data.json",
-        method:"POST",
+        method:"GET",
         data: "searchFormData"
         }).then(function(res) {
             $scope.loader = false;
@@ -115,16 +115,17 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 //console.log("temp", temp)
                 room.slot = [];
                 angular.forEach(room.busyslot, function(slot, n) {
-                     
+
                     var sdt = new Date(slot.startDateTime);
                     var edt = new Date(slot.endDateTime);
-              
+
                     var freeTime = sdt.getTime() - temp.getTime();
                     freeTime = ((freeTime / 1000) / 60) / 15;
                     //console.log(freeTime);
                     for (var i = 0; i < freeTime; i++) {
                         room.slot.push({
-                            "type": "free"
+                            "type": "free",
+                            "highlight": false
                         });
                     }
                     var busyTime = edt.getTime() - sdt.getTime();
@@ -132,7 +133,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     //console.log(busyTime);
                     for (var i = 0; i < busyTime; i++) {
                         room.slot.push({
-                            "type": "busy"
+                            "type": "busy",
+                            "highlight": false
                         });
                     }
                     temp = edt;
@@ -145,22 +147,24 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                         //        tempHours=tempHours.getTime()+(15 * 60 * 1000);
                         for (var i = 0; i < freeTime; i++) {
                             room.slot.push({
-                                "type": "free"
+                                "type": "free",
+                                "highlight": false
                             });
                         }
 
                     }
 
-                
+
                 //console.log(room.slot);
             });
-                    
+
                 }else
                 {
                 room.slot = [];
                     for (var i = 0; i < 96; i++) {
                         room.slot.push({
-                            "type": "free"
+                            "type": "free",
+                            "highlight": false
                         });
                     }
                 }
@@ -182,7 +186,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     $scope.scrollToTime($scope.initScrollDiv);
                 }, 10);
         });
-        
+
         });
         }
 
@@ -192,7 +196,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
              el.scrollLeft(initScrollDiv)
 //             el.animate({ scrollLeft:initScrollDiv}, 1, function() { });
         }
-  
+
 
 // popover code
                 $scope.dynamicPopover = {
@@ -200,10 +204,35 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     outsideClick: "outsideClick",
                   };
 
- 
+
 // popover code end
 
-
+$scope.addDurationClass= function(parent, index){
+  console.log($scope.lookupRoom.duration)
+  console.log($scope.durationTime.indexOf($scope.lookupRoom.duration));
+  $scope.startIndex = index;
+  $scope.durationFlag=true;
+  for(var i=index; i<index + $scope.durationTime.indexOf($scope.lookupRoom.duration)+1; i++)
+  {
+    if($scope.grid_data[parent].slot[i].type!='free'){
+      $scope.startIndex--;
+      if($scope.grid_data[parent].slot[$scope.startIndex].type!='free'){
+        $scope.durationFlag=false;
+      }
+    }
+  }
+  if($scope.durationFlag){
+    for(var i=$scope.startIndex; i<$scope.startIndex + $scope.durationTime.indexOf($scope.lookupRoom.duration)+1; i++){
+      $scope.grid_data[parent].slot[i].highlight=true;
+    }
+  }
+}
+$scope.removeDurationClass= function(parent, index){
+  console.log($scope.startIndex)
+    for(var i=$scope.startIndex; i<$scope.startIndex + $scope.durationTime.indexOf($scope.lookupRoom.duration)+1; i++){
+      $scope.grid_data[parent].slot[i].highlight=false;
+    }
+}
 
     $scope.PreviousDay = function() {
                  var PrevDay = new Date($scope.inputData.searchDate);
@@ -235,7 +264,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                  NextDay.setDate(NextDay.getDate() + 1)
                  $scope.inputData.searchDate= NextDay;
                  $scope.searchRooms($scope.inputData);
-                 console.log($scope.inputData.searchDate);    
+                 console.log($scope.inputData.searchDate);
              }
 
 
