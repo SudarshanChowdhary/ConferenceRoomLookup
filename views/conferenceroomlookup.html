@@ -358,11 +358,10 @@
                      <td>
                         <div class="gridData">
                            <div ng-repeat="slot in room.slot" ng-class="{'free':slot.type=='free', 'busy':slot.type!='free'}">
-
                              <div ng-mouseover="addDurationClass($parent.$index, $index)" ng-mouseout="removeDurationClass($parent.$index, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
                            </div>
                         </div>
-                     </td> ? '
+                     </td>
                   </tr>
                </tbody>
             </table>

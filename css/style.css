@@ -187,7 +187,7 @@ div.gridData div:nth-child(4n){
     position: relative;
     text-align: center;
     width: 15px;
-  
+
 }
 .searchResults .row div button, .not-Found p a{
     color: #3384FB;
@@ -210,7 +210,7 @@ div.gridData div:nth-child(4n){
 .white-box, .gray-box, .blue-box{
     display: inline-block;
     width: 20px;
-    height: 20px; 
+    height: 20px;
     border: 1px solid #ccc;
 }
 .white-box{background-color:#fff;}
@@ -267,7 +267,7 @@ text-align: center;
 }
 
 .ScrollStyle table tbody tr td:first-child{ width: 88px;
-    background-color: #fff; 
+    background-color: #fff;
      }
 
 
@@ -275,6 +275,6 @@ text-align: center;
     width: 993px;
 }
 
-
-
-
+.highlight-free-slot{
+  background-color: #3384FB
+}
