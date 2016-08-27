@@ -208,8 +208,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 // popover code end
 
 $scope.addDurationClass= function(parent, index){
-  console.log($scope.lookupRoom.duration)
-  console.log($scope.durationTime.indexOf($scope.lookupRoom.duration));
   $scope.startIndex = index;
   $scope.durationFlag=true;
   for(var i=index; i<index + $scope.durationTime.indexOf($scope.lookupRoom.duration)+1; i++)
@@ -228,7 +226,6 @@ $scope.addDurationClass= function(parent, index){
   }
 }
 $scope.removeDurationClass= function(parent, index){
-  console.log($scope.startIndex)
     for(var i=$scope.startIndex; i<$scope.startIndex + $scope.durationTime.indexOf($scope.lookupRoom.duration)+1; i++){
       $scope.grid_data[parent].slot[i].highlight=false;
     }
