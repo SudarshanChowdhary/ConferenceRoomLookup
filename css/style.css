@@ -198,7 +198,7 @@ div.gridData div:nth-child(4n){
 .popover{
     max-width: 420px !important;
     top: 28px;
-    left: 174px !important;
+    /*left: 174px !important;*/
 }
 .popover-content{
     width: 420px !important;
