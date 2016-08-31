@@ -70,6 +70,7 @@
                   $scope.inputData.searchDate = d.getFullYear() + "-" +  $scope.appendZero(d.getMonth()+1) + "-" + $scope.appendZero(d.getDate());
                  // alert("request object",$scope.lookupRoom);
                  $scope.searchRooms($scope.inputData);
+                 $scope.showSingleRoom = false;
 
                   /*var inputData = {}
                   inputData.room = JSON.stringify(jsonrooms);
@@ -232,11 +233,11 @@
   }
 
       $scope.PreviousDay = function() {
-                   var PrevDay = new Date($scope.inputData.searchDate);
-                   PrevDay.setDate(PrevDay.getDate() - 1)
-                   $scope.inputData.searchDate= PrevDay;
-                   $scope.searchRooms($scope.inputData);
-                   console.log($scope.inputData.searchDate);
+             var PrevDay = new Date($scope.inputData.searchDate);
+             PrevDay.setDate(PrevDay.getDate() - 1)
+             $scope.inputData.searchDate= PrevDay;
+             $scope.searchRooms($scope.inputData);
+             console.log($scope.inputData.searchDate);
       }
       $scope.Previous4Hours = function() {
           if($scope.initScroll>3){
