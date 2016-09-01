@@ -1,14 +1,7 @@
   'use strict'
 
-  ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll, $document, $timeout, $http) {
+  ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, singleRoomService, $anchorScroll, $document, $timeout, $http) {
       $scope.lookUpData = {};
-      // $scope.lookupRoom = {
-      //     // "campusName": "",
-      //     // "buildingName": "",
-      //     "date": new Date(),
-      //     "unavailable": 0,
-      //     "timezone":""
-      // };
       $scope.siteOptions = [];
       $scope.buildingOptions = [];
       $scope.floorOptions = [];
@@ -24,26 +17,12 @@
        $scope.showSearchResult = false;
       $scope.showSingleRoom = false;
 
-
-  //  console.log($scope.lookupRoomForm.$pristine)
-  // if(!$scope.lookupRoomForm.$pristine){
-  //   $scope.showSearchResult = false;
-  // }
-
-
-      $scope.searchResult = function() {
-
-
+       $scope.searchResult = function() {
           if ($scope.lookupRoomForm.$valid) {
               if (!$scope.lookupRoom.room) {
-                  //$scope.lookupRoom.room = $scope.roomOptions;
+                  
                   $scope.showSearchResult = true;
-                //  $scope.lookupRoomForm.$setPristine(false);
-
-
-                  //$scope.searchRooms($scope.lookupRoom);
-
-                  var jsonrooms = [];
+                       var jsonrooms = [];
 
                   angular.forEach($scope.roomOptions, function(room){
                       jsonrooms.push({roomName:room.roomName, roomUid:room.roomUid});
