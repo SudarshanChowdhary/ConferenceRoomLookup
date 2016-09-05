@@ -279,3 +279,7 @@ text-align: center;
 .highlight-free-slot{
   background-color: #3384FB
 }
+.xyz{
+    vertical-align: middle;
+line-height: 22px;
+}

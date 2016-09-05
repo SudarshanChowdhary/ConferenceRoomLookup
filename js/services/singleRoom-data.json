@@ -1,21 +1,17 @@
 {
-   "data": [
+   "data": 
        {
 
            "roomUid": "4F29105D-28B5-47DD-A0E5-AFD9FE0CD992",
            "roomName": "ABBA [AVCN] (12) [SGP] SNGMG 1st",
            "status": "",
-           "dsid": "135709"
-           
+           "dsid": "135709",
+           "busyslot":[{
+                    "startDateTime": "2016-08-16T15:00:00",
+                    "endDateTime": "2016-08-16T17:00:00",
+                    "type": "busy"
+                }]
        },
-       {
-           "roomUid": "DBE45EB2-FEFF-4385-BAFC-B02E8035F46B",
-           "roomName": "Coldplay [AVCN] (7) [SGP] SNGMG 1st",
-           "status": "",
-           "dsid": "135702"
-           
-       }
-   ],
    "date": "2016-07-25",
    "success": "true"
 }
