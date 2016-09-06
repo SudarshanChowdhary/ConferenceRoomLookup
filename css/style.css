@@ -43,6 +43,8 @@
 }
 .control-label {
     font-weight: normal;
+    vertical-align: middle;
+    line-height: 12px;
 }
 .seat-available,
 .amenities-available,
@@ -95,7 +97,7 @@ span a:hover {
 }
 .free:hover{
     cursor: pointer;
-    background-color: #DBE9FF;
+    background-color: #3384FB;
 }
 div.gridData, div.gridHeader{
     white-space: nowrap;
@@ -187,18 +189,17 @@ div.gridData div:nth-child(4n){
     position: relative;
     text-align: center;
     width: 15px;
-
+  
 }
 .searchResults .row div button, .not-Found p a{
     color: #3384FB;
     text-decoration: inherit !important;
 }
-
 /*popover css*/
 .popover{
     max-width: 420px !important;
     top: 28px;
-    /*left: 174px !important;*/
+   /* left: 174px !important;*/
 }
 .popover-content{
     width: 420px !important;
@@ -206,16 +207,17 @@ div.gridData div:nth-child(4n){
 
 .legend-details{border-bottom: 1px solid rgb(204, 204, 204);
 }
-.text-color{color: blue;}
+.text-color{color: #3384fb;}
 .white-box, .gray-box, .blue-box{
     display: inline-block;
     width: 20px;
-    height: 20px;
+    height: 20px; 
     border: 1px solid #ccc;
 }
 .white-box{background-color:#fff;}
 .gray-box{background-color:#ccc;}
-.blue-box{background-color:blue}
+.blue-box{background-color:#3384fb;
+border: 1px solid #3384fb!important;}
 
 .color-indicate{margin-top: 15px;}
 .color-indicate span{margin-right: 5px;}
@@ -240,17 +242,24 @@ text-align: center;
     display: inline-block;
     width: 90%;
     padding-right: 10px;
+    text-align: left !important;
 }
 .border-line{
     border-bottom: 1px solid rgb(204, 204, 204);
     border-right: 1px solid rgb(204, 204, 204);
-    padding-left: 10px;
+   
+    text-align: center;
+
+}
+
+.nearbybuildings{
 
 }
 
 .sr-header{
     padding-bottom: 20px;
     margin-right: -18px;
+   
 }
 .info-image{
     padding-right: 20px;
@@ -262,24 +271,37 @@ text-align: center;
     overflow-y: scroll;
     padding-top: 10px;
 }
+.ScrollStyle :first-child{
+    border-top: 1px solid rgb(204, 204, 204);
+}
 .ScrollStyle table tbody tr td:hover{
     cursor: pointer;
     background-color: #3384FB;
 }
 
 .ScrollStyle table tbody tr td:first-child{ width: 88px;
-    background-color: #fff;
+    background-color: #fff; 
      }
 
 
 .ScrollStyle table tbody tr td:nth-child(2){
     width: 993px;
 }
+#searchRoomGridnearby{
 
-.highlight-free-slot{
-  background-color: #3384FB
 }
-.xyz{
-    vertical-align: middle;
-line-height: 22px;
+
+.divider{width:100%;
+
+margin-top: 40px;
+}
+
+.divider-text {
+   width:1px; 
+   padding: 0 10px; 
+   white-space: nowrap;
+}
+
+.no-result-found{
+    text-align: center;
 }

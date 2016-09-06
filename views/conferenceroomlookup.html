@@ -152,7 +152,7 @@
                <spam class="sr-img">Email all bookers</spam>
             </a>
          </span>
-         <span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
+         <span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right info-image">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
       </div>
       <div class="single-room-header sr-header">
          <div class="sr-time border-line">
@@ -202,7 +202,7 @@
                   <tr>
                      <!-- popover start -->
                      <!-- <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th> -->
-                     <th><span>Room</span><span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th>
+                     <th><span>Room</span><span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right ">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th>
                      <script type="text/ng-template" id="myPopoverTemplate.html">
                      <h4>{M} Chambre [AVCN] (8) {RESTRICTED} <br>[DEU] EMA 2nd</h4>
                      <div class="legend-details">
@@ -248,9 +248,25 @@
 </table>
 </div>
 </section>
+
+ <div class="nearbybuildings" ng-show="nearbybuildings">
+            <table class="divider">
+              <td><hr /></td>
+              <td class="divider-text"> NEARBY BUILDINGS </td>
+              <td><hr /></td>
+            </table>
+            <div class="no-result-found">
+
+            <h2>No Results Found</h1>
+            <p>Please update your search and try again.</p>
+               </div>
+
+
+            </div>
+
 <div class="not-Found">
 <p>Not finding what you’re looking for?</p>
-<p><a href="#">Search Nearby Buildings</a></p>
+<p><a href="#" ng-click="nearbyBuilding()">Search Nearby Buildings</a></p>
 </div>
 <footer class="search-result-footer">
 <p>Copyright Apple, Inc. All rights reserved.</p>

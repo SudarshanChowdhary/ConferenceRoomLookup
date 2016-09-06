@@ -2,13 +2,6 @@
 
 ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll, $document, $timeout, $http) {
     $scope.lookUpData = {};
-    // $scope.lookupRoom = {
-    //     // "campusName": "",
-    //     // "buildingName": "",
-    //     "date": new Date(),
-    //     "unavailable": 0,
-    //     "timezone":""
-    // };
     $scope.siteOptions = [];
     $scope.buildingOptions = [];
     $scope.floorOptions = [];
@@ -20,6 +13,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         "date": new Date(),
         "unavailable": 0
     };
+   // $scope.searchRooms={};
 
     $scope.showSearchResult = false;
     $scope.showSingleRoom = false;
@@ -162,6 +156,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.searchMultipleRooms = function(searchFormData) {
         $scope.loader = true;
         $http({
+           // url:"http:ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/get_rooms_search/?format=jsonrooms"
             url: "js/services/responseGrid-data.json",
             method: "POST",
             data: "searchFormData"
@@ -229,7 +224,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         var PrevDay = new Date($scope.inputData.searchDate);
         PrevDay.setDate(PrevDay.getDate() - 1)
         $scope.inputData.searchDate = PrevDay;
-        $scope.searchRooms($scope.inputData);
+       // $scope.searchRooms($scope.inputData);
         console.log($scope.inputData.searchDate);
     };
 
@@ -255,7 +250,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         var NextDay = new Date($scope.inputData.searchDate);
         NextDay.setDate(NextDay.getDate() + 1)
         $scope.inputData.searchDate = NextDay;
-        $scope.searchRooms($scope.inputData);
+       // $scope.searchRooms($scope.inputData);
         console.log($scope.inputData.searchDate);
     };
 
@@ -361,6 +356,18 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         }
     };
 
+    $scope.searchRoomGridnearby = false;
+    $scope.nearbybuildings = false;
+    $scope.nearbyBuilding = function(){
+        if($scope.searchRoomGridnearby){
+                $scope.searchRoomGridnearby = true;
+                 $scope.nearbybuildings = false;
+        }else{
+             $scope.nearbybuildings = true;
+              $scope.searchRoomGridnearby = false;
+        }
+      
+    }
 
     $scope.changeFloor = function(floorNumber) {
         $scope.roomOptions = [];
