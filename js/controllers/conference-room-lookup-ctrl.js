@@ -158,6 +158,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         // for single room slot
 
 
+
+
         $scope.createSingleRoomSlots = function(room) {
             alert("hi");
         if (room.events.length != 0) {
