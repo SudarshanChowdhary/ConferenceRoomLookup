@@ -1,17 +1,34 @@
 {
-   "data": 
-       {
-
-           "roomUid": "4F29105D-28B5-47DD-A0E5-AFD9FE0CD992",
-           "roomName": "ABBA [AVCN] (12) [SGP] SNGMG 1st",
-           "status": "",
-           "dsid": "135709",
-           "busyslot":[{
-                    "startDateTime": "2016-08-16T15:00:00",
-                    "endDateTime": "2016-08-16T17:00:00",
-                    "type": "busy"
-                }]
-       },
-   "date": "2016-07-25",
-   "success": "true"
+  "data": {
+    "roomUid": "2DBC6D93-91D6-2440-5006-AC36406CF537",
+    "roomName": "NiagaraFalls(6)[CAN]TOR0117th",
+    "emailBookers": "a@apple.com, b@apple.com",
+    "events": [
+      {
+        "startDateTime": "2016-11-16T18:00:00",
+        "endDateTime": "2016-11-16T20:00:00",
+        "slot":"free",
+        "organizer": {
+          "name": "TestNameofOrganizer",
+          "email": "test@apple.com",
+          "status": "StatusofEvent/Accepeted/",
+          "adLink": "LinkofAppleDirectory",
+          "type": "Group/resource/person"
+        }
+      },
+      {
+        "startDateTime": "2016-11-16T21:00:00",
+        "endDateTime": "2016-11-16T22:00:00",
+        "slot":"free",
+        "organizer": {
+          "name": "TestNameofOrganizer",
+          "email": "test@apple.com",
+          "status": "StatusofEvent/Accepeted/",
+          "adLink": "LinkofAppleDirectory",
+          "type": "Group/resource/person"
+        }
+      }
+    ]
+  },
+  "success": "true"
 }
