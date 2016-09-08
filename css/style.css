@@ -189,7 +189,7 @@ div.gridData div:nth-child(4n){
     position: relative;
     text-align: center;
     width: 15px;
-  
+
 }
 .searchResults .row div button, .not-Found p a{
     color: #3384FB;
@@ -211,7 +211,7 @@ div.gridData div:nth-child(4n){
 .white-box, .gray-box, .blue-box{
     display: inline-block;
     width: 20px;
-    height: 20px; 
+    height: 20px;
     border: 1px solid #ccc;
 }
 .white-box{background-color:#fff;}
@@ -247,7 +247,7 @@ text-align: center;
 .border-line{
     border-bottom: 1px solid rgb(204, 204, 204);
     border-right: 1px solid rgb(204, 204, 204);
-   
+
     text-align: center;
 
 }
@@ -259,7 +259,7 @@ text-align: center;
 .sr-header{
     padding-bottom: 20px;
     margin-right: -18px;
-   
+
 }
 .info-image{
     padding-right: 20px;
@@ -275,13 +275,13 @@ text-align: center;
 /*.ScrollStyle :first-child{
     border-top: 1px solid rgb(204, 204, 204);
 }*/
-.ScrollStyle table tbody tr td:hover{
+.ScrollStyle table tbody tr td.free:hover{
     cursor: pointer;
     background-color: #3384FB;
 }
 
-.ScrollStyle table tbody tr td:first-child{ width: 88px;
-    background-color: #fff; 
+.ScrollStyle table tbody tr td:first-child{
+  width: 88px;
      }
 
 
@@ -298,11 +298,15 @@ margin-top: 40px;
 }
 
 .divider-text {
-   width:1px; 
-   padding: 0 10px; 
+   width:1px;
+   padding: 0 10px;
    white-space: nowrap;
 }
 
 .no-result-found{
     text-align: center;
+}
+
+.highlight-free-slot{
+  background-color: #3348FB;
 }
