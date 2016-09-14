@@ -173,11 +173,14 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 freeTime = ((freeTime / 1000) / 60) / 15;
                 console.log(freeTime);
 
+                var tempTime = temp;
                 for (var i = 0; i < freeTime; i++) {
                     room.slot.push({
+                        "time": tempTime,
                         "type": "free",
                         "highlight": false
                     });
+                    tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
                 }
                 console.log("edt", edt.getTime(), "sdt", sdt.getTime())
                 var busyTime = edt.getTime() - sdt.getTime();
@@ -185,10 +188,25 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 console.log(busyTime);
                 debugger;
                 for (var i = 0; i < busyTime; i++) {
+                  if(i===0)
+                  {
                     room.slot.push({
+                        "time": tempTime,
+                        "type": "busy",
+                        "highlight": false,
+                        "firstCell": true,
+                        "organizer": events.organizer,
+                        "busyTill": new Date(events.endDateTime),
+                        "numberOfBusySlots": busyTime
+                    });
+                  }else{
+                    room.slot.push({
+                        "time": tempTime,
                         "type": "busy",
                         "highlight": false
                     });
+                  }
+                    tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
                 }
                 temp = edt;
 
@@ -200,23 +218,27 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     //        tempHours=tempHours.getTime()+(15 * 60 * 1000);
                     for (var i = 0; i < freeTime; i++) {
                         room.slot.push({
+                            "time":tempTime,
                             "type": "free",
                             "highlight": false
                         });
+                        tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
                     }
                 }
             });
-
         } else {
             room.slot = [];
+            var tempTime = new Date("2016-07-25T00:00:00");
             for (var i = 0; i < 96; i++) {
                 room.slot.push({
+                    "time": tempTime,
                     "type": "free",
                     "highlight": false
                 });
+                tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
             }
         }
-console.log(room)
+        console.log(room)
         var tempHours = new Date("2016-07-25T00:00:00");
         $scope.hours = [];
 
@@ -224,6 +246,13 @@ console.log(room)
             $scope.hours.push(tempHours);
             tempHours = new Date(tempHours.getTime() + (60 * 60 * 1000));
         }
+
+        var tempTime = new Date("2016-07-25T00:00:00");
+        for (var i = 0; i < 96; i++) {
+            room.slot[i].time = tempTime;
+            tempTime = new Date(tempTime.getTime() + (1000*60*15));
+        }
+
         $anchorScroll("searchRoomGrid");
         $scope.initScroll = 9;
         $timeout(function() {

@@ -1,263 +1,281 @@
 <section class="container" ng-controller="ConferenceRoom">
-   <h1 class="room-lookup-header">Conference Room Lookup</h1>
-   <div class="login-info pull-right">Welcome Ketan <i class="btn-xs glyphicon glyphicon-menu-down"></i></div>
-   <div class="row room-lookup">
-      <section class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-         <form class="form-horizontal" name="lookupRoomForm">
-            <div class="form-group">
-               <label for="site" class="col-sm-2 col-md-2 col-lg-2 control-label">Site</label>
-               <div class="col-md-6 col-lg-8">
-                  <select id="site" class="input-width" ng-change="loadBuilding(lookupRoom.campusName)" ng-model="lookupRoom.campusName">
+    <h1 class="room-lookup-header">Conference Room Lookup</h1>
+    <div class="login-info pull-right">Welcome Ketan <i class="btn-xs glyphicon glyphicon-menu-down"></i></div>
+    <div class="row room-lookup">
+        <section class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+            <form class="form-horizontal" name="lookupRoomForm">
+                <div class="form-group">
+                    <label for="site" class="col-sm-2 col-md-2 col-lg-2 control-label">Site</label>
+                    <div class="col-md-6 col-lg-8">
+                        <select id="site" class="input-width" ng-change="loadBuilding(lookupRoom.campusName)" ng-model="lookupRoom.campusName">
                      <option value="">Select Site</option>
                      <optgroup ng-repeat="region in siteOptions" label="{{region.regionName}}">
                         <option ng-repeat="campus in region.campus" value="{{campus}}">{{campus}}</option>
                      </optgroup>
                   </select>
-               </div>
-            </div>
-            <div class="form-group">
-               <label for="building" class="col-sm-2 col-md-2 col-lg-2 control-label">Building</label>
-               <div class="col-md-6 col-lg-8">
-                  <select id="building" class="input-width" ng-disabled="!lookupRoom.campusName" ng-change="loadFloorsAndRooms(lookupRoom.buildingName)" ng-model="lookupRoom.buildingName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="building" class="col-sm-2 col-md-2 col-lg-2 control-label">Building</label>
+                    <div class="col-md-6 col-lg-8">
+                        <select id="building" class="input-width" ng-disabled="!lookupRoom.campusName" ng-change="loadFloorsAndRooms(lookupRoom.buildingName)" ng-model="lookupRoom.buildingName" required>
                      <option value="">Select Building</option>
                      <option ng-repeat="building in buildingOptions" value="{{building}}">{{building}}</option>
                   </select>
-               </div>
-            </div>
-            <div class="form-group" ng-if="floorOptions.length">
-               <label for="floor" class="col-sm-2 col-md-2 col-lg-2 control-label">Floor</label>
-               <div class="col-md-6 col-lg-8">
-                  <select id="floor" class="floor specific-time" ng-model="lookupRoom.floorNumber" ng-change="changeFloor(lookupRoom.floorNumber)">
+                    </div>
+                </div>
+                <div class="form-group" ng-if="floorOptions.length">
+                    <label for="floor" class="col-sm-2 col-md-2 col-lg-2 control-label">Floor</label>
+                    <div class="col-md-6 col-lg-8">
+                        <select id="floor" class="floor specific-time" ng-model="lookupRoom.floorNumber" ng-change="changeFloor(lookupRoom.floorNumber)">
                      <option value="">Select Floor</option>
                      <option ng-repeat="floorNumber in floorOptions | orderBy" value="{{floorNumber}}">{{floorNumber}}</option>
                   </select>
-               </div>
-            </div>
-            <div class="form-group">
-               <label for="room" class="col-sm-2 col-md-2 col-lg-2 control-label">Room</label>
-               <div class="col-md-6 col-lg-8">
-                  <!--<select id="room" class="input-width " ng-model="lookupRoom.roomName" ng-disabled="!disableRoom">-->
-                  <select id="room" class="input-width " ng-model="lookupRoom.room" ng-disabled="!lookupRoom.buildingName" ng-change="availableSeatsAndAmenities(lookupRoom.room)" ng-options="room.roomName for room in roomOptions">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="room" class="col-sm-2 col-md-2 col-lg-2 control-label">Room</label>
+                    <div class="col-md-6 col-lg-8">
+                        <!--<select id="room" class="input-width " ng-model="lookupRoom.roomName" ng-disabled="!disableRoom">-->
+                        <select id="room" class="input-width " ng-model="lookupRoom.room" ng-disabled="!lookupRoom.buildingName" ng-change="availableSeatsAndAmenities(lookupRoom.room)" ng-options="room.roomName for room in roomOptions">
                      <option value="">Select Room</option>
                   </select>
-                  <div class="checkbox">
-                     <label>
+                        <div class="checkbox">
+                            <label>
                         <input type="checkbox" ng-model="lookupRoom.unavailable" ng-true-value="1" ng-false-value="0"> <span class="optional"> Include Unavailable Rooms</span>
                      </label>
-                  </div>
-               </div>
-            </div>
-            <div class="form-group">
-               <label for="date" class="col-sm-2 col-md-2 col-lg-2 control-label">Date</label>
-               <div class="col-md-6 col-lg-8">
-                  <input id="date" type="text" datepickerMode class="input-width form-control data-input" ng-click="open2()" uib-datepicker-popup="EEEE, MMMM dd, yyyy" ng-model="lookupRoom.date" is-open="popup2.opened" datepicker-options="dateOptions" required close-text="Close"  />
-               </div>
-            </div>
-            <div class="form-group">
-               <label for="timeRange" class="control-label col-sm-2 col-md-2 col-lg-2">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="date" class="col-sm-2 col-md-2 col-lg-2 control-label">Date</label>
+                    <div class="col-md-6 col-lg-8">
+                        <input id="date" type="text" datepickerMode class="input-width form-control data-input" ng-click="open2()" uib-datepicker-popup="EEEE, MMMM dd, yyyy" ng-model="lookupRoom.date" is-open="popup2.opened" datepicker-options="dateOptions" required close-text="Close"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="timeRange" class="control-label col-sm-2 col-md-2 col-lg-2">
                   Time Range
                   <div class="optional">Optional</div>
                </label>
-               <div class="col-md-6 col-lg-8">
-                  <select id="timeRange" class="input-width" ng-change="changeTimeRange(lookupRoom.timeRange)"  ng-model="lookupRoom.timeRange">
+                    <div class="col-md-6 col-lg-8">
+                        <select id="timeRange" class="input-width" ng-change="changeTimeRange(lookupRoom.timeRange)" ng-model="lookupRoom.timeRange">
                      <option value="">Select Time Range</option>
                      <option value="0" ng-selected=true>AnyTime</option>
                      <option value="1">Moring (9:00 AM - 12:00 PM) </option>
                      <option value="2">Afternoon (1:00 PM - 5:00 PM) </option>
                      <option value="3">Specific Time</option>
                   </select>
-               </div>
-               <div class="col-md-6 col-lg-8 " ng-if="specificTime">
-                  <label for="from" class="control-label">From:</label>
-                  <select id="from" class=" floor specific-time" ng-model="lookupRoom.fromTime" ng-change="changeSpecificFromTime(lookupRoom.timeRange, lookupRoom.fromTime)" ng-required="specificTime" ng-options="fromTime.name for fromTime in timeFrom">
+                    </div>
+                    <div class="col-md-6 col-lg-8 " ng-if="specificTime">
+                        <label for="from" class="control-label">From:</label>
+                        <select id="from" class=" floor specific-time" ng-model="lookupRoom.fromTime" ng-change="changeSpecificFromTime(lookupRoom.timeRange, lookupRoom.fromTime)" ng-required="specificTime" ng-options="fromTime.name for fromTime in timeFrom">
                      <option value="">Select...</option>
                      <!--                      <option ng-repeat="fromTime in timeFrom" value="{{fromTime.value}}">{{fromTime.name}}</option> -->
                   </select>
-                  <label for="to" class="control-label">To:</label>
-                  <select id="to" class=" floor specific-time" ng-disabled="!lookupRoom.fromTime" ng-change="changeSpecificToTime()" ng-model="lookupRoom.toTime" ng-required="specificTime">
+                        <label for="to" class="control-label">To:</label>
+                        <select id="to" class=" floor specific-time" ng-disabled="!lookupRoom.fromTime" ng-change="changeSpecificToTime()" ng-model="lookupRoom.toTime" ng-required="specificTime">
                      <option value="" ng-selected="true">Select...</option>
                      <option ng-repeat="toTime in timeTo" value="{{toTime.value}}" ng-disabled="$index < timeFrom.indexOf(lookupRoom.fromTime)">{{toTime.name}}</option>
                   </select>
-               </div>
-            </div>
-            <div class="form-group">
-               <label for="duration" class="control-label col-sm-2 col-md-2 col-lg-2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="duration" class="control-label col-sm-2 col-md-2 col-lg-2">
                   Duration
                   <div class="optional">Optional</div>
                </label>
-               <div class="col-md-6 col-lg-8">
-                  <select id="duration" class="input-width " ng-model="lookupRoom.duration" ng-options="dur.name for dur in durationTime">
+                    <div class="col-md-6 col-lg-8">
+                        <select id="duration" class="input-width " ng-model="lookupRoom.duration" ng-options="dur.name for dur in durationTime">
                      <option value="">Selection Duration</option>
                      <!-- <option ng-repeat="option in durationTime" ng-disabled="$index > durationCount" ng-value="option.value">{{option.name}}</option> -->
                   </select>
-               </div>
-            </div>
-            <div class="form-group">
-               <label class="control-label col-sm-2 col-md-2 col-lg-2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2 col-md-2 col-lg-2">
                   Seats
                   <div class="optional">Optional</div>
                </label>
-               <div class="col-md-6 col-lg-8" >
-                  <label class="checkbox-inline" for="seats_{{$index}}" ng-repeat="seat in seats">
+                    <div class="col-md-6 col-lg-8">
+                        <label class="checkbox-inline" for="seats_{{$index}}" ng-repeat="seat in seats">
                      <!-- ng-model="lookupRoom[seat.label]" -->
                      <input type="checkbox" id="seat_{{$index}}" name="seat_{{$index}}" value="{{seat.checked}}" ng-disabled="!seat.disable"><span class="seat-available">{{seat.label}}</span>
                   </label>
-               </div>
-            </div>
-            <div class="form-group">
-               <div class="">
-                  <label for="amenities" class="control-label col-sm-2 col-md-2 col-lg-2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        <label for="amenities" class="control-label col-sm-2 col-md-2 col-lg-2">
                      Amenities
                      <div class="optional">Optional</div>
                   </label>
-               </div>
-               <div id="amenities" class="col-md-6 col-lg-8">
-                  <!-- ng-model="lookupRoom[amenity.label]" -->
-                  <label class="checkbox-inline" for="amenity_{{$index}}" ng-repeat="amenity in amenities">
+                    </div>
+                    <div id="amenities" class="col-md-6 col-lg-8">
+                        <!-- ng-model="lookupRoom[amenity.label]" -->
+                        <label class="checkbox-inline" for="amenity_{{$index}}" ng-repeat="amenity in amenities">
                      <input type="checkbox" name="amenity_{{$index}}" value="{{amenity.checked}}" ng-disabled="!amenity.disable"><span class="amenities-available"> {{amenity.label}}</span>
                   </label>
-               </div>
-            </div>
-            <!--             {{lookupRoom}}  -->
-            <div class="form-group">
-               <div class="col-sm-offset-2 col-md-6 col-lg-8">
-                  <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoomForm.$invalid" class="btn btn-sm search-btn">Search</button>
-               </div>
-            </div>
-         </form>
-      </section>
-      <section class="col-xs-6 col-md-6 col-lg-4">
-         <div class="right-box">
-            <h4>
+                    </div>
+                </div>
+                <!--             {{lookupRoom}}  -->
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-md-6 col-lg-8">
+                        <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoomForm.$invalid" class="btn btn-sm search-btn">Search</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+        <section class="col-xs-6 col-md-6 col-lg-4">
+            <div class="right-box">
+                <h4>
             Find and reserve an available conference room
             </h4>
-            <p class="">
-               Book a conference room here and then complete the reservation in Calendar on your Mac. If a room you need is already booked, use this tool to email the meeting organizer.
-            </p>
-            <p>
-               Need help? Get <a href="#">step-by-step instructions</a> on how to use this tool.
-            </p>
-         </div>
-      </section>
-   </div>
-   <!-- Single Room Search -->
-   <section class="single-room-search" ng-show="showSingleRoom">
-      <h2>{{lookupRoom.date | date: "EEEE, MMMM dd, yyyy"}}</h2>
-      <h4>{{lookupRoom.room.roomName}}</h4>
-      <div class="sr-header">
-         <span><a href="#"><img src="images/adir.png"><span class="sr-img">Open in Apple Directory</span></a></span>
-         <span>
+                <p class="">
+                    Book a conference room here and then complete the reservation in Calendar on your Mac. If a room you need is already booked, use this tool to email the meeting organizer.
+                </p>
+                <p>
+                    Need help? Get <a href="#">step-by-step instructions</a> on how to use this tool.
+                </p>
+            </div>
+        </section>
+    </div>
+    <!-- Single Room Search -->
+    <section class="single-room-search" ng-show="showSingleRoom">
+        <h2>{{lookupRoom.date | date: "EEEE, MMMM dd, yyyy"}}</h2>
+        <h4>{{lookupRoom.room.roomName}}</h4>
+        <div class="sr-header">
+            <span><a href="#"><img src="images/adir.png"><span class="sr-img">Open in Apple Directory</span></a>
+            </span>
+            <span>
             <a href="#">
                <img class="sr-img" src="images/email.png">
                <spam class="sr-img">Email all bookers</spam>
             </a>
          </span>
-         <span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right info-image">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
-      </div>
-      <div class="single-room-header sr-header">
-         <div class="sr-time border-line">
-            Time
-         </div>
-         <div class="sr-booked border-line">
-            <span class="sr-header">Booked time</span>
-            <span class="pull-right">Booked By</span>
-         </div>
-      </div>
-      <div>
-         <div class="ScrollStyle">
-            <table>
-               <tr ng-repeat="slot in singleRoomData.slot track by $index">
-                  <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]  | date:'h'}}">{{hours[$index/4]  | date:'h a'}}</td>
-                  <td class="border-line" ng-class="{'free':slot.type=='free', 'busy':slot.type=='busy'}">
-                     <div ng-mouseover="addDurationClass(singleRoomData, $index)" ng-mouseout="removeDurationClass(singleRoomData, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
-                  </td>
-               </tr>
+            <span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right info-image">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
+        </div>
+        <div class="single-room-header sr-header">
+            <div class="sr-time border-line">
+                Time
+            </div>
+            <div class="sr-booked border-line">
+                <span class="sr-header">Booked time</span>
+                <span class="pull-right">Booked By</span>
+            </div>
+        </div>
+        <div>
+            <div class="ScrollStyle">
+                <table>
+                    <tr ng-repeat="slot in singleRoomData.slot track by $index">
+                        <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]  | date:'h'}}">{{hours[$index/4] | date:'hh:mm a'}}</td>
+                        <td class="border-line" ng-class="{'free':slot.type=='free', 'busy':slot.type=='busy'}">
+                            <div ng-mouseover="addDurationClass(singleRoomData, $index)" ng-mouseout="removeDurationClass(singleRoomData, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;
+                                <div ng-if="slot.type=='busy' && slot.firstCell==true">Busy from: {{slot.time | date:'hh:mm a'}} - to : {{slot.busyTill | date:'hh:mm a'}}</div>
+                            </div>
+                        </td>
+                        <td class="border-line busy" ng-if="slot.type=='busy' && slot.firstCell==true" rowspan="{{slot.numberOfBusySlots}}">
+                            <div><label>Name :</label> {{slot.organizer.name}}</div>
+                            <div><label>Email :</label> {{slot.organizer.email}}</div>
+                            <div><label>Status :</label> {{slot.organizer.status}}</div>
+                            <div><label>Ad Link :</label> {{slot.organizer.adLink}}</div>
+                            <div><label>Type :</label> {{slot.organizer.type}}</div>
+                        </td>
+                        <td class="border-line free" ng-if="slot.type=='free'">&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <footer class="search-result-footer">
+            <p>Copyright Apple, Inc. All rights reserved.</p>
+        </footer>
+    </section>
+    <!-- end of single room search -->
+    <!-- SEARCH RESULTS VIEW -->
+    <section class="searchResults" id="searchResults" ng-show="showSearchResult">
+        <h3>{{lookupRoom.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
+        <div class="row">
+            <div class="col-md-4">{{grid_data.length}} rooms matching your search</div>
+            <div class="col-md-8">
+                <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
+                <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll<3" ng-click="Previous4Hours()">‹ Previous 4 Hours</button></div>
+                <div class="col-md-2 col-sm-2"></div>
+                <div class="col-md-2 col-sm-2"></div>
+                <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll>19" ng-click="Next4hours()">Next 4 Hours ›</button></div>
+                <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
+            </div>
+        </div>
+        <section class="searchGrid" id="searchRoomGrid">
+            <!-- fixed-first-column -->
+            <div fixed-first-column>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <!-- popover start -->
+                            <!-- <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th> -->
+                            <th><span>Room</span><span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right ">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
+                            </th>
+                            <script type="text/ng-template" id="myPopoverTemplate.html">
+                                <h4>{M} Chambre [AVCN] (8) {RESTRICTED} <br>[DEU] EMA 2nd</h4>
+                                <div class="legend-details">
+                                    <p><span class="text-color">{M}</span> = Managed room. Reservations must be approved by the room manager.</p>
+                                    <p><span class="text-color">Chambre</span> = Room name</p>
+                                    <p><span class="text-color">[AVCN]</span> = Apple Video Conferencing Network</p>
+                                    <p><span class="text-color">(8)</span> = Room Capacity</p>
+                                    <p><span class="text-color">{RESTRICTED}</span> = Badge-restricted room access.</p>
+                                    <p><span class="text-color">[DEU]</span> = Country</p>
+                                    <p><span class="text-color">EMA</span> = Building</p>
+                                    <p><span class="text-color">2nd</span> = Floor</p>
+                                </div>
+                                <div class="color-indicate">
+                                    <span class="white-box"></span><strong>Available</strong>
+                                    <span class="gray-box"></span><strong>Booked</strong>
+                                    <span class="blue-box"></span><strong>Reserved</strong>
+                                </div>
+                            </script>
+                            <!-- popover end -->
+            </div>
+            </div>
+            </div>
+            </div>
+            <th>
+                <div class="gridHeader">
+                    <div ng-repeat="hour in hours" id="{{hour | date:'H'}}">{{hour | date:'h a'}}</div>
+                </div>
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="room in grid_data track by $index">
+                    <td>
+                        <a href="adir://conferencerooms/<dsid>"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
+                    <td>
+                        <div class="gridData">
+                            <div ng-repeat="slot in room.slot" ng-class="{'free':slot.type=='free', 'busy':slot.type!='free'}">
+                                <div ng-mouseover="addDurationClass(room, $index)" ng-mouseout="removeDurationClass(room, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
             </table>
-         </div>
-      </div>
-      <footer class="search-result-footer">
-         <p>Copyright Apple, Inc. All rights reserved.</p>
-      </footer>
-   </section>
-   <!-- end of single room search -->
-   <!-- SEARCH RESULTS VIEW -->
-   <section class="searchResults" id="searchResults" ng-show="showSearchResult">
-      <h3>{{lookupRoom.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
-      <div class="row">
-         <div class="col-md-4">{{grid_data.length}} rooms matching your search</div>
-         <div class="col-md-8">
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll<3" ng-click="Previous4Hours()">‹ Previous 4 Hours</button></div>
-            <div class="col-md-2 col-sm-2"></div>
-            <div class="col-md-2 col-sm-2"></div>
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll>19" ng-click="Next4hours()">Next 4 Hours ›</button></div>
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
-         </div>
-      </div>
-      <section class="searchGrid" id="searchRoomGrid">
-         <!-- fixed-first-column -->
-         <div fixed-first-column>
-            <table class="table table-condensed">
-               <thead>
-                  <tr>
-                     <!-- popover start -->
-                     <!-- <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th> -->
-                     <th><span>Room</span><span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right ">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th>
-                     <script type="text/ng-template" id="myPopoverTemplate.html">
-                     <h4>{M} Chambre [AVCN] (8) {RESTRICTED} <br>[DEU] EMA 2nd</h4>
-                     <div class="legend-details">
-                        <p><span class="text-color">{M}</span> = Managed room. Reservations must be approved by the room manager.</p>
-                        <p><span class="text-color">Chambre</span> = Room name</p>
-                        <p><span class="text-color">[AVCN]</span> = Apple Video Conferencing Network</p>
-                        <p><span class="text-color">(8)</span> = Room Capacity</p>
-                        <p><span class="text-color">{RESTRICTED}</span> = Badge-restricted room access.</p>
-                        <p><span class="text-color">[DEU]</span> = Country</p>
-                        <p><span class="text-color">EMA</span> = Building</p>
-                        <p><span class="text-color">2nd</span> = Floor</p>
-                     </div>
-                     <div class="color-indicate">
-                        <span class="white-box"></span><strong>Available</strong>
-                        <span class="gray-box"></span><strong>Booked</strong>
-                        <span class="blue-box"></span><strong>Reserved</strong>
-                     </div>
-                     </script>
-                     <!-- popover end -->
-                  </div>
-               </div>
             </div>
-         </div>
-         <th>
-            <div class="gridHeader">
-               <div ng-repeat="hour in hours" id="{{hour | date:'H'}}">{{hour | date:'h a'}}</div>
-            </div>
-         </th>
-      </tr>
-   </thead>
-   <tbody>
-      <tr ng-repeat="room in grid_data track by $index">
-         <td><a href="adir://conferencerooms/<dsid>"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
-         <td>
-            <div class="gridData">
-               <div ng-repeat="slot in room.slot" ng-class="{'free':slot.type=='free', 'busy':slot.type!='free'}">
-                  <div ng-mouseover="addDurationClass(room, $index)" ng-mouseout="removeDurationClass(room, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
-               </div>
-            </div>
-         </td>
-      </tr>
-   </tbody>
-</table>
-</div>
-</section>
+        </section>
 
- <div class="nearbybuildings" ng-show="nearbybuildings">
+        <div class="nearbybuildings" ng-show="nearbybuildings">
             <table class="divider">
-              <td><hr /></td>
-              <td class="divider-text"> NEARBY BUILDINGS </td>
-              <td><hr /></td>
+                <td>
+                    <hr />
+                </td>
+                <td class="divider-text"> NEARBY BUILDINGS </td>
+                <td>
+                    <hr />
+                </td>
             </table>
             <div class="no-result-found">
 
-            <h2>No Results Found</h1>
+                <h2>No Results Found</h1>
             <p>Please update your search and try again.</p>
                </div>
 
