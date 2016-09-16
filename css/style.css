@@ -310,3 +310,21 @@ margin-top: 40px;
 .highlight-free-slot{
   background-color: #3348FB;
 }
+.sr-booked span:first-child {
+    padding-left: 44px;
+}
+.sr-booked span:last-child {
+    padding-right:44px;
+}
+.dialogbox{
+
+    z-index: 999;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+
+
+

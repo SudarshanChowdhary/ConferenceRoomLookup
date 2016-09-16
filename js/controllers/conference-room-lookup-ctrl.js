@@ -1,6 +1,7 @@
 'use strict'
 
 ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll, $document, $timeout, $http) {
+    // , $uibModalInstance, items
     $scope.lookUpData = {};
     $scope.siteOptions = [];
     $scope.buildingOptions = [];
@@ -269,7 +270,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $http({
             // url:"http:ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/get_rooms_search/?format=jsonrooms"
             url: "js/services/responseGrid-data.json",
-            method: "GET",
+            method: "POST",
             data: "searchFormData"
         }).then(function(res) {
             $scope.loader = false;
@@ -284,7 +285,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.loader = true;
         $http({
             url: "js/services/singleRoom-data.json",
-            method: "GET",
+            method: "POST",
             data: "searchFormData"
         }).then(function(res) {
             $scope.loader = false;
@@ -632,5 +633,33 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             });
         }
     };
+
+
+        $scope.dialogbox = false;
+
+        $scope.openDialogbox = function(){
+
+             $scope.dialogbox = true;
+        }
+
+
+    //code for dialog box
+
+
+  //   var $ctrl = this;
+  // $ctrl.items = items;
+  // $ctrl.selected = {
+  //   item: $ctrl.items[0]
+  // };
+
+  // $ctrl.ok = function () {
+  //   $uibModalInstance.close($ctrl.selected.item);
+  // };
+
+  // $ctrl.cancel = function () {
+  //   $uibModalInstance.dismiss('cancel');
+  // };
+
+
 
 });
