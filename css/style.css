@@ -94,6 +94,7 @@ span a:hover {
 
 .busy {
     background-color: #ccc;
+    height: 25px !important;
 }
 .free:hover{
     cursor: pointer;
@@ -266,35 +267,23 @@ text-align: center;
 }
 .ScrollStyle
 {
-    width: 100%;
     max-height: 450px;
     overflow-y: scroll;
     border-top: 1px solid rgb(204, 204, 204);
     margin-top: 20px;
 }
-/*.ScrollStyle :first-child{
-    border-top: 1px solid rgb(204, 204, 204);
-}*/
 .ScrollStyle table tbody tr td.free:hover{
     cursor: pointer;
     background-color: #3384FB;
 }
 
-.ScrollStyle table tbody tr td:first-child{
-  width: 88px;
-     }
-
-
-.ScrollStyle table tbody tr td:nth-child(2){
-    width: 993px;
-}
 #searchRoomGridnearby{
 
 }
 
 .divider{width:100%;
 
-margin-top: 40px;
+  margin-top: 40px;
 }
 
 .divider-text {
@@ -322,9 +311,3 @@ margin-top: 40px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
-
-
-
-
-

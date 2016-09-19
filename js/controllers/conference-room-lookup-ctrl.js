@@ -285,7 +285,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.loader = true;
         $http({
             url: "js/services/singleRoom-data.json",
-            method: "POST",
+            method: "GET",
             data: "searchFormData"
         }).then(function(res) {
             $scope.loader = false;
@@ -307,6 +307,14 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         templateUrl: 'myPopoverTemplate.html',
         outsideClick: "outsideClick",
     };
+
+    // popover code
+    $scope.dynamicPopover1 = {
+        templateUrl: 'myModalContent.html',
+        outsideClick: "outsideClick",
+    };
+
+
 
     // popover code end
     $scope.addDurationClass = function(obj, index) {
