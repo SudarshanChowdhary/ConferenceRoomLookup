@@ -534,7 +534,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.specificTime = true;
         }
     };
-
     $scope.changeSpecificFromTime = function(timeRange, fromTime) {
         $scope.timeTo = [];
         $scope.lookupRoom.toTime = null;
@@ -543,7 +542,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         }
 
     };
-
     $scope.changeSpecificToTime = function() {
         //TODO: Convert time into minutes and divide by 15
         //TODO: add the method in markup
