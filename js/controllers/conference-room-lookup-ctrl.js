@@ -302,8 +302,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             //             el.animate({ scrollLeft:initScrollDiv}, 1, function() { });
     }
 
-
-
     // popover code
     $scope.dynamicPopover = {
         templateUrl: 'myPopoverTemplate.html',

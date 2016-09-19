@@ -3,28 +3,33 @@
 .room-lookup-header {
     display: inline-block;
 }
+
 .login-info {
     padding: 30px 0;
 }
+
 .room-lookup {
     margin-top: 30px;
 }
+
 .right-box {
     border: 1px solid #DDDDDD;
     border-radius: 5px;
     padding: 20px;
 }
+
 .input-width {
     width: 280px;
     height: 20px;
     padding-top: 0px;
     padding-bottom: 2px;
     font-size: 11px;
-
 }
+
 .data-input {
     padding: 0 8px 2px 8px;
 }
+
 .floor {
     width: 107px;
     display: inline-block;
@@ -32,25 +37,29 @@
     padding-top: 0px;
     padding-bottom: 2px;
 }
+
 .optional {
     color: #BBBBBB;
     font-size: 11px;
 }
+
 .search-btn {
     width: 69px;
     color: #fff;
     background-color: #3384FB;
 }
+
 .control-label {
     font-weight: normal;
     vertical-align: middle;
     line-height: 12px;
 }
-.seat-available,
-.amenities-available,
-.specific-time {
+
+.seat-available, .amenities-available, .specific-time {
     font-size: 11px;
 }
+
+
 /*This css for search result view*/
 
 .searchResults, .single-room-search {
@@ -58,71 +67,81 @@
     margin: 20px;
     padding-top: 60px;
 }
+
 .searchResultBuilding {
     display: inline-block;
     font-size: 24px;
 }
+
 .matchingSearch {
     width: 600px;
     float: right;
 }
+
 .previous {
     display: inline-block;
 }
+
 span a:hover {
     text-decoration: none;
 }
+
 .whiteSpace {
     padding-right: 20px;
 }
+
 .roomsName {
     width: 400px;
 }
+
 .roomsNameList {
     list-style-type: none;
     line-height: 25px;
     padding-left: 0px;
 }
+
 .roomsNameList li {
     border-top: solid 1px #ccc;
     border-bottom: solid 1px #ccc;
 }
+
 .not-Found {
     text-align: center;
     padding: 40px 0px;
 }
 
-
-
 .busy {
     background-color: #ccc;
     height: 25px !important;
 }
-.free:hover{
+
+.free:hover {
     cursor: pointer;
     background-color: #3384FB;
 }
-div.gridData, div.gridHeader{
+
+div.gridData, div.gridHeader {
     white-space: nowrap;
 }
-div.gridHeader div{
+
+div.gridHeader div {
     width: 100px !important;
     display: inline-block;
-    border-right:1px solid #ddd;
+    border-right: 1px solid #ddd;
     text-align: center;
     height: 25px;
 }
-div.gridData div{
+
+div.gridData div {
     height: 29px;
     width: 25px !important;
     display: inline-block;
-    border-right:1px solid #ccc;
+    border-right: 1px solid #ccc;
 }
 
-div.gridData div:nth-child(4n){
-    border-right:1px solid #ddd;
+div.gridData div:nth-child(4n) {
+    border-right: 1px solid #ddd;
 }
-
 
 .time-range {
     padding: 15px;
@@ -130,52 +149,64 @@ div.gridData div:nth-child(4n){
     font-weight: bold;
     width: 14.2%;
 }
+
 .resultRoomsName {
     padding-top: 5px;
 }
+
 .search-result-footer {
     border-top: solid #ccc 1px;
 }
+
 .search-result-footer p {
     padding-top: 20px;
 }
+
 .resultRoomsName:hover {
     text-decoration-line: none;
 }
 
-
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-    border-top:none;
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    border-top: none;
     border-bottom: 1px solid #ddd;
     padding: 0px;
 }
 
+
 /* First column fixed css */
 
-[fixed-first-column] {position:relative}
-[fixed-first-column]>.table-responsive {margin-left:400px;}
-[fixed-first-column]>.table-responsive .table {padding: 0; margin-bottom: 0px;}
+[fixed-first-column] {
+    position: relative
+}
 
-[fixed-first-column]>.table-responsive .table>thead>tr>td:first-child,
-[fixed-first-column]>.table-responsive .table>tbody>tr>td:first-child,
-[fixed-first-column]>.table-responsive .table>thead>tr>th:first-child,
-[fixed-first-column]>.table-responsive .table>tbody>tr>th:first-child {
+[fixed-first-column]>.table-responsive {
+    margin-left: 400px;
+}
+
+[fixed-first-column]>.table-responsive .table {
+    padding: 0;
+    margin-bottom: 0px;
+}
+
+[fixed-first-column]>.table-responsive .table>thead>tr>td:first-child, [fixed-first-column]>.table-responsive .table>tbody>tr>td:first-child, [fixed-first-column]>.table-responsive .table>thead>tr>th:first-child, [fixed-first-column]>.table-responsive .table>tbody>tr>th:first-child {
     position: absolute;
     min-width: 400px;
     width: 400px;
-    border-top:none;
+    border-top: none;
     border-bottom: 1px solid #ddd;
-    border-right:1px solid #ddd;
-    left:0;
-    top:auto;
-    padding:5px 8px !important;
+    border-right: 1px solid #ddd;
+    left: 0;
+    top: auto;
+    padding: 5px 8px !important;
 }
-.grid-room-name{
+
+.grid-room-name {
     color: #3384FB;
     font-size: 13px;
     cursor: pointer;
     padding-left: 11px;
 }
+
 .info-icon {
     border-radius: 100%;
     border: 1px solid #0c84db;
@@ -192,123 +223,149 @@ div.gridData div:nth-child(4n){
     position: relative;
     text-align: center;
     width: 15px;
-
 }
-.searchResults .row div button, .not-Found p a{
+
+.searchResults .row div button, .not-Found p a {
     color: #3384FB;
     text-decoration: inherit !important;
 }
+
+
 /*popover css*/
-.popover{
+
+.popover {
     max-width: 420px !important;
     top: 28px;
-   /* left: 174px !important;*/
+    /* left: 174px !important;*/
 }
-.popover-content{
+
+.popover-content {
     width: 420px !important;
 }
 
-.legend-details{border-bottom: 1px solid rgb(204, 204, 204);
+.legend-details {
+    border-bottom: 1px solid rgb(204, 204, 204);
 }
-.text-color{color: #3384fb;}
-.white-box, .gray-box, .blue-box{
+
+.text-color {
+    color: #3384fb;
+}
+
+.white-box, .gray-box, .blue-box {
     display: inline-block;
     width: 20px;
     height: 20px;
     border: 1px solid #ccc;
 }
-.white-box{background-color:#fff;}
-.gray-box{background-color:#ccc;}
-.blue-box{background-color:#3384fb;
-border: 1px solid #3384fb!important;}
 
-.color-indicate{margin-top: 15px;}
-.color-indicate span{margin-right: 5px;}
-.color-indicate strong{margin-right: 10px; vertical-align: 5px;}
+.white-box {
+    background-color: #fff;
+}
+
+.gray-box {
+    background-color: #ccc;
+}
+
+.blue-box {
+    background-color: #3384fb;
+    border: 1px solid #3384fb!important;
+}
+
+.color-indicate {
+    margin-top: 15px;
+}
+
+.color-indicate span {
+    margin-right: 5px;
+}
+
+.color-indicate strong {
+    margin-right: 10px;
+    vertical-align: 5px;
+}
+
 
 /*end popover css*/
 
+
 /* single room search*/
 
-.sr-img{
+.sr-img {
     padding-left: 7px;
 }
 
-.sr-time{
-width: 8%;
-display: inline-block;
-text-align: center;
-
+.sr-time {
+    width: 8%;
+    display: inline-block;
+    text-align: center;
 }
 
-.sr-booked{
+.sr-booked {
     display: inline-block;
     width: 90%;
     padding-right: 10px;
     text-align: left !important;
 }
-.border-line{
+
+.border-line {
     border-bottom: 1px solid rgb(204, 204, 204);
     border-right: 1px solid rgb(204, 204, 204);
-
     text-align: center;
-
 }
 
-.nearbybuildings{
+.nearbybuildings {}
 
-}
-
-.sr-header{
+.sr-header {
     padding-bottom: 20px;
     margin-right: -18px;
-
 }
-.info-image{
+
+.info-image {
     padding-right: 20px;
 }
-.ScrollStyle
-{
+
+.ScrollStyle {
     max-height: 450px;
     overflow-y: scroll;
     border-top: 1px solid rgb(204, 204, 204);
     margin-top: 20px;
 }
-.ScrollStyle table tbody tr td.free:hover{
+
+.ScrollStyle table tbody tr td.free:hover {
     cursor: pointer;
     background-color: #3384FB;
 }
 
-#searchRoomGridnearby{
+#searchRoomGridnearby {}
 
-}
-
-.divider{width:100%;
-
-  margin-top: 40px;
+.divider {
+    width: 100%;
+    margin-top: 40px;
 }
 
 .divider-text {
-   width:1px;
-   padding: 0 10px;
-   white-space: nowrap;
+    width: 1px;
+    padding: 0 10px;
+    white-space: nowrap;
 }
 
-.no-result-found{
+.no-result-found {
     text-align: center;
 }
 
-.highlight-free-slot{
-  background-color: #3348FB;
+.highlight-free-slot {
+    background-color: #3348FB;
 }
+
 .sr-booked span:first-child {
     padding-left: 44px;
 }
-.sr-booked span:last-child {
-    padding-right:44px;
-}
-.dialogbox{
 
+.sr-booked span:last-child {
+    padding-right: 44px;
+}
+
+.dialogbox {
     z-index: 999;
     border: 1px solid #ccc;
     border-radius: 5px;
