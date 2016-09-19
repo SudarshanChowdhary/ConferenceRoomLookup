@@ -169,13 +169,13 @@
             <div class="ScrollStyle">
                 <table class="table">
                     <tr ng-repeat="slot in singleRoomData.slot track by $index">
-                        <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]  | date:'h'}}">{{hours[$index/4] | date:'hh:mm a'}}</td>
+                        <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]  | date:'h'}}">{{hours[$index/4] | date:'hh a'}}</td>
                         <td ng-if="slot.type=='free'" class="border-line free">
                             <div ng-mouseover="addDurationClass(singleRoomData, $index)" ng-mouseout="removeDurationClass(singleRoomData, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
                         </td>
                         <td ng-if="slot.type=='busy'" class="border-line busy">
                             <div ng-if="slot.firstCell==true" class="row">
-                                <div class="col-md-6">Busy from: {{slot.time | date:'hh:mm a'}} - to : {{slot.busyTill | date:'hh:mm a'}}</div>
+                                <div class="col-md-6">{{slot.time | date:'hh:mm a'}} to : {{slot.busyTill | date:'hh:mm a'}}</div>
 
                                 <div class="col-md-6" uib-popover-template="dynamicPopover1.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="top">
                                     {{slot.organizer.name}}

@@ -50,7 +50,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.inputData.timezone = smroom.timezone;
             $scope.inputData.unavailable = smroom.unavailable;
             var d = new Date(smroom.date);
-            $scope.inputData.searchDate = d.getFullYear() + "-" + $scope.appendZero(d.getMonth() + 1) + "-" + $scope.appendZero(d.getDate());
+            $scope.inputData.searchDate = d.getFullYear() + "" + $scope.appendZero(d.getMonth() + 1) + "" + $scope.appendZero(d.getDate());
             // alert("request object",$scope.lookupRoom);
 
 

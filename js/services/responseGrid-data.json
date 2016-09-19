@@ -1,52 +1,104 @@
 {
     "data": [
         {
-            "roomUid": "7E4B7760-9EE8-79A3-A191-8A8720751A00",
-            "roomName": "Gandalf [AVCN] (10) PL01 2nd",
+            "roomName": "Legolas",
+            "roomUid": "9CEC41AA-7F8C-087A-A137-3845CA889BBD",
             "status": "",
             "busyslot": [
                 {
-                    "startDateTime": "2016-08-16T07:00:00",
-                    "endDateTime": "2016-08-16T07:15:00",
-                    "type": "busy"
+                    "startDateTime": "2016-09-19T09:30:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T10:00:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-08-16T15:00:00",
-                    "endDateTime": "2016-08-16T17:00:00",
-                    "type": "busy"
+                    "startDateTime": "2016-09-19T11:00:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T12:00:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-08-16T17:30:00",
-                    "endDateTime": "2016-08-16T18:30:00",
-                    "type": "busy"
+                    "startDateTime": "2016-09-19T15:00:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T19:15:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-08-16T19:30:00",
-                    "endDateTime": "2016-08-16T22:30:00",
-                    "type": "busy"
+                    "startDateTime": "2016-09-19T19:30:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T19:45:00.000-05:00"
+                },
+                {
+                    "startDateTime": "2016-09-19T20:15:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T20:30:00.000-05:00"
+                },
+                {
+                    "startDateTime": "2016-09-19T21:00:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T21:15:00.000-05:00"
                 }
             ]
         },
         {
-            "roomUid": "7E4B7760-9EE8-79A3-A191-8A8720751A00",
-            "roomName": "MOM's [AVCN] (8) PL0001 4nd",
+            "roomName": "Mom's Room",
+            "roomUid": "B8B46A67-167A-F845-2EE9-31676736DCF6",
             "status": "",
             "busyslot": []
         },
         {
-            "roomUid": "9DB9294C-59A8-EEB5-A281-2C3A5830D5E1",
-            "roomName": "Frodo (10) PL01 2nd",
+            "roomName": "Gandalf",
+            "roomUid": "7E4B7760-9EE8-79A3-A191-8A8720751A00",
             "status": "",
             "busyslot": [
                 {
-                    "startDateTime": "2016-08-16T14:00:00",
-                    "endDateTime": "2016-08-16T17:30:00",
-                    "type": "busy"
+                    "startDateTime": "2016-09-19T09:00:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T10:00:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-08-16T19:00:00",
-                    "endDateTime": "2016-08-16T21:30:00",
-                    "type": "busy"
+                    "startDateTime": "2016-09-19T10:15:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T12:00:00.000-05:00"
+                },
+                {
+                    "startDateTime": "2016-09-19T13:30:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T16:30:00.000-05:00"
+                }
+            ]
+        },
+        {
+            "roomName": "Frodo",
+            "roomUid": "9DB9294C-59A8-EEB5-A281-2C3A5830D5E1",
+            "status": "",
+            "busyslot": [
+                {
+                    "startDateTime": "2016-09-19T09:00:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T10:00:00.000-05:00"
+                },
+                {
+                    "startDateTime": "2016-09-19T10:30:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T11:00:00.000-05:00"
+                },
+                {
+                    "startDateTime": "2016-09-19T11:30:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T12:00:00.000-05:00"
+                },
+                {
+                    "startDateTime": "2016-09-19T13:00:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T13:30:00.000-05:00"
+                },
+                {
+                    "startDateTime": "2016-09-19T14:30:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T15:00:00.000-05:00"
+                },
+                {
+                    "startDateTime": "2016-09-19T15:30:00.000-05:00",
+                    "type": "busy",
+                    "endDateTime": "2016-09-19T16:30:00.000-05:00"
                 }
             ]
         }
