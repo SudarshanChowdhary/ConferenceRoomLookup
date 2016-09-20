@@ -158,6 +158,7 @@
         </div>
 
         <table class="table">
+<<<<<<< HEAD
           <tr>
 <td class="align-time">Time</td>
 <td>
@@ -165,6 +166,15 @@
   <div class="col-md-6 text-right booked-by-line">Booked By</div>
 </td>
           </tr>
+=======
+            <tr>
+                <td>Time</td>
+                <td>
+                    <div class="col-md-6">Booked time</div>
+                    <div class="col-md-6 text-right">Booked By</div>
+                </td>
+            </tr>
+>>>>>>> 686af078bd472d62d511afc2f5b9c1178d0acad4
         </table>
         <!-- <div class="single-room-header sr-header">
             <div class="sr-time border-line">
@@ -174,6 +184,7 @@
                     </div>
         </div> -->
 
+<<<<<<< HEAD
             <div class="ScrollStyle">
                 <table class="table">
                     <tr ng-repeat="slot in singleRoomData.slot track by $index">
@@ -188,16 +199,33 @@
                                 <div class="col-md-6" uib-popover-template="dynamicPopover1.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="top">
                                   <a href="#" data-toggle="modal" data-target="#myModal">  {{slot.organizer.name}}</a>
                                     <!-- <div><label>Email :</label> {{slot.organizer.email}}</div>
+=======
+        <div class="ScrollStyle">
+            <table class="table">
+                <tr ng-repeat="slot in singleRoomData.slot track by $index">
+                    <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]  | date:'h'}}">{{hours[$index/4] | date:'hh a'}}</td>
+                    <td ng-if="slot.type=='free'" class="border-line free">
+                        <div ng-mouseover="addDurationClass(singleRoomData, $index)" ng-mouseout="removeDurationClass(singleRoomData, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
+                    </td>
+                    <td ng-if="slot.type=='busy'" class="border-line busy">
+                        <div ng-if="slot.firstCell==true" class="row">
+                            <div class="col-md-6">{{slot.time | date:'hh:mm a'}} to : {{slot.busyTill | date:'hh:mm a'}}</div>
+
+                            <div class="col-md-6" ng-click="open(slot)">
+                                {{slot.organizer.name}}
+                                <!-- <div><label>Email :</label> {{slot.organizer.email}}</div>
+>>>>>>> 686af078bd472d62d511afc2f5b9c1178d0acad4
           <div><label>Status :</label> {{slot.organizer.status}}</div>
           <div><label>Ad Link :</label> {{slot.organizer.adLink}}</div>
           <div><label>Type :</label> {{slot.organizer.type}}</div> -->
-                                </div>
                             </div>
-                        </td>
+                        </div>
+                    </td>
 
-                    </tr>
-                </table>
-            </div>
+                </tr>
+            </table>
+        </div>
+
 
        <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -213,18 +241,26 @@
                 <h3 class="modal-title" id="modal-title">Contact Jassica Swift</h3>
                 <p>Blue 06 (4) CU01 1st - Tuesday, September 13, 2016</p>
                 <label>Recipients</label>
-                <p><label> {{slot.organizer.email}}</label></p>
+                <p><label> {{selected.organizer.email}}</label></p>
             </div>
         <div class="modal-body">
          <div style="min-height:500px;">
                     <form>
                         <div class="form-group">
                             <label for="yourName">Your Name</label>
+<<<<<<< HEAD
                             <input type="text" class="form-control" id="yourName" ng-model="slot.organizer.name" value="Sudarshan Koyalkar" placeholder="">
                         </div>
                         <div class="form-group">
                             <label for="yourEmail">Your Email</label>
                             <input type="email" class="form-control" id="yourEmail" ng-model="slot.organizer.email" value="sudarshan_koyalkar@apple." placeholder="">
+=======
+                            <input type="text" class="form-control" id="yourName" ng-model="selected.organizer.name" placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="yourEmail">Your Email</label>
+                            <input type="email" class="form-control" id="yourEmail" ng-model="selected.organizer.email" placeholder="">
+>>>>>>> 686af078bd472d62d511afc2f5b9c1178d0acad4
                             <div class="form-check">
                                 <label class="form-check-label">
                       <input type="checkbox" class="form-check-input"> CC me
@@ -240,8 +276,13 @@
                             <textarea class="form-control" id="Message" rows="6"></textarea>
                         </div>
                         <div class="modal-footer">
+<<<<<<< HEAD
                             <button class="btn btn-primary pull-left" type="button" ng-click="ok('lg')">Send Message</button>
                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+=======
+                            <button class="btn btn-primary pull-left" type="button" ng-click="ok()">Send Message</button>
+                            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+>>>>>>> 686af078bd472d62d511afc2f5b9c1178d0acad4
                         </div>
                     </form>
                 </div>

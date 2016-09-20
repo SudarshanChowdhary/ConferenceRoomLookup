@@ -4,7 +4,6 @@ ConferenceRoomLookup.directive("fixedFirstColumn", [function () {
 		template: "<div class='table-responsive'><div ng-transclude></div></div>",
 		transclude: true,
 		link: function ($scope, $element) {
-			debugger;
 			var interval = setInterval(function () {
 				var tr = $element.find("tr");
 
