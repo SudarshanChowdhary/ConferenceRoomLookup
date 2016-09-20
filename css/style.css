@@ -115,8 +115,7 @@ span a:hover {
 
 .busy {
     background-color: #ccc;
-    height: 30px !important;
-    border-bottom: none !important;
+    height: 25px !important;
 }
 
 .free:hover {
@@ -137,7 +136,7 @@ div.gridHeader div {
 }
 
 div.gridData div {
-    height: 30px;
+    height: 29px;
     width: 25px !important;
     display: inline-block;
     border-right: 1px solid #ccc;
@@ -174,7 +173,6 @@ div.gridData div:nth-child(4n) {
     border-top: none;
     border-bottom: 1px solid #ddd;
     padding: 0px;
-    vertical-align: middle;
 }
 
 
@@ -311,18 +309,6 @@ div.gridData div:nth-child(4n) {
     padding-right: 10px;
     text-align: left !important;
 }
-.booked-time-line{
-    border-left: 1px solid #ccc;
-    text-align: center;
-}
-.booked-by-line{
-    border-right: 1px solid rgb(204, 204, 204);
-    padding-left: 34px;
-    text-align: center;
-}
-.align-time{
-    text-align: center;
-}
 
 .border-line {
     border-bottom: 1px solid rgb(204, 204, 204);
@@ -354,6 +340,8 @@ div.gridData div:nth-child(4n) {
     background-color: #3384FB;
 }
 
+#searchRoomGridnearby {}
+
 .divider {
     width: 100%;
     margin-top: 40px;
@@ -370,7 +358,7 @@ div.gridData div:nth-child(4n) {
 }
 
 .highlight-free-slot {
-    background-color: #3384FB;
+    background-color: #3348FB;
 }
 
 .sr-booked span:first-child {

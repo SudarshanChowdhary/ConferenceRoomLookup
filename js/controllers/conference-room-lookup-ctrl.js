@@ -91,6 +91,13 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             room.slot = [];
             angular.forEach(room.busyslot, function(slot, n) {
 
+              // ignoring the time zone
+              slot.startDateTime = slot.startDateTime.split(".")[0];
+              slot.endDateTime = slot.endDateTime.split(".")[0];
+
+console.log(slot.endDateTime);
+console.log(slot.startDateTime);
+
                 var sdt = new Date(slot.startDateTime);
                 var edt = new Date(slot.endDateTime);
 
@@ -190,6 +197,11 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             console.log("temp", temp)
             room.slot = [];
             angular.forEach(room.events, function(events, n) {
+              events.endDateTime = events.endDateTime.split(".")[0];
+              events.startDateTime = events.startDateTime.split(".")[0];
+
+              console.log(events.endDateTime);
+              console.log(events.startDateTime);
 
                 var sdt = new Date(events.startDateTime);
                 var edt = new Date(events.endDateTime);
@@ -294,7 +306,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $http({
             // url:"http:ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/get_rooms_search/?format=jsonrooms"
             url: "js/services/responseGrid-data.json",
-            method: "POST",
+            method: "GET",
             data: "searchFormData"
         }).then(function(res) {
             $scope.loader = false;
@@ -333,10 +345,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     };
 
     // popover code
-    // $scope.dynamicPopover1 = {
-    //     templateUrl: 'myModalContent.html',
-    //     outsideClick: "outsideClick",
-    // };
+    $scope.dynamicPopover1 = {
+        templateUrl: 'myModalContent.html',
+        outsideClick: "outsideClick",
+    };
 
 
 
@@ -666,12 +678,12 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     };
 
 
-        // $scope.dialogbox = false;
+        $scope.dialogbox = false;
 
-        // $scope.cancel = function(){
+        $scope.openDialogbox = function(){
 
-        //      $scope.dialogbox = true;
-        // }
+             $scope.dialogbox = true;
+        }
 
 
     //code for dialog box

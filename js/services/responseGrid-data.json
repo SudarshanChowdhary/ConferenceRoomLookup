@@ -6,34 +6,34 @@
             "status": "",
             "busyslot": [
                 {
-                    "startDateTime": "2016-09-19T09:30:00",
+                    "startDateTime": "2016-09-19T09:30:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T10:00:00"
+                    "endDateTime": "2016-09-19T10:00:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-09-19T11:00:00",
+                    "startDateTime": "2016-09-19T11:00:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T12:00:00"
+                    "endDateTime": "2016-09-19T12:00:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-09-19T15:00:00",
+                    "startDateTime": "2016-09-19T15:00:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T19:15:00"
+                    "endDateTime": "2016-09-19T19:15:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-09-19T19:30:00",
+                    "startDateTime": "2016-09-19T19:30:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T19:45:00"
+                    "endDateTime": "2016-09-19T19:45:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-09-19T20:15:00",
+                    "startDateTime": "2016-09-19T20:15:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T20:30:00"
+                    "endDateTime": "2016-09-19T20:30:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-09-19T21:00:00",
+                    "startDateTime": "2016-09-19T21:00:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T21:15:00"
+                    "endDateTime": "2016-09-19T21:15:00.000-05:00"
                 }
             ]
         },
@@ -49,19 +49,19 @@
             "status": "",
             "busyslot": [
                 {
-                    "startDateTime": "2016-09-19T09:00:00",
+                    "startDateTime": "2016-09-19T09:00:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T10:00:00"
+                    "endDateTime": "2016-09-19T10:00:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-09-19T10:15:00",
+                    "startDateTime": "2016-09-19T10:15:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T12:00:00"
+                    "endDateTime": "2016-09-19T12:00:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-09-19T13:30:00",
+                    "startDateTime": "2016-09-19T13:30:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T16:30:00"
+                    "endDateTime": "2016-09-19T16:30:00.000-05:00"
                 }
             ]
         },
@@ -71,34 +71,34 @@
             "status": "",
             "busyslot": [
                 {
-                    "startDateTime": "2016-09-19T09:00:00",
+                    "startDateTime": "2016-09-19T09:00:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T10:00:00"
+                    "endDateTime": "2016-09-19T10:00:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-09-19T10:30:00",
+                    "startDateTime": "2016-09-19T10:30:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T11:00:00"
+                    "endDateTime": "2016-09-19T11:00:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-09-19T11:30:00",
+                    "startDateTime": "2016-09-19T11:30:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T12:00:00"
+                    "endDateTime": "2016-09-19T12:00:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-09-19T13:00:00",
+                    "startDateTime": "2016-09-19T13:00:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T13:30:00"
+                    "endDateTime": "2016-09-19T13:30:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-09-19T14:30:00",
+                    "startDateTime": "2016-09-19T14:30:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T15:00:00"
+                    "endDateTime": "2016-09-19T15:00:00.000-05:00"
                 },
                 {
-                    "startDateTime": "2016-09-19T15:30:00",
+                    "startDateTime": "2016-09-19T15:30:00.000-05:00",
                     "type": "busy",
-                    "endDateTime": "2016-09-19T16:30:00"
+                    "endDateTime": "2016-09-19T16:30:00.000-05:00"
                 }
             ]
         }
