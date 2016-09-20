@@ -89,6 +89,13 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             room.slot = [];
             angular.forEach(room.busyslot, function(slot, n) {
 
+              // ignoring the time zone
+              slot.startDateTime = slot.startDateTime.split(".")[0];
+              slot.endDateTime = slot.endDateTime.split(".")[0];
+
+console.log(slot.endDateTime);
+console.log(slot.startDateTime);
+
                 var sdt = new Date(slot.startDateTime);
                 var edt = new Date(slot.endDateTime);
 
@@ -165,6 +172,11 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             console.log("temp", temp)
             room.slot = [];
             angular.forEach(room.events, function(events, n) {
+              events.endDateTime = events.endDateTime.split(".")[0];
+              events.startDateTime = events.startDateTime.split(".")[0];
+
+              console.log(events.endDateTime);
+              console.log(events.startDateTime);
 
                 var sdt = new Date(events.startDateTime);
                 var edt = new Date(events.endDateTime);
