@@ -159,10 +159,10 @@
 
         <table class="table">
           <tr>
-<td>Time</td>
+<td class="align-time">Time</td>
 <td>
-  <div class="col-md-6">Booked time</div>
-  <div class="col-md-6 text-right">Booked By</div>
+  <div class="col-md-6 booked-time-line">Booked time</div>
+  <div class="col-md-6 text-right booked-by-line">Booked By</div>
 </td>
           </tr>
         </table>
@@ -177,7 +177,7 @@
             <div class="ScrollStyle">
                 <table class="table">
                     <tr ng-repeat="slot in singleRoomData.slot track by $index">
-                        <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]  | date:'h'}}">{{hours[$index/4] | date:'hh a'}}</td>
+                        <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]  | date:'h'}}">{{hours[$index/4] | date:'h a'}}</td>
                         <td ng-if="slot.type=='free'" class="border-line free">
                             <div ng-mouseover="addDurationClass(singleRoomData, $index)" ng-mouseout="removeDurationClass(singleRoomData, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
                         </td>
@@ -186,7 +186,7 @@
                                 <div class="col-md-6">{{slot.time | date:'hh:mm a'}} to : {{slot.busyTill | date:'hh:mm a'}}</div>
 
                                 <div class="col-md-6" uib-popover-template="dynamicPopover1.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="top">
-                                    {{slot.organizer.name}}
+                                  <a href="#" data-toggle="modal" data-target="#myModal">  {{slot.organizer.name}}</a>
                                     <!-- <div><label>Email :</label> {{slot.organizer.email}}</div>
           <div><label>Status :</label> {{slot.organizer.status}}</div>
           <div><label>Ad Link :</label> {{slot.organizer.adLink}}</div>
@@ -199,23 +199,32 @@
                 </table>
             </div>
 
-        <script type="text/ng-template" id="myModalContent.html">
-            <div class="modal-header">
+       <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+
+          <!-- http://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_modal&stacked=h -->
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title" id="modal-title">Contact Jassica Swift</h3>
                 <p>Blue 06 (4) CU01 1st - Tuesday, September 13, 2016</p>
                 <label>Recipients</label>
                 <p><label> {{slot.organizer.email}}</label></p>
             </div>
-            <div class="modal-body" id="modal-body">
-                <div style="min-height:500px;">
+        <div class="modal-body">
+         <div style="min-height:500px;">
                     <form>
                         <div class="form-group">
                             <label for="yourName">Your Name</label>
-                            <input type="text" class="form-control" id="yourName" ng-model="slot.organizer.name" placeholder="Your Name">
+                            <input type="text" class="form-control" id="yourName" ng-model="slot.organizer.name" value="Sudarshan Koyalkar" placeholder="">
                         </div>
                         <div class="form-group">
                             <label for="yourEmail">Your Email</label>
-                            <input type="email" class="form-control" id="yourEmail" ng-model="slot.organizer.email" placeholder="">
+                            <input type="email" class="form-control" id="yourEmail" ng-model="slot.organizer.email" value="sudarshan_koyalkar@apple." placeholder="">
                             <div class="form-check">
                                 <label class="form-check-label">
                       <input type="checkbox" class="form-check-input"> CC me
@@ -231,14 +240,17 @@
                             <textarea class="form-control" id="Message" rows="6"></textarea>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-primary pull-left" type="button" ng-click="$ctrl.ok()">Send Message</button>
-                            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+                            <button class="btn btn-primary pull-left" type="button" ng-click="ok('lg')">Send Message</button>
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </form>
                 </div>
-            </div>
-        </script>
-
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
 
 
 

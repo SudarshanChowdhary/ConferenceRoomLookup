@@ -89,13 +89,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             room.slot = [];
             angular.forEach(room.busyslot, function(slot, n) {
 
-              // ignoring the time zone
-              slot.startDateTime = slot.startDateTime.split(".")[0];
-              slot.endDateTime = slot.endDateTime.split(".")[0];
-
-console.log(slot.endDateTime);
-console.log(slot.startDateTime);
-
                 var sdt = new Date(slot.startDateTime);
                 var edt = new Date(slot.endDateTime);
 
@@ -172,11 +165,6 @@ console.log(slot.startDateTime);
             console.log("temp", temp)
             room.slot = [];
             angular.forEach(room.events, function(events, n) {
-              events.endDateTime = events.endDateTime.split(".")[0];
-              events.startDateTime = events.startDateTime.split(".")[0];
-
-              console.log(events.endDateTime);
-              console.log(events.startDateTime);
 
                 var sdt = new Date(events.startDateTime);
                 var edt = new Date(events.endDateTime);
@@ -282,7 +270,7 @@ console.log(slot.startDateTime);
         $http({
             // url:"http:ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/get_rooms_search/?format=jsonrooms"
             url: "js/services/responseGrid-data.json",
-            method: "GET",
+            method: "POST",
             data: "searchFormData"
         }).then(function(res) {
             $scope.loader = false;
@@ -321,10 +309,10 @@ console.log(slot.startDateTime);
     };
 
     // popover code
-    $scope.dynamicPopover1 = {
-        templateUrl: 'myModalContent.html',
-        outsideClick: "outsideClick",
-    };
+    // $scope.dynamicPopover1 = {
+    //     templateUrl: 'myModalContent.html',
+    //     outsideClick: "outsideClick",
+    // };
 
 
 
@@ -654,12 +642,12 @@ console.log(slot.startDateTime);
     };
 
 
-        $scope.dialogbox = false;
+        // $scope.dialogbox = false;
 
-        $scope.openDialogbox = function(){
+        // $scope.cancel = function(){
 
-             $scope.dialogbox = true;
-        }
+        //      $scope.dialogbox = true;
+        // }
 
 
     //code for dialog box
