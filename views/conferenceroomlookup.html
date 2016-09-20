@@ -159,10 +159,10 @@
 
         <table class="table">
             <tr>
-                <td>Time</td>
+                <td class="align-time">Time</td>
                 <td>
-                    <div class="col-md-6">Booked time</div>
-                    <div class="col-md-6 text-right">Booked By</div>
+                    <div class="col-md-6 booked-time-line">Booked time</div>
+                    <div class="col-md-6 text-right booked-by-line">Booked By</div>
                 </td>
             </tr>
         </table>
@@ -177,7 +177,7 @@
         <div class="ScrollStyle">
             <table class="table">
                 <tr ng-repeat="slot in singleRoomData.slot track by $index">
-                    <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]  | date:'h'}}">{{hours[$index/4] | date:'hh a'}}</td>
+                    <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]  | date:'h'}}">{{hours[$index/4] | date:'ha'}}</td>
                     <td ng-if="slot.type=='free'" class="border-line free">
                         <div ng-mouseover="addDurationClass(singleRoomData, $index)" ng-mouseout="removeDurationClass(singleRoomData, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
                     </td>
@@ -186,7 +186,7 @@
                             <div class="col-md-6">{{slot.time | date:'hh:mm a'}} to : {{slot.busyTill | date:'hh:mm a'}}</div>
 
                             <div class="col-md-6" ng-click="open(slot)">
-                                {{slot.organizer.name}}
+                               <a href="#"> {{slot.organizer.name}}</a>
                                 <!-- <div><label>Email :</label> {{slot.organizer.email}}</div>
           <div><label>Status :</label> {{slot.organizer.status}}</div>
           <div><label>Ad Link :</label> {{slot.organizer.adLink}}</div>
