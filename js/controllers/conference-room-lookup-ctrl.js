@@ -1,6 +1,6 @@
 'use strict'
 
-ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll, $document, $timeout, $http) {
+ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll, $document, $timeout, $http, $uibModal) {
     // , $uibModalInstance, items
     $scope.lookUpData = {};
     $scope.siteOptions = [];
@@ -78,6 +78,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.appendZero = function(inNumber) {
         return (inNumber <= 9) ? "0" + inNumber : inNumber;
     };
+
+
 
     $scope.createSlots = function(room) {
         if (room.busyslot.length != 0) {
@@ -163,6 +165,29 @@ console.log(slot.startDateTime);
 
     // for single room slot
 
+    $scope.open = function (slot) {
+       var modalInstance = $uibModal.open({
+         animation: true,
+         ariaLabelledBy: 'modal-title',
+         ariaDescribedBy: 'modal-body',
+         templateUrl: 'myModalContent.html',
+         controller: 'singleRoomForm',
+         //  controllerAs: '$ctrl',
+         size: 'md',
+         resolve: {
+           items: function () {
+             return slot;
+           }
+         }
+       });
+
+       modalInstance.result.then(function (selectedItem) {
+
+       }, function () {
+       });
+     };
+
+
     $scope.createSingleRoomSlots = function(room) {
         if (room.events.length != 0) {
             var dt = room.events[0].startDateTime;
@@ -199,7 +224,6 @@ console.log(slot.startDateTime);
                 var busyTime = edt.getTime() - sdt.getTime();
                 busyTime = ((busyTime / 1000) / 60) / 15;
                 console.log(busyTime);
-                debugger;
                 for (var i = 0; i < busyTime; i++) {
                   if(i===0)
                   {
