@@ -270,7 +270,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $http({
             // url:"http:ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/get_rooms_search/?format=jsonrooms"
             url: "js/services/responseGrid-data.json",
-            method: "POST",
+            method: "GET",
             data: "searchFormData"
         }).then(function(res) {
             $scope.loader = false;

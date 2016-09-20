@@ -156,15 +156,23 @@
          </span>
             <span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right info-image">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
         </div>
-        <div class="single-room-header sr-header">
+
+        <table class="table">
+          <tr>
+<td>Time</td>
+<td>
+  <div class="col-md-6">Booked time</div>
+  <div class="col-md-6 text-right">Booked By</div>
+</td>
+          </tr>
+        </table>
+        <!-- <div class="single-room-header sr-header">
             <div class="sr-time border-line">
-                Time
+
             </div>
             <div class="sr-booked border-line">
-                <span class="sr-header">Booked time</span>
-                <span class="pull-right">Booked By</span>
-            </div>
-        </div>
+                    </div>
+        </div> -->
 
             <div class="ScrollStyle">
                 <table class="table">
@@ -258,10 +266,10 @@
             <div fixed-first-column>
                 <table class="table table-condensed">
                     <thead>
-                        <tr>
+                        <tr id="first-tr">
                             <!-- popover start -->
                             <!-- <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th> -->
-                            <th><span>Room</span><span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right ">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
+                            <th id="first-th"><span>Room</span><span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right ">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
                             </th>
                             <script type="text/ng-template" id="myPopoverTemplate.html">
                                 <h4>{M} Chambre [AVCN] (8) {RESTRICTED} <br>[DEU] EMA 2nd</h4>

@@ -4,6 +4,7 @@ ConferenceRoomLookup.directive("fixedFirstColumn", [function () {
 		template: "<div class='table-responsive'><div ng-transclude></div></div>",
 		transclude: true,
 		link: function ($scope, $element) {
+			debugger;
 			var interval = setInterval(function () {
 				var tr = $element.find("tr");
 
@@ -29,10 +30,12 @@ ConferenceRoomLookup.directive("fixedFirstColumn", [function () {
 					columns[0].style.height = height + "px";
 					i.style.height = height + "px";
 
+
+
 					if (column1) {
 						column1.style.height = height + "px";
 					}
-					
+
 					// If <td> heights have stabilized.
 					if (height0 !== 0 && height0 === height1) {
 						clearInterval(interval);

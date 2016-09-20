@@ -368,3 +368,7 @@ div.gridData div:nth-child(4n) {
 .sr-booked span:last-child {
     padding-right: 44px;
 }
+
+#first-tr, #first-th{
+  height: 30px !important;
+}
