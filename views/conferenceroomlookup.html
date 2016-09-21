@@ -272,6 +272,7 @@
                             <!-- <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th> -->
                             <th id="first-th"><span>Room</span><span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right ">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
                             </th>
+                            <th>ashdlkhlakdjfh</th>
                             <script type="text/ng-template" id="myPopoverTemplate.html">
                                 <h4>{M} Chambre [AVCN] (8) {RESTRICTED} <br>[DEU] EMA 2nd</h4>
                                 <div class="legend-details">
@@ -296,9 +297,14 @@
             </div>
             </div>
             <th>
-                <div class="gridHeader">
-                    <div ng-repeat="hour in hours" id="{{hour | date:'H'}}">{{hour | date:'h a'}}</div>
+                  <div ng-repeat="hour in hours" class="row header-hours">
+                    <span class="span3">{{hour}}</span>
                 </div>
+
+
+                <!-- <div class="gridHeader">askd;laksjdf;ljk
+                    <div ng-repeat="hour in headerHours.hours" id="{{hour | date:'H'}}">{{hour | date:'h a'}}as;flkjasdlj</div>
+                </div> -->
             </th>
             </tr>
             </thead>

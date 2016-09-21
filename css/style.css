@@ -313,7 +313,8 @@ div.gridData div:nth-child(4n) {
 }
 .booked-time-line{
     border-left: 1px solid #ccc;
-    text-align: center;
+    /*text-align: center;*/
+    padding-left: 41px;
 }
 .booked-by-line{
     border-right: 1px solid rgb(204, 204, 204);
@@ -383,4 +384,11 @@ div.gridData div:nth-child(4n) {
 
 #first-tr, #first-th{
   height: 30px !important;
+}
+
+.header-hours {
+   display:inline-block;  
+}
+.span3 {
+  padding:10px;
 }
