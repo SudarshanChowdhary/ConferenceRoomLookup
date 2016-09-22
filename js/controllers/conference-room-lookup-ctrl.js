@@ -275,8 +275,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.searchMultipleRooms = function(searchFormData) {
         $scope.loader = true;
         $http({
-            url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/freebusyrooms/?format=json",
-           // url: "js/services/responseGrid-data.json", 
+           // url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/freebusyrooms/?format=json",
+            url: "js/services/responseGrid-data.json", 
             method: "POST",
             data: searchFormData
         }).then(function(res) {

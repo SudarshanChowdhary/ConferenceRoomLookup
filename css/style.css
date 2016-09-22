@@ -129,11 +129,13 @@ div.gridData, div.gridHeader {
 }
 
 div.gridHeader div {
-    width: 100px !important;
-    display: inline-block;
-    border-right: 1px solid #ddd;
-    text-align: center;
-    height: 25px;
+   width: 129px !important;
+display: inline-block;
+border-right: 1px solid #ddd;
+text-align: center;
+height: 25px;
+padding-left: 30px;
+margin-right: 0.4px;
 }
 
 div.gridData div {
