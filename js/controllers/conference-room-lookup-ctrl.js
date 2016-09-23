@@ -17,6 +17,24 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.showSearchResult = false;
     $scope.showSingleRoom = false;
 
+       // $scope.OnformChanges= true;
+       //   $scope.OnformChanges= false;
+    
+       // $scope.OnformChanges= function(){ 
+
+       //  if(){
+
+       //  }else{
+       //  alert("helllooooooo");
+       //  }
+
+        // angular.element('lookupRoomForm').On(function(){
+
+        //     alert("hi");
+        // });
+       
+  // }
+   // 
     $scope.searchResult = function() {
         if ($scope.lookupRoomForm.$valid) {
             var smroom = $scope.lookupRoom;
@@ -53,11 +71,12 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 "from": from_time,
                 "to": to_time
             };
+
             $scope.inputData.timezone = smroom.timezone;
             $scope.inputData.unavailable = smroom.unavailable;
             var d = new Date(smroom.date);
             $scope.inputData.searchDate = d.getFullYear() + "" + $scope.appendZero(d.getMonth() + 1) + "" + $scope.appendZero(d.getDate());
-
+           
             if (!$scope.lookupRoom.room) {
                 $scope.showSearchResult = true;
                 $scope.searchMultipleRooms($scope.inputData);
@@ -65,7 +84,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 $scope.showSearchResult = true;
                   console.log($scope.inputData);
             } else {
-                $scope.searchSingleRoom($scope.inputData);
+                $scope.searchSingleRoom( {'roomName' : $scope.lookupRoom.room.roomName , 'roomUid' : $scope.lookupRoom.room.roomUid ,
+                    'timezone' : smroom.timezone, 'searchDate' : $scope.inputData.searchDate,
+                    'timeRange' : {'from' : from_time, 'to' : to_time} }  );                
                 $scope.showSingleRoom = true;
                 $scope.showSearchResult = false;
             }
@@ -77,8 +98,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     };
 
 
-
+     $scope.gridheader = false;
     $scope.createSlots = function(room) {
+        $scope.gridheader = true;
         if (room.busyslot.length != 0) {
             var dt = room.busyslot[0].startDateTime;
             dt = dt.split("T");
@@ -272,11 +294,13 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     };
 
 
+   
+    $scope.finderloader=true;
     $scope.searchMultipleRooms = function(searchFormData) {
         $scope.loader = true;
         $http({
-           // url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/freebusyrooms/?format=json",
-            url: "js/services/responseGrid-data.json", 
+            url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/freebusyrooms/?format=json",
+           // url: "js/services/responseGrid-data.json", 
             method: "POST",
             data: searchFormData
         }).then(function(res) {
@@ -284,18 +308,22 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.grid_data = res.data.data;
             angular.forEach($scope.grid_data, function(room, m) {
                 $scope.createSlots(room);
+                
             });
         });
     }
 
     $scope.searchSingleRoom = function(searchFormData) {
         $scope.loader = true;
+        console.log(searchFormData);
         $http({
-            url: "js/services/singleRoom-data.json",
-            method: "GET",
-            data: "searchFormData"
+            //url: "js/services/singleRoom-data.json",
+            url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/lookupbyroom/?format=json",
+            method: "POST",
+            data: searchFormData
         }).then(function(res) {
             $scope.loader = false;
+            console.log(res.data);
             $scope.singleRoomData = res.data.data;
             console.log($scope.singleRoomData);
             $scope.createSingleRoomSlots($scope.singleRoomData);

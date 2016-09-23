@@ -3,7 +3,7 @@
     <div class="login-info pull-right">Welcome Ketan <i class="btn-xs glyphicon glyphicon-menu-down"></i></div>
     <div class="row room-lookup">
         <section class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-            <form class="form-horizontal" name="lookupRoomForm">
+            <form class="form-horizontal" name="lookupRoomForm" id="lookupRoomForm">
                 <div class="form-group">
                     <label for="site" class="col-sm-2 col-md-2 col-lg-2 control-label">Site</label>
                     <div class="col-md-6 col-lg-8">
@@ -123,6 +123,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-md-6 col-lg-8">
                         <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoomForm.$invalid" class="btn btn-sm search-btn">Search</button>
+                       
                     </div>
                 </div>
             </form>
@@ -141,6 +142,9 @@
             </div>
         </section>
     </div>
+    <div style="text-align: center;" class="loader-image">
+     <span class="loader" ng-if="loader"></span>
+     </div>
     <!-- Single Room Search -->
     <section class="single-room-search" ng-show="showSingleRoom">
         <h2>{{lookupRoom.date | date: "EEEE, MMMM dd, yyyy"}}</h2>
@@ -272,7 +276,8 @@
                             <!-- <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th> -->
                             <th id="first-th"><span>Room</span><span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right ">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
                             </th>
-                                                     <script type="text/ng-template" id="myPopoverTemplate.html">
+                           
+                            <script type="text/ng-template" id="myPopoverTemplate.html">
                                 <h4>{M} Chambre [AVCN] (8) {RESTRICTED} <br>[DEU] EMA 2nd</h4>
                                 <div class="legend-details">
                                     <p><span class="text-color">{M}</span> = Managed room. Reservations must be approved by the room manager.</p>
@@ -295,14 +300,11 @@
             </div>
             </div>
             </div>
-            <th>
-                 <div ng-repeat="hour in hours" class="row header-hours gridHeader">
+               <th>
+                  <div ng-repeat="hour in hours" class="row header-hours gridHeader">
                     <div class="span3">{{hour}}</div>
                 </div>
 
-                <!-- <div class="gridHeader">askd;laksjdf;ljk
-                    <div ng-repeat="hour in headerHours.hours" id="{{hour | date:'H'}}">{{hour | date:'h a'}}as;flkjasdlj</div>
-                </div> -->
             </th>
             </tr>
             </thead>

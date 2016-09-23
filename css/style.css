@@ -62,7 +62,7 @@
 
 /*This css for search result view*/
 
-.searchResults, .single-room-search {
+.searchResults, .single-room-search{
     border-top: #ccc solid 1px;
     margin: 20px;
     padding-top: 60px;
@@ -393,4 +393,15 @@ div.gridData div:nth-child(4n) {
 }
 .span3 {
   padding:10px;
+}
+
+
+
+
+
+
+.loader{
+
+padding: 30px;
+background: url('../images/load.gif') center center no-repeat transparent;
 }
