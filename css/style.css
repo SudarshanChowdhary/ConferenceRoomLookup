@@ -129,13 +129,12 @@ div.gridData, div.gridHeader {
 }
 
 div.gridHeader div {
-   width: 129px !important;
+   width: 100px !important;
 display: inline-block;
 border-right: 1px solid #ddd;
 text-align: center;
 height: 25px;
-padding-left: 30px;
-margin-right: 0.4px;
+
 }
 
 div.gridData div {
@@ -389,10 +388,10 @@ div.gridData div:nth-child(4n) {
 }
 
 .header-hours {
-   display:inline-block;  
+   display:inline-block;
 }
 .span3 {
-  padding:10px;
+
 }
 
 

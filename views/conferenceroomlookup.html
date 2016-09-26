@@ -123,7 +123,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-md-6 col-lg-8">
                         <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoomForm.$invalid" class="btn btn-sm search-btn">Search</button>
-                       
+
                     </div>
                 </div>
             </form>
@@ -276,7 +276,7 @@
                             <!-- <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th> -->
                             <th id="first-th"><span>Room</span><span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right ">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
                             </th>
-                           
+
                             <script type="text/ng-template" id="myPopoverTemplate.html">
                                 <h4>{M} Chambre [AVCN] (8) {RESTRICTED} <br>[DEU] EMA 2nd</h4>
                                 <div class="legend-details">
@@ -301,7 +301,8 @@
             </div>
             </div>
                <th>
-                  <div ng-repeat="hour in hours" class="row header-hours gridHeader">
+
+                <div ng-repeat="hour in MultiRoomHours" class="header-hours gridHeader">
                     <div class="span3">{{hour}}</div>
                 </div>
 
