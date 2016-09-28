@@ -24,10 +24,13 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.lookupRoomForm.$setPristine()
         $scope.showSearchResult = false;
         $scope.showSingleRoom = false;
+         $scope.loader = false;
         /*do something here*/
     })
 
     $scope.searchResult = function() {
+     $scope.showSearchResult = false;
+        $scope.showSingleRoom = false;
         if ($scope.lookupRoomForm.$valid) {
             var smroom = $scope.lookupRoom;
             var from_time = "00:00:00";

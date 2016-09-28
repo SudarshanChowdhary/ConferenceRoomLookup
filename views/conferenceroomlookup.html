@@ -103,7 +103,7 @@
                      <!-- ng-model="lookupRoom[seat.label]" -->
                      <input type="checkbox" id="seat_{{$index}}" name="seat_{{$index}}" ng-model="lookupRoom.seats[seat.label]" value="{{seat.checked}}" ng-disabled="!seat.disable"><span class="seat-available">{{seat.label}}</span>
                   </label>
-                  {{lookupRoom.seats}}
+                
                     </div>
                 </div>
                 <div class="form-group">
@@ -118,7 +118,7 @@
                         <label class="checkbox-inline" for="amenity_{{$index}}" ng-repeat="amenity in amenities">
                      <input type="checkbox" name="amenity_{{$index}}" ng-model="lookupRoom.amenities[amenity.label]" value="{{amenity.checked}}" ng-disabled="!amenity.disable"><span class="amenities-available"> {{amenity.label}}</span>
                   </label>
-                  {{lookupRoom.amenities}}
+                 
                     </div>
                 </div>
                 <!--             {{lookupRoom}}  -->

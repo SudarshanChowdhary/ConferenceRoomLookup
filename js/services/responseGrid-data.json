@@ -1,132 +1,738 @@
 {
     "data": [{
-        "roomName": "Saxon [AVCN] (14) {RESTRICTED} CV01 2nd",
-        "roomUid": "57B0BBC7-DF3D-B48B-5F5F-DECD9F64D0FA",
         "status": "busy",
+        "roomName": "Pico da Neblina [AVCN] (10) PL04 4th",
         "busyslot": [{
+            "startDateTime": "2016-09-28T10:00:00.000-05:00",
             "type": "busy",
-            "startDateTime": "2016-09-28T04:00:00.000-05:00",
-            "endDateTime": "2016-09-28T23:30:00.000-05:00"
-        }
-        ]
-    }, {
-        "roomName": "Thirsty Nickel [AVCN] (14) {RESTRICTED} CV01 2nd",
-        "roomUid": "332999A1-AE26-C9A8-03C0-BD21B1A26C39",
-        "status": "busy",
-        "busyslot": [{
-            "type": "busy",
-            "startDateTime": "2016-09-28T00:00:00.000-05:00",
-            "endDateTime": "2016-09-28T23:59:00.000-05:00"
-        }
-        ]
-    }, {
-        "roomName": "Ginger Man [AVCN] (10) {RESTRICTED} CV01 2nd",
-        "roomUid": "4C76786F-58C7-7E8A-496B-3BAB7BB4F794",
-        "status": "busy",
-        "busyslot": [{
-            "type": "busy",
-            "startDateTime": "2016-09-28T00:00:00.000-05:00",
-            "endDateTime": "2016-09-28T23:59:00.000-05:00"
-        }
-        ]
-    }, {
-        "roomName": "Don's Depot (8) {RESTRICTED} CV01 2nd",
-        "roomUid": "E5379C10-F6E9-9891-EBAF-2FCD08759239",
-        "status": "busy",
-        "busyslot": [{
-            "type": "busy",
-            "startDateTime": "2016-09-28T00:00:00.000-05:00",
-            "endDateTime": "2016-09-28T23:59:00.000-05:00"
-        }
-        ]
-    }, {
-        "roomName": "Fado (8) {RESTRICTED} CV01 2nd",
-        "roomUid": "77B841D0-7C75-D17E-A898-1C6D8BDE978B",
-        "status": "busy",
-        "busyslot": [{
-            "type": "busy",
-            "startDateTime": "2016-09-28T00:00:00.000-05:00",
-            "endDateTime": "2016-09-28T23:59:00.000-05:00"
-        }
-        ]
-    }, {
-        "roomName": "Emos (8) {RESTRICTED} CV01 2nd",
-        "roomUid": "CC5DF823-E831-C1FE-AD31-1D23F89E4779",
-        "status": "busy",
-        "busyslot": [{
-            "type": "busy",
-            "startDateTime": "2016-09-28T00:00:00.000-05:00",
-            "endDateTime": "2016-09-28T23:59:00.000-05:00"
-        }
-        ]
-    }, {
-        "roomName": "Stubbs (8) {RESTRICTED} CV01 2nd",
-        "roomUid": "DAD3112B-38E6-7ED1-F1C7-378EEE2A2148",
-        "status": "busy",
-        "busyslot": [{
-            "type": "busy",
-            "startDateTime": "2016-09-28T00:00:00.000-05:00",
-            "endDateTime": "2016-09-28T23:59:00.000-05:00"
-        }
-        ]
-    }, {
-        "roomName": "Blind Pig (14) {RESTRICTED} CV01 2nd",
-        "roomUid": "22851C6B-50A0-F064-0D2F-3BF8952DA79F",
-        "status": "busy",
-        "busyslot": [{
-            "type": "busy",
-            "startDateTime": "2016-09-28T00:00:00.000-05:00",
-            "endDateTime": "2016-09-28T23:59:00.000-05:00"
-        }
-        ]
-    }, {
-        "roomName": "Phone Room [AVCN] (4) {RESTRICTED} CV01 2nd",
-        "roomUid": "D704EA3D-61B5-0931-E2AB-BB899C16F30C",
-        "status": "busy",
-        "busyslot": [{
-            "type": "busy",
-            "startDateTime": "2016-09-28T04:00:00.000-05:00",
-            "endDateTime": "2016-09-28T23:30:00.000-05:00"
-        }
-        ]
-    }, {
-        "roomName": "Maggie Mae",
-        "roomUid": "0FA6B049-6AC4-2349-8DF5-7E253AF9E58B",
-        "status": "busy",
-        "busyslot": [{
-            "type": "busy",
-            "startDateTime": "2016-09-28T04:00:00.000-05:00",
-            "endDateTime": "2016-09-28T23:30:00.000-05:00"
-        }
-        ]
-    }, {
-        "roomName": "Hole in the Wall (4) {RESTRICTED} CV01 2nd",
-        "roomUid": "322E543E-2F35-BCFE-EEEE-A3B78FCEEB5B",
-        "status": "busy",
-        "busyslot": [{
-            "type": "busy",
-            "startDateTime": "2016-09-28T04:00:00.000-05:00",
-            "endDateTime": "2016-09-28T23:30:00.000-05:00"
-        }
-        ]
-    }, {
-        "roomName": "Continental Club [AVCN] (10) {RESTRICTED} CV01 2nd",
-        "roomUid": "A1BBECF3-590F-0E5D-9F31-BDDBD11FB1DF",
-        "status": "busy",
-        "busyslot": [{
-            "type": "busy",
-            "startDateTime": "2016-09-28T13:00:00.000-05:00",
-            "endDateTime": "2016-09-28T14:00:00.000-05:00"
+            "endDateTime": "2016-09-28T10:30:00.000-05:00"
         }, {
+            "startDateTime": "2016-09-28T11:30:00.000-05:00",
             "type": "busy",
+            "endDateTime": "2016-09-28T12:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "3F85952D-C0C6-66C9-0ED6-250C4C49C129"
+    }, {
+        "status": "busy",
+        "roomName": "{M} Denali [AVCN] (18) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:55:00.000-05:00"
+        }, {
             "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:30:00.000-05:00"
+        }
+        ],
+        "roomUid": "AF39D31E-0A8C-27BE-8D35-7C957E0E7571"
+    }, {
+        "status": "busy",
+        "roomName": "Aconcagua [AVCN] (14) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T10:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T12:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "3CCC55C8-1A54-9150-7796-E5913FE095E1"
+    }, {
+        "status": "busy",
+        "roomName": "Green Machine (8) PL04 1st",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T17:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "FD5046B3-F135-BE6F-800F-BD7E1C706B44"
+    }, {
+        "status": "busy",
+        "roomName": "Mother's Room 378 (1) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T08:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T09:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T12:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
             "endDateTime": "2016-09-28T16:00:00.000-05:00"
         }, {
+            "startDateTime": "2016-09-28T17:15:00.000-05:00",
             "type": "busy",
-            "startDateTime": "2016-09-28T18:00:00.000-05:00",
-            "endDateTime": "2016-09-28T19:00:00.000-05:00"
+            "endDateTime": "2016-09-28T17:45:00.000-05:00"
         }
-        ]
+        ],
+        "roomUid": "DABD4704-6E6E-07E0-39DA-F1685F945057"
+    }, {
+        "status": "busy",
+        "roomName": "Cristo Redentor [AVCN] (14) PL04 2nd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:45:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T10:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "6F9031B4-37BA-982A-7034-52B170F8D69A"
+    }, {
+        "status": "busy",
+        "roomName": "{M} Statue of Liberty [AVCN] (16) PL04 2nd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T10:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:30:00.000-05:00"
+        }
+        ],
+        "roomUid": "74561AA1-CFA1-86BE-FC89-15FF94A4EA2E"
+    }, {
+        "status": "busy",
+        "roomName": "Miata [AVCN] (8) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T07:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:25:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T09:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:25:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T17:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "CAD71F49-B107-AAC3-F515-0EA4D8B72842"
+    }, {
+        "status": "busy",
+        "roomName": "Mt Whitney [AVCN] (14) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T08:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T11:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T16:15:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T17:15:00.000-05:00"
+        }
+        ],
+        "roomUid": "167FB26A-548C-601A-C02D-814F00D5496E"
+    }, {
+        "status": "busy",
+        "roomName": "{M} Monte Fitz Roy_UAT_ (24) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T00:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T23:59:00.000-05:00"
+        }
+        ],
+        "roomUid": "6377D7B3-2A9C-462E-C24D-D3205D111C31"
+    }, {
+        "status": "busy",
+        "roomName": "Cotopaxi [AVCN] (14) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T08:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T11:05:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:25:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "2CE85950-34F6-A7DB-C788-A21D4E7B32F0"
+    }, {
+        "status": "busy",
+        "roomName": "Pico Cristobal Colon [AVCN] (10) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:35:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T10:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:45:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T11:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:05:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:15:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:30:00.000-05:00"
+        }
+        ],
+        "roomUid": "8E92AA8C-876B-32C9-A790-629F1C5EEB65"
+    }, {
+        "status": "busy",
+        "roomName": "{M} Mango Madness (8) {RESTRICTED} PL04 1st",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T13:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "A5D06602-53B4-0044-B0DB-E19485C83096"
+    }, {
+        "status": "busy",
+        "roomName": "Pico de Orizaba [AVCN] (14) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T11:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:15:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T16:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T17:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "7278A1A3-1382-49E0-7615-27530DA35561"
+    }, {
+        "status": "busy",
+        "roomName": "Mauna Kea [AVCN] (14) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T10:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:25:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T16:15:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T17:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "DB6CB584-9227-2DFD-32D8-FF7451D350F9"
+    }, {
+        "status": "busy",
+        "roomName": "Mt Robson [AVCN] (12) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T10:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:45:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T12:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T12:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:30:00.000-05:00"
+        }
+        ],
+        "roomUid": "8CE9DA2E-53A6-412E-8001-FA76A0471B31"
+    }, {
+        "status": "busy",
+        "roomName": "Mt Shuksan [AVCN] (8) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T08:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T11:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:45:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:30:00.000-05:00"
+        }
+        ],
+        "roomUid": "DA2BC9F1-EA31-B7CC-BCD2-9F8B677D2C81"
+    }, {
+        "status": "busy",
+        "roomName": "Independence Hall (20) PL04 2nd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T11:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "BACAB524-596F-3EEA-6045-9DEFEB652886"
+    }, {
+        "status": "busy",
+        "roomName": "Corvette [AVCN] (18) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T18:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "B2A251E9-4CA8-44B9-FFD1-93156B0C7339"
+    }, {
+        "status": "busy",
+        "roomName": "{M} M3-A (22) PL04 3rd",
+        "busyslot": [],
+        "roomUid": "E1142D64-0811-F3B3-485A-BA3A4B374644"
+    }, {
+        "status": "busy",
+        "roomName": "{M} Huayra (20) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T08:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T08:45:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:25:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:25:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T16:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:55:00.000-05:00"
+        }
+        ],
+        "roomUid": "5B887AA7-0C84-AB9F-BE92-0718DC157800"
+    }, {
+        "status": "busy",
+        "roomName": "{M} Cerro Torre (24) PL04 4th",
+        "busyslot": [],
+        "roomUid": "B5DB9239-51EB-C3E6-979B-246A9B21F515"
+    }, {
+        "status": "busy",
+        "roomName": "Scuderia [AVCN] (10) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T10:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:35:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:25:00.000-05:00"
+        }
+        ],
+        "roomUid": "E2278A1A-3882-ADF6-39A5-F996608C8FB2"
+    }, {
+        "status": "busy",
+        "roomName": "Huascaran (16) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T12:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:25:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:55:00.000-05:00"
+        }
+        ],
+        "roomUid": "DEA655EA-29B8-132D-E56E-0C239E34FAAE"
+    }, {
+        "status": "busy",
+        "roomName": "{M} M3-B (24) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T11:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:55:00.000-05:00"
+        }
+        ],
+        "roomUid": "C5E8B65C-3DC5-682F-D56B-242EAA955A75"
+    }, {
+        "status": "busy",
+        "roomName": "Monserrate [AVCN] (8) PL04 2nd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T12:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:15:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T18:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "696A60D3-8310-9D97-7D98-BC5B7CB51B4C"
+    }, {
+        "status": "busy",
+        "roomName": "Mt Rainier (18) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T12:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T12:50:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:45:00.000-05:00"
+        }
+        ],
+        "roomUid": "C5B83FDC-3C6F-B1FA-6F8C-3EE386A2D7E0"
+    }, {
+        "status": "busy",
+        "roomName": "Corcovado [AVCN] (10) PL04 2nd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:45:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T16:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T17:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "A646D5D2-CAC3-8D50-048F-2448DE464C12"
+    }, {
+        "status": "busy",
+        "roomName": "Mt Logan (16) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T10:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T12:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:45:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T16:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T17:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "14810EF9-7C60-C8CF-7B8A-FE060570734E"
+    }, {
+        "status": "busy",
+        "roomName": "Chichen Itza (12) PL04 2nd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T10:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T17:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "DECC18D4-056E-B593-5923-7DF5436528C4"
+    }, {
+        "status": "busy",
+        "roomName": "Zonda (31) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T11:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:15:00.000-05:00"
+        }
+        ],
+        "roomUid": "5B953624-5105-57E4-8AA6-CD95ED932BB3"
+    }, {
+        "status": "busy",
+        "roomName": "{M} Cayenne (4) PL04 3rd",
+        "busyslot": [],
+        "roomUid": "AC242DF0-E5EF-94EB-50D3-1AC2988849A1"
+    }, {
+        "status": "busy",
+        "roomName": "Chateau Frontenac (12) PL04 2nd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T10:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:45:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T17:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T18:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "2018AE9A-B273-2C89-16DF-8F2E6CAABA54"
+    }, {
+        "status": "busy",
+        "roomName": "{M} Shelby [AVCN] (16) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T16:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T18:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "10CFEC49-10D9-9825-D4B1-26786DE8A986"
+    }, {
+        "status": "busy",
+        "roomName": "Vantage [AVCN] (14) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T10:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T12:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T21:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T22:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "C54C61FF-9DD0-32CD-31E5-9C43B8230B5C"
+    }, {
+        "status": "busy",
+        "roomName": "{M} LaFerrari (34) PL04 3rd",
+        "busyslot": [],
+        "roomUid": "F2F290DE-CCA8-B4D9-BD0B-36CE83038955"
+    }, {
+        "status": "busy",
+        "roomName": "Aventador [AVCN] (14) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T10:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:45:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T11:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T11:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T12:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T17:00:00.000-05:00"
+        }
+        ],
+        "roomUid": "D5726555-02FF-93B8-DB13-749BD94397FB"
+    }, {
+        "status": "busy",
+        "roomName": "Mother's Room 278 (1) PL04 2nd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T10:15:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:45:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:15:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:45:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:15:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:45:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T16:15:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:45:00.000-05:00"
+        }
+        ],
+        "roomUid": "F4C8251F-40CE-6781-87C9-E36539339A8D"
+    }, {
+        "status": "busy",
+        "roomName": "Machu Picchu [AVCN] (14) PL04 2nd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T10:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T12:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T13:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:55:00.000-05:00"
+        }
+        ],
+        "roomUid": "96161D07-AB0A-947B-F0E9-29DA5294015A"
+    }, {
+        "status": "busy",
+        "roomName": "{M} M3-C (24) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T08:00:57.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T18:00:57.000-05:00"
+        }
+        ],
+        "roomUid": "9F2468E5-A8C9-28F8-B73A-F2C7B9F18172"
+    }, {
+        "status": "busy",
+        "roomName": "CarreraGT [AVCN] (18) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T11:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:30:00.000-05:00"
+        }
+        ],
+        "roomUid": "6E07A344-59EE-B829-D62D-CDB1E7197516"
     }
     ],
     "success": "true"
