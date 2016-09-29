@@ -118,6 +118,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
                 var freeTime = sdt.getTime() - temp.getTime();
                 freeTime = ((freeTime / 1000) / 60) / 15;
+                freeTime = freeTime.toFixed();
                 for (var i = 0; i < freeTime; i++) {
                     room.slot.push({
                         "type": "free",
@@ -126,6 +127,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 }
                 var busyTime = edt.getTime() - sdt.getTime();
                 busyTime = ((busyTime / 1000) / 60) / 15;
+                busyTime = busyTime.toFixed();
                 for (var i = 0; i < busyTime; i++) {
                     room.slot.push({
                         "type": "busy",
@@ -137,6 +139,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 if (n == room.busyslot.length - 1 && edt.getTime() < endDayTime.getTime()) {
                     var freeTime = endDayTime.getTime() - edt.getTime();
                     freeTime = ((freeTime / 1000) / 60) / 15;
+                    freeTime = freeTime.toFixed();
                     for (var i = 0; i < freeTime; i++) {
                         room.slot.push({
                             "type": "free",
@@ -207,6 +210,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 console.log("sdt", sdt.getTime(), "temp", temp.getTime())
                 var freeTime = sdt.getTime() - temp.getTime();
                 freeTime = ((freeTime / 1000) / 60) / 15;
+                freeTime = freeTime.toFixed();
                 console.log(freeTime);
 
                 var tempTime = temp;
@@ -221,6 +225,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 console.log("edt", edt.getTime(), "sdt", sdt.getTime())
                 var busyTime = edt.getTime() - sdt.getTime();
                 busyTime = ((busyTime / 1000) / 60) / 15;
+                busyTime = busyTime.toFixed();
                 console.log(busyTime);
                 for (var i = 0; i < busyTime; i++) {
                     if (i === 0) {
@@ -247,6 +252,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 if (n == room.events.length - 1 && edt.getTime() < endDayTime.getTime()) {
                     var freeTime = endDayTime.getTime() - temp.getTime();
                     freeTime = ((freeTime / 1000) / 60) / 15;
+                    freeTime = freeTime.toFixed();
                     for (var i = 0; i < freeTime; i++) {
                         room.slot.push({
                             "time": tempTime,
