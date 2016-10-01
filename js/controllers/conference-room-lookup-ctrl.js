@@ -67,6 +67,22 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 "to": to_time
             };
 
+
+            angular.forEach($scope.lookupRoom.amenities, function(amenity) {
+              console.log(amenity);
+              if(amenity)
+              {
+                $scope.inputData.amenities.push(Object.keys(amenity));
+              }
+            });
+            angular.forEach($scope.lookupRoom.seats, function(seat) {
+              console.log(seat);
+              if(seat)
+              {
+                $scope.inputData.amenities.push(Object.keys(seat));
+              }
+            });
+
             $scope.inputData.timezone = smroom.timezone;
             $scope.inputData.unavailable = smroom.unavailable;
             var d = new Date(smroom.date);
