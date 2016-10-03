@@ -76,6 +76,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
               }
             });
 
+            $scope.inputData.duration=$scope.lookupRoom.duration;
             $scope.inputData.timezone = smroom.timezone;
             $scope.inputData.unavailable = smroom.unavailable;
             var d = new Date(smroom.date);

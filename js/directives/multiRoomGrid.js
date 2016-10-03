@@ -79,12 +79,12 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                             }
                         }
 
-                        $anchorScroll("searchRoomGrid");
-                        $scope.initScroll = 9;
-                        $timeout(function() {
-                            $scope.initScrollDiv = 900;
-                            $scope.scrollToTime($scope.initScrollDiv);
-                        }, 10);
+                        // $anchorScroll("searchRoomGrid");
+                        // $scope.initScroll = 9;
+                        // $timeout(function() {
+                        //     $scope.initScrollDiv = 900;
+                        //     $scope.scrollToTime($scope.initScrollDiv);
+                        // }, 10);
                     };
 
 										$scope.scrollToTime = function(initScrollDiv) {
