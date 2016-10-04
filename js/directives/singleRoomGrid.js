@@ -16,7 +16,6 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                         "timeZone": $scope.searchFormData.timeZone
                       };
 
-
                         $http({
                             url: "js/services/singleRoom-data.json",
                             // url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/lookupbyroom/?format=json",
