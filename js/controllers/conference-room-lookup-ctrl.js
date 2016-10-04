@@ -24,7 +24,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.lookupRoomForm.$setPristine()
         $scope.showMultiRoom = false;
         $scope.showSingleRoom = false;
-         $scope.loader = false;
+        $scope.loader = false;
         /*do something here*/
     })
 
@@ -119,8 +119,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         templateUrl: 'myModalContent.html',
         outsideClick: "outsideClick",
     };
-
-
 
     var uniqueData = function(dataObj, field) {
         var unique = [];

@@ -6,11 +6,21 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
 		                link: function($scope, $ele, $attr) {
 											$scope.loader = true;
 											// Ajax call to load multi room data
+
+                      var reqData = {};
+
+                      reqData.room= $scope.searchFormData.room;
+                      reqData.searchDate=$scope.searchFormData.searchDate;
+                      reqData.timeRange=$scope.searchFormData.timeRange;
+                      reqData.timeZone=$scope.searchFormData.timeZone;
+                      reqData.unavailable=$scope.searchFormData.unavailable;
+
+
 											$http({
 													// url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/freebusyrooms/?format=json",
 													 url: "js/services/responseGrid-data.json",
 													method: "GET",
-													data: $scope.searchFormData
+													data: reqData
 											}).then(function(res) {
 													$scope.loader = false;
 													$scope.grid_data = res.data.data;
