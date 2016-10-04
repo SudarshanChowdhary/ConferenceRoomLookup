@@ -8,20 +8,20 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                         $scope.loader = true;
                         console.log($scope.searchFormData);
 
-                        var reqData = {};
-
-                        reqData.roomName= $scope.searchFormData.roomName;
-                        reqData.roomUid= $scope.searchFormData.roomName;
-                        reqData.searchDate=$scope.searchFormData.searchDate;
-                        reqData.timeRange=$scope.searchFormData.timeRange;
-                        reqData.timeZone=$scope.searchFormData.timeZone;
+                        var reqData = {
+                        "roomName": $scope.searchFormData.roomName,
+                        "roomUid": $scope.searchFormData.roomName,
+                        "searchDate":$scope.searchFormData.searchDate,
+                        "timeRange": $scope.searchFormData.timeRange,
+                        "timeZone": $scope.searchFormData.timeZone
+                      };
 
 
                         $http({
                             url: "js/services/singleRoom-data.json",
                             // url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/lookupbyroom/?format=json",
                             method: "GET",
-                            data: reqData
+                            data: JSON.stringify(reqData)
                         }).then(function(res) {
                             $scope.loader = false;
                             $scope.singleRoomData = res.data.data;

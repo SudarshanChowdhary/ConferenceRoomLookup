@@ -62,7 +62,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.inputData.amenities=[];
             $scope.inputData.seats=[];
             angular.forEach($scope.lookupRoom.amenities, function(amenity) {
-              console.log(amenity);
               if(amenity)
               {
                 $scope.inputData.amenities.push(Object.keys(amenity));
