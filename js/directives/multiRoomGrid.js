@@ -1,51 +1,50 @@
 ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $document, $timeout, $http) {
             return {
                 restrict: "E",
-                templateUrl: "../../views/multiRoomGrid.html",
-										$scope:{searchFormData: "=searchFormData"},
-		                link: function($scope, $ele, $attr) {
-											$scope.loader = true;
-											// Ajax call to load multi room data
-
-                      var reqData = {
+                templateUrl: "views/multiRoomGrid.html",
+                                        $scope:{searchFormData: "=searchFormData"},
+                        link: function($scope, $ele, $attr) {
+                                            $scope.loader = true;
+                                            // Ajax call to load multi room data
+                     var reqData = {
                         "room": $scope.searchFormData.room,
                         "searchDate": $scope.searchFormData.searchDate,
                         "timeRange": $scope.searchFormData.timeRange,
-                        "timeZone": $scope.searchFormData.timeZone,
+                        "timezone": $scope.searchFormData.timeZone,
                         "unavailable": $scope.searchFormData.unavailable
-                      };
-
-											$http({
-													// url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/freebusyrooms/?format=json",
-													 url: "js/services/responseGrid-data.json",
-													method: "GET",
-													data: JSON.stringify(reqData)
-											}).then(function(res) {
-													$scope.loader = false;
-													$scope.grid_data = res.data.data;
-													angular.forEach($scope.grid_data, function(room, m) {
-															$scope.createSlots(room);
-													});
-											});
-
-
-                    $scope.gridheader = false;
+                     };
+console.log('Request: ',reqData);
+$scope.loader = true;
+                                        $http({
+                                                    url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json",
+                                                    // url: "js/services/responseGrid-data.json",
+                                                    method: "POST",
+                                                    data: reqData,                                          
+                                                    headers: {'Content-Type': 'application/json'}                                               
+                                            }).then(function(res) {
+                                                    $scope.loader = false;
+                                                    $scope.grid_data = res.data.data;
+                                                    //debugger;
+                                                    console.log($scope.grid_data);
+                                                    angular.forEach($scope.grid_data, function(room, m) {
+                                                            $scope.createSlots(room);
+                                                            console.log($scope.createSlots(room));
+                                                    });
+                                            });
+                     $scope.gridheader = false;
                     $scope.createSlots = function(room) {
                         $scope.gridheader = true;
-                        console.log(room.busyslot)
+                        console.log(room.busyslot);
                         if (room.busyslot.length != 0) {
                             var dt = room.busyslot[0].startDateTime;
                             dt = dt.split("T");
-
                             var temp = new Date(dt[0] + "T00:00:00");
                             var endDayTime = new Date(dt[0] + "T23:59:00");
                             room.slot = [];
                             angular.forEach(room.busyslot, function(slot, n) {
-
                                 /* ignoring the time zone */
                                 var sdt = new Date(slot.startDateTime.split(".")[0]);
                                 var edt = new Date(slot.endDateTime.split(".")[0]);
-
                                 var freeTime = sdt.getTime() - temp.getTime();
                                 freeTime = ((freeTime / 1000) / 60) / 15;
                                 freeTime = freeTime.toFixed();
@@ -97,11 +96,11 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                         // }, 10);
                     };
 
-										$scope.scrollToTime = function(initScrollDiv) {
-												var el = $document.find("#searchRoomGrid .table-responsive")
-												console.log(initScrollDiv);
-												el.scrollLeft(initScrollDiv);
-										}
+                                        $scope.scrollToTime = function(initScrollDiv) {
+                                                var el = $document.find("#searchRoomGrid .table-responsive")
+                                                console.log(initScrollDiv);
+                                                el.scrollLeft(initScrollDiv);
+                                        }
 
                     $scope.addDurationClass = function(obj, index) {
                         $scope.startIndex = index;
@@ -128,6 +127,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                     };
 
                     $scope.PreviousDay = function() {
+                    alert("hi");
                         var PrevDay = new Date($scope.inputData.searchDate);
                         PrevDay.setDate(PrevDay.getDate() - 1)
                         $scope.inputData.searchDate = PrevDay;
@@ -135,6 +135,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                     };
 
                     $scope.Previous4Hours = function() {
+                     alert("hi");
                         if ($scope.initScroll > 3) {
                             $scope.initScroll -= 4;
                             $scope.initScrollDiv -= 400;
@@ -144,6 +145,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                     };
 
                     $scope.Next4hours = function() {
+                     alert("hi");
                         if ($scope.initScroll < 19) {
                             $scope.initScroll += 4;
                             $scope.initScrollDiv += 400;
@@ -153,6 +155,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                     };
 
                     $scope.NextDay = function() {
+                     alert("hi");
                         var NextDay = new Date($scope.inputData.searchDate);
                         NextDay.setDate(NextDay.getDate() + 1)
                         $scope.inputData.searchDate = NextDay;

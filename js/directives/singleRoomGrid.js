@@ -1,39 +1,36 @@
 ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $document, $timeout, $http, $uibModal) {
                 return {
                     restrict: "E",
-                    templateUrl: "../../views/singleRoomGrid.html",
+                    templateUrl: "views/singleRoomGrid.html",
 										$scope:{searchFormData: "=searchFormData"},
                     link: function($scope, $ele, $attr) {
-
                         $scope.loader = true;
                         console.log($scope.searchFormData);
-
                         var reqData = {
                         "roomName": $scope.searchFormData.roomName,
-                        "roomUid": $scope.searchFormData.roomName,
+                        "roomUid": $scope.searchFormData.roomUid,
                         "searchDate":$scope.searchFormData.searchDate,
                         "timeRange": $scope.searchFormData.timeRange,
-                        "timeZone": $scope.searchFormData.timeZone
-                      };
-
+                        "timezone": $scope.searchFormData.timeZone
+                      };                      
+               console.log('Request: ',reqData);
                         $http({
-                            url: "js/services/singleRoom-data.json",
-                            // url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/lookupbyroom/?format=json",
-                            method: "GET",
-                            data: JSON.stringify(reqData)
+                           // url: "js/services/singleRoom-data.json",
+                             url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
+                            method: "POST",
+                            data: reqData,
+                            headers: {'Content-Type': 'application/json'}
                         }).then(function(res) {
                             $scope.loader = false;
-                            $scope.singleRoomData = res.data.data;
+                            $scope.singleRoomData = res.data.data;                           
                             console.log($scope.singleRoomData);
                             $scope.createSingleRoomSlots($scope.singleRoomData);
                         });
-
 												$scope.scrollToTime = function(initScrollDiv) {
 														var el = $document.find("#searchRoomGrid .table-responsive")
 														console.log(initScrollDiv);
 														el.scrollLeft(initScrollDiv);
 												}
-
 												$scope.createSingleRoomSlots = function(room) {
 											         if (room.events.length != 0) {
 											             var dt = room.events[0].startDateTime;
@@ -45,10 +42,8 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
 											             angular.forEach(room.events, function(events, n) {
 											                 events.endDateTime = events.endDateTime.split(".")[0];
 											                 events.startDateTime = events.startDateTime.split(".")[0];
-
 											                 console.log(events.endDateTime);
 											                 console.log(events.startDateTime);
-
 											                 var sdt = new Date(events.startDateTime);
 											                 var edt = new Date(events.endDateTime);
 											                 console.log(sdt);
@@ -57,7 +52,6 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
 											                 freeTime = ((freeTime / 1000) / 60) / 15;
 											                 freeTime = freeTime.toFixed();
 											                 console.log(freeTime);
-
 											                 var tempTime = temp;
 											                 for (var i = 0; i < freeTime; i++) {
 											                     room.slot.push({
@@ -159,7 +153,6 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                             });
 
                             modalInstance.result.then(function(selectedItem) {
-
                             }, function() {});
                         };
 }

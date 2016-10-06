@@ -101,9 +101,8 @@
                     <div class="col-md-6 col-lg-8">
                         <label class="checkbox-inline" for="seats_{{$index}}" ng-repeat="seat in seats">
                      <!-- ng-model="lookupRoom[seat.label]" -->
-                     <input type="checkbox" id="seat_{{$index}}" name="seat_{{$index}}" ng-model="lookupRoom.seats[seat.label]" value="{{seat.checked}}" ng-disabled="!seat.disable"><span class="seat-available">{{seat.label}}</span>
+                     <input type="checkbox" id="seat_{{$index}}" name="seat_{{$index}}" value="{{seat.checked}}" ng-model="lookupRoom.seats[seat.label]" ng-disabled="!seat.disable"><span class="seat-available">{{seat.label}}</span>
                   </label>
-
                     </div>
                 </div>
                 <div class="form-group">
@@ -116,16 +115,15 @@
                     <div id="amenities" class="col-md-6 col-lg-8">
                         <!-- ng-model="lookupRoom[amenity.label]" -->
                         <label class="checkbox-inline" for="amenity_{{$index}}" ng-repeat="amenity in amenities">
-                     <input type="checkbox" name="amenity_{{$index}}" ng-model="lookupRoom.amenities[amenity.label]" value="{{amenity.checked}}" ng-disabled="!amenity.disable"><span class="amenities-available"> {{amenity.label}}</span>
+                     <input type="checkbox" name="amenity_{{$index}}" value="{{amenity.checked}}" ng-model="lookupRoom.amenities[amenity.label]" ng-disabled="!amenity.disable"><span class="amenities-available"> {{amenity.label}}</span>
                   </label>
-
                     </div>
                 </div>
                 <!--             {{lookupRoom}}  -->
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-md-6 col-lg-8">
                         <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoomForm.$invalid" class="btn btn-sm search-btn">Search</button>
-
+                       
                     </div>
                 </div>
             </form>
@@ -144,26 +142,212 @@
             </div>
         </section>
     </div>
-    <div style="text-align: center;" class="loader-image">
-        <span class="loader" ng-if="loader"></span>
-    </div>
-
-    <div ng-if="showMultiRoom">
-        <multi-room-grid searchFormData="searchFormData"></multi-room-grid>
-        <div id="nearbyBuilding"></div>
-        <div class="not-Found">
-            <p>Not finding what you’re looking for?</p>
-            <p><div ng-click="nearbyBuilding(inputData)">Search Nearby Buildings</div></p>
+    <div class="loader-image">
+     <span class="loader" ng-if="loader"></span>
+     </div>
+    <!-- Single Room Search -->
+    <section class="single-room-search" ng-show="showSingleRoom">
+        <h2>{{lookupRoom.date | date: "EEEE, MMMM dd, yyyy"}}</h2>
+        <h4>{{lookupRoom.room.roomName}}</h4>
+        <div class="sr-header">
+            <span><a href="#"><img src="images/adir.png"><span class="sr-img">Open in Apple Directory</span></a>
+            </span>
+            <span>
+            <a href="#">
+               <img class="sr-img" src="images/email.png">
+               <spam class="sr-img">Email all bookers</spam>
+            </a>
+         </span>
+            <span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right info-image">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
         </div>
-    </div>
 
-    <div ng-if="showSingleRoom">
-        <single-room-grid searchFormData="searchFormData"></single-room-grid>
-    </div>
-    </div>
+        <table class="table">
+            <tr>
+                <td class="align-time">Time</td>
+                <td>
+                    <div class="col-md-6 booked-time-line">Booked time</div>
+                    <div class="col-md-6 text-right booked-by-line">Booked By</div>
+                </td>
+            </tr>
+        </table>
+        <!-- <div class="single-room-header sr-header">
+            <div class="sr-time border-line">
 
-    <footer class="search-result-footer">
-        <p>Copyright Apple, Inc. All rights reserved.</p>
-    </footer>
+            </div>
+            <div class="sr-booked border-line">
+                    </div>
+        </div> -->
+
+        <div class="ScrollStyle">
+            <table class="table">
+                <tr ng-repeat="slot in singleRoomData.slot track by $index">
+                    <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]  | date:'h'}}">{{hours[$index/4] | date:'ha'}}</td>
+                    <td ng-if="slot.type=='free'" class="border-line free">
+                        <div ng-mouseover="addDurationClass(singleRoomData, $index)" ng-mouseout="removeDurationClass(singleRoomData, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
+                    </td>
+                    <td ng-if="slot.type=='busy'" class="border-line busy">
+                        <div ng-if="slot.firstCell==true" class="row">
+                            <div class="col-md-6">{{slot.time | date:'hh:mm a'}} to : {{slot.busyTill | date:'hh:mm a'}}</div>
+
+                            <div class="col-md-6" ng-click="open(slot)">
+                               <a href="#"> {{slot.organizer.name}}</a>
+                                <!-- <div><label>Email :</label> {{slot.organizer.email}}</div>
+          <div><label>Status :</label> {{slot.organizer.status}}</div>
+          <div><label>Ad Link :</label> {{slot.organizer.adLink}}</div>
+          <div><label>Type :</label> {{slot.organizer.type}}</div> -->
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+
+
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Contact Jassica Swift</h3>
+                <p>Blue 06 (4) CU01 1st - Tuesday, September 13, 2016</p>
+                <label>Recipients</label>
+                <p><label> {{selected.organizer.email}}</label></p>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div style="min-height:500px;">
+                    <form>
+                        <div class="form-group">
+                            <label for="yourName">Your Name</label>
+                            <input type="text" class="form-control" id="yourName" ng-model="selected.organizer.name" placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="yourEmail">Your Email</label>
+                            <input type="email" class="form-control" id="yourEmail" ng-model="selected.organizer.email" placeholder="">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input"> CC me
+                    </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Subject">Subject</label>
+                            <input type="text" class="form-control" id="Subject" value="Regarding your room book..." placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="Message">Message</label>
+                            <textarea class="form-control" id="Message" rows="6"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary pull-left" type="button" ng-click="ok()">Send Message</button>
+                            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </script>
+
+
+
+
+        <footer class="search-result-footer">
+            <p>Copyright Apple, Inc. All rights reserved.</p>
+        </footer>
+    </section>
+    <!-- end of single room search -->
+    <!-- SEARCH RESULTS VIEW -->
+    <section class="searchResults" id="searchResults" ng-show="showSearchResult">
+        <h3>{{lookupRoom.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
+        <div class="row">
+            <div class="col-md-4">{{grid_data.length}} rooms matching your search</div>
+            <div class="col-md-8">
+                <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
+                <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll<3" ng-click="Previous4Hours()">‹ Previous 4 Hours</button></div>
+                <div class="col-md-2 col-sm-2"></div>
+                <div class="col-md-2 col-sm-2"></div>
+                <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll>19" ng-click="Next4hours()">Next 4 Hours ›</button></div>
+                <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
+            </div>
+        </div>
+        <section class="searchGrid" id="searchRoomGrid">
+            <!-- fixed-first-column -->
+            <div fixed-first-column>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr id="first-tr">
+                            <!-- popover start -->
+                            <!-- <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th> -->
+                            <th id="first-th"><span>Room</span><span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right ">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
+                            </th>
+                           
+                            <script type="text/ng-template" id="myPopoverTemplate.html">
+                                <h4>{M} Chambre [AVCN] (8) {RESTRICTED} <br>[DEU] EMA 2nd</h4>
+                                <div class="legend-details">
+                                    <p><span class="text-color">{M}</span> = Managed room. Reservations must be approved by the room manager.</p>
+                                    <p><span class="text-color">Chambre</span> = Room name</p>
+                                    <p><span class="text-color">[AVCN]</span> = Apple Video Conferencing Network</p>
+                                    <p><span class="text-color">(8)</span> = Room Capacity</p>
+                                    <p><span class="text-color">{RESTRICTED}</span> = Badge-restricted room access.</p>
+                                    <p><span class="text-color">[DEU]</span> = Country</p>
+                                    <p><span class="text-color">EMA</span> = Building</p>
+                                    <p><span class="text-color">2nd</span> = Floor</p>
+                                </div>
+                                <div class="color-indicate">
+                                    <span class="white-box"></span><strong>Available</strong>
+                                    <span class="gray-box"></span><strong>Booked</strong>
+                                    <span class="blue-box"></span><strong>Reserved</strong>
+                                </div>
+                            </script>
+                            <!-- popover end -->
+            </div>
+            </div>
+            </div>
+            </div>
+               <th>
+                  <div ng-repeat="hour in hours" class="row header-hours gridHeader">
+                    <div class="span3">{{hour}}</div>
+                </div>
+
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="room in grid_data track by $index">
+                    <td>
+                        <a href="adir://conferencerooms/<dsid>"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
+                    <td>
+                        <div class="gridData">
+                            <div ng-repeat="slot in room.slot" ng-class="{'free':slot.type=='free', 'busy':slot.type!='free'}">
+                                <div ng-mouseover="addDurationClass(room, $index)" ng-mouseout="removeDurationClass(room, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+            </div>
+        </section>
+
+        <div class="nearbybuildings" ng-show="nearbybuildings">
+            <table class="divider">
+                <td>
+                    <hr />
+                </td>
+                <td class="divider-text"> NEARBY BUILDINGS </td>
+                <td>
+                    <hr />
+                </td>
+            </table>
+            <div class="no-result-found">
+
+                <h2>No Results Found</h1>
+            <p>Please update your search and try again.</p>
+               </div>
+  </div>
+
+<div class="not-Found">
+<p>Not finding what you’re looking for?</p>
+<p><a href="#" ng-click="nearbyBuilding()">Search Nearby Buildings</a></p>
+</div>
+<footer class="search-result-footer">
+<p>Copyright Apple, Inc. All rights reserved.</p>
+</footer>
 </section>
 </section>
