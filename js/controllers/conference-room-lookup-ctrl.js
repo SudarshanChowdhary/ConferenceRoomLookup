@@ -54,7 +54,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             }
 
             $scope.inputData = {}
-            $scope.inputData.buildingName = $scope.buildingOptions[$scope.lookupRoom.buildingName];
+            $scope.inputData.buildingName = $scope.lookupRoom.buildingName;
             $scope.inputData.timeRange = {
                 "from": from_time,
                 "to": to_time
@@ -92,12 +92,13 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     });
                 });
                 $scope.inputData.room = jsonrooms;
-                $scope.inputData.clickedNumber=0;
-                $scope.inputData.latitude = $scope.geo[$scope.lookupRoom.buildingName].latitude;
-                $scope.inputData.longitude = $scope.geo[$scope.lookupRoom.buildingName].longitude;
+                $scope.clickedNumber=0;
+                $scope.inputData.latitude = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].latitude;
+                $scope.inputData.longitude = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].longitude;
 
                 $scope.showMultiRoom = true;
                 $scope.searchFormData = $scope.inputData;
+                console.log($scope.searchFormData);
                 $scope.showSingleRoom = false;
             } else {
               $scope.inputData.roomName = $scope.lookupRoom.room.roomName;
@@ -180,6 +181,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.disableRoom = false;
         } else {
             $scope.disableBuilding = true;
+            $scope.geo=[];
             angular.forEach($scope.lookUpData, function(obj, index) {
                 if (obj.campusName === campus && $scope.buildingOptions.indexOf(obj.buildingName) === -1) {
                     $scope.buildingOptions.push(obj.buildingName);
@@ -206,12 +208,14 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.lookupRoom.timezone = "";
 
             angular.forEach($scope.lookUpData, function(obj) {
-
+                
                 /* Loading Floors */
                 if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.floorOptions.indexOf(obj.floorNumber) === -1) {
                     $scope.floorOptions.push(obj.floorNumber);
                 }
                 /* Loading Rooms */
+
+
                 var room = {
                     "roomName": obj.roomName,
                     "roomUid": obj.roomUid
@@ -231,7 +235,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.searchRoomGridnearby = false;
     $scope.nearbybuildings = false;
     $scope.nearbyBuilding = function(searchFormData) {
-      angular.element("#nearbyBuilding").append($compile("<multi-room-grid searchFormData='searchFormData'></multi-room-grid>")($scope));
+      angular.element("#nearbyBuilding").append($compile("<multi-room-grid id='multiRoomDirective_{{clickedNumber}}' searchFormData='searchFormData' clickedNumber='clickedNumber' latitude='' longitude=''></multi-room-grid>")($scope));
 
         // if ($scope.searchRoomGridnearby) {
         //     $scope.searchRoomGridnearby = true;

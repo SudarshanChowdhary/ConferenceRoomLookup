@@ -332,7 +332,10 @@ div.gridData div:nth-child(4n) {
     text-align: center;
 }
 
-.nearbybuildings {}
+.nearbyBuilding {
+    color: blue;
+    cursor: pointer;
+}
 
 .sr-header {
     padding-bottom: 20px;

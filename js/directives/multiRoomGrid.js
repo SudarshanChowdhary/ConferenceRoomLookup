@@ -3,32 +3,38 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
         restrict: "E",
         templateUrl: "../../views/multiRoomGrid.html",
         $scope: {
-            searchFormData: "=searchFormData"
+            searchFormData: "=searchFormData", 
+            clickedNumber:"@clickedNumber", 
+            latitude:"@latitude", 
+            longitude:"@longitude"
         },
         link: function($scope, $ele, $attr) {
             $scope.loader = true;
             // Ajax call to load multi room data
+                console.log($scope.searchFormData);
+            var reqData = {
+                "room" : $scope.searchFormData.room, 
+                "searchDate" : $scope.searchFormData.searchDate,
+                "timeRange": $scope.searchFormData.timeRange,
+                "timezone":$scope.searchFormData.timezone,
+                "unavailable" : $scope.searchFormData.unavailable
+        }
 
-            var reqData = {};
+        console.log(reqData);
+                var uri = "js/services/responseGrid-data.json";
 
-            reqData.room = $scope.searchFormData.room;
-            reqData.searchDate = $scope.searchFormData.searchDate;
-            reqData.timeRange = $scope.searchFormData.timeRange;
-            reqData.timeZone = $scope.searchFormData.timeZone;
-            reqData.unavailable = $scope.searchFormData.unavailable;
-
-            if($scope.searchFormData.clickedNumber==0)
+            if($scope.clickedNumber==0)
             {
-                var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/freebusyrooms/?format=json";
+                // var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
+                var uri = "js/services/responseGrid-data.json";
             }
             else
             {
-                var uri = "js/services/responseGrid-data.json";
-                $scope.searchFormData.clickedNumber ++;
-                reqData.clickedNumber = $scope.searchFormData.clickedNumber;
+               var uri= "js/services/nearybybuilding.json";
+                $scope.clickedNumber ++;
             }
 
-
+            console.log(reqData);
             $http({
                 url: uri,
                 method: "GET",
@@ -103,17 +109,14 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                     }
                 }
 
-                // $anchorScroll("searchRoomGrid");
-                // $scope.initScroll = 9;
-                // $timeout(function() {
-                //     $scope.initScrollDiv = 900;
-                //     $scope.scrollToTime($scope.initScrollDiv);
-                // }, 10);
+                $anchorScroll("multiRoomDirective_"+$scope.clickedNumber);
+                $timeout(function() {
+                    $scope.scrollToTime(900)
+                }, 10);
             };
 
             $scope.scrollToTime = function(initScrollDiv) {
-                var el = $document.find("#searchRoomGrid .table-responsive")
-                console.log(initScrollDiv);
+                var el = $document.find("#multiRoomDirective_"+$scope.clickedNumber+" #searchRoomGrid .table-responsive");
                 el.scrollLeft(initScrollDiv);
             }
 
@@ -149,8 +152,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
             };
 
             $scope.Previous4Hours = function() {
-                if ($scope.initScroll > 3) {
-                    $scope.initScroll -= 4;
+                if ($scope.initScrollDiv > 300) {
                     $scope.initScrollDiv -= 400;
                     $scope.scrollToTime($scope.initScrollDiv);
                     console.log($scope.initScrollDiv)
@@ -158,8 +160,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
             };
 
             $scope.Next4hours = function() {
-                if ($scope.initScroll < 19) {
-                    $scope.initScroll += 4;
+                if ($scope.initScrollDiv < 1900) {
                     $scope.initScrollDiv += 400;
                     $scope.scrollToTime($scope.initScrollDiv);
                     console.log($scope.initScrollDiv)
