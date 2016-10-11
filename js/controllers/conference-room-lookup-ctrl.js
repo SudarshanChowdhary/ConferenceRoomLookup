@@ -1,6 +1,6 @@
 'use strict'
 
-ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, responseGrid, $anchorScroll, $document, $timeout, $http, $uibModal) {
+ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, durationService, timeRangeService, $compile, $http) {
     /* , $uibModalInstance, items */
     $scope.lookUpData = {};
     $scope.siteOptions = [];
@@ -13,23 +13,23 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.lookupRoom = {
         "date": new Date(),
         "unavailable": 0
-    };    
-    $scope.showSearchResult = false;
+    };
+    $scope.showMultiRoom = false;
     $scope.showSingleRoom = false;
- $scope.$watch('lookupRoomForm.$dirty', function(v) {
+
+    $scope.$watch('lookupRoomForm.$dirty', function(v) {
         if (!v) {
             return
         }
         $scope.lookupRoomForm.$setPristine()
-        $scope.showSearchResult = false;
+        $scope.showMultiRoom = false;
         $scope.showSingleRoom = false;
         $scope.loader = false;
         /*do something here*/
     })
 
-         
     $scope.searchResult = function() {
-        $scope.showSearchResult = false;
+     $scope.showMultiRoom = false;
         $scope.showSingleRoom = false;
 
         if ($scope.lookupRoomForm.$valid) {
@@ -53,46 +53,58 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     break;
             }
 
-            var jsonrooms = [];
-            angular.forEach($scope.roomOptions, function(room) {
-                jsonrooms.push({
-                    roomName: room.roomName,
-                    roomUid: room.roomUid
-                });
-            });
-
             $scope.inputData = {}
-            $scope.inputData.room = jsonrooms;
+            $scope.inputData.buildingName = $scope.buildingOptions[$scope.lookupRoom.buildingName];
             $scope.inputData.timeRange = {
                 "from": from_time,
                 "to": to_time
             };
+            $scope.inputData.floorNumber = $scope.lookupRoom.floorNumber;
+            $scope.inputData.amenities=[];
+            $scope.inputData.seats=[];
+            angular.forEach($scope.lookupRoom.amenities, function(amenity) {
+              console.log(amenity);
+              if(amenity)
+              {
+                $scope.inputData.amenities.push(Object.keys(amenity));
+              }
+            });
+            angular.forEach($scope.lookupRoom.seats, function(seat) {
+              console.log(seat);
+              if(seat)
+              {
+                $scope.inputData.seats.push(Object.keys(seat));
+              }
+            });
 
+            $scope.inputData.duration=$scope.lookupRoom.duration;
             $scope.inputData.timezone = smroom.timezone;
             $scope.inputData.unavailable = smroom.unavailable;
             var d = new Date(smroom.date);
             $scope.inputData.searchDate = d.getFullYear() + "" + $scope.appendZero(d.getMonth() + 1) + "" + $scope.appendZero(d.getDate());
-           
+
             if (!$scope.lookupRoom.room) {
-                $scope.showSearchResult = true;
-                $scope.searchMultipleRooms($scope.inputData);
+                var jsonrooms = [];
+                angular.forEach($scope.roomOptions, function(room) {
+                    jsonrooms.push({
+                        roomName: room.roomName,
+                        roomUid: room.roomUid
+                    });
+                });
+                $scope.inputData.room = jsonrooms;
+                $scope.inputData.clickedNumber=0;
+                $scope.inputData.latitude = $scope.geo[$scope.lookupRoom.buildingName].latitude;
+                $scope.inputData.longitude = $scope.geo[$scope.lookupRoom.buildingName].longitude;
+
+                $scope.showMultiRoom = true;
+                $scope.searchFormData = $scope.inputData;
                 $scope.showSingleRoom = false;
-                $scope.showSearchResult = true;
-                  console.log($scope.inputData);
             } else {
-                $scope.searchSingleRoom({
-                 'roomName' : $scope.lookupRoom.room.roomName,
-                'roomUid' : $scope.lookupRoom.room.roomUid,
-                'timezone' : smroom.timezone,
-                'searchDate' : $scope.inputData.searchDate,
-                'timeRange' : {
-                    'from' : from_time, 
-                    'to' : to_time
-                } 
-            });                
-                console.log($scope.searchSingleRoom);
-                $scope.showSingleRoom = true;
-                $scope.showSearchResult = false;
+              $scope.inputData.roomName = $scope.lookupRoom.room.roomName;
+              $scope.inputData.roomUid= $scope.lookupRoom.room.roomUid;
+              $scope.searchFormData = $scope.inputData;
+              $scope.showSingleRoom = true;
+              $scope.showMultiRoom = false;
             }
         }
     };
@@ -101,314 +113,16 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         return (inNumber <= 9) ? "0" + inNumber : inNumber;
     };
 
+    $scope.finderloader = true;
 
-     $scope.gridheader = false;
-    $scope.createSlots = function(room) {
-        $scope.gridheader = true;
-        if (room.busyslot.length != 0) {
-            var dt = room.busyslot[0].startDateTime;
-            dt = dt.split("T");
-
-            var temp = new Date(dt[0] + "T00:00:00");
-            var endDayTime = new Date(dt[0] + "T23:59:00");
-            room.slot = [];
-            angular.forEach(room.busyslot, function(slot, n) {
-
-              /* ignoring the time zone */
-              var sdt = new Date(slot.startDateTime.split(".")[0]);
-              var edt = new Date(slot.endDateTime.split(".")[0]);
-
-                var freeTime = sdt.getTime() - temp.getTime();
-                freeTime = ((freeTime / 1000) / 60) / 15;
-                freeTime = freeTime.toFixed();
-                for (var i = 0; i < freeTime; i++) {
-                    room.slot.push({
-                        "type": "free",
-                        "highlight": false
-                    });
-                }
-                var busyTime = edt.getTime() - sdt.getTime();
-                busyTime = ((busyTime / 1000) / 60) / 15;
-                  busyTime = busyTime.toFixed();
-                for (var i = 0; i < busyTime; i++) {
-                    room.slot.push({
-                        "type": "busy",
-                        "highlight": false
-                    });
-                }
-                temp = edt;
-
-                if (n == room.busyslot.length - 1 && edt.getTime() < endDayTime.getTime()) {
-                    var freeTime = endDayTime.getTime() - edt.getTime();                    
-                    freeTime = ((freeTime / 1000) / 60) / 15;
-                     freeTime = freeTime.toFixed();
-                    for (var i = 0; i < freeTime; i++) {
-                        room.slot.push({
-                            "type": "free",
-                            "highlight": false
-                        });
-                    }
-                }
-            });
-
-        } else {
-            room.slot = [];
-            for (var i = 0; i < 96; i++) {
-                room.slot.push({
-                    "type": "free",
-                    "highlight": false
-                });
-            }
-        }
-        
-        $anchorScroll("searchRoomGrid");
-        $scope.initScroll = 9;
-        $timeout(function() {
-            $scope.initScrollDiv = 900;
-            console.log($scope.initScrollDiv)
-            $scope.scrollToTime($scope.initScrollDiv);
-        }, 10);
-    };
-
-    $scope.open = function (slot) {
-       var modalInstance = $uibModal.open({
-         animation: true,
-         ariaLabelledBy: 'modal-title',
-         ariaDescribedBy: 'modal-body',
-         templateUrl: 'myModalContent.html',
-         controller: 'singleRoomForm',
-         size: 'md',
-         resolve: {
-           items: function () {
-             return slot;
-           }
-         }
-       });
-
-       modalInstance.result.then(function (selectedItem) {
-
-       }, function () {
-       });
-     };
-
-
-    $scope.createSingleRoomSlots = function(room) {
-        if (room.events.length != 0) {
-            console.log("dddddd");
-            console.log(room.events);
-
-            var dt = room.events[0].startDateTime;
-            dt = dt.split("T");
-            var temp = new Date(dt[0] + "T00:00:00");
-            var endDayTime = new Date(dt[0] + "T23:59:00");
-            console.log("temp", temp)
-            room.slot = [];
-            angular.forEach(room.events, function(events, n) {
-              var edt = new Date(events.endDateTime.split(".")[0]);
-              var sdt = new Date(events.startDateTime.split(".")[0]);
-                
-                var freeTime = sdt.getTime() - temp.getTime();
-                freeTime = ((freeTime / 1000) / 60) / 15;
-                freeTime = freeTime.toFixed();
-                console.log(freeTime);
-
-                var tempTime = temp;
-                for (var i = 0; i < freeTime; i++) {
-                    room.slot.push({
-                        "time": tempTime,
-                        "type": "free",
-                        "highlight": false
-                    });
-                    tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
-                }
-                console.log("edt", edt.getTime(), "sdt", sdt.getTime())
-                var busyTime = edt.getTime() - sdt.getTime();
-                busyTime = ((busyTime / 1000) / 60) / 15;
-                busyTime = busyTime.toFixed();
-                console.log(busyTime);
-                for (var i = 0; i < busyTime; i++) {
-                  if(i===0)
-                  {
-                    room.slot.push({
-                        "time": tempTime,
-                        "type": "busy",
-                        "highlight": false,
-                        "firstCell": true,
-                        "organizer": events.organizer,
-                        "busyTill": new Date(events.endDateTime),
-                        "numberOfBusySlots": busyTime
-                    });
-                  }else{
-                    room.slot.push({
-                        "time": tempTime,
-                        "type": "busy",
-                        "highlight": false
-                    });
-                  }
-                    tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
-                }
-                temp = edt;
-
-                if (n == room.events.length - 1 && edt.getTime() < endDayTime.getTime()) {
-                    var freeTime = endDayTime.getTime() - temp.getTime();
-                    freeTime = ((freeTime / 1000) / 60) / 15;
-                    freeTime = freeTime.toFixed();
-                    for (var i = 0; i < freeTime; i++) {
-                        room.slot.push({
-                            "time":tempTime,
-                            "type": "free",
-                            "highlight": false
-                        });
-                        tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
-                    }
-                }
-            });
-        } else {
-            room.slot = [];
-            var tempTime = new Date("2016-07-25T00:00:00");
-            for (var i = 0; i < 96; i++) {
-                room.slot.push({
-                    "time": tempTime,
-                    "type": "free",
-                    "highlight": false
-                });
-                tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
-            }
-        }
-        console.log(room)
-        var tempHours = new Date("2016-07-25T00:00:00");
-        $scope.hours = [];
-
-        for (var i = 0; i < 96; i = i + 4) {
-            $scope.hours.push(tempHours);
-            tempHours = new Date(tempHours.getTime() + (60 * 60 * 1000));
-        }
-
-        var tempTime = new Date("2016-07-25T00:00:00");
-        for (var i = 0; i < 96; i++) {
-            room.slot[i].time = tempTime;
-            tempTime = new Date(tempTime.getTime() + (1000*60*15));
-        }
-
-        $anchorScroll("searchRoomGrid");
-        $scope.initScroll = 9;
-        $timeout(function() {
-            $scope.initScrollDiv = 900;
-            console.log($scope.initScrollDiv)
-            $scope.scrollToTime($scope.initScrollDiv);
-        }, 10);
-    };
-
-
-   
-    $scope.finderloader=true;
-    $scope.searchMultipleRooms = function(searchFormData) {
-        $scope.loader = true;
-        $http({   
-            url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json",
-            //url: "js/services/responseGrid-data.json", 
-            method: "POST",
-            data: searchFormData
-        }).then(function(res) {
-            $scope.loader = false;
-            console.log(res.data);
-            $scope.grid_data = res.data.data;
-            angular.forEach($scope.grid_data, function(room, m) {
-                $scope.createSlots(room);
-                
-            });
-        });
-    }
-
-    $scope.searchSingleRoom = function(searchFormData) {
-        $scope.loader = true;
-        console.log(searchFormData);
-        $http({
-            //url: "js/services/singleRoom-data.json",
-            url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
-            method: "POST",
-            data: searchFormData
-        }).then(function(res) {
-            $scope.loader = false;
-            console.log(res.data);
-            $scope.singleRoomData = res.data.data;
-            console.log($scope.singleRoomData);
-            $scope.createSingleRoomSlots($scope.singleRoomData);
-        });
-    }
-
-    $scope.scrollToTime = function(initScrollDiv) {
-        var el = $document.find("#searchRoomGrid .table-responsive")
-        console.log(initScrollDiv);
-        el.scrollLeft(initScrollDiv);
-    }
-    
     $scope.dynamicPopover = {
         templateUrl: 'myPopoverTemplate.html',
         outsideClick: "outsideClick",
     };
 
-     $scope.dynamicPopover1 = {
+    $scope.dynamicPopover1 = {
         templateUrl: 'myModalContent.html',
         outsideClick: "outsideClick",
-    };
-
-
-  
-    $scope.addDurationClass = function(obj, index) {
-        $scope.startIndex = index;
-        $scope.durationFlag = true;
-        for (var i = index; i < index + $scope.durationTime.indexOf($scope.lookupRoom.duration) + 1; i++) {
-            if (obj.slot[i].type != 'free') {
-                $scope.startIndex--;
-                if (obj.slot[$scope.startIndex].type != 'free') {
-                    $scope.durationFlag = false;
-                }
-            }
-        }
-        if ($scope.durationFlag) {
-            for (var i = $scope.startIndex; i < $scope.startIndex + $scope.durationTime.indexOf($scope.lookupRoom.duration) + 1; i++) {
-                obj.slot[i].highlight = true;
-            }
-        }
-    }
-
-    $scope.removeDurationClass = function(obj, index) {
-        for (var i = $scope.startIndex; i < $scope.startIndex + $scope.durationTime.indexOf($scope.lookupRoom.duration) + 1; i++) {
-            obj.slot[i].highlight = false;
-        }
-    };
-
-    $scope.PreviousDay = function() {
-        var PrevDay = new Date($scope.inputData.searchDate);
-        PrevDay.setDate(PrevDay.getDate() - 1)
-        $scope.inputData.searchDate = PrevDay;
-        console.log($scope.inputData.searchDate);
-    };
-
-    $scope.Previous4Hours = function() {
-        if ($scope.initScroll > 3) {
-            $scope.initScroll -= 4;
-            $scope.initScrollDiv -= 400;
-            $scope.scrollToTime($scope.initScrollDiv);
-            console.log($scope.initScrollDiv)
-        }
-    };
-
-    $scope.Next4hours = function() {
-        if ($scope.initScroll < 19) {
-            $scope.initScroll += 4;
-            $scope.initScrollDiv += 400;
-            $scope.scrollToTime($scope.initScrollDiv);
-            console.log($scope.initScrollDiv)
-        }
-    };
-
-    $scope.NextDay = function() {
-        var NextDay = new Date($scope.inputData.searchDate);
-        NextDay.setDate(NextDay.getDate() + 1)
-        $scope.inputData.searchDate = NextDay;
-        console.log($scope.inputData.searchDate);
     };
 
     var uniqueData = function(dataObj, field) {
@@ -469,6 +183,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             angular.forEach($scope.lookUpData, function(obj, index) {
                 if (obj.campusName === campus && $scope.buildingOptions.indexOf(obj.buildingName) === -1) {
                     $scope.buildingOptions.push(obj.buildingName);
+                    $scope.geo.push({"latitude":obj.latitude, "longitude":obj.longitude});
                 }
             })
         }
@@ -515,15 +230,16 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
     $scope.searchRoomGridnearby = false;
     $scope.nearbybuildings = false;
-    $scope.nearbyBuilding = function() {
-        if ($scope.searchRoomGridnearby) {
-            $scope.searchRoomGridnearby = true;
-            $scope.nearbybuildings = false;
-        } else {
-            $scope.nearbybuildings = true;
-            $scope.searchRoomGridnearby = false;
-        }
+    $scope.nearbyBuilding = function(searchFormData) {
+      angular.element("#nearbyBuilding").append($compile("<multi-room-grid searchFormData='searchFormData'></multi-room-grid>")($scope));
 
+        // if ($scope.searchRoomGridnearby) {
+        //     $scope.searchRoomGridnearby = true;
+        //     $scope.nearbybuildings = false;
+        // } else {
+        //     $scope.nearbybuildings = true;
+        //     $scope.searchRoomGridnearby = false;
+        // }
     }
 
     $scope.changeFloor = function(floorNumber) {
@@ -642,14 +358,14 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     // $scope.headerHours = function () {
     //     $scope.tempHours = new Date("2016-07-25T00:00:00");
     //     hours = [];
-    //     for (var i = 0; i < 96; i = i + 4) {            
+    //     for (var i = 0; i < 96; i = i + 4) {
     //         tempHours = new Date(tempHours.getTime() + (60 * 60 * 1000));
     //         hours.push(tempHours);
     //     }
     //     return hours;
     // }
 
-    $scope.hours = ["12 AM","1 AM","2 AM","3 AM","4 AM","5 AM","6 AM","7 AM","8 AM","9 AM","10 AM","11 AM","12 PM","1 PM","2 PM","3 PM","4 PM","5 PM","6 PM","7 PM","8 PM","9 PM","10 PM","11 PM"];
+    $scope.MultiRoomHours = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"];
 
     $scope.availableSeatsAndAmenities = function(room) {
         if (!room) {

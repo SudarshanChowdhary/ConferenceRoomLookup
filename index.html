@@ -6,9 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" />
+	<link rel="stylesheet" href="node_modules/angular-ui-grid/ui-grid.css" />
 	<link rel="stylesheet" href="css/style.css"/>
 </head>
 <body class="ng-cloak">
+
 <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
 
@@ -19,7 +21,6 @@
 <script type="text/javascript" src="node_modules/angular-resource/angular-resource.min.js"></script>
 
 
-
 <script src="app.js" type="text/javascript"></script>
 
 
@@ -28,22 +29,21 @@
 <script src="js/services/site-service.js"></script>
 <script src="js/services/timeRange-service.js"></script>
 <script src="js/services/duration-service.js"></script>
-<script src="js/services/singleRoomData-service.js"></script>
-
 
 <script src="js/services/responseGrid-service.js"></script>
+<script src="js/services/singleRoomData-service.js"></script>
 
 
 <!-- Direcctives -->
 
 <script src="js/directives/fixed-first-column.js"></script>
-
+<script src="js/directives/singleRoomGrid.js"></script>
+<script src="js/directives/multiRoomGrid.js"></script>
 
 <!-- Controllers -->
 
 <script src="js/controllers/conference-room-lookup-ctrl.js" type="text/javascript"></script>
 <script src="js/controllers/single-room-form-ctrl.js" type="text/javascript"></script>
-
 
 <div ui-view></div>
 </body>
