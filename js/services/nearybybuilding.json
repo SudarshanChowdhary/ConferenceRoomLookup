@@ -1,0 +1,678 @@
+{
+    "data": [
+        {
+            "buildingCode": "RP10",
+            "buildingName": "Riata Park 10",
+            "room": [
+                {
+                    "roomName": "Finch (6) RP10 1st",
+                    "status": "busy",
+                    "roomUid": "70AA8EB0-212D-4352-94DA-6FFBB60398D8",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T10:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T12:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T11:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T14:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T13:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T16:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T15:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Mockingbird (6) RP10 1st",
+                    "status": "busy",
+                    "roomUid": "447986F4-C392-409C-8989-E82ECCE77333",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T09:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T08:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T12:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T14:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T13:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T17:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T15:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Roadrunner [AVCN] (16) RP10 1st",
+                    "status": "busy",
+                    "roomUid": "CD2E117F-E81C-4237-942E-681F82681FD0",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T17:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T14:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Chickadee (6) RP10 1st",
+                    "status": "busy",
+                    "roomUid": "5730D5E0-D640-47FE-8BA0-00FCDA6F76F4",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T09:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T08:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T15:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T12:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Mom's Room (1) RP10 1st",
+                    "status": "busy",
+                    "roomUid": "DAFCF279-BEDC-4A12-A13C-AA70FBA089A0",
+                    "busyslot": []
+                },
+                {
+                    "roomName": "Grackle (6) RP10 1st",
+                    "status": "busy",
+                    "roomUid": "6AF86BA9-00C3-EB7D-8845-28E3B3352BE3",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T10:45:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T15:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T13:30:00.000-05:00"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "buildingCode": "PL02",
+            "buildingName": "Parmer Lane 2",
+            "room": [
+                {
+                    "roomName": "Yogi Bear [AVCN] (10) PL02 4th",
+                    "status": "busy",
+                    "roomUid": "4809A7EE-BD78-C152-1683-8C9AF5B412C8",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T13:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T12:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T14:45:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T14:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Mighty Mouse [AVCN] (10) PL02 4th",
+                    "status": "busy",
+                    "roomUid": "D5BFB49A-773E-CF05-488B-6E98F4818DC1",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T12:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T11:30:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Pepe Le Pew [AVCN] (10) PL02 4th",
+                    "status": "busy",
+                    "roomUid": "644D8FD1-6A05-2393-BB9F-15C0FB712A56",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T10:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:45:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T14:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T13:30:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Daffy Duck (10) PL02 4th",
+                    "status": "busy",
+                    "roomUid": "6926BE90-B3E3-04C4-8D20-298298B7D4BC",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T14:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T13:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T16:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T15:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Bullwinkle [AVCN] (10) PL02 4th",
+                    "status": "busy",
+                    "roomUid": "5910467B-5055-D2BC-2F2F-E5BB85086A7D",
+                    "busyslot": []
+                },
+                {
+                    "roomName": "Popeye (17) PL02 4th",
+                    "status": "busy",
+                    "roomUid": "F6BD4487-2433-7537-EA5A-7D29EE8B6DF9",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T15:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T14:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Sylvester [AVCN] (10) PL02 4th",
+                    "status": "busy",
+                    "roomUid": "71D4F0BD-CE66-3248-2CB6-3B1F9A90F429",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:15:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T12:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T11:30:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Snoopy (10) PL02 4th",
+                    "status": "busy",
+                    "roomUid": "5113C067-B269-5592-B0F2-E978184EA2D5",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T10:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:15:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T17:15:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T14:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Scotty [AVCN] (10) PL02 3rd",
+                    "status": "busy",
+                    "roomUid": "24A7E481-4F0C-408E-36CB-324213900B1F",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T13:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Sulu [AVCN] (10) PL02 3rd",
+                    "status": "busy",
+                    "roomUid": "4A8C4598-9A56-84F1-B07B-AF0F38E1CA2E",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T09:45:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T10:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T14:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T11:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T16:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T15:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "James T. Kirk (16) PL02 3rd",
+                    "status": "busy",
+                    "roomUid": "C198373F-497B-8BFA-7BE6-016C782AF303",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T16:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T14:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Spock (10) PL02 3rd",
+                    "status": "busy",
+                    "roomUid": "9273079E-DF3D-4FB3-27BB-3B6048BC3CF7",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T12:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T11:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T18:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T17:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Mom's room (1) PL02 3rd",
+                    "status": "busy",
+                    "roomUid": "0A7DB2A6-56B1-0A5C-4014-E28B16AD3992",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T11:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T16:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T16:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Brazos [AVCN] (6) PL02 1st",
+                    "status": "busy",
+                    "roomUid": "169B5751-5A35-0969-A843-08710A77CB27",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T15:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T14:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Lamar [AVCN] (8) PL02 1st",
+                    "status": "busy",
+                    "roomUid": "566D558D-29DD-1550-FB80-B88C3CCEFC68",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T14:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T13:30:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Duval [AVCN] (6) PL02 1st",
+                    "status": "busy",
+                    "roomUid": "5B050818-FAE9-56D1-4708-99FF42E20C07",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T10:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T15:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T14:30:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Jollyville [AVCN] (10) PL02 1st",
+                    "status": "busy",
+                    "roomUid": "B5E2A2BC-512B-9A7F-B72D-4CB741B6B6FD",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T14:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T13:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T17:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T14:30:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Kermit [AVCN] (10) PL02 2nd",
+                    "status": "busy",
+                    "roomUid": "D0619CEB-559E-A80C-E2A3-7F468FDFD9AA",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:45:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:30:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Fozzie (10) PL02 2nd",
+                    "status": "busy",
+                    "roomUid": "9B059DF2-C828-5208-B159-358FAF73B146",
+                    "busyslot": []
+                },
+                {
+                    "roomName": "Beaker [AVCN] (10) PL02 2nd",
+                    "status": "busy",
+                    "roomUid": "231F4919-5FC9-B22B-C82F-15B036D2F8D5",
+                    "busyslot": []
+                },
+                {
+                    "roomName": "Gonzo [AVCN] (10) PL02 2nd",
+                    "status": "busy",
+                    "roomUid": "DB1F1ED9-12CC-4684-8A52-504E3972D38C",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T10:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T16:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T15:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Animal [AVCN] (12) PL02 2nd",
+                    "status": "busy",
+                    "roomUid": "DBA9B9DC-A84C-59E0-77A7-CD2B438C88B7",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T14:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T12:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T17:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T15:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Mom's Room (1) PL02 2nd",
+                    "status": "busy",
+                    "roomUid": "08DD0409-FB3A-6FAA-1EF8-D09B476A8729",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T12:50:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T12:20:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T16:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T16:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T17:50:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T17:20:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "McCoy [AVCN] (10) PL02 3rd",
+                    "status": "busy",
+                    "roomUid": "99BC09EB-C67B-E49E-EDF6-D92D350D9EB5",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T13:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:00:00.000-05:00"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "buildingCode": "RP09",
+            "buildingName": "Riata Park 9",
+            "room": [
+                {
+                    "roomName": "Antone's [AVCN] (20) RP09 1st",
+                    "status": "busy",
+                    "roomUid": "730757C2-6B20-4A2A-ADFE-2913263B56F7",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T14:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T13:30:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "The Oasis (40) RP09 1st",
+                    "status": "busy",
+                    "roomUid": "5FEAD533-0502-4A26-BD98-BCEEB6A5490A",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T17:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T15:15:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Broken Spoke (8) RP09 1st",
+                    "status": "busy",
+                    "roomUid": "43CADB46-BF74-49A5-9671-3F935F3213B2",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T11:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T13:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T12:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T14:45:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T14:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "The Backyard (8) RP09 1st",
+                    "status": "busy",
+                    "roomUid": "46A32F24-96CB-437E-AFD2-A48381040D64",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T15:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T14:15:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Zilker (10) RP09 1st",
+                    "status": "busy",
+                    "roomUid": "3628FF36-92B3-44D4-A927-B27E74759171",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T12:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T10:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T15:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T14:00:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "SoCo (6) RP09 1st",
+                    "status": "busy",
+                    "roomUid": "34C21C33-BA19-4A0F-88CD-199717297F00",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T10:15:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T09:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T12:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T11:30:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T14:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T13:00:00.000-05:00"
+                        },
+                        {
+                            "endDateTime": "2016-09-23T16:00:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T15:30:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Hamilton Pool (6) RP09 1st",
+                    "status": "busy",
+                    "roomUid": "F4E6CCA3-F8D8-4C3D-9144-830AF4F42317",
+                    "busyslot": [
+                        {
+                            "endDateTime": "2016-09-23T15:30:00.000-05:00",
+                            "type": "busy",
+                            "startDateTime": "2016-09-23T14:30:00.000-05:00"
+                        }
+                    ]
+                },
+                {
+                    "roomName": "Mom's Room (1) RP09 1st",
+                    "status": "busy",
+                    "roomUid": "42A5C45C-2D62-4583-B4DB-0FCE39788DF2",
+                    "busyslot": []
+                },
+                {
+                    "roomName": "{M} Esther's Follies Studio (6) {RESTRICTED} RP09 1st",
+                    "status": "busy",
+                    "roomUid": "1C2087E8-1788-45F3-BAB2-BA6A4F43FDEF",
+                    "busyslot": []
+                }
+            ]
+        }
+    ],
+    "success": "true"
+}
+
+
+
