@@ -1,27 +1,29 @@
 ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $document, $timeout, $http, $uibModal) {
                 return {
                     restrict: "E",
-                    templateUrl: "../../views/singleRoomGrid.html",
+                    templateUrl: "views/singleRoomGrid.html",
 										$scope:{searchFormData: "=searchFormData"},
                     link: function($scope, $ele, $attr) {
 
                         $scope.loader = true;
                         console.log($scope.searchFormData);
-
-                        var reqData = {};
-
-                        reqData.roomName= $scope.searchFormData.roomName;
-                        reqData.roomUid= $scope.searchFormData.roomName;
-                        reqData.searchDate=$scope.searchFormData.searchDate;
-                        reqData.timeRange=$scope.searchFormData.timeRange;
-                        reqData.timeZone=$scope.searchFormData.timeZone;
-
+                
+                         var reqData = {
+                "roomName" : $scope.searchFormData.roomName,
+                "roomUid" : $scope.searchFormData.roomUid, 
+                "searchDate" : $scope.searchFormData.searchDate,
+                "timeRange": $scope.searchFormData.timeRange,
+                "timezone":$scope.searchFormData.timezone,
+                "unavailable" : $scope.searchFormData.unavailable
+        }
+					  console.log(reqData);
 
                         $http({
-                            url: "js/services/singleRoom-data.json",
-                            // url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/lookupbyroom/?format=json",
-                            method: "GET",
-                            data: reqData
+                           // url: "js/services/singleRoom-data.json",
+                             url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
+                            method: "POST",
+                            data: reqData,
+                            headers: {'Content-Type': 'application/json'}  
                         }).then(function(res) {
                             $scope.loader = false;
                             $scope.singleRoomData = res.data.data;

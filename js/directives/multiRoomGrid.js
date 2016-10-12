@@ -1,7 +1,7 @@
 ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $document, $timeout, $http) {
     return {
         restrict: "E",
-        templateUrl: "../../views/multiRoomGrid.html",
+        templateUrl: "views/multiRoomGrid.html",
         $scope: {
             searchFormData: "=searchFormData", 
             clickedNumber:"@clickedNumber", 
@@ -21,12 +21,12 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
         }
 
         console.log(reqData);
-                var uri = "js/services/responseGrid-data.json";
-
+                //var uri = "js/services/responseGrid-data.json";
+			//var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
             if($scope.clickedNumber==0)
             {
-                // var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
-                var uri = "js/services/responseGrid-data.json";
+                 var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
+                //var uri = "js/services/responseGrid-data.json";
             }
             else
             {
@@ -37,8 +37,9 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
             console.log(reqData);
             $http({
                 url: uri,
-                method: "GET",
-                data: reqData
+                method: "POST",
+                data: reqData,
+                  headers: {'Content-Type': 'application/json'}  
             }).then(function(res) {
                 $scope.loader = false;
                 $scope.grid_data = res.data.data;
