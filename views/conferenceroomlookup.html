@@ -149,11 +149,15 @@
     </div>
 
     <div ng-if="showMultiRoom">
-        <multi-room-grid id="multiRoomDirective_{{clickedNumber}}" searchFormData="searchFormData" clickedNumber="clickedNumber"></multi-room-grid>
-        <div id="nearbyBuilding"></div>
-        <div class="not-Found">
+      <multi-room-grid id='multiRoomDirective_{{clickedNumber}}' grid_data="{{grid_data}}" searchFormData='{{inputData}}'></multi-room-grid>
+    <div id="nearbyBuilding">
+      
+      
+
+    </div>
+        <div class="not-Found" ng-if="clickedNumber < 2">
             <p>Not finding what you’re looking for?</p>
-            <p><div ng-click="nearbyBuilding(inputData)" class="nearbyBuilding">Search Nearby Buildings</div></p>
+            <p><span ng-click="nearbyBuilding()" class="nearbyBuilding">Search Nearby Buildings</span></p>
         </div>
     </div>
 

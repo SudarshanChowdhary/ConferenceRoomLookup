@@ -1,16 +1,17 @@
-ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $document, $timeout, $http) {
+ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $document, $timeout) {
     return {
         restrict: "E",
-        templateUrl: "views/multiRoomGrid.html",
+        templateUrl: "views/nearByRoomGrid.html",
         $scope: {
-            searchFormData: "@", 
-            grid_data:"@"
+            nearby_data:"@",
+            searchFormData:"@"
         },
         transclude: true,
         link: function($scope, $ele, $attr) {
             $scope.loader = true;
             $scope.gridheader = false;
-            $scope.createSlots = function(room) {
+            console.log($scope.nearby_data)
+            var createSlots = function(room) {
                 $scope.gridheader = true;
                 if (room.busyslot.length != 0) {
                     var dt = room.busyslot[0].startDateTime;
@@ -70,8 +71,8 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
 
             };
 
-               angular.forEach($scope.grid_data, function(room, m) {
-                    $scope.createSlots(room);
+               angular.forEach($scope.nearby_data, function(rm) {
+                    createSlots(rm);
                 });
 
                 $anchorScroll("multiRoomDirective_"+$scope.clickedNumber);
@@ -107,37 +108,6 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                     obj.slot[i].highlight = false;
                 }
             };
-
-            $scope.PreviousDay = function() {
-                var PrevDay = new Date($scope.inputData.searchDate);
-                PrevDay.setDate(PrevDay.getDate() - 1)
-                $scope.inputData.searchDate = PrevDay;
-                console.log($scope.inputData.searchDate);
-            };
-
-            $scope.Previous4Hours = function() {
-                if ($scope.initScrollDiv > 300) {
-                    $scope.initScrollDiv -= 400;
-                    $scope.scrollToTime($scope.initScrollDiv);
-                    console.log($scope.initScrollDiv)
-                }
-            };
-
-            $scope.Next4hours = function() {
-                if ($scope.initScrollDiv < 1900) {
-                    $scope.initScrollDiv += 400;
-                    $scope.scrollToTime($scope.initScrollDiv);
-                    console.log($scope.initScrollDiv)
-                }
-            };
-
-            $scope.NextDay = function() {
-                var NextDay = new Date($scope.inputData.searchDate);
-                NextDay.setDate(NextDay.getDate() + 1)
-                $scope.inputData.searchDate = NextDay;
-                console.log($scope.inputData.searchDate);
-            };
-
         }
     }
 });

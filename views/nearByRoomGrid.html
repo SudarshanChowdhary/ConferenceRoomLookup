@@ -1,0 +1,81 @@
+<section class="searchResults" id="searchResults">
+    <h3>{{searchFormData.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
+    <div class="row">
+        <div class="col-md-4">{{grid_data.length}} rooms matching your search</div>
+    </div>
+    <section class="searchGrid" id="searchRoomGrid">
+        <!-- fixed-first-column -->
+        <div fixed-first-column>
+            <table class="table table-condensed">
+                <thead>
+                    <tr id="first-tr">
+                        <!-- popover start -->
+                        <!-- <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th> -->
+                        <th id="first-th"><span>Room</span><span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right ">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
+                        </th>
+
+                        <script type="text/ng-template" id="myPopoverTemplate.html">
+                            <h4>{M} Chambre [AVCN] (8) {RESTRICTED} <br>[DEU] EMA 2nd</h4>
+                            <div class="legend-details">
+                                <p><span class="text-color">{M}</span> = Managed room. Reservations must be approved by the room manager.</p>
+                                <p><span class="text-color">Chambre</span> = Room name</p>
+                                <p><span class="text-color">[AVCN]</span> = Apple Video Conferencing Network</p>
+                                <p><span class="text-color">(8)</span> = Room Capacity</p>
+                                <p><span class="text-color">{RESTRICTED}</span> = Badge-restricted room access.</p>
+                                <p><span class="text-color">[DEU]</span> = Country</p>
+                                <p><span class="text-color">EMA</span> = Building</p>
+                                <p><span class="text-color">2nd</span> = Floor</p>
+                            </div>
+                            <div class="color-indicate">
+                                <span class="white-box"></span><strong>Available</strong>
+                                <span class="gray-box"></span><strong>Booked</strong>
+                                <span class="blue-box"></span><strong>Reserved</strong>
+                            </div>
+                        </script>
+                        <!-- popover end -->
+        </div>
+        </div>
+        </div>
+        </div>
+        <th>
+
+            <div ng-repeat="hour in MultiRoomHours" class="header-hours gridHeader">
+                <div class="span3">{{hour}}</div>
+            </div>
+
+        </th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="room in grid_data track by $index">
+                <td>
+                    <a href="adir://conferencerooms/<dsid>"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
+                <td>
+                    <div class="gridData">
+                        <div ng-repeat="slot in room.slot" ng-class="{'free':slot.type=='free', 'busy':slot.type!='free'}">
+                            <div ng-mouseover="addDurationClass(room, $index)" ng-mouseout="removeDurationClass(room, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+        </div>
+    </section>
+
+
+    <div class="nearbybuildings" ng-show="nearbybuildings">
+        <table class="divider">
+            <td>
+                <hr />
+            </td>
+            <td class="divider-text"> NEARBY BUILDINGS </td>
+            <td>
+                <hr />
+            </td>
+        </table>
+        <div class="no-result-found">
+
+            <h2>No Results Found</h1>
+        <p>Please update your search and try again.</p>
+           </div>

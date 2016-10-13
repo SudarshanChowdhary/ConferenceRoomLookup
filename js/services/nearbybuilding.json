@@ -5,38 +5,6 @@
             "buildingName": "Riata Park 10",
             "room": [
                 {
-                    "roomName": "Finch (6) RP10 1st",
-                    "status": "busy",
-                    "roomUid": "70AA8EB0-212D-4352-94DA-6FFBB60398D8",
-                    "busyslot": [
-                        {
-                            "endDateTime": "2016-09-23T10:00:00.000-05:00",
-                            "type": "busy",
-                            "startDateTime": "2016-09-23T09:30:00.000-05:00"
-                        },
-                        {
-                            "endDateTime": "2016-09-23T11:00:00.000-05:00",
-                            "type": "busy",
-                            "startDateTime": "2016-09-23T10:30:00.000-05:00"
-                        },
-                        {
-                            "endDateTime": "2016-09-23T12:00:00.000-05:00",
-                            "type": "busy",
-                            "startDateTime": "2016-09-23T11:30:00.000-05:00"
-                        },
-                        {
-                            "endDateTime": "2016-09-23T14:30:00.000-05:00",
-                            "type": "busy",
-                            "startDateTime": "2016-09-23T13:00:00.000-05:00"
-                        },
-                        {
-                            "endDateTime": "2016-09-23T16:30:00.000-05:00",
-                            "type": "busy",
-                            "startDateTime": "2016-09-23T15:00:00.000-05:00"
-                        }
-                    ]
-                },
-                {
                     "roomName": "Mockingbird (6) RP10 1st",
                     "status": "busy",
                     "roomUid": "447986F4-C392-409C-8989-E82ECCE77333",
