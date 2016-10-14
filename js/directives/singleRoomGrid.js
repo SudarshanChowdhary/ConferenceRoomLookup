@@ -21,7 +21,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                         $http({
                             url: "js/services/singleRoom-data.json",
                            //  url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
-                            method: "GET",
+                            method: "POST",
                             data: reqData,
                             headers: {'Content-Type': 'application/json'}  
                         }).then(function(res) {

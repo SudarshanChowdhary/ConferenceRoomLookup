@@ -2,6 +2,14 @@
     <h3>{{searchFormData.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
     <div class="row">
         <div class="col-md-4">{{grid_data.length}} rooms matching your search</div>
+        <div class="col-md-8">
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll<3" ng-click="Previous4Hours()">‹ Previous 4 Hours</button></div>
+            <div class="col-md-2 col-sm-2"></div>
+            <div class="col-md-2 col-sm-2"></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll>19" ng-click="Next4hours()">Next 4 Hours ›</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
+        </div>
     </div>
     <section class="searchGrid" id="searchRoomGrid">
         <!-- fixed-first-column -->

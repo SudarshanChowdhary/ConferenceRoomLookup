@@ -108,6 +108,37 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
                     obj.slot[i].highlight = false;
                 }
             };
+            
+             $scope.PreviousDay = function() {
+                var PrevDay = new Date($scope.inputData.searchDate);
+                PrevDay.setDate(PrevDay.getDate() - 1)
+                $scope.inputData.searchDate = PrevDay;
+                console.log($scope.inputData.searchDate);
+            };
+
+            $scope.Previous4Hours = function() {
+                if ($scope.initScrollDiv > 300) {
+                    $scope.initScrollDiv -= 400;
+                    $scope.scrollToTime($scope.initScrollDiv);
+                    console.log($scope.initScrollDiv)
+                }
+            };
+
+            $scope.Next4hours = function() {
+                if ($scope.initScrollDiv < 1900) {
+                    $scope.initScrollDiv += 400;
+                    $scope.scrollToTime($scope.initScrollDiv);
+                    console.log($scope.initScrollDiv)
+                }
+            };
+
+            $scope.NextDay = function() {
+                var NextDay = new Date($scope.inputData.searchDate);
+                NextDay.setDate(NextDay.getDate() + 1)
+                $scope.inputData.searchDate = NextDay;
+                console.log($scope.inputData.searchDate);
+            };
+
         }
     }
 });

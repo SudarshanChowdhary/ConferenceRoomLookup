@@ -95,8 +95,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 $scope.inputData.buildingCode=$scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].buildingCode;
                 
                 $scope.clickedNumber = -1;
-                // var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
-                var uri = "js/services/responseGrid-data.json";
+                 var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
+               // var uri = "js/services/responseGrid-data.json";
                 var reqData = {
                     "room": $scope.inputData.room,
                     "searchDate": $scope.inputData.searchDate,
@@ -106,7 +106,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 }
                 $http({
                     url: uri,
-                    method: "GET",
+                    method: "POST",
                     data: reqData,
                     headers: {
                         'Content-Type': 'application/json'
@@ -136,24 +136,23 @@ if($scope.clickedNumber==-1)
         // var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
 
         var reqData = {
-            "room": $scope.inputData.room,
+           
             "searchDate": $scope.inputData.searchDate,
             "timeRange": $scope.inputData.timeRange,
             "timezone": $scope.inputData.timezone,
             "unavailable": $scope.inputData.unavailable,
             "latitude": $scope.inputData.latitude,
             "longitude": $scope.inputData.longitude,
-            "clickedNumber": 1,
+            "clickNumber": 1,
             "buildingCode":  $scope.inputData.buildingCode
         }
         console.log(reqData)
         $http({
-            url:"js/services/nearbybuilding.json",
-            method: "GET",
+         url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json",
+          //  url:"js/services/nearbybuilding.json",
+            method: "POST",
             data: reqData,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: {'Content-Type': 'application/json'}  
         }).then(function(res) {
             $scope.nearby_data = res.data;
             $scope.clickedNumber++;
