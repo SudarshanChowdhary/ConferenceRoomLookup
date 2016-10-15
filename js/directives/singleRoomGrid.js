@@ -19,14 +19,17 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
 					  console.log(reqData);
 
                         $http({
-                            url: "js/services/singleRoom-data.json",
-                           //  url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
+                          //  url: "js/services/singleRoom-data.json",
+                             url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
                             method: "POST",
                             data: reqData,
-                            headers: {'Content-Type': 'application/json'}  
+                            //headers: {'Content-Type': 'application/json'} 
+                             headers : {
+        			'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+    				} 
                         }).then(function(res) {
                             $scope.loader = false;
-                            $scope.singleRoomData = res.data.data;
+                            $scope.singleRoomData = res.data;
                             console.log($scope.singleRoomData);
                             $scope.createSingleRoomSlots($scope.singleRoomData);
                         });

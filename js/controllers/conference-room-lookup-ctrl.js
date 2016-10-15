@@ -95,8 +95,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 $scope.inputData.buildingCode=$scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].buildingCode;
                 
                 $scope.clickNumber = 0;
-                // var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
-                var uri = "js/services/responseGrid-data.json";
+                 var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
+                 //var uri = "js/services/responseGrid-data.json";
                 var reqData = {
                     "room": $scope.inputData.room,
                     "searchDate": $scope.inputData.searchDate,
@@ -104,13 +104,18 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
+                
+                console.log(reqData);
                 $http({
                     url: uri,
-                    method: "GET",
+                    method: 'POST',
                     data: reqData,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    headers : {
+        			'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+    				}
+                   //  headers: {
+//                         'Content-Type': 'application/json'
+//                     }
                 }).then(function(res) {
                     $scope.grid_data = res.data.data;
                     $scope.showMultiRoom = true;
@@ -147,9 +152,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         }
         console.log(reqData)
         $http({
-//         url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json",
-            url:"js/services/nearbybuilding.json",
-            method: "GET",
+        url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json",
+           // url:"js/services/nearbybuilding.json",
+            method: "POST",
             data: reqData,
             headers: {'Content-Type': 'application/json'}  
         }).then(function(res) {
