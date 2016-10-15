@@ -8,7 +8,6 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
         },
         transclude: true,
         link: function($scope, $ele, $attr) {
-            $scope.loader = true;
             $scope.gridheader = false;
             $scope.createSlots = function(room) {
                 $scope.gridheader = true;
@@ -74,13 +73,13 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                     $scope.createSlots(room);
                 });
 
-                $anchorScroll("multiRoomDirective_"+$scope.clickedNumber);
+                $anchorScroll("multiRoomDirective_"+$scope.clickNumber);
                 $timeout(function() {
                     $scope.scrollToTime(900)
                 }, 10);
 
             $scope.scrollToTime = function(initScrollDiv) {
-                var el = $document.find("#multiRoomDirective_"+$scope.clickedNumber+" #searchRoomGrid .table-responsive");
+                var el = $document.find("#multiRoomDirective_"+$scope.clickNumber+" #searchRoomGrid .table-responsive");
                 el.scrollLeft(initScrollDiv);
             }
 

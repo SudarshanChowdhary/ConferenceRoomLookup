@@ -94,9 +94,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 $scope.inputData.longitude = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].longitude;
                 $scope.inputData.buildingCode=$scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].buildingCode;
                 
-                $scope.clickedNumber = -1;
-                 var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
-               // var uri = "js/services/responseGrid-data.json";
+                $scope.clickNumber = 0;
+                // var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
+                var uri = "js/services/responseGrid-data.json";
                 var reqData = {
                     "room": $scope.inputData.room,
                     "searchDate": $scope.inputData.searchDate,
@@ -106,7 +106,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 }
                 $http({
                     url: uri,
-                    method: "POST",
+                    method: "GET",
                     data: reqData,
                     headers: {
                         'Content-Type': 'application/json'
@@ -127,12 +127,11 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         }
     };
 
-        $scope.searchRoomGridnearby = false;
+    $scope.searchRoomGridnearby = false;
     $scope.nearbybuildings = false;
     $scope.nearbyBuilding = function() {
-
-if($scope.clickedNumber==-1)
-{
+        $scope.loader = true;
+        $scope.clickNumber++;
         // var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
 
         var reqData = {
@@ -143,27 +142,22 @@ if($scope.clickedNumber==-1)
             "unavailable": $scope.inputData.unavailable,
             "latitude": $scope.inputData.latitude,
             "longitude": $scope.inputData.longitude,
-            "clickNumber": 1,
+            "clickNumber": $scope.clickNumber,
             "buildingCode":  $scope.inputData.buildingCode
         }
         console.log(reqData)
         $http({
-         url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json",
-          //  url:"js/services/nearbybuilding.json",
-            method: "POST",
+//         url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json",
+            url:"js/services/nearbybuilding.json",
+            method: "GET",
             data: reqData,
             headers: {'Content-Type': 'application/json'}  
         }).then(function(res) {
             $scope.nearby_data = res.data;
-            $scope.clickedNumber++;
-            angular.element("#nearbyBuilding").append($compile("<nearby-room-grid id='multiRoomDirective_{{clickedNumber}}' nearby_data='{{nearby_data.data[0].room}}' searchFormData='{{inputData}}'></nearby-room-grid>")($scope));
+            angular.element("#nearbyBuilding").append($compile("<nearby-room-grid nearby_data='{{nearby_data}}' searchFormData='{{inputData}}'></nearby-room-grid>")($scope));
             $scope.loader = false;
+            $scope.clickNumber++;
         });
-    }
-    else if($scope.clickedNumber < 3){
-            angular.element("#nearbyBuilding").append($compile("<nearby-room-grid id='multiRoomDirective_{{clickedNumber}}' nearby_data='{{nearby_data.data[$scope.clickedNumber].room}}' searchFormData='{{inputData}}'></nearby-room-grid>")($scope));
-            $scope.clickedNumber++;
-        }
     }
 
     $scope.appendZero = function(inNumber) {

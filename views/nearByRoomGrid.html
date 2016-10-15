@@ -1,19 +1,19 @@
-<section class="searchResults" id="searchResults">
-    <h3>{{searchFormData.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
+<section class="searchResults" id="searchResults" ng-repeat="building in nearby_data.data">
+    <h3>{{building.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
     <div class="row">
-        <div class="col-md-4">{{grid_data.length}} rooms matching your search</div>
+        <div class="col-md-4">{{building.room.length}} rooms matching your search</div>
         <div class="col-md-8">
             <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll<3" ng-click="Previous4Hours()">‹ Previous 4 Hours</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScrollDiv<300" ng-click="Previous4Hours($index)">‹ Previous 4 Hours</button></div>
             <div class="col-md-2 col-sm-2"></div>
             <div class="col-md-2 col-sm-2"></div>
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScroll>19" ng-click="Next4hours()">Next 4 Hours ›</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScrollDiv>1900" ng-click="Next4hours($index)">Next 4 Hours ›</button></div>
             <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
         </div>
     </div>
     <section class="searchGrid" id="searchRoomGrid">
         <!-- fixed-first-column -->
-        <div fixed-first-column>
+        <div fixed-first-column id='multiRoomDirective_{{$index}}'>
             <table class="table table-condensed">
                 <thead>
                     <tr id="first-tr">
@@ -55,7 +55,7 @@
         </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="room in grid_data track by $index">
+            <tr ng-repeat="room in building.room track by $index">
                 <td>
                     <a href="adir://conferencerooms/<dsid>"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
                 <td>

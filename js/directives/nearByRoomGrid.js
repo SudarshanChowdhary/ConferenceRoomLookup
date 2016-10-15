@@ -11,7 +11,13 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
             $scope.loader = true;
             $scope.gridheader = false;
             console.log($scope.nearby_data)
+            $scope.scrollToTime = function(initScrollDiv, index) {
+                var el = $document.find("#multiRoomDirective_"+index+" .table-responsive");
+                console.log(el)
+                el.scrollLeft(initScrollDiv);
+            }
             var createSlots = function(room) {
+                console.log(room)
                 $scope.gridheader = true;
                 if (room.busyslot.length != 0) {
                     var dt = room.busyslot[0].startDateTime;
@@ -70,20 +76,19 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
                 }
 
             };
+            $anchorScroll("multiRoomDirective_0");
+            $scope.initScrollDiv =900;
 
-               angular.forEach($scope.nearby_data, function(rm) {
+            angular.forEach($scope.nearby_data.data, function(building, index) {
+               angular.forEach(building.room, function(rm) {
                     createSlots(rm);
                 });
+              
+                           $scope.scrollToTime($scope.initScrollDiv, index);
 
-                $anchorScroll("multiRoomDirective_"+$scope.clickedNumber);
-                $timeout(function() {
-                    $scope.scrollToTime(900)
-                }, 10);
+            });
 
-            $scope.scrollToTime = function(initScrollDiv) {
-                var el = $document.find("#multiRoomDirective_"+$scope.clickedNumber+" #searchRoomGrid .table-responsive");
-                el.scrollLeft(initScrollDiv);
-            }
+
 
             $scope.addDurationClass = function(obj, index) {
                 $scope.startIndex = index;
@@ -116,19 +121,19 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
                 console.log($scope.inputData.searchDate);
             };
 
-            $scope.Previous4Hours = function() {
+            $scope.Previous4Hours = function(tblIndex) {
+                
                 if ($scope.initScrollDiv > 300) {
                     $scope.initScrollDiv -= 400;
-                    $scope.scrollToTime($scope.initScrollDiv);
-                    console.log($scope.initScrollDiv)
+                    $scope.scrollToTime($scope.initScrollDiv, tblIndex);
                 }
             };
 
-            $scope.Next4hours = function() {
+            $scope.Next4hours = function(tblIndex) {
+                
                 if ($scope.initScrollDiv < 1900) {
                     $scope.initScrollDiv += 400;
-                    $scope.scrollToTime($scope.initScrollDiv);
-                    console.log($scope.initScrollDiv)
+                    $scope.scrollToTime($scope.initScrollDiv, tblIndex);
                 }
             };
 
