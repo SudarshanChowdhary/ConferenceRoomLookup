@@ -3,11 +3,12 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
         restrict: "E",
         templateUrl: "views/multiRoomGrid.html",
         $scope: {
-            searchFormData: "@", 
+            searchformdata: "=searchformdata", 
             grid_data:"@"
         },
-        transclude: true,
         link: function($scope, $ele, $attr) {
+            console.log($scope.searchformdata);
+            console.log($scope.grid_data);
             $scope.gridheader = false;
             $scope.createSlots = function(room) {
                 $scope.gridheader = true;
@@ -86,7 +87,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
             $scope.addDurationClass = function(obj, index) {
                 $scope.startIndex = index;
                 $scope.durationFlag = true;
-                for (var i = index; i < index + $scope.durationTime.indexOf($scope.searchFormData.duration) + 1; i++) {
+                for (var i = index; i < index + $scope.searchFormData.durationIndex + 1; i++) {
                     if (obj.slot[i].type != 'free') {
                         $scope.startIndex--;
                         if (obj.slot[$scope.startIndex].type != 'free') {
@@ -95,14 +96,14 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                     }
                 }
                 if ($scope.durationFlag) {
-                    for (var i = $scope.startIndex; i < $scope.startIndex + $scope.durationTime.indexOf($scope.searchFormData.duration) + 1; i++) {
+                    for (var i = $scope.startIndex; i < $scope.startIndex + $scope.searchFormData.durationIndex + 1; i++) {
                         obj.slot[i].highlight = true;
                     }
                 }
             }
 
             $scope.removeDurationClass = function(obj, index) {
-                for (var i = $scope.startIndex; i < $scope.startIndex + $scope.durationTime.indexOf($scope.searchFormData.duration) + 1; i++) {
+                for (var i = $scope.startIndex; i < $scope.startIndex + $scope.searchFormData.durationIndex + 1; i++) {
                     obj.slot[i].highlight = false;
                 }
             };

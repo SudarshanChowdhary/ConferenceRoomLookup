@@ -76,6 +76,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             });
 
             $scope.inputData.duration = $scope.lookupRoom.duration;
+            $scope.inputData.durationIndex = $scope.durationTime.indexOf($scope.lookupRoom.duration);
             $scope.inputData.timezone = smroom.timezone;
             $scope.inputData.unavailable = smroom.unavailable;
             var d = new Date(smroom.date);
@@ -95,8 +96,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 $scope.inputData.buildingCode=$scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].buildingCode;
                 
                 $scope.clickNumber = 0;
-                 var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
-                 //var uri = "js/services/responseGrid-data.json";
+                 // var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
+                 var uri = "js/services/responseGrid-data.json";
                 var reqData = {
                     "room": $scope.inputData.room,
                     "searchDate": $scope.inputData.searchDate,
@@ -105,21 +106,19 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     "unavailable": $scope.inputData.unavailable
                 }
                 
-                console.log(reqData);
+                console.log(JSON.stringify(reqData));
                 $http({
                     url: uri,
-                    method: 'POST',
-                    data: reqData,
+                    method: 'GET',
+                    data: JSON.stringify(reqData),
                     headers : {
         			'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
     				}
-                   //  headers: {
-//                         'Content-Type': 'application/json'
-//                     }
                 }).then(function(res) {
                     $scope.grid_data = res.data.data;
                     $scope.showMultiRoom = true;
                     $scope.loader = false;
+                    angular.element("#multiRoom").append($compile("<multi-room-grid searchformdata='{{inputData}}' grid_data='{{grid_data}}' ></multi-room-grid>")($scope));
                 });
                 $scope.showSingleRoom = false;
             } else {
@@ -137,8 +136,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.nearbyBuilding = function() {
         $scope.loader = true;
         $scope.clickNumber++;
-        // var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
-
         var reqData = {
            
             "searchDate": $scope.inputData.searchDate,
@@ -152,9 +149,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         }
         console.log(reqData)
         $http({
-        url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json",
-           // url:"js/services/nearbybuilding.json",
-            method: "POST",
+//        url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json",
+            url:"js/services/nearbybuilding.json",
+            method: "GET",
             data: reqData,
             headers: {'Content-Type': 'application/json'}  
         }).then(function(res) {

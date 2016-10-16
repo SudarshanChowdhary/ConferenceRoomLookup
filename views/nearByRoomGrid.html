@@ -4,10 +4,10 @@
         <div class="col-md-4">{{building.room.length}} rooms matching your search</div>
         <div class="col-md-8">
             <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScrollDiv<300" ng-click="Previous4Hours($index)">‹ Previous 4 Hours</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="building.initScrollDiv<300" ng-click="Previous4Hours($index)">‹ Previous 4 Hours</button></div>
             <div class="col-md-2 col-sm-2"></div>
             <div class="col-md-2 col-sm-2"></div>
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="initScrollDiv>1900" ng-click="Next4hours($index)">Next 4 Hours ›</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="building.initScrollDiv>1900" ng-click="Next4hours($index)">Next 4 Hours ›</button></div>
             <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
         </div>
     </div>

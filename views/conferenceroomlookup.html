@@ -148,7 +148,8 @@
         <span class="loader" ng-if="loader"></span>
     </div>
 
-    <div ng-if="showMultiRoom">
+    <div id="multiRoom" ng-if="showMultiRoom">
+
       <multi-room-grid id='multiRoomDirective_{{clickedNumber}}' grid_data="{{grid_data}}" searchFormData='{{inputData}}'></multi-room-grid>
     <div id="nearbyBuilding">
       

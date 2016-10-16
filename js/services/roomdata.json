@@ -23,25 +23,44 @@
     "value":7
 }
 ]}
-For multiple room
 
+
+For multiple room
+==================
 http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json
 
 input:
-{"room":
-[
-{"roomName":"Mandalore (10) PL01 4th",
-"roomUid":"1228A13B-B3FC-1C81-0BED-3EE28E7CD12F"},{"roomName":"Naboo (17) PL01 4th",
-"roomUid":"92436492-23B5-7D8B-ED26-475300311917"},{"roomName":"Legolas [AVCN] (10) PL01 2nd",
-"roomUid":"9CEC41AA-7F8C-087A-A137-3845CA889BBD"},{"roomName":"Mom's Room (1) PL01 2nd",
-"roomUid":"B8B46A67-167A-F845-2EE9-31676736DCF6"}],
-"searchDate":"20161012",
+{"room":[
+    {"roomName":"Mandalore (10) PL01 4th",
+    "roomUid":"1228A13B-B3FC-1C81-0BED-3EE28E7CD12F"},{"roomName":"Naboo (17) PL01 4th",
+    "roomUid":"92436492-23B5-7D8B-ED26-475300311917"},{"roomName":"Legolas [AVCN] (10) PL01 2nd",
+    "roomUid":"9CEC41AA-7F8C-087A-A137-3845CA889BBD"},{"roomName":"Mom's Room (1) PL01 2nd",
+    "roomUid":"B8B46A67-167A-F845-2EE9-31676736DCF6"}
+    ],
+ "searchDate":"20161012",
+ "timeRange":{"from":"00:00:00","to":"23:59:00"},
+ "timezone":"America/Chicago",
+ "unavailable":0
+}
+
+console.log
+===========
+
+{"room":[{"roomName":"Alewife [AVCN] (3) CB02 13th","roomUid":"4F39ADC9-2AAB-671F-03CC-675B8E9E2AEB"},
+    {"roomName":"Copley [AVCN] (8) CB02 13th","roomUid":"45BF3438-C8A8-4E9A-B92D-C05210D99CC7"},
+    {"roomName":"Fenway Park (8) CB02 13th","roomUid":"82FE757B-C5C6-B1DA-4190-ED833A66B6BD"},
+    {"roomName":"Fresh Pond [AVCN] (14) CB02 13th","roomUid":"05301405-DCCE-D732-5188-C87B15A33984"},
+    {"roomName":"Kendall [AVCN] (10) CB02 13th","roomUid":"8A74D701-57A3-21A8-AF8B-1A62A7D14110"},
+    {"roomName":"Longfellow (8) CB02 13th","roomUid":"D2B09BE6-5789-4C0C-BF96-47FA90F5FE0D"},
+    {"roomName":"Squam (4) CB02 13th","roomUid":"FBA02BE8-533D-B37C-2E4C-F2A4D1CA5D05"}
+],
+"searchDate":"20161016",
 "timeRange":{"from":"00:00:00","to":"23:59:00"},
-"timezone":"America/Chicago","unavailable":0}
+"timezone":"America/New_York",
+"unavailable":0
+}
 
 output:
-
-
 {
     "data": [
         {
@@ -144,6 +163,16 @@ input:
 "searchDate":"20161012",
 "timeRange":{"from":"00:00:00","to":"23:59:00"},
 "timezone":"America/Chicago","unavailable":0}
+
+console.log
+===========
+
+{"roomName":"Neruda [AVCN] (10) [CHL] CHL01 20th","roomUid":"1F7F007F-7A89-E058-7A8F-A5ECD5062F63",
+    "searchDate":"20161016",
+    "timeRange":{"from":"00:00:00","to":"23:59:00"},
+    "timezone":"America/Santiago",
+    "unavailable":0
+}
 
 output
 

@@ -13,11 +13,9 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
             console.log($scope.nearby_data)
             $scope.scrollToTime = function(initScrollDiv, index) {
                 var el = $document.find("#multiRoomDirective_"+index+" .table-responsive");
-                console.log(el)
                 el.scrollLeft(initScrollDiv);
             }
             var createSlots = function(room) {
-                console.log(room)
                 $scope.gridheader = true;
                 if (room.busyslot.length != 0) {
                     var dt = room.busyslot[0].startDateTime;
@@ -77,15 +75,12 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
 
             };
             $anchorScroll("multiRoomDirective_0");
-            $scope.initScrollDiv =900;
-
             angular.forEach($scope.nearby_data.data, function(building, index) {
                angular.forEach(building.room, function(rm) {
                     createSlots(rm);
                 });
-              
-                           $scope.scrollToTime($scope.initScrollDiv, index);
-
+                building.initScrollDiv = 900;  
+                $scope.scrollToTime(building.initScrollDiv, index);
             });
 
 
@@ -123,17 +118,17 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
 
             $scope.Previous4Hours = function(tblIndex) {
                 
-                if ($scope.initScrollDiv > 300) {
-                    $scope.initScrollDiv -= 400;
-                    $scope.scrollToTime($scope.initScrollDiv, tblIndex);
+                if ($scope.nearby_data.data[tblIndex].initScrollDiv > 300) {
+                    $scope.nearby_data.data[tblIndex] -= 400;
+                    $scope.scrollToTime($scope.nearby_data.data[tblIndex], tblIndex);
                 }
             };
 
             $scope.Next4hours = function(tblIndex) {
                 
-                if ($scope.initScrollDiv < 1900) {
-                    $scope.initScrollDiv += 400;
-                    $scope.scrollToTime($scope.initScrollDiv, tblIndex);
+                if ($scope.nearby_data.data[tblIndex] < 1900) {
+                    $scope.nearby_data.data[tblIndex] += 400;
+                    $scope.scrollToTime($scope.nearby_data.data[tblIndex], tblIndex);
                 }
             };
 

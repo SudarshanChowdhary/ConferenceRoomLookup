@@ -16,13 +16,13 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                 "timezone":$scope.searchFormData.timezone,
                 "unavailable" : $scope.searchFormData.unavailable
         }
-					  console.log(reqData);
+					  console.log(JSON.stringify(reqData));
 
                         $http({
-                          //  url: "js/services/singleRoom-data.json",
-                             url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
-                            method: "POST",
-                            data: reqData,
+                            url: "js/services/singleRoom-data.json",
+                          //   url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
+                            method: "GET",
+                            data: JSON.stringify(reqData),
                             //headers: {'Content-Type': 'application/json'} 
                              headers : {
         			'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
