@@ -3,14 +3,12 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
         restrict: "E",
         templateUrl: "views/nearByRoomGrid.html",
         $scope: {
-            nearby_data:"@",
-            searchFormData:"@"
+            nearby_data:"@"
         },
         transclude: true,
         link: function($scope, $ele, $attr) {
             $scope.loader = true;
             $scope.gridheader = false;
-            console.log($scope.nearby_data)
             $scope.scrollToTime = function(initScrollDiv, index) {
                 var el = $document.find("#multiRoomDirective_"+index+" .table-responsive");
                 el.scrollLeft(initScrollDiv);
@@ -79,7 +77,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
                angular.forEach(building.room, function(rm) {
                     createSlots(rm);
                 });
-                building.initScrollDiv = 900;  
+                building.initScrollDiv = 900;
                 $scope.scrollToTime(building.initScrollDiv, index);
             });
 
@@ -88,7 +86,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
             $scope.addDurationClass = function(obj, index) {
                 $scope.startIndex = index;
                 $scope.durationFlag = true;
-                for (var i = index; i < index + $scope.durationTime.indexOf($scope.searchFormData.duration) + 1; i++) {
+                for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
                     if (obj.slot[i].type != 'free') {
                         $scope.startIndex--;
                         if (obj.slot[$scope.startIndex].type != 'free') {
@@ -97,18 +95,18 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
                     }
                 }
                 if ($scope.durationFlag) {
-                    for (var i = $scope.startIndex; i < $scope.startIndex + $scope.durationTime.indexOf($scope.searchFormData.duration) + 1; i++) {
+                    for (var i = $scope.startIndex; i < $scope.startIndex + $scope.inputData.durationIndex + 1; i++) {
                         obj.slot[i].highlight = true;
                     }
                 }
             }
 
             $scope.removeDurationClass = function(obj, index) {
-                for (var i = $scope.startIndex; i < $scope.startIndex + $scope.durationTime.indexOf($scope.searchFormData.duration) + 1; i++) {
+                for (var i = $scope.startIndex; i < $scope.startIndex + $scope.inputData.durationIndex + 1; i++) {
                     obj.slot[i].highlight = false;
                 }
             };
-            
+
              $scope.PreviousDay = function() {
                 var PrevDay = new Date($scope.inputData.searchDate);
                 PrevDay.setDate(PrevDay.getDate() - 1)
@@ -117,7 +115,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
             };
 
             $scope.Previous4Hours = function(tblIndex) {
-                
+
                 if ($scope.nearby_data.data[tblIndex].initScrollDiv > 300) {
                     $scope.nearby_data.data[tblIndex] -= 400;
                     $scope.scrollToTime($scope.nearby_data.data[tblIndex], tblIndex);
@@ -125,7 +123,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
             };
 
             $scope.Next4hours = function(tblIndex) {
-                
+
                 if ($scope.nearby_data.data[tblIndex] < 1900) {
                     $scope.nearby_data.data[tblIndex] += 400;
                     $scope.scrollToTime($scope.nearby_data.data[tblIndex], tblIndex);

@@ -25,10 +25,13 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.showMultiRoom = false;
         $scope.showSingleRoom = false;
         $scope.loader = false;
+        $scope.inputData ={};
         /*do something here*/
     })
 
     $scope.searchResult = function() {
+
+        console.log($scope.durationTime)
         $scope.showMultiRoom = false;
         $scope.showSingleRoom = false;
 
@@ -62,18 +65,21 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.inputData.floorNumber = $scope.lookupRoom.floorNumber;
             $scope.inputData.amenities = [];
             $scope.inputData.seats = [];
-            angular.forEach($scope.lookupRoom.amenities, function(amenity) {
-                console.log(amenity);
-                if (amenity) {
-                    $scope.inputData.amenities.push(Object.keys(amenity));
-                }
-            });
-            angular.forEach($scope.lookupRoom.seats, function(seat) {
-                console.log(seat);
-                if (seat) {
-                    $scope.inputData.seats.push(Object.keys(seat));
-                }
-            });
+
+            for(var key in $scope.lookupRoom.amenities){
+              if($scope.lookupRoom.amenities[key]){
+                $scope.inputData.amenities.push(key);
+              }
+            }
+
+            for(var key in $scope.lookupRoom.seats){
+              if($scope.lookupRoom.seats[key]){
+                $scope.inputData.seats.push(key);
+              }
+            }
+
+            console.log($scope.inputData.amenities);
+            console.log($scope.inputData.seats);
 
             $scope.inputData.duration = $scope.lookupRoom.duration;
             $scope.inputData.durationIndex = $scope.durationTime.indexOf($scope.lookupRoom.duration);
@@ -94,7 +100,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 $scope.inputData.latitude = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].latitude;
                 $scope.inputData.longitude = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].longitude;
                 $scope.inputData.buildingCode=$scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].buildingCode;
-                
+
                 $scope.clickNumber = 0;
                  // var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
                  var uri = "js/services/responseGrid-data.json";
@@ -105,7 +111,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
-                
+
                 console.log(JSON.stringify(reqData));
                 $http({
                     url: uri,
@@ -118,7 +124,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     $scope.grid_data = res.data.data;
                     $scope.showMultiRoom = true;
                     $scope.loader = false;
-                    angular.element("#multiRoom").append($compile("<multi-room-grid searchformdata='{{inputData}}' grid_data='{{grid_data}}' ></multi-room-grid>")($scope));
+                    angular.element("#multiRoom").append($compile("<multi-room-grid grid_data='{{grid_data}}' ></multi-room-grid>")($scope));
                 });
                 $scope.showSingleRoom = false;
             } else {
@@ -137,7 +143,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.loader = true;
         $scope.clickNumber++;
         var reqData = {
-           
+
             "searchDate": $scope.inputData.searchDate,
             "timeRange": $scope.inputData.timeRange,
             "timezone": $scope.inputData.timezone,
@@ -153,7 +159,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             url:"js/services/nearbybuilding.json",
             method: "GET",
             data: reqData,
-            headers: {'Content-Type': 'application/json'}  
+            headers: {'Content-Type': 'application/json'}
         }).then(function(res) {
             $scope.nearby_data = res.data;
             angular.element("#nearbyBuilding").append($compile("<nearby-room-grid nearby_data='{{nearby_data}}' searchFormData='{{inputData}}'></nearby-room-grid>")($scope));
