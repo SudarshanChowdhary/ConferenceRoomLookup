@@ -1,7 +1,7 @@
 <!-- Single Room Search -->
 <section class="single-room-search">
-    <h2>{{searchFormData.searchDate | date: "EEEE, MMMM dd, yyyy"}}</h2>
-    <h4>{{searchFormData.roomName}}</h4>
+    <h2>{{singleroom_data.searchDate | date: "EEEE, MMMM dd, yyyy"}}</h2>
+    <h4>{{singleroom_data.roomName}}</h4>
     <div class="sr-header">
         <span><a href="#"><img src="images/adir.png"><span class="sr-img">Open in Apple Directory</span></a>
         </span>
@@ -33,10 +33,10 @@
 
     <div class="ScrollStyle">
         <table class="table">
-            <tr ng-repeat="slot in singleRoomData.slot track by $index">
+            <tr ng-repeat="slot in singleroom_data.slot track by $index">
                 <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]  | date:'h'}}">{{hours[$index/4] | date:'ha'}}</td>
                 <td ng-if="slot.type=='free'" class="border-line free">
-                    <div ng-mouseover="addDurationClass(singleRoomData, $index)" ng-mouseout="removeDurationClass(singleRoomData, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
+                    <div ng-mouseover="addDurationClass(singleroom_data, $index)" ng-mouseout="removeDurationClass(singleroom_data, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
                 </td>
                 <td ng-if="slot.type=='busy'" class="border-line busy">
                     <div ng-if="slot.firstCell==true" class="row">

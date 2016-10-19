@@ -87,7 +87,7 @@
                   <div class="optional">Optional</div>
                </label>
                     <div class="col-md-6 col-lg-8">
-                        <select id="duration" class="input-width " ng-model="lookupRoom.duration" ng-options="dur.name for dur in durationTime" >
+                        <select id="duration" class="input-width " ng-model="lookupRoom.duration" ng-options="dur.name for dur in durationTime">
                      <option value="">Selection Duration</option>
                      <!-- <option ng-repeat="option in durationTime" ng-disabled="$index > durationCount" ng-value="option.value">{{option.name}}</option> -->
                   </select>
@@ -148,22 +148,19 @@
         <span class="loader" ng-if="loader"></span>
     </div>
 
-    <div id="multiRoom" ng-if="showMultiRoom">
-
-      <multi-room-grid id='multiRoomDirective_{{clickedNumber}}' grid_data="{{grid_data}}" searchFormData='{{inputData}}'></multi-room-grid>
-    <div id="nearbyBuilding">
-
-
-
-    </div>
+    <div id="multiRoomEle" ng-if="showMultiRoom">
+        <multi-room-grid grid_data='{{grid_data}}'></multi-room-grid>
+        <div id="nearbyBuildingEle" ng-if="showNearByRoom">
+          <nearby-room-grid nearby_data='{{nearby_data}}'></nearby-room-grid>
+        </div>
         <div class="not-Found" ng-if="clickNumber < 2">
             <p>Not finding what you’re looking for?</p>
             <p><span ng-click="nearbyBuilding()" class="nearbyBuilding">Search Nearby Buildings</span></p>
         </div>
     </div>
 
-    <div ng-if="showSingleRoom">
-        <single-room-grid searchFormData="searchFormData"></single-room-grid>
+    <div ng-if="showSingleRoom" id="singleRoomEle">
+      <single-room-grid singleroom_data='{{singleroom_data}}'></single-room-grid>
     </div>
     </div>
 
