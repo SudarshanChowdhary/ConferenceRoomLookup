@@ -25,7 +25,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.showMultiRoom = false;
         $scope.showSingleRoom = false;
         $scope.loader = false;
-        $scope.inputData = {};
+        $scope.inputData ={};
         /*do something here*/
     })
 
@@ -34,6 +34,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         console.log($scope.durationTime)
         $scope.showMultiRoom = false;
         $scope.showSingleRoom = false;
+         $scope.loader = true;
 
         if ($scope.lookupRoomForm.$valid) {
             var smroom = $scope.lookupRoom;
@@ -66,16 +67,16 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.inputData.amenities = [];
             $scope.inputData.seats = [];
 
-            for (var key in $scope.lookupRoom.amenities) {
-                if ($scope.lookupRoom.amenities[key]) {
-                    $scope.inputData.amenities.push(key);
-                }
+            for(var key in $scope.lookupRoom.amenities){
+              if($scope.lookupRoom.amenities[key]){
+                $scope.inputData.amenities.push(key);
+              }
             }
 
-            for (var key in $scope.lookupRoom.seats) {
-                if ($scope.lookupRoom.seats[key]) {
-                    $scope.inputData.seats.push(key);
-                }
+            for(var key in $scope.lookupRoom.seats){
+              if($scope.lookupRoom.seats[key]){
+                $scope.inputData.seats.push(key);
+              }
             }
 
             console.log($scope.inputData.amenities);
@@ -99,11 +100,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 $scope.inputData.room = jsonrooms;
                 $scope.inputData.latitude = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].latitude;
                 $scope.inputData.longitude = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].longitude;
-                $scope.inputData.buildingCode = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].buildingCode;
+                $scope.inputData.buildingCode=$scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].buildingCode;
 
                 $scope.clickNumber = 0;
-                // var uri= "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json";
-                var uri = "js/services/responseGrid-data.json";
+                               
                 var reqData = {
                     "room": $scope.inputData.room,
                     "searchDate": $scope.inputData.searchDate,
@@ -111,17 +111,21 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
+
+                console.log(JSON.stringify(reqData));
                 $http({
-                    url: uri,
-                    method: 'GET',
-                    data: JSON.stringify(reqData),
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                    }
+                    url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json',
+                     // var url = "js/services/responseGrid-data.json";
+                    method: 'POST',
+                    data: reqData,
+                    headers: {'Content-Type': 'application/json'}  
+
                 }).then(function(res) {
+                    console.log(res.data);
                     $scope.grid_data = res.data.data;
                     $scope.showMultiRoom = true;
                     $scope.loader = false;
+                    angular.element("#multiRoom").append($compile("<multi-room-grid grid_data='{{grid_data}}' ></multi-room-grid>")($scope));
                 });
                 $scope.showSingleRoom = false;
             } else {
@@ -130,30 +134,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 $scope.searchFormData = $scope.inputData;
                 $scope.showSingleRoom = true;
                 $scope.showMultiRoom = false;
-                var reqData = {
-                    "roomName": $scope.inputData.roomName,
-                    "roomUid": $scope.inputData.roomUid,
-                    "searchDate": $scope.inputData.searchDate,
-                    "timeRange": $scope.inputData.timeRange,
-                    "timezone": $scope.inputData.timezone,
-                    "unavailable": $scope.inputData.unavailable
-                };
-
-                $http({
-                    url: "js/services/singleRoom-data.json",
-                    //   url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
-                    method: "GET",
-                    data: JSON.stringify(reqData),
-                    //headers: {'Content-Type': 'application/json'}
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                    }
-                }).then(function(res) {
-                    $scope.loader = false;
-                    $scope.singleroom_data = res.data.data;
-                });
-
-
             }
         }
     };
@@ -161,10 +141,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.searchRoomGridnearby = false;
     $scope.nearbybuildings = false;
     $scope.nearbyBuilding = function() {
-        $scope.showNearByRoom=true;
         $scope.loader = true;
         $scope.clickNumber++;
         var reqData = {
+
             "searchDate": $scope.inputData.searchDate,
             "timeRange": $scope.inputData.timeRange,
             "timezone": $scope.inputData.timezone,
@@ -172,21 +152,24 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             "latitude": $scope.inputData.latitude,
             "longitude": $scope.inputData.longitude,
             "clickNumber": $scope.clickNumber,
-            "buildingCode": $scope.inputData.buildingCode
+            "buildingCode":  $scope.inputData.buildingCode
         }
         console.log(reqData)
         $http({
-            //        url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json",
-            url: "js/services/nearbybuilding.json",
-            method: "GET",
+        url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json",
+        //    url:"js/services/nearbybuilding.json",
+            method: "POST",
             data: reqData,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: {'Content-Type': 'application/json'}
         }).then(function(res) {
             $scope.nearby_data = res.data;
-            $scope.loader = false;
+            console.log( $scope.nearby_data);
+             $scope.loader = false;
+            angular.element("#nearbyBuilding").append($compile("<nearby-room-grid nearby_data='{{nearby_data}}' searchFormData='{{inputData}}'></nearby-room-grid>")($scope));
             $scope.clickNumber++;
+             $scope.loader = false;
+            debugger;
+            alert("asdkjhalksdjfhlkjds");
         });
     }
 
@@ -195,6 +178,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     };
 
     $scope.finderloader = true;
+
     $scope.dynamicPopover = {
         templateUrl: 'myPopoverTemplate.html',
         outsideClick: "outsideClick",

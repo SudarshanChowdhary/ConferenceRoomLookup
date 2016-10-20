@@ -3,7 +3,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
         restrict: "E",
         templateUrl: "views/nearByRoomGrid.html",
         $scope: {
-            nearby_data:"@"
+            nearby_data:"="
         },
         transclude: true,
         link: function($scope, $ele, $attr) {
@@ -14,6 +14,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
                 el.scrollLeft(initScrollDiv);
             }
             var createSlots = function(room) {
+                debugger;
                 $scope.gridheader = true;
                 if (room.busyslot.length != 0) {
                     var dt = room.busyslot[0].startDateTime;

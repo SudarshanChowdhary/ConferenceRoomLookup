@@ -167,7 +167,8 @@ input:
 console.log
 ===========
 
-{"roomName":"Neruda [AVCN] (10) [CHL] CHL01 20th","roomUid":"1F7F007F-7A89-E058-7A8F-A5ECD5062F63",
+{"roomName":"Neruda [AVCN] (10) [CHL] CHL01 20th",
+    "roomUid":"1F7F007F-7A89-E058-7A8F-A5ECD5062F63",
     "searchDate":"20161016",
     "timeRange":{"from":"00:00:00","to":"23:59:00"},
     "timezone":"America/Santiago",
