@@ -3,7 +3,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
         restrict: "E",
         templateUrl: "views/nearByRoomGrid.html",
         $scope: {
-            nearby_data:"="
+            nearby_data:"@"
         },
         transclude: true,
         link: function($scope, $ele, $attr) {
@@ -82,8 +82,6 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
                 $scope.scrollToTime(building.initScrollDiv, index);
             });
 
-
-
             $scope.addDurationClass = function(obj, index) {
                 $scope.startIndex = index;
                 $scope.durationFlag = true;
@@ -112,7 +110,6 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
                 var PrevDay = new Date($scope.inputData.searchDate);
                 PrevDay.setDate(PrevDay.getDate() - 1)
                 $scope.inputData.searchDate = PrevDay;
-                console.log($scope.inputData.searchDate);
             };
 
             $scope.Previous4Hours = function(tblIndex) {
@@ -135,7 +132,6 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
                 var NextDay = new Date($scope.inputData.searchDate);
                 NextDay.setDate(NextDay.getDate() + 1)
                 $scope.inputData.searchDate = NextDay;
-                console.log($scope.inputData.searchDate);
             };
 
         }
