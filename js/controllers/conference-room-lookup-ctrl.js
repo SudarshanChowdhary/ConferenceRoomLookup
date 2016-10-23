@@ -83,8 +83,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.inputData.durationIndex = $scope.durationTime.indexOf($scope.lookupRoom.duration);
             $scope.inputData.timezone = smroom.timezone;
             $scope.inputData.unavailable = smroom.unavailable;
-            var d = new Date(smroom.date);
-            $scope.inputData.searchDate = d.getFullYear() + "" + $scope.appendZero(d.getMonth() + 1) + "" + $scope.appendZero(d.getDate());
+            $scope.d = new Date(smroom.date);
+            $scope.inputData.searchDate = $scope.d.getFullYear() + "" + $scope.appendZero($scope.d.getMonth() + 1) + "" + $scope.appendZero($scope.d.getDate());
 
             if (!$scope.lookupRoom.room) {
                 var jsonrooms = [];
@@ -110,9 +110,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 }
 
                 $http({
-                    // url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json',
-                    url: "js/services/responseGrid-data.json",
-                    method: 'GET',
+                 url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json',
+                //    url: "js/services/responseGrid-data.json",
+                    method: 'POST',
                     data: JSON.stringify(reqData),
                     headers: {
                         'Content-Type': 'application/json'
@@ -140,9 +140,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 }
 
                 $http({
-                    url: "js/services/singleRoom-data.json",
-                    //     url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
-                    method: "GET",
+                   // url: "js/services/singleRoom-data.json",
+                         url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
+                    method: "POST",
                     data: JSON.stringify(reqData),
                     headers: {
                         'Content-Type': 'application/json'
