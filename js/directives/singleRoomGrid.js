@@ -10,6 +10,33 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
 														el.scrollLeft(initScrollDiv);
 												}
 
+                        var reqData = {
+                          "roomName": $scope.inputData.room.roomName,
+                          "roomUid": $scope.inputData.room.roomUid,
+                          "searchDate": $scope.inputData.searchDate,
+                          "timeRange": $scope.inputData.timeRange,
+                          "timezone": $scope.inputData.timezone,
+                          "unavailable": $scope.inputData.unavailable
+                      }
+
+                      $http({
+                         // url: "js/services/singleRoom-data.json",
+                          url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
+                          method: "POST",
+                          data: JSON.stringify(reqData),
+                          headers: {
+                              'Content-Type': 'application/json'
+                          }
+                          // headers : {
+                          // 			'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+                          // }
+                      }).then(function(res) {
+                          $scope.singleroom_data = res.data.data;
+                          $scope.createSingleRoomSlots($scope.singleroom_data);
+                          $scope.loader = false;
+                      });
+
+
 												$scope.createSingleRoomSlots = function(room) {
 											         if (room.events.length != 0) {
 											             var dt = room.events[0].startDateTime;
@@ -99,7 +126,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
 											         }, 10);
 											     };
 
-                        $scope.createSingleRoomSlots($scope.singleroom_data);
+
 
                         $scope.open = function(slot) {
                             var modalInstance = $uibModal.open({

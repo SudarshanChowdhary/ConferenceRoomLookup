@@ -130,32 +130,6 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 "roomName": $scope.lookupRoom.room.roomName,
                 "roomUid": $scope.lookupRoom.room.roomUid,
               };
-                  var reqData = {
-                    "roomName": $scope.lookupRoom.room.roomName,
-                    "roomUid": $scope.lookupRoom.room.roomUid,
-                    "searchDate": $scope.inputData.searchDate,
-                    "timeRange": $scope.inputData.timeRange,
-                    "timezone": $scope.inputData.timezone,
-                    "unavailable": $scope.inputData.unavailable
-                }
-
-                $http({
-                   // url: "js/services/singleRoom-data.json",
-                         url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json",
-                    method: "POST",
-                    data: JSON.stringify(reqData),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                    // headers : {
-                    // 			'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
-                    // }
-                }).then(function(res) {
-                    $scope.singleroom_data = res.data.data;
-                    console.log($scope.singleroom_data)
-  //                  angular.element("#singleRoom").append($compile("<single-room-grid singleroom_data='{{singleroom_data}}' ></single-room-grid>")($scope));
-                    $scope.loader = false;
-                });
                 $scope.showSingleRoom = true;
                 $scope.showMultiRoom = false;
             }
