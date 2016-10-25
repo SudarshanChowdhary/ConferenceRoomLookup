@@ -101,24 +101,23 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
                 $scope.clickNumber = 0;
 
-                var reqData = {
+                var reqData3 = {
                     "room": $scope.inputData.room,
                     "searchDate": $scope.inputData.searchDate,
                     "timeRange": $scope.inputData.timeRange,
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
-
-                $http({
+                    console.log(reqData3);
+                $http ({
                  url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json',
-                //    url: "js/services/responseGrid-data.json",
+                // url: "js/services/responseGrid-data.json",
                     method: 'POST',
-                    data: JSON.stringify(reqData),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    data: JSON.stringify(reqData3),
+                    headers: {'Content-Type': 'application/json'}
                 }).then(function(res) {
                     $scope.grid_data = res.data.data;
+                    console.log($scope.grid_data);
                     $scope.showMultiRoom = true;
                     $scope.loader = false;
 //                    angular.element("#multiRoom").append($compile("<multi-room-grid grid_data='{{grid_data}}'></multi-room-grid>")($scope));
@@ -141,7 +140,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     $scope.nearbyBuilding = function() {
         $scope.loader = true;
         $scope.clickNumber++;
-        var reqData = {
+        var reqData2 = {
             "searchDate": $scope.inputData.searchDate,
             "timeRange": $scope.inputData.timeRange,
             "timezone": $scope.inputData.timezone,
@@ -152,10 +151,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             "buildingCode": $scope.inputData.buildingCode
         }
         $http({
-    //        url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json",
-            url:"js/services/nearbybuilding.json",
-            method: "GET",
-            data: reqData,
+            url: "http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json",
+         // url:"js/services/nearbybuilding.json",
+            method: "POST",
+            data: JSON.stringify(reqData2),
             headers: {
                 'Content-Type': 'application/json'
             }
