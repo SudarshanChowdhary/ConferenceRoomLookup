@@ -7,15 +7,11 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
         },
         transclude: true,
         link: function($scope, $ele, $attr) {
-            $scope.loader = true;
-            $scope.gridheader = false;
             $scope.scrollToTime = function(initScrollDiv, index) {
                 var el = $document.find("#multiRoomDirective_"+index+" .table-responsive");
                 el.scrollLeft(initScrollDiv);
             }
-            var createSlots = function(room) {
-                debugger;
-                $scope.gridheader = true;
+            $scope.createSlots = function(room) {
                 if (room.busyslot.length != 0) {
                     var dt = room.busyslot[0].startDateTime;
                     dt = dt.split("T");
@@ -73,10 +69,9 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
                 }
 
             };
-            $anchorScroll("multiRoomDirective_0");
             angular.forEach($scope.nearby_data.data, function(building, index) {
                angular.forEach(building.room, function(rm) {
-                    createSlots(rm);
+                    $scope.createSlots(rm);
                 });
                 building.initScrollDiv = 900;
                 $scope.scrollToTime(building.initScrollDiv, index);

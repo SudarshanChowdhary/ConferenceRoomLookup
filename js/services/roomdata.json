@@ -241,7 +241,7 @@ http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/
 input:
 { "searchDate" : "20160923", 
 "unavailable" : 0, 
-"timeRange" : { "from" : "00:00:00", "to" : "23:59:00"}, 
+"timeRange" : { "from" : "00:00:00", "to" : "23:59:59"}, 
 "timezone" : "America/Chicago", 
 "latitude" : "30.432532600000000", 
 "longitude":"-97.735351300000000", 

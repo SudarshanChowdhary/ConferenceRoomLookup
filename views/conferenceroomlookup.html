@@ -145,21 +145,22 @@
         </section>
     </div>
     <div style="text-align: center;" class="loader-image">
-        <span class="loader" ng-if="loader"></span>
+        <span class="loader" ng-if="inputData.loader"></span>
     </div>
 
-    <div id="multiRoom" ng-if="showMultiRoom">
-      <multi-room-grid grid_data='{{grid_data}}'></multi-room-grid>
-        <div id="nearbyBuilding" ng-if="showNearByRoom">
-          <nearby-room-grid nearby_data='{{nearby_data}}'></nearby-room-grid>
+    <div id="multiRoom" ng-if="inputData.showMultiRoom">
+      <multi-room-grid multiroom_data='{{multiroom_data}}'></multi-room-grid>
+
+        <div id="nearbyBuilding" ng-if="inputData.showNearByRoom">
+          <nearby-room-grid nearby_dbusy-centerata='{{nearby_data}}'></nearby-room-grid>
         </div>
-        <div class="not-Found" ng-if="clickNumber < 2">
+        <div class="not-Found" ng-if="clickNumber < 3">
             <p>Not finding what you’re looking for?</p>
             <p><span ng-click="nearbyBuilding()" class="nearbyBuilding">Search Nearby Buildings</span></p>
         </div>
     </div>
 
-    <div id="singleRoom" ng-if="showSingleRoom">
+    <div id="singleRoom" ng-if="inputData.showSingleRoom">
       <single-room-grid singleroom_data='{{singleroom_data}}' ></single-room-grid>
     </div>
     </div>

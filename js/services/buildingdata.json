@@ -1,0 +1,25 @@
+{"building":
+[{
+    "key":"building1",
+    "value":1, "floor": false
+},{
+    "key":"building2",
+    "value":2, "floor": false
+},
+    {
+        "key":"building3",
+        "value":3, "floor": true
+    },{
+    "key":"building4",
+    "value":4, "floor": false
+},{
+    "key":"building5",
+    "value":5, "floor": true
+},{
+    "key":"building6",
+    "value":6, "floor": false
+},{
+    "key":"building7",
+    "value":7, "floor": false
+}
+]}

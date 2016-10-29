@@ -1,14 +1,12 @@
-ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $document, $timeout, $http) {
+ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorScroll, $document, $timeout, $http) {
     return {
         restrict: "E",
         templateUrl: "views/multiRoomGrid.html",
         $scope: {
-            grid_data:"@"
+            multiroom_data: "@"
         },
         link: function($scope, $ele, $attr) {
-            $scope.gridheader = false;
             $scope.createSlots = function(room) {
-                $scope.gridheader = true;
                 if (room.busyslot.length != 0) {
                     var dt = room.busyslot[0].startDateTime;
                     dt = dt.split("T");
@@ -66,19 +64,24 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                 }
 
             };
-
-               angular.forEach($scope.grid_data, function(room, m) {
+            $timeout(function() {
+                angular.forEach($scope.multiroom_data, function(room, m) {
                     $scope.createSlots(room);
                 });
+            }, 10);
 
-                $anchorScroll("multiRoomDirective_"+$scope.clickNumber);
-                $timeout(function() {
-                    $scope.scrollToTime(900)
-                }, 10);
+            $timeout(function() {
+                $anchorScroll("multiRoom");
+                $scope.initScrollDiv=900;
+                $scope.scrollToTime($scope.initScrollDiv);
+            }, 10);
 
             $scope.scrollToTime = function(initScrollDiv) {
-                var el = $document.find("#multiRoomDirective_"+$scope.clickNumber+" #searchRoomGrid .table-responsive");
+                var el = $document.find("#searchRoomGrid .table-responsive");
                 el.scrollLeft(initScrollDiv);
+                el.bind("scroll", function(){
+                    $scope.initScrollDiv = el.scrollLeft();
+                })
             }
 
             $scope.addDurationClass = function(obj, index) {
@@ -99,6 +102,11 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                 }
             }
 
+            $scope.appendZero = function(inNumber) {
+                return (inNumber <= 9) ? "0" + inNumber : inNumber;
+            };
+
+
             $scope.removeDurationClass = function(obj, index) {
                 for (var i = $scope.startIndex; i < $scope.startIndex + $scope.inputData.durationIndex + 1; i++) {
                     obj.slot[i].highlight = false;
@@ -106,17 +114,31 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
             };
 
             $scope.PreviousDay = function() {
-                var PrevDay = new Date($scope.inputData.searchDate);
-                PrevDay.setDate(PrevDay.getDate() - 1)
-                $scope.inputData.searchDate = PrevDay;
-                console.log($scope.inputData.searchDate);
+                $scope.inputData.loader = true;
+                var PrevDay = new Date();
+                PrevDay.setDate($scope.inputData.d.getDate() - 1)
+                $scope.inputData.d = PrevDay;
+                $scope.inputData.searchDate = PrevDay.getFullYear() + "" + $scope.appendZero(PrevDay.getMonth() + 1) + "" + $scope.appendZero(PrevDay.getDate());
+                var reqData = {
+                    "room": $scope.inputData.room,
+                    "searchDate": $scope.inputData.searchDate,
+                    "timeRange": $scope.inputData.timeRange,
+                    "timezone": $scope.inputData.timezone,
+                    "unavailable": $scope.inputData.unavailable
+                }
+                responseGrid.getMultipleRoomsData(reqData).then(function(res){
+                    $scope.multiroom_data = res.data.data;
+                    angular.forEach($scope.multiroom_data, function(room, m) {
+                        $scope.createSlots(room);
+                    });
+                    $scope.inputData.loader = false;
+                })
             };
 
             $scope.Previous4Hours = function() {
-                if ($scope.initScrollDiv > 300) {
+                if ($scope.initScrollDiv > 0) {
                     $scope.initScrollDiv -= 400;
                     $scope.scrollToTime($scope.initScrollDiv);
-                    console.log($scope.initScrollDiv)
                 }
             };
 
@@ -124,17 +146,30 @@ ConferenceRoomLookup.directive("multiRoomGrid", function($anchorScroll, $documen
                 if ($scope.initScrollDiv < 1900) {
                     $scope.initScrollDiv += 400;
                     $scope.scrollToTime($scope.initScrollDiv);
-                    console.log($scope.initScrollDiv)
                 }
             };
 
             $scope.NextDay = function() {
-                var NextDay = new Date($scope.inputData.searchDate);
-                NextDay.setDate(NextDay.getDate() + 1)
+                $scope.inputData.loader = true;
+                var NextDay = new Date();
+                NextDay.setDate($scope.inputData.d.getDate() + 1)
                 $scope.inputData.searchDate = NextDay;
-                console.log($scope.inputData.searchDate);
+                $scope.inputData.searchDate = NextDay.getFullYear() + "" + $scope.appendZero(NextDay.getMonth() + 1) + "" + $scope.appendZero(NextDay.getDate());
+                var reqData = {
+                    "room": $scope.inputData.room,
+                    "searchDate": $scope.inputData.searchDate,
+                    "timeRange": $scope.inputData.timeRange,
+                    "timezone": $scope.inputData.timezone,
+                    "unavailable": $scope.inputData.unavailable
+                }
+                responseGrid.getMultipleRoomsData(reqData).then(function(res){
+                    $scope.multiroom_data = res.data.data;
+                    angular.forEach($scope.multiroom_data, function(room, m) {
+                        $scope.createSlots(room);
+                    });
+                    $scope.inputData.loader = false;
+                })
             };
-
         }
     }
 });
