@@ -31,7 +31,7 @@ ConferenceRoomLookup.factory("responseGrid", function($http) {
             console.log(req)
             var promise = $http({
                 method: 'GET',
-                url: 'js/services/responseGrid-data.json',
+                url: 'js/services/nearbybuilding.json',
                // url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/get_rooms_search/',
                 data: req,
                 headers: {

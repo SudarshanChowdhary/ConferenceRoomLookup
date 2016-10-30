@@ -118,14 +118,12 @@
                         <label class="checkbox-inline" for="amenity_{{$index}}" ng-repeat="amenity in amenities">
                      <input type="checkbox" name="amenity_{{$index}}" ng-model="lookupRoom.amenities[amenity.label]" value="{{amenity.checked}}" ng-disabled="!amenity.disable"><span class="amenities-available"> {{amenity.label}}</span>
                   </label>
-
                     </div>
                 </div>
                 <!--             {{lookupRoom}}  -->
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-md-6 col-lg-8">
                         <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoomForm.$invalid" class="btn btn-sm search-btn">Search</button>
-
                     </div>
                 </div>
             </form>
@@ -149,19 +147,26 @@
     </div>
 
     <div id="multiRoom" ng-if="inputData.showMultiRoom">
-      <multi-room-grid multiroom_data='{{multiroom_data}}'></multi-room-grid>
+        <multi-room-grid data-multiroom_data='{{multiroom_data}}'></multi-room-grid>
 
-        <div id="nearbyBuilding" ng-if="inputData.showNearByRoom">
-          <nearby-room-grid nearby_dbusy-centerata='{{nearby_data}}'></nearby-room-grid>
+        <div id="nearbyBuilding0" ng-if="inputData.showNearByRoom[0]">
+            <nearby-room-grid data-nearbydata="{{nearby_data[0]}}" data-clicknumber=0></nearby-room-grid>
         </div>
-        <div class="not-Found" ng-if="clickNumber < 3">
+        <div id="nearbyBuilding1" ng-if="inputData.showNearByRoom[1]">
+            <nearby-room-grid data-nearbydata="{{nearby_data[1]}}" data-clicknumber=1></nearby-room-grid>
+        </div>
+        <div id="nearbyBuilding2" ng-if="inputData.showNearByRoom[2]">
+            <nearby-room-grid data-nearbydata="{{nearby_data[2]}}"  data-clicknumber=2></nearby-room-grid>
+        </div>
+
+        <div class="not-Found" ng-if="inputData.clickNumber < 3">
             <p>Not finding what you’re looking for?</p>
             <p><span ng-click="nearbyBuilding()" class="nearbyBuilding">Search Nearby Buildings</span></p>
         </div>
     </div>
 
     <div id="singleRoom" ng-if="inputData.showSingleRoom">
-      <single-room-grid singleroom_data='{{singleroom_data}}' ></single-room-grid>
+        <single-room-grid data-singleroom_data='{{singleroom_data}}'></single-room-grid>
     </div>
     </div>
     <footer class="search-result-footer">

@@ -2,13 +2,9 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
     return {
         restrict: "E",
         templateUrl: "views/nearByRoomGrid.html",
-        $scope: {
-            nearby_data:"@"
-        },
-        transclude: true,
         link: function($scope, $ele, $attr) {
             $scope.scrollToTime = function(initScrollDiv, index) {
-                var el = $document.find("#multiRoomDirective_"+index+" .table-responsive");
+                var el = $document.find("#nearbyTbl_" + index + " .table-responsive");
                 el.scrollLeft(initScrollDiv);
             }
             $scope.createSlots = function(room) {
@@ -67,15 +63,30 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
                         });
                     }
                 }
-
             };
-            angular.forEach($scope.nearby_data.data, function(building, index) {
-               angular.forEach(building.room, function(rm) {
-                    $scope.createSlots(rm);
+
+            $timeout(function() {
+                $scope.nearbydata = $scope.$eval($attr.nearbydata);
+                $scope.clicknumber = $scope.$eval($attr.clicknumber);
+
+                angular.forEach($scope.nearbydata, function(building, index) {
+                    angular.forEach(building.room, function(rm) {
+                        $scope.createSlots(rm);
+                    });
+
+
                 });
-                building.initScrollDiv = 900;
-                $scope.scrollToTime(building.initScrollDiv, index);
-            });
+            }, 1)
+            $timeout(function() {
+
+              $anchorScroll("nearbyBuilding"+$scope.clicknumber);
+                angular.forEach($scope.nearbydata, function(building, index) {
+                  building.initScrollDiv = 900;
+                  $scope.scrollToTime(building.initScrollDiv, index);
+                        })
+                        $scope.inputData.loader=false;
+            }, 1)
+
 
             $scope.addDurationClass = function(obj, index) {
                 $scope.startIndex = index;
@@ -101,29 +112,27 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, $docume
                 }
             };
 
-             $scope.PreviousDay = function() {
+            $scope.PreviousDay = function(tblIndex) {
                 var PrevDay = new Date($scope.inputData.searchDate);
                 PrevDay.setDate(PrevDay.getDate() - 1)
                 $scope.inputData.searchDate = PrevDay;
             };
 
             $scope.Previous4Hours = function(tblIndex) {
-
-                if ($scope.nearby_data.data[tblIndex].initScrollDiv > 300) {
-                    $scope.nearby_data.data[tblIndex] -= 400;
-                    $scope.scrollToTime($scope.nearby_data.data[tblIndex], tblIndex);
+                if ($scope.nearbydata[tblIndex].initScrollDiv > 0) {
+                    $scope.nearbydata[tblIndex].initScrollDiv -= 400;
+                    $scope.scrollToTime($scope.nearbydata[tblIndex].initScrollDiv, tblIndex);
                 }
             };
 
             $scope.Next4hours = function(tblIndex) {
-
-                if ($scope.nearby_data.data[tblIndex] < 1900) {
-                    $scope.nearby_data.data[tblIndex] += 400;
-                    $scope.scrollToTime($scope.nearby_data.data[tblIndex], tblIndex);
-                }
+              if ($scope.nearbydata[tblIndex].initScrollDiv < 1900) {
+                  $scope.nearbydata[tblIndex].initScrollDiv += 400;
+                  $scope.scrollToTime($scope.nearbydata[tblIndex].initScrollDiv, tblIndex);
+              }
             };
 
-            $scope.NextDay = function() {
+            $scope.NextDay = function(tblIndex) {
                 var NextDay = new Date($scope.inputData.searchDate);
                 NextDay.setDate(NextDay.getDate() + 1)
                 $scope.inputData.searchDate = NextDay;

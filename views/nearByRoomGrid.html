@@ -1,25 +1,28 @@
-<section class="searchResults" id="searchResults" ng-repeat="building in nearby_data.data">
+<section class="searchResults" id="searchResults" ng-repeat="building in nearbydata">
     <h3>{{building.buildingName}} <button class="btn btn-default btn-xs">You are here</button></h3>
     <div class="row">
         <div class="col-md-4">{{building.room.length}} rooms matching your search</div>
         <div class="col-md-8">
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay()">« Previous day</button></div>
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="building.initScrollDiv<300" ng-click="Previous4Hours($index)">‹ Previous 4 Hours</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay($index)">« Previous day</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="building.initScrollDiv<=0" ng-click="Previous4Hours($index)">‹ Previous 4 Hours</button></div>
             <div class="col-md-2 col-sm-2"></div>
             <div class="col-md-2 col-sm-2"></div>
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="building.initScrollDiv>1900" ng-click="Next4hours($index)">Next 4 Hours ›</button></div>
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay()">Next day »</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="building.initScrollDiv>=1900" ng-click="Next4hours($index)">Next 4 Hours ›</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay($index)">Next day »</button></div>
         </div>
     </div>
     <section class="searchGrid" id="searchRoomGrid">
         <!-- fixed-first-column -->
-        <div fixed-first-column id='multiRoomDirective_{{$index}}'>
+        <div fixed-first-column id='nearbyTbl_{{$index}}'>
             <table class="table table-condensed">
                 <thead>
                     <tr id="first-tr">
                         <!-- popover start -->
                         <!-- <th><span>Room</span><span class="pull-right">Legend  <span class="info-icon" aria-hidden="true">i</span></span></th> -->
-                        <th id="first-th"><span>Room</span><span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right ">Legend  <span class="info-icon" aria-hidden="true">i</span></span>
+                        <th id="first-th"><span>Room</span>
+                          <span uib-popover-template="dynamicPopover.templateUrl" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" class="pull-right ">Legend
+                            <span class="info-icon" aria-hidden="true">i</span>
+                          </span>
                         </th>
 
                         <script type="text/ng-template" id="myPopoverTemplate.html">
