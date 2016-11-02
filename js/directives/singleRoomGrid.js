@@ -2,10 +2,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
     return {
         restrict: "E",
         templateUrl: "views/singleRoomGrid.html",
-        $scope: {
-            singleroom_data: "@"
-        },
-        transclude: true,
+         $scope:{singleroom_data:"@"},
         link: function($scope, $ele, $attr) {
 
             $scope.appendZero = function(inNumber) {
@@ -92,6 +89,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                 }
                 $scope.hours = ["12 AM", "01 AM", "02 AM", "03 AM", "04 AM", "05 AM", "06 AM", "07 AM", "08 AM", "09 AM", "10 AM", "11 AM", "12 PM", "01 PM", "02 PM", "03 PM", "04 PM", "05 PM", "06 PM", "07 PM", "08 PM", "09 PM", "10 PM", "11 PM"];
             };
+
             $timeout(function () {
               $scope.createSingleRoomSlots($scope.singleroom_data);
               $anchorScroll("singleRoom");

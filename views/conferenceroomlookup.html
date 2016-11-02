@@ -158,6 +158,9 @@
         <div id="nearbyBuilding2" ng-if="inputData.showNearByRoom[2]">
             <nearby-room-grid data-nearbydata="{{nearby_data[2]}}"  data-clicknumber=2></nearby-room-grid>
         </div>
+        <div id="nearbyBuilding3" ng-if="inputData.showNearByRoom[3]">
+            <nearby-room-grid data-nearbydata="{{nearby_data[3]}}"  data-clicknumber=3></nearby-room-grid>
+        </div>
 
         <div class="not-Found" ng-if="inputData.clickNumber < 3">
             <p>Not finding what you’re looking for?</p>
@@ -166,7 +169,7 @@
     </div>
 
     <div id="singleRoom" ng-if="inputData.showSingleRoom">
-        <single-room-grid data-singleroom_data='{{singleroom_data}}'></single-room-grid>
+       <!--  <single-room-grid data-singleroom_data='{{singleroom_data}}'></single-room-grid> -->
     </div>
     </div>
     <footer class="search-result-footer">
