@@ -134,6 +134,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
               responseGrid.getSingleRoomData(reqData).then(function(res){
                   $scope.singleroom_data = res.data.data;
+                  angular.element("#singleRoom").html("");
+                  angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid")($scope))
                   $scope.inputData.loader = false;
               });
             }
@@ -155,6 +157,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         responseGrid.getNearByRoomData(reqData).then(function(res){
             $scope.inputData.showNearByRoom[$scope.inputData.clickNumber]=true;
             $scope.nearby_data[$scope.inputData.clickNumber] = res.data.data;
+
+            console.log($scope.nearby_data[$scope.inputData.clickNumber])
+            // angular.element("#nearbyBuilding"+$scope.inputData.clickNumber).append($compile("<nearby-room-grid nearbydata='{{nearby_data[inputData.clickNumber]}}'></nearby-room-grid>")($scope));
+            $scope.inputData.loader = false;
             $scope.inputData.clickNumber++;
         });
     }
