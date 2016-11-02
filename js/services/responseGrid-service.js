@@ -1,5 +1,5 @@
 'use strict'
-ConferenceRoomLookup.factory("responseGrid", function($http) {
+ConferenceRoomLookup.factory("responseGrid", function($http, $resource) {
     return {
         getMultipleRoomsData: function(req) {
             console.log(req)
@@ -16,7 +16,7 @@ ConferenceRoomLookup.factory("responseGrid", function($http) {
             console.log(req)
             var promise = $http({
                 method: 'POST',
-               // url: 'js/services/singleRoom-data.json',
+                //url: 'js/services/singleRoom-data.json',
                 url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json',
                 data: JSON.stringify(req),
                 headers: {'Content-Type': 'application/json'}

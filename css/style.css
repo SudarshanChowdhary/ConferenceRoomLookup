@@ -161,9 +161,9 @@ div.gridData div:nth-child(4n) {
 
 .search-result-footer {
     border-top: solid #ccc 1px;
-    bottom: 0 !important;
+	bottom: 0 !important;
     margin-top: 200px;
-    
+	
 }
 
 .search-result-footer p {
