@@ -68,6 +68,13 @@
     padding-top: 60px;
 }
 
+.single-room-search .table td:first-child{
+  width: 10% !important;
+}
+.single-room-search .table td:last-child{
+  width: 90% !important;
+}
+
 .searchResultBuilding {
     display: inline-block;
     font-size: 24px;
@@ -162,7 +169,7 @@ div.gridData div:nth-child(4n) {
 .search-result-footer {
     border-top: solid #ccc 1px;
 	bottom: 0 !important;
-	
+
 }
 
 .search-result-footer p {
