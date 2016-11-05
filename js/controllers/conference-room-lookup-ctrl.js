@@ -3,7 +3,7 @@
 ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, responseGrid, durationService, timeRangeService, $compile) {
     /* , $uibModalInstance, items */
     $scope.lookUpData = {};
-    $scope.nearby_data=[{},{},{}];
+    $scope.nearby_data=[{},{},{},{}];
     $scope.siteOptions = [];
     $scope.buildingOptions = [];
     $scope.floorOptions = [];
@@ -15,7 +15,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         "date": new Date(),
         "unavailable": 0
     };
-    $scope.inputData={ showMultiRoom: false, showSingleRoom: false, showNearByRoom:[false, false, false], loader:false, clickNumber:0};
+    $scope.inputData={ showMultiRoom: false, showSingleRoom: false, showNearByRoom:[false, false, false, false], loader:false, clickNumber:0};
 
     $scope.$watch('lookupRoomForm.$dirty', function(v) {
         if (!v) {
@@ -23,11 +23,17 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         }
         $scope.inputData = {};
         $scope.multpliroom_data ={};
-        $scope.nearby_data=[{}, {}, {}];
+        $scope.nearby_data=[{}, {}, {}, {}];
         $scope.singleroom_data={};
+        angular.element("#singleRoom").html("");
+        $scope.inputData.showMultiRoom=false;
+        $scope.inputData.showSingleRoom=false;
+        $scope.inputData.showNearByRoom=[false, false, false, false];
+        $scope.inputData.loader=false;
+        $scope.inputData.clickNumber=0;
+//        $scope.inputData={showMultiRoom:false, showSingleRoom:false, showNearByRoom:[false, false, false, false], loader:false, clickNumber:0};
+        $scope.lookupRoomForm.$setPristine();
 
-        $scope.lookupRoomForm.$setPristine()
-        $scope.inputData={ showMultiRoom: false, showSingleRoom: false, showNearByRoom:[false, false, false], loader:false, clickNumber:0};
     })
 
     $scope.searchResult = function() {
@@ -35,7 +41,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         $scope.inputData = {}
         $scope.inputData.showMultiRoom = false;
         $scope.inputData.showSingleRoom = false;
-        $scope.inputData.showNearByRoom = [false, false, false];
+        $scope.inputData.showNearByRoom = [false, false, false, false];
         $scope.inputData.loader = true;
 
         if ($scope.lookupRoomForm.$valid) {
@@ -100,7 +106,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 $scope.inputData.longitude = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].longitude;
                 $scope.inputData.buildingCode = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].buildingCode;
                 $scope.inputData.showSingleRoom = false;
-                $scope.inputData.clickNumber = 0;
+                $scope.inputData.clickNumber = 1;
 
                 var reqData = {
                     "room": $scope.inputData.room,
@@ -109,7 +115,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
-                
+
                 responseGrid.getMultipleRoomsData(reqData).then(function(res){
                   $scope.multiroom_data = res.data.data;
                   $scope.inputData.showMultiRoom = true;
@@ -134,6 +140,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
               };
 
               responseGrid.getSingleRoomData(reqData).then(function(res){
+                console.log(res);
                   $scope.singleroom_data = res.data.data;
                   angular.element("#singleRoom").html("");
                   angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid")($scope));
@@ -158,8 +165,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         responseGrid.getNearByRoomData(reqData).then(function(res){
             $scope.inputData.showNearByRoom[$scope.inputData.clickNumber]=true;
             $scope.nearby_data[$scope.inputData.clickNumber] = res.data.data;
-
-            console.log($scope.nearby_data[$scope.inputData.clickNumber])
+              console.log($scope.nearby_data[$scope.inputData.clickNumber]);
             // angular.element("#nearbyBuilding"+$scope.inputData.clickNumber).append($compile("<nearby-room-grid nearbydata='{{nearby_data[inputData.clickNumber]}}'></nearby-room-grid>")($scope));
             $scope.inputData.loader = false;
             $scope.inputData.clickNumber++;

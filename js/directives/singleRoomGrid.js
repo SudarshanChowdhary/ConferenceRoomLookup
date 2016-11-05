@@ -2,7 +2,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
     return {
         restrict: "E",
         templateUrl: "views/singleRoomGrid.html",
-        $scope:{singleroom_data:"@"},
+         $scope:{singleroom_data:"@"},
         link: function($scope, $ele, $attr) {
             $scope.createSingleRoomSlots = function(room) {
                 if (room.events.length != 0) {

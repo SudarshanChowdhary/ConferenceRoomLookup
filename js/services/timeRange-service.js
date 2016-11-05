@@ -29,33 +29,6 @@ for (var j = 0; j < 23; j++) {
     }
    
 
-   
-    // for (var j = 0; j < times.length; j++) {
-    //   for (var i = 0; i < values.length; i++) {
-    //      if (times[j] < 12) {
-    //         //var display = times[j] == 0 ? "12" : times[j];
-    //         var value = times[j] <10 ? "0"+""+times[j] : times[j];
-    //         if(times[j] == 0)
-    //            value = "12";
-
-    //         timeOptions.push({name: value + ":" + values[i] + " AM", value: value + ":" + values[i] + ":00"});
-    //      } else {
-
-    //         var value = times[j]-12;
-    //         if (value == 0)
-    //            value = "12";
-    //         if(value < 10) {
-    //            value ="0"+value;
-    //         }
-    //         timeOptions.push({name: value  + ":" + values[i] + " PM", value: times[j] + ":" + values[i] + ":00"});
-    //      }
-    //   }
-    // }
-   
-   //console.log(timeOptions);
-
-   
-
     return {      
         getFromTimeOptions: function() {
             return timeOptions;

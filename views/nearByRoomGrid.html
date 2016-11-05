@@ -3,12 +3,12 @@
     <div class="row">
         <div class="col-md-4">{{building.room.length}} rooms matching your search</div>
         <div class="col-md-8">
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay($index)">« Previous day</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="PreviousDay(inputData.clickNumber, $index)">« Previous day</button></div>
             <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="building.initScrollDiv<=0" ng-click="Previous4Hours($index)">‹ Previous 4 Hours</button></div>
             <div class="col-md-2 col-sm-2"></div>
             <div class="col-md-2 col-sm-2"></div>
             <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-disabled="building.initScrollDiv>=1900" ng-click="Next4hours($index)">Next 4 Hours ›</button></div>
-            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay($index)">Next day »</button></div>
+            <div class="col-md-2 col-sm-2"><button class="btn btn-link" ng-click="NextDay(inputData.clickNumber, $index)">Next day »</button></div>
         </div>
     </div>
     <section class="searchGrid" id="searchRoomGrid">

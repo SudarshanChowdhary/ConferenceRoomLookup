@@ -1,16 +1,14 @@
 'use strict'
-ConferenceRoomLookup.factory("responseGrid", function($http) {
+ConferenceRoomLookup.factory("responseGrid", function($http, $resource) {
     return {
         getMultipleRoomsData: function(req) {
             console.log(req)
             var promise = $http({
                 method: 'GET',
                 url: 'js/services/responseGrid-data.json',
-               // url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/get_rooms_search/',
+              //  url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json',
                 data: req,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
+                 headers: {'Content-Type': 'application/json'}
             });
             return promise;
         },
@@ -19,11 +17,9 @@ ConferenceRoomLookup.factory("responseGrid", function($http) {
             var promise = $http({
                 method: 'GET',
                 url: 'js/services/singleRoom-data.json',
-               // url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/get_rooms_search/',
-                data: req,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
+            //    url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json',
+                data: JSON.stringify(req),
+                headers: {'Content-Type': 'application/json'}
             });
             return promise;
         },
@@ -32,11 +28,9 @@ ConferenceRoomLookup.factory("responseGrid", function($http) {
             var promise = $http({
                 method: 'GET',
                 url: 'js/services/nearbybuilding.json',
-               // url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/tool/get_rooms_search/',
+              //  url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json',
                 data: req,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
+                 headers: {'Content-Type': 'application/json'}
             });
             return promise;
         }
