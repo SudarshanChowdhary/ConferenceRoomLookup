@@ -109,6 +109,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
+                
                 responseGrid.getMultipleRoomsData(reqData).then(function(res){
                   $scope.multiroom_data = res.data.data;
                   $scope.inputData.showMultiRoom = true;
@@ -135,7 +136,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
               responseGrid.getSingleRoomData(reqData).then(function(res){
                   $scope.singleroom_data = res.data.data;
                   angular.element("#singleRoom").html("");
-                  angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid")($scope))
+                  angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid")($scope));
                   $scope.inputData.loader = false;
               });
             }

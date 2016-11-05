@@ -47,7 +47,7 @@
             <tr ng-repeat="slot in singleroom_data.slot track by $index">
                 <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]}}">{{hours[$index/4]}}</td>
                 <td ng-if="slot.type=='free'" class="border-line free">
-                    <div ng-mouseover="addDurationClass(singleRoomData, $index)" ng-mouseout="removeDurationClass(singleRoomData, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
+                    <div ng-mouseover="addDurationClass(singleroom_data, $index)" ng-mouseout="removeDurationClass(singleroom_data, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
                 </td>
                 <td ng-if="slot.type=='busy'" class="border-line busy">
                     <div ng-if="slot.firstCell==true" class="row busy-center">
