@@ -101,7 +101,7 @@
                     <div class="col-md-6 col-lg-8">
                         <label class="checkbox-inline" for="seats_{{$index}}" ng-repeat="seat in seats">
                      <!-- ng-model="lookupRoom[seat.label]" -->
-                     <input type="checkbox" id="seat_{{$index}}" name="seat_{{$index}}" ng-model="lookupRoom.seats[seat.label]" value="{{seat.checked}}" ng-disabled="!seat.disable"><span class="seat-available">{{seat.label}}</span>
+                     <input type="checkbox" ng-click="filterRoom()" id="seat_{{$index}}" name="seat_{{$index}}" ng-model="lookupRoom.seats[seat.size]" ng-checked="seat.checked" value="{{seat.checked}}" ng-disabled="!seat.disable"><span class="seat-available">{{seat.label}}</span>
                   </label>
 
                     </div>
@@ -116,14 +116,14 @@
                     <div id="amenities" class="col-md-6 col-lg-8">
                         <!-- ng-model="lookupRoom[amenity.label]" -->
                         <label class="checkbox-inline" for="amenity_{{$index}}" ng-repeat="amenity in amenities">
-                     <input type="checkbox" name="amenity_{{$index}}" ng-model="lookupRoom.amenities[amenity.label]" value="{{amenity.checked}}" ng-disabled="!amenity.disable"><span class="amenities-available"> {{amenity.label}}</span>
+                     <input type="checkbox" name="amenity_{{$index}}" ng-model="lookupRoom.amenities[amenity.label]" ng-click="filterRoom()" ng-checked="amenity.checked" ng-disabled="!amenity.disable"><span class="amenities-available"> {{amenity.label}}</span>
                   </label>
                     </div>
                 </div>
                 <!--             {{lookupRoom}}  -->
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-md-6 col-lg-8">
-                        <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoomForm.$invalid" class="btn btn-sm search-btn">Search</button>
+                        <button type="submit" ng-click="searchResult()" ng-disabled="lookupRoomForm.$invalid || filterRm.flag" class="btn btn-sm search-btn">Search</button>
                     </div>
                 </div>
             </form>

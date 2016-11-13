@@ -3,7 +3,7 @@
 ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, responseGrid, durationService, timeRangeService, $compile) {
     /* , $uibModalInstance, items */
     $scope.lookUpData = {};
-    $scope.nearby_data=[{},{},{},{}];
+    $scope.nearby_data = [{}, {}, {}, {}];
     $scope.siteOptions = [];
     $scope.buildingOptions = [];
     $scope.floorOptions = [];
@@ -15,29 +15,81 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
         "date": new Date(),
         "unavailable": 0
     };
-    $scope.inputData={ showMultiRoom: false, showSingleRoom: false, showNearByRoom:[false, false, false, false], loader:false, clickNumber:0};
+    $scope.inputData = {
+        showMultiRoom: false,
+        showSingleRoom: false,
+        showNearByRoom: [false, false, false, false],
+        loader: false,
+        clickNumber: 0
+    };
+    $scope.inputData.amenities=[];
+    $scope.inputData.seats=[];
+    $scope.filterRm = {jsonrooms: [], flag:false};
+
+    $scope.seats = [{
+        "disable": 1,
+        "size": 4,
+        "checked": false,
+        "label": "2-4"
+    }, {
+        "disable": 1,
+        "size": 8,
+        "checked": false,
+        "label": "5-8"
+    }, {
+        "disable": 1,
+        "size": 12,
+        "checked": false,
+        "label": "9-12"
+    }, {
+        "disable": 1,
+        "size": 20,
+        "checked": false,
+        "label": "13-20"
+    }, {
+        "disable": 1,
+        "size": 21,
+        "checked": false,
+        "label": "20+"
+    }];
+
+    $scope.amenities = [{
+        "disable": 1,
+        "checked": false,
+        "label": "avcn"
+    }, {
+        "disable": 1,
+        "checked": false,
+        "label": "projector"
+    }, {
+        "disable": 1,
+        "checked": false,
+        "label": "appleTv"
+    }];
+
 
     $scope.$watch('lookupRoomForm.$dirty', function(v) {
         if (!v) {
             return
         }
         $scope.inputData = {};
-        $scope.multpliroom_data ={};
-        $scope.nearby_data=[{}, {}, {}, {}];
-        $scope.singleroom_data={};
+        $scope.multpliroom_data = {};
+        $scope.nearby_data = [{}, {}, {}, {}];
+        $scope.singleroom_data = {};
         angular.element("#singleRoom").html("");
-        $scope.inputData.showMultiRoom=false;
-        $scope.inputData.showSingleRoom=false;
-        $scope.inputData.showNearByRoom=[false, false, false, false];
-        $scope.inputData.loader=false;
-        $scope.inputData.clickNumber=0;
-//        $scope.inputData={showMultiRoom:false, showSingleRoom:false, showNearByRoom:[false, false, false, false], loader:false, clickNumber:0};
+        $scope.inputData.showMultiRoom = false;
+        $scope.inputData.showSingleRoom = false;
+        $scope.inputData.showNearByRoom = [false, false, false, false];
+        $scope.inputData.loader = false;
+        $scope.inputData.clickNumber = 0;
+        $scope.filterRm = {jsonrooms: [], flag:false};
+        //        $scope.inputData={showMultiRoom:false, showSingleRoom:false, showNearByRoom:[false, false, false, false], loader:false, clickNumber:0};
         $scope.lookupRoomForm.$setPristine();
-
+        $scope.inputData.amenities=[];
+        $scope.inputData.seats=[];
     })
 
     $scope.searchResult = function() {
-
         $scope.inputData = {}
         $scope.inputData.showMultiRoom = false;
         $scope.inputData.showSingleRoom = false;
@@ -86,6 +138,8 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 }
             }
 
+            $scope.seatsSize = Math.max.apply(Math, $scope.inputData.seats);
+
             $scope.inputData.duration = $scope.lookupRoom.duration;
             $scope.inputData.durationIndex = $scope.durationTime.indexOf($scope.lookupRoom.duration);
             $scope.inputData.timezone = smroom.timezone;
@@ -94,14 +148,7 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             $scope.inputData.searchDate = $scope.inputData.d.getFullYear() + "" + $scope.appendZero($scope.inputData.d.getMonth() + 1) + "" + $scope.appendZero($scope.inputData.d.getDate());
 
             if (!$scope.lookupRoom.room) {
-                var jsonrooms = [];
-                angular.forEach($scope.roomOptions, function(room) {
-                    jsonrooms.push({
-                        roomName: room.roomName,
-                        roomUid: room.roomUid
-                    });
-                });
-                $scope.inputData.room = jsonrooms;
+                $scope.inputData.room = $scope.filterRoom.jsonrooms;
                 $scope.inputData.latitude = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].latitude;
                 $scope.inputData.longitude = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].longitude;
                 $scope.inputData.buildingCode = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].buildingCode;
@@ -115,41 +162,102 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
-
-                responseGrid.getMultipleRoomsData(reqData).then(function(res){
-                  $scope.multiroom_data = res.data.data;
-                  $scope.inputData.showMultiRoom = true;
-                  $scope.inputData.loader = false;
+                responseGrid.getMultipleRoomsData(reqData).then(function(res) {
+                    $scope.multiroom_data = res.data.data;
+                    $scope.inputData.showMultiRoom = true;
+                    $scope.inputData.loader = false;
                 })
             } else {
-                $scope.inputData.room ={
-                  "roomName": $scope.lookupRoom.room.roomName,
-                  "roomUid": $scope.lookupRoom.room.roomUid,
-                };
+                $scope.inputData.room = $scope.filterRm.jsonrooms;
                 $scope.inputData.showSingleRoom = true;
                 $scope.inputData.showMultiRoom = false;
-                $scope.inputData.showNearByRoom=[false, false, false];
+                $scope.inputData.showNearByRoom = [false, false, false];
 
                 var reqData = {
-                  "roomName": $scope.inputData.room.roomName,
-                  "roomUid": $scope.inputData.room.roomUid,
-                  "searchDate": $scope.inputData.searchDate,
-                  "timeRange": $scope.inputData.timeRange,
-                  "timezone": $scope.inputData.timezone,
-                  "unavailable": $scope.inputData.unavailable
-              };
+                    "roomName": $scope.inputData.room.roomName,
+                    "roomUid": $scope.inputData.room.roomUid,
+                    "searchDate": $scope.inputData.searchDate,
+                    "timeRange": $scope.inputData.timeRange,
+                    "timezone": $scope.inputData.timezone,
+                    "unavailable": $scope.inputData.unavailable
+                };
 
-              responseGrid.getSingleRoomData(reqData).then(function(res){
-                console.log(res);
-                  $scope.singleroom_data = res.data.data;
-                  angular.element("#singleRoom").html("");
-                  angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid")($scope));
-                  $scope.inputData.loader = false;
-              });
+                responseGrid.getSingleRoomData(reqData).then(function(res) {
+                    console.log(res);
+                    $scope.singleroom_data = res.data.data;
+                    angular.element("#singleRoom").html("");
+                    angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid")($scope));
+                    $scope.inputData.loader = false;
+                });
             }
         }
     };
 
+    $scope.filterRoom=function(){
+            for (var key in $scope.lookupRoom.amenities) {
+                if ($scope.lookupRoom.amenities[key]) {
+                    $scope.inputData.amenities.push(key);
+                }
+            }
+            for (var key in $scope.lookupRoom.seats) {
+                if ($scope.lookupRoom.seats[key]) {
+                    $scope.inputData.seats.push(key);
+                }
+            }
+           if ($scope.lookupRoom.buildingName && !$scope.lookupRoom.room) {
+                angular.forEach($scope.roomOptions, function(room) {
+                    if ($scope.inputData.amenities.length>0) {
+                        angular.forEach($scope.inputData.amenities, function(ameni) {
+                              if (room[ameni]) {
+                                if ($scope.inputData.seats.length>0) {
+                                    if (room.size <= $scope.seatsSize) {
+                                        $scope.filterRm.jsonrooms.push({
+                                            roomName: room.roomName,
+                                            roomUid: room.roomUid
+                                        });
+                                    }
+                                } else {
+                                    $scope.filterRm.jsonrooms.push({
+                                        roomName: room.roomName,
+                                        roomUid: room.roomUid
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        if ($scope.inputData.seats.length>0) {
+                            if (room.size <= $scope.seatsSize) {
+                                $scope.filterRm.jsonrooms.push({
+                                    roomName: room.roomName,
+                                    roomUid: room.roomUid
+                                });
+                            }
+                        } else {
+                            $scope.filterRm.jsonrooms.push({
+                                roomName: room.roomName,
+                                roomUid: room.roomUid
+                            });
+                        }
+                    }
+                });
+
+                console.log($scope.filterRm.jsonrooms.length, "jsonrooms length")
+                       if($scope.filterRm.jsonrooms.length){
+                            $scope.filterRm.flag=true;
+                       }else
+                       {
+                            $scope.filterRm.flag= false;
+                       }
+
+            }
+                else if($scope.lookupRoom.buildingName && $scope.lookupRoom.room){
+                    $scope.filterRm.jsonrooms = {
+                    "roomName": $scope.lookupRoom.room.roomName,
+                    "roomUid": $scope.lookupRoom.room.roomUid,
+                };
+                $scope.filterRm.flag= true;
+                }
+    }
     $scope.nearbyBuilding = function() {
         $scope.inputData.loader = true;
         var reqData = {
@@ -162,10 +270,10 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             "clickNumber": $scope.inputData.clickNumber,
             "buildingCode": $scope.inputData.buildingCode
         }
-        responseGrid.getNearByRoomData(reqData).then(function(res){
-            $scope.inputData.showNearByRoom[$scope.inputData.clickNumber]=true;
+        responseGrid.getNearByRoomData(reqData).then(function(res) {
+            $scope.inputData.showNearByRoom[$scope.inputData.clickNumber] = true;
             $scope.nearby_data[$scope.inputData.clickNumber] = res.data.data;
-              console.log($scope.nearby_data[$scope.inputData.clickNumber]);
+            console.log($scope.nearby_data[$scope.inputData.clickNumber]);
             // angular.element("#nearbyBuilding"+$scope.inputData.clickNumber).append($compile("<nearby-room-grid nearbydata='{{nearby_data[inputData.clickNumber]}}'></nearby-room-grid>")($scope));
             $scope.inputData.loader = false;
             $scope.inputData.clickNumber++;
@@ -252,6 +360,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 }
             })
         }
+        $scope.resetSeats();
+        $scope.resetAmenity();
+        $scope.filterRoom();
     };
 
     $scope.loadFloorsAndRooms = function(buildingName) {
@@ -281,7 +392,11 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
 
                 var room = {
                     "roomName": obj.roomName,
-                    "roomUid": obj.roomUid
+                    "roomUid": obj.roomUid,
+                    "appleTv": obj.appleTv,
+                    "avcn": obj.avcn,
+                    "projector": obj.projector,
+                    "size": obj.size
                 }
                 if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === buildingName && $scope.roomOptions.indexOf(JSON.stringify(room)) === -1) {
                     $scope.roomOptions.push(room);
@@ -293,6 +408,9 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 }
             });
         }
+        $scope.resetSeats();
+        $scope.resetAmenity();
+        $scope.filterRoom();
     };
 
 
@@ -305,7 +423,11 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
                 /* Loading Rooms */
                 var room = {
                     "roomName": obj.roomName,
-                    "roomUid": obj.roomUid
+                    "roomUid": obj.roomUid,
+                    "appleTv": obj.appleTv,
+                    "avcn": obj.avcn,
+                    "projector": obj.projector,
+                    "size": obj.size
                 };
                 if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName) {
                     $scope.roomOptions.push(room);
@@ -316,13 +438,20 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
             angular.forEach($scope.lookUpData, function(obj) {
                 var room = {
                     "roomName": obj.roomName,
-                    "roomUid": obj.roomUid
+                    "roomUid": obj.roomUid,
+                    "appleTv": obj.appleTv,
+                    "avcn": obj.avcn,
+                    "projector": obj.projector,
+                    "size": obj.size
                 };
                 if (obj.floorNumber == floorNumber && obj.buildingName === $scope.lookupRoom.buildingName) {
                     $scope.roomOptions.push(room);
                 }
             });
         }
+        $scope.filterRoom();
+        $scope.resetSeats();
+        $scope.resetAmenity();
     };
 
     $scope.changeTimeRange = function(timeRange) {
@@ -368,46 +497,19 @@ ConferenceRoomLookup.controller("ConferenceRoom", function($scope, siteService, 
     };
 
 
-    $scope.seats = [{
-        "disable": 1,
-        "size": 4,
-        "checked": 0,
-        "label": "2-4"
-    }, {
-        "disable": 1,
-        "size": 8,
-        "checked": 0,
-        "label": "5-8"
-    }, {
-        "disable": 1,
-        "size": 12,
-        "checked": 0,
-        "label": "9-12"
-    }, {
-        "disable": 1,
-        "size": 20,
-        "checked": 0,
-        "label": "13-20"
-    }, {
-        "disable": 1,
-        "size": 21,
-        "checked": 0,
-        "label": "20+"
-    }];
+    $scope.resetSeats = function(){
+    angular.forEach($scope.seats,function(seat){
+        console.log(seat.checked)
+        seat.checked=false;
+    })
+}
+$scope.resetAmenity = function(){
+    angular.forEach($scope.amenities,function(amenity){
+        amenity.checked=false;
+        
+    })
+}
 
-    $scope.amenities = [{
-        "disable": 1,
-        "checked": 0,
-        "label": "avcn"
-    }, {
-        "disable": 1,
-        "checked": 0,
-        "label": "projector"
-    }, {
-        "disable": 1,
-        "checked": 0,
-        "label": "appleTv"
-    }]
 
     // $scope.headerHours = function () {
     //     $scope.tempHours = new Date("2016-07-25T00:00:00");
