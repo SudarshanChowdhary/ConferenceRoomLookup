@@ -72,12 +72,12 @@
 
         $scope.resetSeats = function() {
             angular.forEach($scope.seats, function(seat, index) {
-                angular.element("#seat_" + index).attr("checked", false);
+                angular.element("#seat_" + index).prop("checked", false);
             })
         }
         $scope.resetAmenity = function() {
             angular.forEach($scope.amenities, function(amenity, index) {
-                angular.element("#amenity_" + index).attr("checked", false);
+                angular.element("#amenity_" + index).prop("checked", false);
             })
         }
 
@@ -114,8 +114,6 @@
             $scope.lookupRoomForm.$setPristine();
             $scope.inputData.amenities = [];
             $scope.inputData.seats = [];
-            $scope.resetSeats();
-            $scope.resetAmenity();
         })
 
         $scope.searchResult = function() {
