@@ -101,9 +101,8 @@
                     <div class="col-md-6 col-lg-8">
                         <label class="checkbox-inline" for="seats_{{$index}}" ng-repeat="seat in seats">
                      <!-- ng-model="lookupRoom[seat.label]" -->
-                     <input type="checkbox" ng-click="filterRoom()" id="seat_{{$index}}" name="seat_{{$index}}" ng-model="lookupRoom.seats[seat.size]" ng-checked="seat.checked" value="{{seat.checked}}" ng-disabled="!seat.disable"><span class="seat-available">{{seat.label}}</span>
+                     <input type="checkbox" ng-click="filterRoom()" id="seat_{{$index}}" name="seat_{{$index}}" ng-model="lookupRoom.seats[seat.size]" value="{{seat.checked}}" ng-disabled="!seat.disable || !lookupRoom.buildingName"><span class="seat-available">{{seat.label}}</span>
                   </label>
-
                     </div>
                 </div>
                 <div class="form-group">
@@ -116,7 +115,7 @@
                     <div id="amenities" class="col-md-6 col-lg-8">
                         <!-- ng-model="lookupRoom[amenity.label]" -->
                         <label class="checkbox-inline" for="amenity_{{$index}}" ng-repeat="amenity in amenities">
-                     <input type="checkbox" name="amenity_{{$index}}" ng-model="lookupRoom.amenities[amenity.label]" ng-click="filterRoom()" ng-checked="amenity.checked" ng-disabled="!amenity.disable"><span class="amenities-available"> {{amenity.label}}</span>
+                     <input type="checkbox" name="amenity_{{$index}}" id="amenity_{{$index}}"  ng-model="lookupRoom.amenities[amenity.label]" ng-click="filterRoom()" ng-disabled="!amenity.disable || !lookupRoom.buildingName"><span class="amenities-available"> {{amenity.label}}</span>
                   </label>
                     </div>
                 </div>
