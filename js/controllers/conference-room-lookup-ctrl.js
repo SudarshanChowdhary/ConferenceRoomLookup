@@ -26,7 +26,7 @@
         $scope.inputData.seats = [];
         $scope.filterRm = {
             jsonrooms: [],
-            flag: false
+            flag: true
         };
 
         $scope.seats = [{
@@ -146,21 +146,6 @@
                     "to": to_time
                 };
                 $scope.inputData.floorNumber = $scope.lookupRoom.floorNumber;
-                $scope.inputData.amenities = [];
-                $scope.inputData.seats = [];
-
-                for (var key in $scope.lookupRoom.amenities) {
-                    if ($scope.lookupRoom.amenities[key]) {
-                        $scope.inputData.amenities.push(key);
-                    }
-                }
-
-                for (var key in $scope.lookupRoom.seats) {
-                    if ($scope.lookupRoom.seats[key]) {
-                        $scope.inputData.seats.push(key);
-                    }
-                }
-
                 $scope.inputData.duration = $scope.lookupRoom.duration;
                 $scope.inputData.durationIndex = $scope.durationTime.indexOf($scope.lookupRoom.duration);
                 $scope.inputData.timezone = smroom.timezone;
@@ -169,9 +154,7 @@
                 $scope.inputData.searchDate = $scope.inputData.d.getFullYear() + "" + $scope.appendZero($scope.inputData.d.getMonth() + 1) + "" + $scope.appendZero($scope.inputData.d.getDate());
 
                 if (!$scope.lookupRoom.room) {
-                    console.log($scope.filterRm)
-
-                    $scope.inputData.room = $scope.filterRoom.jsonrooms;
+                    $scope.inputData.room = $scope.filterRm.jsonrooms;
                     $scope.inputData.latitude = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].latitude;
                     $scope.inputData.longitude = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].longitude;
                     $scope.inputData.buildingCode = $scope.geo[$scope.buildingOptions.indexOf($scope.lookupRoom.buildingName)].buildingCode;
@@ -191,9 +174,7 @@
                         $scope.inputData.loader = false;
                     })
                 } else {
-                    console.log($scope.filterRm)
-                    $scope.inputData.room = $scope.filterRm.jsonrooms;
-
+                    $scope.inputData.room = $scope.filterRm.jsonrooms[0];
                     $scope.inputData.showSingleRoom = true;
                     $scope.inputData.showMultiRoom = false;
                     $scope.inputData.showNearByRoom = [false, false, false];
@@ -219,6 +200,12 @@
         };
 
         $scope.filterRoom = function() {
+          $scope.inputData.amenities =[];
+          $scope.inputData.seats=[];
+          $scope.filterRm = {
+              jsonrooms: [],
+              flag: true
+          };
 
             for (var key in $scope.lookupRoom.amenities) {
                 if ($scope.lookupRoom.amenities[key]) {
@@ -270,21 +257,21 @@
                     }
                 });
                 if ($scope.filterRm.jsonrooms.length>0) {
-                    $scope.filterRm.flag = true;
-                } else {
                     $scope.filterRm.flag = false;
+                } else {
+                    $scope.filterRm.flag = true;
                 }
 
             } else {
               if($scope.lookupRoom.buildingName && $scope.lookupRoom.room){
-                $scope.filterRm.jsonrooms = {
+                $scope.filterRm.jsonrooms.push({
                     "roomName": $scope.lookupRoom.room.roomName,
                     "roomUid": $scope.lookupRoom.room.roomUid,
-                };
-                $scope.filterRm.flag = true;
+                });
+                $scope.filterRm.flag = false;
               }
         }
-            console.log($scope.filterRm.jsonrooms)
+            console.log($scope.filterRm.jsonrooms, $scope.filterRm.flag)
         }
         $scope.nearbyBuilding = function() {
             $scope.inputData.loader = true;
