@@ -106,10 +106,6 @@
             $scope.inputData.showNearByRoom = [false, false, false, false];
             $scope.inputData.loader = false;
             $scope.inputData.clickNumber = 0;
-            $scope.filterRm = {
-                jsonrooms: [],
-                flag: false
-            };
             //        $scope.inputData={showMultiRoom:false, showSingleRoom:false, showNearByRoom:[false, false, false, false], loader:false, clickNumber:0};
             $scope.lookupRoomForm.$setPristine();
             $scope.inputData.amenities = [];
@@ -164,8 +160,6 @@
                         $scope.inputData.seats.push(key);
                     }
                 }
-
-                $scope.seatsSize = Math.max.apply(Math, $scope.inputData.seats);
 
                 $scope.inputData.duration = $scope.lookupRoom.duration;
                 $scope.inputData.durationIndex = $scope.durationTime.indexOf($scope.lookupRoom.duration);
@@ -225,6 +219,7 @@
         };
 
         $scope.filterRoom = function() {
+
             for (var key in $scope.lookupRoom.amenities) {
                 if ($scope.lookupRoom.amenities[key]) {
                     $scope.inputData.amenities.push(key);
@@ -235,12 +230,14 @@
                     $scope.inputData.seats.push(key);
                 }
             }
+
             if ($scope.lookupRoom.buildingName && !$scope.lookupRoom.room) {
                 angular.forEach($scope.roomOptions, function(room) {
                     if ($scope.inputData.amenities.length > 0) {
                         angular.forEach($scope.inputData.amenities, function(ameni) {
                             if (room[ameni]) {
                                 if ($scope.inputData.seats.length > 0) {
+                                    $scope.seatsSize = Math.max.apply(Math, $scope.inputData.seats);
                                     if (room.size <= $scope.seatsSize) {
                                         $scope.filterRm.jsonrooms.push({
                                             roomName: room.roomName,
@@ -257,6 +254,7 @@
                         });
                     } else {
                         if ($scope.inputData.seats.length > 0) {
+                            $scope.seatsSize = Math.max.apply(Math, $scope.inputData.seats);
                             if (room.size <= $scope.seatsSize) {
                                 $scope.filterRm.jsonrooms.push({
                                     roomName: room.roomName,
@@ -271,21 +269,22 @@
                         }
                     }
                 });
-
-                console.log($scope.filterRm.jsonrooms.length, "jsonrooms length")
-                if ($scope.filterRm.jsonrooms.length) {
+                if ($scope.filterRm.jsonrooms.length>0) {
                     $scope.filterRm.flag = true;
                 } else {
                     $scope.filterRm.flag = false;
                 }
 
-            } else if ($scope.lookupRoom.buildingName && $scope.lookupRoom.room) {
+            } else {
+              if($scope.lookupRoom.buildingName && $scope.lookupRoom.room){
                 $scope.filterRm.jsonrooms = {
                     "roomName": $scope.lookupRoom.room.roomName,
                     "roomUid": $scope.lookupRoom.room.roomUid,
                 };
                 $scope.filterRm.flag = true;
-            }
+              }
+        }
+            console.log($scope.filterRm.jsonrooms)
         }
         $scope.nearbyBuilding = function() {
             $scope.inputData.loader = true;
@@ -389,7 +388,7 @@
                     }
                 })
             }
-            $scope.filterRoom();
+        //    $scope.filterRoom();
         };
 
         $scope.loadFloorsAndRooms = function(buildingName) {
