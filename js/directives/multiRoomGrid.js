@@ -6,6 +6,10 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
             multiroom_data: "@"
         },
         link: function($scope, $ele, $attr) {
+
+            $scope.bookSlot = {
+                templateUrl: 'bookSlot.html'
+            };
             $scope.createSlots = function(room) {
                 if (room.busyslot.length != 0) {
                     var dt = room.busyslot[0].startDateTime;
@@ -72,14 +76,14 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
 
             $timeout(function() {
                 $anchorScroll("multiRoom");
-                $scope.initScrollDiv=900;
+                $scope.initScrollDiv = 900;
                 $scope.scrollToTime($scope.initScrollDiv);
             }, 10);
 
             $scope.scrollToTime = function(initScrollDiv) {
                 var el = $document.find("#searchRoomGrid .table-responsive");
                 el.scrollLeft(initScrollDiv);
-                el.bind("scroll", function(){
+                el.bind("scroll", function() {
                     $scope.initScrollDiv = el.scrollLeft();
                 })
             }
@@ -126,7 +130,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
-                responseGrid.getMultipleRoomsData(reqData).then(function(res){
+                responseGrid.getMultipleRoomsData(reqData).then(function(res) {
                     $scope.multiroom_data = res.data.data;
                     angular.forEach($scope.multiroom_data, function(room, m) {
                         $scope.createSlots(room);
@@ -162,7 +166,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
-                responseGrid.getMultipleRoomsData(reqData).then(function(res){
+                responseGrid.getMultipleRoomsData(reqData).then(function(res) {
                     $scope.multiroom_data = res.data.data;
                     angular.forEach($scope.multiroom_data, function(room, m) {
                         $scope.createSlots(room);

@@ -2,8 +2,13 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
     return {
         restrict: "E",
         templateUrl: "views/singleRoomGrid.html",
-         $scope:{singleroom_data:"@"},
+        $scope: {
+            singleroom_data: "@"
+        },
         link: function($scope, $ele, $attr) {
+            $scope.bookSlot = {
+                templateUrl: 'bookSlot.html'
+            };
             $scope.createSingleRoomSlots = function(room) {
                 if (room.events.length != 0) {
                     var dt = room.events[0].startDateTime;
@@ -114,9 +119,9 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             };
 
 
-            $timeout(function () {
-              $scope.createSingleRoomSlots($scope.singleroom_data);
-              $anchorScroll("singleRoom");
+            $timeout(function() {
+                $scope.createSingleRoomSlots($scope.singleroom_data);
+                $anchorScroll("singleRoom");
             }, 10);
 
             $scope.open = function(slot) {

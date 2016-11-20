@@ -7,6 +7,11 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                 var el = $document.find("#nearbyTbl_" + index + " .table-responsive");
                 el.scrollLeft(initScrollDiv);
             }
+
+            $scope.bookSlot = {
+                templateUrl: 'bookSlot.html'
+            };
+
             $scope.createSlots = function(room) {
                 if (room.busyslot.length != 0) {
                     var dt = room.busyslot[0].startDateTime;
@@ -77,12 +82,12 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
             }, 1)
             $timeout(function() {
 
-              $anchorScroll("nearbyBuilding"+$scope.clicknumber);
+                $anchorScroll("nearbyBuilding" + $scope.clicknumber);
                 angular.forEach($scope.nearbydata, function(building, index) {
-                  building.initScrollDiv = 900;
-                  $scope.scrollToTime(building.initScrollDiv, index);
-                        })
-                        $scope.inputData.loader=false;
+                    building.initScrollDiv = 900;
+                    $scope.scrollToTime(building.initScrollDiv, index);
+                })
+                $scope.inputData.loader = false;
             }, 1)
 
 
@@ -116,9 +121,12 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                 PrevDay.setDate($scope.inputData.d.getDate() - 1)
                 $scope.inputData.d = PrevDay;
                 $scope.inputData.searchDate = PrevDay.getFullYear() + "" + $scope.appendZero(PrevDay.getMonth() + 1) + "" + $scope.appendZero(PrevDay.getDate());
-                $scope.inputData.buildingName=$scope.nearbydata[tblIndex].buildingName;
+                $scope.inputData.buildingName = $scope.nearbydata[tblIndex].buildingName;
                 angular.forEach($scope.nearbydata[tblIndex], function(rm, index) {
-                  $scope.inputData.room.push({roomName:rm.roomName, roomUid: rm.roomUid});
+                    $scope.inputData.room.push({
+                        roomName: rm.roomName,
+                        roomUid: rm.roomUid
+                    });
                 });
 
                 var reqData = {
@@ -128,14 +136,14 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
-                responseGrid.getMultipleRoomsData(reqData).then(function(res){
+                responseGrid.getMultipleRoomsData(reqData).then(function(res) {
                     $scope.multiroom_data = res.data.data;
                     angular.forEach($scope.multiroom_data, function(room, m) {
                         $scope.createSlots(room);
                     });
-                    $scope.nearbydata=null;
-                    $scope.inputData.showNearByRoom=[false, false, false, false];
-                    $scope.inputData.clickNumber=0;
+                    $scope.nearbydata = null;
+                    $scope.inputData.showNearByRoom = [false, false, false, false];
+                    $scope.inputData.clickNumber = 0;
                     $scope.inputData.loader = false;
                 })
             };
@@ -148,10 +156,10 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
             };
 
             $scope.Next4hours = function(tblIndex) {
-              if ($scope.nearbydata[tblIndex].initScrollDiv < 1900) {
-                  $scope.nearbydata[tblIndex].initScrollDiv += 400;
-                  $scope.scrollToTime($scope.nearbydata[tblIndex].initScrollDiv, tblIndex);
-              }
+                if ($scope.nearbydata[tblIndex].initScrollDiv < 1900) {
+                    $scope.nearbydata[tblIndex].initScrollDiv += 400;
+                    $scope.scrollToTime($scope.nearbydata[tblIndex].initScrollDiv, tblIndex);
+                }
             };
 
             $scope.NextDay = function(clkNumber, tblIndex) {
@@ -160,9 +168,12 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                 NextDay.setDate($scope.inputData.d.getDate() + 1)
                 $scope.inputData.searchDate = NextDay;
                 $scope.inputData.searchDate = NextDay.getFullYear() + "" + $scope.appendZero(NextDay.getMonth() + 1) + "" + $scope.appendZero(NextDay.getDate());
-                $scope.inputData.buildingName=$scope.nearbydata[tblIndex].buildingName;
+                $scope.inputData.buildingName = $scope.nearbydata[tblIndex].buildingName;
                 angular.forEach($scope.nearbydata[tblIndex], function(rm, index) {
-                  $scope.inputData.room.push({roomName:rm.roomName, roomUid: rm.roomUid});
+                    $scope.inputData.room.push({
+                        roomName: rm.roomName,
+                        roomUid: rm.roomUid
+                    });
                 });
                 var reqData = {
                     "room": $scope.inputData.room,
@@ -171,14 +182,14 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
-                responseGrid.getMultipleRoomsData(reqData).then(function(res){
+                responseGrid.getMultipleRoomsData(reqData).then(function(res) {
                     $scope.multiroom_data = res.data.data;
                     angular.forEach($scope.multiroom_data, function(room, m) {
                         $scope.createSlots(room);
                     });
-                    $scope.nearbydata=null;
-                    $scope.inputData.showNearByRoom=[false, false, false, false];
-                    $scope.inputData.clickNumber=0;
+                    $scope.nearbydata = null;
+                    $scope.inputData.showNearByRoom = [false, false, false, false];
+                    $scope.inputData.clickNumber = 0;
                     $scope.inputData.loader = false;
                 })
             };

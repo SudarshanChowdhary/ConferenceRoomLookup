@@ -63,8 +63,16 @@
                     <a href="adir://conferencerooms/<dsid>"><img src="images/adir.png"></a><span class="grid-room-name">{{room.roomName}}</span></td>
                 <td>
                     <div class="gridData">
-                        <div ng-repeat="slot in room.slot" ng-class="{'free':slot.type=='free', 'busy':slot.type!='free'}">
-                            <div ng-mouseover="addDurationClass(room, $index)" ng-mouseout="removeDurationClass(room, $index)" ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</div>
+                        <div ng-repeat="slot in room.slot">
+                          <div uib-popover-template="bookSlot.templateUrl"
+                                popover-append-to-body="true"
+                                popover-trigger="outsideClick: outsideClick"
+                                popover-placement="bottom"
+                                ng-if="slot.type=='free'"
+                                ng-mouseover="addDurationClass(room, $index)"
+                                ng-mouseout="removeDurationClass(room, $index)"
+                                ng-class="{'highlight-free-slot':slot.highlight, 'free':slot.type=='free'}">&nbsp;</div>
+                          <div ng-if="slot.type!='free'" class="busy">&nbsp;</div>
                         </div>
                     </div>
                 </td>
@@ -72,6 +80,13 @@
         </tbody>
         </table>
         </div>
+
+        <script type="text/ng-template" id="bookSlot.html">
+            <div class="form-group">
+                <label>Popup Title:</label>
+                <input type="text" ng-model="bookSlot.title" class="form-control">
+            </div>
+        </script>
     </section>
 
 
