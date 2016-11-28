@@ -59,8 +59,8 @@
                 <td>
                     <div class="gridData">
                         <div ng-repeat="slot in room.slot">
-                            <div uib-popover-template="bookSlot.templateUrl" popover-append-to-body="true" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" ng-if="slot.type=='free'" ng-mouseover="addDurationClass(room, $index)" ng-mouseout="removeDurationClass(room, $index)"
-                                ng-class="{'highlight-free-slot':slot.highlight, 'free':slot.type=='free'}">&nbsp;</div>
+                            <a uib-popover-template="bookSlot.templateUrl" popover-append-to-body="true" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" ng-if="slot.type=='free'" ng-mouseover="addDurationClass(room, $index)" ng-mouseout="removeDurationClass(room, $index)"
+                              ng-class="{'highlight-free-slot':slot.highlight, 'free':slot.type=='free'}">&nbsp;</a>
                             <div ng-if="slot.type!='free'" class="busy">&nbsp;</div>
                         </div>
                     </div>

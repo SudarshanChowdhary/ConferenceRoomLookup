@@ -126,6 +126,14 @@ span a:hover {
     border-bottom: none !important;
 }
 
+.free{
+    display: block !important;
+    text-decoration: none !important;
+    min-height: 30px;
+    color: #fff;
+
+}
+
 .free:hover {
     cursor: pointer;
     background-color: #3384FB;

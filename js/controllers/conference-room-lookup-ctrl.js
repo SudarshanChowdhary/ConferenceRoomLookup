@@ -271,7 +271,6 @@
                 $scope.filterRm.flag = false;
               }
         }
-            console.log($scope.filterRm.jsonrooms, $scope.filterRm.flag)
         }
         $scope.nearbyBuilding = function() {
             $scope.inputData.loader = true;
@@ -545,6 +544,7 @@
                     }
                 });
             }
+            $scope.filterRoom();
         };
 
     });
