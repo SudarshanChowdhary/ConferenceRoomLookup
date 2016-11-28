@@ -117,8 +117,9 @@
                         <label class="checkbox-inline" for="amenity_{{$index}}" ng-repeat="amenity in amenities">
                      <input type="checkbox" name="amenity_{{$index}}" id="amenity_{{$index}}"  ng-model="lookupRoom.amenities[amenity.label]" ng-click="filterRoom()" ng-disabled="!amenity.disable || !lookupRoom.buildingName"><span class="amenities-available"> {{amenity.label}}</span>
                   </label>
-                    </div>
-                </div>
+                  <div ng-if="filterRm.flag && lookupRoom.buildingName">No room found, Please uncheck Amenities and Seats.</div>                    </div>
+
+                                </div>
                 <!--             {{lookupRoom}}  -->
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-md-6 col-lg-8">
