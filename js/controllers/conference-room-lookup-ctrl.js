@@ -29,6 +29,9 @@
             flag: true
         };
 
+         $scope.CreatEvent = function(){
+            alert("hi")
+        }
         $scope.seats = [{
             "disable": 1,
             "size": 4,
@@ -219,6 +222,7 @@
             }
 
             if ($scope.lookupRoom.buildingName && !$scope.lookupRoom.room) {
+                debugger;
                 angular.forEach($scope.roomOptions, function(room) {
                     if ($scope.inputData.amenities.length > 0) {
                         angular.forEach($scope.inputData.amenities, function(ameni) {

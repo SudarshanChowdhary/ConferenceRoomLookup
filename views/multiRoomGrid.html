@@ -59,7 +59,7 @@
                 <td>
                     <div class="gridData">
                         <div ng-repeat="slot in room.slot">
-                            <a uib-popover-template="bookSlot.templateUrl" popover-append-to-body="true" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" ng-if="slot.type=='free'" ng-mouseover="addDurationClass(room, $index)" ng-mouseout="removeDurationClass(room, $index)"
+                            <a uib-popover-template="bookSlot.templateUrl" popover-append-to-body="true" popover-trigger="outsideClick: outsideClick" popover-placement="top" ng-if="slot.type=='free'" ng-mouseover="addDurationClass(room, $index)" ng-mouseout="removeDurationClass(room, $index)"
                               ng-class="{'highlight-free-slot':slot.highlight, 'free':slot.type=='free'}">&nbsp;</a>
                             <div ng-if="slot.type!='free'" class="busy">&nbsp;</div>
                         </div>
@@ -72,8 +72,9 @@
 
         <script type="text/ng-template" id="bookSlot.html">
             <div class="form-group">
-                <label>Popup Title:</label>
-                <input type="text" ng-model="bookSlot.title" class="form-control">
+               <label class="popover-roomname">Room Name</label>
+                <!-- <input type="text" ng-model="bookSlot.title" class="form-control"> -->
+                <button class="btn btn-primary" ng-click="CreatEvent()">Booked</button>
             </div>
         </script>
     </section>
