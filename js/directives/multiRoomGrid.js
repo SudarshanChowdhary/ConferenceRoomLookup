@@ -68,6 +68,9 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 }
 
             };
+
+
+
             $timeout(function() {
                 angular.forEach($scope.multiroom_data, function(room, m) {
                     $scope.createSlots(room);
@@ -87,6 +90,36 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                     $scope.initScrollDiv = el.scrollLeft();
                 })
             }
+
+            $scope.creatEvent = function(roomName, roomUid, startTime, endTime, timezone){
+              $scope.eventLoader = true;
+              console.log(roomName, roomUid, startTime, endTime, timezone)
+              var req = {
+                  "roomName": roomName,
+                  "roomUid": roomUid,
+                  "startTime": startTime,
+                  "endTime": endTime,
+                  "timezone": timezone
+              }
+
+              responseGrid.bookRoom(req).then(function(res) {
+                responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
+                    $scope.multiroom_data = res.data.data;
+                        angular.forEach($scope.multiroom_data, function(room, m) {
+                            $scope.createSlots(room);
+                        });
+                    $scope.eventLoader = false;
+
+                    $timeout(function() {
+                        $scope.scrollToTime($scope.initScrollDiv);
+                    }, 10);
+
+
+                })
+              })
+
+            }
+
 
             $scope.addDurationClass = function(obj, index) {
                 $scope.startIndex = index;
@@ -123,14 +156,14 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 PrevDay.setDate($scope.inputData.d.getDate() - 1)
                 $scope.inputData.d = PrevDay;
                 $scope.inputData.searchDate = PrevDay.getFullYear() + "" + $scope.appendZero(PrevDay.getMonth() + 1) + "" + $scope.appendZero(PrevDay.getDate());
-                var reqData = {
+                $scope.reqDataMulti = {
                     "room": $scope.inputData.room,
                     "searchDate": $scope.inputData.searchDate,
                     "timeRange": $scope.inputData.timeRange,
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
-                responseGrid.getMultipleRoomsData(reqData).then(function(res) {
+                responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
                     $scope.multiroom_data = res.data.data;
                     angular.forEach($scope.multiroom_data, function(room, m) {
                         $scope.createSlots(room);
@@ -159,14 +192,14 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 NextDay.setDate($scope.inputData.d.getDate() + 1)
                 $scope.inputData.searchDate = NextDay;
                 $scope.inputData.searchDate = NextDay.getFullYear() + "" + $scope.appendZero(NextDay.getMonth() + 1) + "" + $scope.appendZero(NextDay.getDate());
-                var reqData = {
+                $scope.reqDataMulti = {
                     "room": $scope.inputData.room,
                     "searchDate": $scope.inputData.searchDate,
                     "timeRange": $scope.inputData.timeRange,
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
-                responseGrid.getMultipleRoomsData(reqData).then(function(res) {
+                responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
                     $scope.multiroom_data = res.data.data;
                     angular.forEach($scope.multiroom_data, function(room, m) {
                         $scope.createSlots(room);

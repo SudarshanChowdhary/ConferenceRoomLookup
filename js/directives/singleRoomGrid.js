@@ -1,4 +1,4 @@
-ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $document, $timeout, $http, $uibModal) {
+ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $document, $timeout, $http, $uibModal, $compile, responseGrid) {
     return {
         restrict: "E",
         templateUrl: "views/singleRoomGrid.html",
@@ -88,7 +88,37 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                     }
                 }
                 $scope.hours = ["12 AM", "01 AM", "02 AM", "03 AM", "04 AM", "05 AM", "06 AM", "07 AM", "08 AM", "09 AM", "10 AM", "11 AM", "12 PM", "01 PM", "02 PM", "03 PM", "04 PM", "05 PM", "06 PM", "07 PM", "08 PM", "09 PM", "10 PM", "11 PM"];
+                console.log("createSingleRoomSlots Done");
             };
+
+            $scope.creatEvent = function(roonName, roomUid, startTime, endTime, timezone){
+              $scope.eventLoader = true;
+              console.log(roonName, roomUid, startTime, endTime, timezone)
+              var req={
+                "attendeeUid":"788787-898989-78778",
+                "attendeeName": "sudarshan",
+                "attendeeEmail":"sudarshan@apple.com",
+                "roonName":roonName,
+                "roomUid":roomUid,
+                "startTime":startTime,
+                "endTime":endTime,
+                "timezone":timezone
+              };
+
+              responseGrid.bookRoom(req).then(function(res){
+                responseGrid.getSingleRoomData($scope.reqDataSingle).then(function(res){
+                  $scope.singleroom_data = res.data.data;
+                  // $scope.$apply(function(){
+                  //   $scope.createSingleRoomSlots($scope.singleroom_data);
+                  // });
+                  angular.element("#singleRoom").html("");
+                  angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid")($scope));
+                  $scope.eventLoader = false;
+                })
+              })
+
+
+            }
 
             $scope.addDurationClass = function(obj, index) {
                 $scope.startIndex = index;

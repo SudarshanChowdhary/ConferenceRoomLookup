@@ -69,10 +69,24 @@
         </table>
 
         <script type="text/ng-template" id="bookSlot.html">
-            <div class="form-group">
-               <label class="popover-roomname">Room Name</label>
+            <div>
+              <div>
+               <label class="popover-roomname">Room Name: </label>
+               <span>{{inputData.room.roomName}}</span>
+              </div>
+              <div>
+               <label class="popover-roomname">From: </label>
+               <span>{{slot.time}}</span>
+              </div>
+              <div>
+               <label class="popover-roomname">To: </label>
+               <span>{{}}</span>
+              </div>
                 <!-- <input type="text" ng-model="bookSlot.title" class="form-control"> -->
-                <button class="btn btn-primary" ng-click="CreatEvent()">Booked</button>
+                <button class="btn btn-primary" ng-click="creatEvent(inputData.room.roomName, inputData.room.roomUid, inputData.room.timezone)">Booked</button>
+                <div style="text-align: center;" class="loader-image" ng-if="eventLoader">
+                    <span class="loader"></span>
+                </div>
             </div>
         </script>
 

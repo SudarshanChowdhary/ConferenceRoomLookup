@@ -90,6 +90,34 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                 $scope.inputData.loader = false;
             }, 1)
 
+            $scope.creatEvent = function(roomName, roomUid, startTime, endTime, timezone){
+              $scope.eventLoader = true;
+              console.log(roomName, roomUid, startTime, endTime, timezone)
+              var req = {
+                  "roomName": roomName,
+                  "roomUid": roomUid,
+                  "startTime": startTime,
+                  "endTime": endTime,
+                  "timezone": timezone
+              }
+
+              responseGrid.bookRoom(req).then(function(res) {
+                responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
+                    $scope.multiroom_data = res.data.data;
+                        angular.forEach($scope.multiroom_data, function(room, m) {
+                            $scope.createSlots(room);
+                        });
+                    $scope.nearbydata = null;
+                    $scope.inputData.showNearByRoom = [false, false, false, false];
+                    $scope.inputData.clickNumber = 0;
+                    $scope.eventLoader = false;
+                    $scope.scrollToTime($scope.initScrollDiv);
+                })
+              })
+
+            }
+
+
 
             $scope.addDurationClass = function(obj, index) {
                 $scope.startIndex = index;
@@ -129,14 +157,14 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                     });
                 });
 
-                var reqData = {
+                $scope.reqDataMulti = {
                     "room": $scope.inputData.room,
                     "searchDate": $scope.inputData.searchDate,
                     "timeRange": $scope.inputData.timeRange,
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
-                responseGrid.getMultipleRoomsData(reqData).then(function(res) {
+                responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
                     $scope.multiroom_data = res.data.data;
                     angular.forEach($scope.multiroom_data, function(room, m) {
                         $scope.createSlots(room);
@@ -175,14 +203,14 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                         roomUid: rm.roomUid
                     });
                 });
-                var reqData = {
+                $scope.reqDataMulti = {
                     "room": $scope.inputData.room,
                     "searchDate": $scope.inputData.searchDate,
                     "timeRange": $scope.inputData.timeRange,
                     "timezone": $scope.inputData.timezone,
                     "unavailable": $scope.inputData.unavailable
                 }
-                responseGrid.getMultipleRoomsData(reqData).then(function(res) {
+                responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
                     $scope.multiroom_data = res.data.data;
                     angular.forEach($scope.multiroom_data, function(room, m) {
                         $scope.createSlots(room);

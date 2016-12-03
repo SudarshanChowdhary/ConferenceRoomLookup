@@ -29,9 +29,6 @@
             flag: true
         };
 
-         $scope.CreatEvent = function(){
-            alert("hi")
-        }
         $scope.seats = [{
             "disable": 1,
             "size": 4,
@@ -164,14 +161,14 @@
                     $scope.inputData.showSingleRoom = false;
                     $scope.inputData.clickNumber = 1;
 
-                    var reqData = {
+                    $scope.reqDataMulti = {
                         "room": $scope.inputData.room,
                         "searchDate": $scope.inputData.searchDate,
                         "timeRange": $scope.inputData.timeRange,
                         "timezone": $scope.inputData.timezone,
                         "unavailable": $scope.inputData.unavailable
                     }
-                    responseGrid.getMultipleRoomsData(reqData).then(function(res) {
+                    responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
                         $scope.multiroom_data = res.data.data;
                         $scope.inputData.showMultiRoom = true;
                         $scope.inputData.loader = false;
@@ -182,7 +179,7 @@
                     $scope.inputData.showMultiRoom = false;
                     $scope.inputData.showNearByRoom = [false, false, false];
 
-                    var reqData = {
+                    $scope.reqDataSingle = {
                         "roomName": $scope.inputData.room.roomName,
                         "roomUid": $scope.inputData.room.roomUid,
                         "searchDate": $scope.inputData.searchDate,
@@ -191,8 +188,7 @@
                         "unavailable": $scope.inputData.unavailable
                     };
 
-                    responseGrid.getSingleRoomData(reqData).then(function(res) {
-                        console.log(res);
+                    responseGrid.getSingleRoomData($scope.reqDataSingle).then(function(res) {
                         $scope.singleroom_data = res.data.data;
                         angular.element("#singleRoom").html("");
                         angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid")($scope));
@@ -203,12 +199,12 @@
         };
 
         $scope.filterRoom = function() {
-          $scope.inputData.amenities =[];
-          $scope.inputData.seats=[];
-          $scope.filterRm = {
-              jsonrooms: [],
-              flag: true
-          };
+            $scope.inputData.amenities = [];
+            $scope.inputData.seats = [];
+            $scope.filterRm = {
+                jsonrooms: [],
+                flag: true
+            };
 
             for (var key in $scope.lookupRoom.amenities) {
                 if ($scope.lookupRoom.amenities[key]) {
@@ -222,7 +218,6 @@
             }
 
             if ($scope.lookupRoom.buildingName && !$scope.lookupRoom.room) {
-                debugger;
                 angular.forEach($scope.roomOptions, function(room) {
                     if ($scope.inputData.amenities.length > 0) {
                         angular.forEach($scope.inputData.amenities, function(ameni) {
@@ -260,25 +255,25 @@
                         }
                     }
                 });
-                if ($scope.filterRm.jsonrooms.length>0) {
+                if ($scope.filterRm.jsonrooms.length > 0) {
                     $scope.filterRm.flag = false;
                 } else {
                     $scope.filterRm.flag = true;
                 }
 
             } else {
-              if($scope.lookupRoom.buildingName && $scope.lookupRoom.room){
-                $scope.filterRm.jsonrooms.push({
-                    "roomName": $scope.lookupRoom.room.roomName,
-                    "roomUid": $scope.lookupRoom.room.roomUid,
-                });
-                $scope.filterRm.flag = false;
-              }
-        }
+                if ($scope.lookupRoom.buildingName && $scope.lookupRoom.room) {
+                    $scope.filterRm.jsonrooms.push({
+                        "roomName": $scope.lookupRoom.room.roomName,
+                        "roomUid": $scope.lookupRoom.room.roomUid,
+                    });
+                    $scope.filterRm.flag = false;
+                }
+            }
         }
         $scope.nearbyBuilding = function() {
             $scope.inputData.loader = true;
-            var reqData = {
+            $scope.reqDataNearBy = {
                 "searchDate": $scope.inputData.searchDate,
                 "timeRange": $scope.inputData.timeRange,
                 "timezone": $scope.inputData.timezone,
@@ -288,7 +283,7 @@
                 "clickNumber": $scope.inputData.clickNumber,
                 "buildingCode": $scope.inputData.buildingCode
             }
-            responseGrid.getNearByRoomData(reqData).then(function(res) {
+            responseGrid.getNearByRoomData($scope.reqDataNearBy).then(function(res) {
                 $scope.inputData.showNearByRoom[$scope.inputData.clickNumber] = true;
                 $scope.nearby_data[$scope.inputData.clickNumber] = res.data.data;
                 console.log($scope.nearby_data[$scope.inputData.clickNumber]);
@@ -378,7 +373,7 @@
                     }
                 })
             }
-        //    $scope.filterRoom();
+            //    $scope.filterRoom();
         };
 
         $scope.loadFloorsAndRooms = function(buildingName) {
@@ -528,8 +523,8 @@
                 $scope.disableAmenity(1);
 
             } else {
-              $scope.resetSeats();
-              $scope.resetAmenity();
+                $scope.resetSeats();
+                $scope.resetAmenity();
 
                 angular.forEach($scope.lookUpData, function(obj) {
                     if (obj.campusName === $scope.lookupRoom.campusName && obj.buildingName === $scope.lookupRoom.buildingName && obj.roomUid == room.roomUid) {
