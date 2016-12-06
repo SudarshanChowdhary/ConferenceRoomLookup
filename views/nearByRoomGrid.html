@@ -88,10 +88,10 @@
               </div>
               <div>
                 <label class="">From : </label>
-                <span>{{room.slot.startDateTime}}
+                <span>{{slot.startDurationTime | date: 'h:mm a' : 'UTC'}}
                 </span>
                 <label class="">To : </label>
-                <span>{{room.slot.endDateTime}}
+                <span>{{slot.endDurationTime | date: 'h:mm a' : 'UTC'}}
                 </span>
               </div>
                 <!-- <input type="text" ng-model="bookSlot.title" class="form-control"> -->

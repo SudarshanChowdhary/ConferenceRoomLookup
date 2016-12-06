@@ -111,15 +111,16 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
               $scope.eventLoader = true;
               console.log(roonName, roomUid, startDurationTime, endDurationTime, timezone)
               var req={
-                "attendeeUid":"788787-898989-78778",
+                "attendeeUid":"FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
                 "attendeeName": "sudarshan",
-                "attendeeEmail":"sudarshan@apple.com",
+                "attendeeEmail":"sudarshan_koyalkar@apple.com",
                 "roonName":roonName,
                 "roomUid":roomUid,
                 "startTime":startDurationTime,
                 "endTime":endDurationTime,
-                "timezone":timezone
+                "timezone":$scope.inputData.timezone
               };
+              console.log(req);
 
               responseGrid.bookRoom(req).then(function(res){
                 responseGrid.getSingleRoomData($scope.reqDataSingle).then(function(res){

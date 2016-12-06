@@ -111,13 +111,16 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
             $scope.creatEvent = function(roomName, roomUid, startDurationTime, endDurationTime, timezone){
               $scope.eventLoader = true;
               console.log(roomName, roomUid, startDurationTime, endDurationTime, timezone)
-              var req = {
-                  "roomName": roomName,
-                  "roomUid": roomUid,
-                  "startTime": startDurationTime,
-                  "endTime": endDurationTime,
-                  "timezone": timezone
-              }
+             var req={
+                "attendeeUid":"FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
+                "attendeeName": "sudarshan",
+                "attendeeEmail":"sudarshan_koyalkar@apple.com",
+                "roonName":roonName,
+                "roomUid":roomUid,
+                "startTime":startDurationTime,
+                "endTime":endDurationTime,
+                "timezone":$scope.inputData.timezone
+              };
 
               responseGrid.bookRoom(req).then(function(res) {
                 responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {

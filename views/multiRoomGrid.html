@@ -73,19 +73,18 @@
         <script type="text/ng-template" style="width:100px;" id="bookSlot.html">
             <div>
               <div>
-                <label class="popover-roomname">Room Name: </label>
                 <span>{{room.roomName}}</span>
               </div>
               <div>
                 <label class="">From : </label>
-                <span>{{slot.startDurationTime}}
+                <span>{{slot.startDurationTime | date: 'h:mm a' : 'UTC'}}
                 </span>
                 <label class="">To : </label>
-                <span>{{slot.endDurationTime}}
+                <span>{{slot.endDurationTime | date: 'h:mm a' : 'UTC'}}
                 </span>
               </div>
                 <!-- <input type="text" ng-model="bookSlot.title" class="form-control"> -->
-                <button class="btn btn-primary" ng-click="creatEvent(room.roomName, room.roomUid, slot.startDurationTime, slot.endDurationTime, room.timezone)">Book</button>
+                <button class="btn btn-primary" ng-click="creatEvent(room.roomName, room.roomUid, slot.startDurationTime, slot.endDurationTime, inputData.timezone)">Book</button>
                 <div style="text-align: center;" class="loader-image" ng-if="eventLoader">
                     <span class="loader"></span>
                 </div>
