@@ -6,7 +6,6 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
             multiroom_data: "@"
         },
         link: function($scope, $ele, $attr) {
-
             $scope.bookSlot = {
                 templateUrl: 'bookSlot.html'
             };
@@ -27,46 +26,64 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                         var freeTime = sdt.getTime() - temp.getTime();
                         freeTime = ((freeTime / 1000) / 60) / 15;
                         freeTime = freeTime.toFixed();
+
+                        var tempTime = temp;
                         for (var i = 0; i < freeTime; i++) {
                             room.slot.push({
+                                "time": tempTime,
                                 "type": "free",
-                                "highlight": false
+                                "highlight": false,
+                                "startDurationTime": null,
+                                "endDurationTime": null
                             });
+                        tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
                         }
                         var busyTime = edt.getTime() - sdt.getTime();
                         busyTime = ((busyTime / 1000) / 60) / 15;
                         busyTime = busyTime.toFixed();
                         for (var i = 0; i < busyTime; i++) {
                             room.slot.push({
+                                "time": tempTime,
                                 "type": "busy",
-                                "highlight": false
+                                "highlight": false,
+                                "startDurationTime": null,
+                                "endDurationTime": null
                             });
+                            tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
                         }
-                        temp = edt;
 
+                        temp = edt;
                         if (n == room.busyslot.length - 1 && edt.getTime() < endDayTime.getTime()) {
                             var freeTime = endDayTime.getTime() - edt.getTime();
                             freeTime = ((freeTime / 1000) / 60) / 15;
                             freeTime = freeTime.toFixed();
                             for (var i = 0; i < freeTime; i++) {
                                 room.slot.push({
+                                    "time": tempTime,
                                     "type": "free",
-                                    "highlight": false
+                                    "highlight": false,
+                                    "startDurationTime": null,
+                                    "endDurationTime": null
                                 });
+                            tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
                             }
                         }
                     });
 
                 } else {
                     room.slot = [];
+                    var tempTime = new Date($scope.inputData.searchDate+"T00:00:00");
                     for (var i = 0; i < 96; i++) {
                         room.slot.push({
+                            "time": tempTime,
                             "type": "free",
-                            "highlight": false
+                            "highlight": false,
+                            "startDurationTime": null,
+                            "endDurationTime": null
                         });
+                        tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
                     }
                 }
-
             };
 
 
@@ -91,14 +108,14 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 })
             }
 
-            $scope.creatEvent = function(roomName, roomUid, startTime, endTime, timezone){
+            $scope.creatEvent = function(roomName, roomUid, startDurationTime, endDurationTime, timezone){
               $scope.eventLoader = true;
-              console.log(roomName, roomUid, startTime, endTime, timezone)
+              console.log(roomName, roomUid, startDurationTime, endDurationTime, timezone)
               var req = {
                   "roomName": roomName,
                   "roomUid": roomUid,
-                  "startTime": startTime,
-                  "endTime": endTime,
+                  "startTime": startDurationTime,
+                  "endTime": endDurationTime,
                   "timezone": timezone
               }
 
@@ -114,28 +131,35 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                         $scope.scrollToTime($scope.initScrollDiv);
                     }, 10);
 
-
                 })
               })
 
             }
 
-
             $scope.addDurationClass = function(obj, index) {
-                $scope.startIndex = index;
+                var startIndex = index;
                 $scope.durationFlag = true;
+                if($scope.inputData.durationIndex){
+                  $scope.inputData.durationIndex=0;
+                }
                 for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
                     if (obj.slot[i].type != 'free') {
-                        $scope.startIndex--;
-                        if (obj.slot[$scope.startIndex].type != 'free') {
+                        startIndex --;
+                        if (obj.slot[startIndex].type != 'free') {
                             $scope.durationFlag = false;
                         }
                     }
                 }
-                if ($scope.durationFlag) {
-                    for (var i = $scope.startIndex; i < $scope.startIndex + $scope.inputData.durationIndex + 1; i++) {
+                if ($scope.durationFlag && startIndex <= index) {
+                    for (var i = startIndex; i < startIndex + $scope.inputData.durationIndex + 1; i++) {
                         obj.slot[i].highlight = true;
+                        obj.slot[i].startDurationTime = obj.slot[i].time;
+                        obj.slot[i].endDurationTime = obj.slot[i+$scope.inputData.durationIndex + 1].time;
                     }
+                }else if(!$scope.durationFlag){
+                      obj.slot[index].highlight = true;
+                      obj.slot[index].startDurationTime = obj.slot[index].time;
+                      obj.slot[index].endDurationTime = obj.slot[index + 1].time;
                 }
             }
 
@@ -143,13 +167,11 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 return (inNumber <= 9) ? "0" + inNumber : inNumber;
             };
 
-
             $scope.removeDurationClass = function(obj, index) {
-                for (var i = $scope.startIndex; i < $scope.startIndex + $scope.inputData.durationIndex + 1; i++) {
+                for (var i = 0; i < 96; i++) {
                     obj.slot[i].highlight = false;
                 }
             };
-
             $scope.PreviousDay = function() {
                 $scope.inputData.loader = true;
                 var PrevDay = new Date();

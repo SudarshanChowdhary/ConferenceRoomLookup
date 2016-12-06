@@ -7,8 +7,15 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
         },
         link: function($scope, $ele, $attr) {
             $scope.bookSlot = {
-                templateUrl: 'bookSlot.html'
+                templateUrl: 'bookSlot.html',
+                resolve: function(index){
+                  alert(index);
+                }
             };
+
+            $scope.showSlotDetails=function(highlight){
+              alert(highlight)
+            }
             $scope.createSingleRoomSlots = function(room) {
                 if (room.events.length != 0) {
                     var dt = room.events[0].startDateTime;
@@ -31,7 +38,9 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                             room.slot.push({
                                 "time": tempTime,
                                 "type": "free",
-                                "highlight": false
+                                "highlight": false,
+                                "startDurationTime": null,
+                                "endDurationTime": null
                             });
                             tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
                         }
@@ -48,13 +57,17 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                                     "firstCell": true,
                                     "organizer": events.organizer,
                                     "busyTill": events.endDateTime.split("T")[1],
-                                    "numberOfBusySlots": busyTime
+                                    "numberOfBusySlots": busyTime,
+                                    "startDurationTime": null,
+                                    "endDurationTime": null
                                 });
                             } else {
                                 room.slot.push({
                                     "time": tempTime,
                                     "type": "busy",
-                                    "highlight": false
+                                    "highlight": false,
+                                    "startDurationTime": null,
+                                    "endDurationTime": null
                                 });
                             }
                             tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
@@ -69,7 +82,9 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                                 room.slot.push({
                                     "time": tempTime,
                                     "type": "free",
-                                    "highlight": false
+                                    "highlight": false,
+                                    "startDurationTime": null,
+                                    "endDurationTime": null
                                 });
                                 tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
                             }
@@ -82,59 +97,64 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                         room.slot.push({
                             "time": tempTime,
                             "type": "free",
-                            "highlight": false
+                            "highlight": false,
+                            "startDurationTime": null,
+                            "endDurationTime": null
                         });
                         tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
                     }
                 }
                 $scope.hours = ["12 AM", "01 AM", "02 AM", "03 AM", "04 AM", "05 AM", "06 AM", "07 AM", "08 AM", "09 AM", "10 AM", "11 AM", "12 PM", "01 PM", "02 PM", "03 PM", "04 PM", "05 PM", "06 PM", "07 PM", "08 PM", "09 PM", "10 PM", "11 PM"];
-                console.log("createSingleRoomSlots Done");
             };
 
-            $scope.creatEvent = function(roonName, roomUid, startTime, endTime, timezone){
+            $scope.creatEvent = function(roonName, roomUid, startDurationTime, endDurationTime, timezone){
               $scope.eventLoader = true;
-              console.log(roonName, roomUid, startTime, endTime, timezone)
+              console.log(roonName, roomUid, startDurationTime, endDurationTime, timezone)
               var req={
                 "attendeeUid":"788787-898989-78778",
                 "attendeeName": "sudarshan",
                 "attendeeEmail":"sudarshan@apple.com",
                 "roonName":roonName,
                 "roomUid":roomUid,
-                "startTime":startTime,
-                "endTime":endTime,
+                "startTime":startDurationTime,
+                "endTime":endDurationTime,
                 "timezone":timezone
               };
 
               responseGrid.bookRoom(req).then(function(res){
                 responseGrid.getSingleRoomData($scope.reqDataSingle).then(function(res){
                   $scope.singleroom_data = res.data.data;
-                  // $scope.$apply(function(){
-                  //   $scope.createSingleRoomSlots($scope.singleroom_data);
-                  // });
                   angular.element("#singleRoom").html("");
                   angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid")($scope));
                   $scope.eventLoader = false;
                 })
               })
-
-
             }
 
             $scope.addDurationClass = function(obj, index) {
-                $scope.startIndex = index;
+                var startIndex = index;
                 $scope.durationFlag = true;
+                if($scope.inputData.durationIndex){
+                  $scope.inputData.durationIndex=0;
+                }
                 for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
                     if (obj.slot[i].type != 'free') {
-                        $scope.startIndex--;
-                        if (obj.slot[$scope.startIndex].type != 'free') {
+                        startIndex --;
+                        if (obj.slot[startIndex].type != 'free') {
                             $scope.durationFlag = false;
                         }
                     }
                 }
-                if ($scope.durationFlag) {
-                    for (var i = $scope.startIndex; i < $scope.startIndex + $scope.inputData.durationIndex + 1; i++) {
+                if ($scope.durationFlag && startIndex <= index) {
+                    for (var i = startIndex; i < startIndex + $scope.inputData.durationIndex + 1; i++) {
                         obj.slot[i].highlight = true;
+                        obj.slot[i].startDurationTime = obj.slot[i].time;
+                        obj.slot[i].endDurationTime = obj.slot[i+$scope.inputData.durationIndex + 1].time;
                     }
+                }else if(!$scope.durationFlag){
+                      obj.slot[index].highlight = true;
+                      obj.slot[index].startDurationTime = obj.slot[index].time;
+                      obj.slot[index].endDurationTime = obj.slot[index + 1].time;
                 }
             }
 
@@ -143,7 +163,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             };
 
             $scope.removeDurationClass = function(obj, index) {
-                for (var i = $scope.startIndex; i < $scope.startIndex + $scope.inputData.durationIndex + 1; i++) {
+                for (var i = 0; i < 96; i++) {
                     obj.slot[i].highlight = false;
                 }
             };

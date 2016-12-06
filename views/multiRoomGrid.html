@@ -78,14 +78,14 @@
               </div>
               <div>
                 <label class="">From : </label>
-                <span>{{room.slot.startDateTime}}
+                <span>{{slot.startDurationTime}}
                 </span>
                 <label class="">To : </label>
-                <span>{{room.slot.endDateTime}}
+                <span>{{slot.endDurationTime}}
                 </span>
               </div>
                 <!-- <input type="text" ng-model="bookSlot.title" class="form-control"> -->
-                <button class="btn btn-primary" ng-click="creatEvent(room.roomName, room.roomUid, room.slot.startDate, room.slot.endDate, room.timezone)">Book</button>
+                <button class="btn btn-primary" ng-click="creatEvent(room.roomName, room.roomUid, slot.startDurationTime, slot.endDurationTime, room.timezone)">Book</button>
                 <div style="text-align: center;" class="loader-image" ng-if="eventLoader">
                     <span class="loader"></span>
                 </div>
