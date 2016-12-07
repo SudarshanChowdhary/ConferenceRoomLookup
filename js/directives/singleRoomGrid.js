@@ -1,4 +1,4 @@
-ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $document, $timeout, $http, $uibModal, $compile, responseGrid) {
+ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $document, $timeout, $http, $uibModal, $filter, $compile, responseGrid) {
     return {
         restrict: "E",
         templateUrl: "views/singleRoomGrid.html",
@@ -107,18 +107,17 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                 $scope.hours = ["12 AM", "01 AM", "02 AM", "03 AM", "04 AM", "05 AM", "06 AM", "07 AM", "08 AM", "09 AM", "10 AM", "11 AM", "12 PM", "01 PM", "02 PM", "03 PM", "04 PM", "05 PM", "06 PM", "07 PM", "08 PM", "09 PM", "10 PM", "11 PM"];
             };
 
-            $scope.creatEvent = function(roonName, roomUid, startDurationTime, endDurationTime, timezone){
+            $scope.creatEvent = function(index){
               $scope.eventLoader = true;
-              console.log(roonName, roomUid, startDurationTime, endDurationTime, timezone)
               var req={
                 "attendeeUid":"FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
                 "attendeeName": "sudarshan",
                 "attendeeEmail":"sudarshan_koyalkar@apple.com",
-                "roonName":roonName,
-                "roomUid":roomUid,
-                "startTime":startDurationTime,
-                "endTime":endDurationTime,
-                "timezone":$scope.inputData.timezone
+                "roomName":$scope.inputData.room.roomName,
+                "roomUid":$scope.inputData.room.roomUid,
+                "startTime": $filter('date')($scope.singleroom_data.slot[index].startDurationTime, 'yyyy-mm-ddThh:mm:ss'),
+                "endTime":$filter('date')($scope.singleroom_data.slot[index].endDurationTime, 'yyyy-mm-ddThh:mm:ss'),
+                "timeZone":$scope.inputData.timezone
               };
               console.log(req);
 
@@ -135,7 +134,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             $scope.addDurationClass = function(obj, index) {
                 var startIndex = index;
                 $scope.durationFlag = true;
-                if($scope.inputData.durationIndex){
+                if(!$scope.inputData.durationIndex){
                   $scope.inputData.durationIndex=0;
                 }
                 for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {

@@ -73,11 +73,11 @@
               </div>
               <div>
                <label>From: </label>
-               <span>{{slot.startDurationTime | date: 'h:mm a' : 'UTC'}}</span>
+               <span>{{slot.startDurationTime | date: 'h:mm a'}}</span>
                <label>To: </label>
-               <span>{{slot.endDurationTime | date: 'h:mm a' : 'UTC'}}</span>
+               <span>{{slot.endDurationTime | date: 'h:mm a'}}</span>
               </div>
-                <button class="btn btn-primary" ng-click="creatEvent(inputData.room.roomName, inputData.room.roomUid, slot.startDurationTime, slot.endDurationTime, inputData.timezone)">Booked</button>
+                <button class="btn btn-primary" ng-click="creatEvent($index)">Booked</button>
                 <div class="loader-image" ng-if="eventLoader">
                     <span class="loader"></span>
                 </div>
