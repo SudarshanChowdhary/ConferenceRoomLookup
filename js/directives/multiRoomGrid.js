@@ -1,4 +1,4 @@
-ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorScroll, $document, $timeout, $http) {
+ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorScroll, $filter, $document, $timeout, $http) {
     return {
         restrict: "E",
         templateUrl: "views/multiRoomGrid.html",
@@ -108,20 +108,21 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 })
             }
 
-            $scope.creatEvent = function(roomName, roomUid, startDurationTime, endDurationTime, timezone){
+            $scope.creatEvent = function(index){
               $scope.eventLoader = true;
-              console.log(roomName, roomUid, startDurationTime, endDurationTime, timezone)
+              // console.log(roomName, roomUid, startDurationTime, endDurationTime, timezone)
              var req={
                 "attendeeUid":"FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
                 "attendeeName": "sudarshan",
                 "attendeeEmail":"sudarshan_koyalkar@apple.com",
-                "roonName":roonName,
-                "roomUid":roomUid,
-                "startTime":startDurationTime,
-                "endTime":endDurationTime,
-                "timezone":$scope.inputData.timezone
+                "roomName":$scope.inputData.room.roomName,
+                "roomUid":$scope.inputData.room.roomUid,
+                "startTime": $filter('date')($scope.multiroom_data.slot[index].startDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
+                "endTime":$filter('date')($scope.multiroom_data.slot[index].endDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
+                "timeZone":$scope.inputData.timezone
               };
 
+              console.log(req);
               responseGrid.bookRoom(req).then(function(res) {
                 responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
                     $scope.multiroom_data = res.data.data;

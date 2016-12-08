@@ -115,13 +115,24 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                 "attendeeEmail":"sudarshan_koyalkar@apple.com",
                 "roomName":$scope.inputData.room.roomName,
                 "roomUid":$scope.inputData.room.roomUid,
-                "startTime": $filter('date')($scope.singleroom_data.slot[index].startDurationTime, 'yyyy-mm-ddThh:mm:ss'),
-                "endTime":$filter('date')($scope.singleroom_data.slot[index].endDurationTime, 'yyyy-mm-ddThh:mm:ss'),
+                "startTime": $filter('date')($scope.singleroom_data.slot[index].startDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
+                "endTime":$filter('date')($scope.singleroom_data.slot[index].endDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
                 "timeZone":$scope.inputData.timezone
               };
+
+              // var req = { "attendeeUid" : "FF5CE544-D5B2-9FBB-5C78-7A392E26B701", 
+              //       "attendeeEmail" : "sudarshan_koyalkar@apple.com",
+              //       "attendeeName" : "sudarshan",
+              //       "roomName" : "CheckIn Testing 001 (2) {RESTRICTED} FSN7 1st",
+              //       "roomUid" : "788BD62E-859F-5F52-E4FD-8464C21A448D",
+              //       "startTime" : "2016-12-08T07:00:00",
+              //       "endTime" : "2016-12-08T07:30:00",
+              //       "timeZone" : "Asia/Kolkata"
+              //       };
               console.log(req);
 
               responseGrid.bookRoom(req).then(function(res){
+                console.log(res);
                 responseGrid.getSingleRoomData($scope.reqDataSingle).then(function(res){
                   $scope.singleroom_data = res.data.data;
                   angular.element("#singleRoom").html("");
@@ -134,7 +145,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             $scope.addDurationClass = function(obj, index) {
                 var startIndex = index;
                 $scope.durationFlag = true;
-                if(!$scope.inputData.durationIndex){
+                if($scope.inputData.durationIndex){
                   $scope.inputData.durationIndex=0;
                 }
                 for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
