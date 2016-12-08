@@ -131,6 +131,7 @@ span a:hover {
     text-decoration: none !important;
     min-height: 30px;
     color: #fff;
+    z-index: 500;
 
 }
 
@@ -152,12 +153,13 @@ height: 25px;
 
 }
 
-div.gridData div {
+div.gridData .cells {
     height: 30px;
     width: 25px !important;
     display: inline-block;
     border-right: 1px solid #ccc;
-}
+    position: relative;
+   }
 
 div.gridData div:nth-child(4n) {
     border-right: 1px solid #ddd;
@@ -204,6 +206,13 @@ div.gridData div:nth-child(4n) {
 
 [fixed-first-column]>.table-responsive {
     margin-left: 400px;
+    z-index: 50;
+
+}
+.table-responsive{
+    overflow: hidden;
+    overflow-x: scroll;
+    z-index: 30;
 }
 
 [fixed-first-column]>.table-responsive .table {
@@ -269,7 +278,7 @@ cursor: pointer;
     /* left: 174px !important;*/
 }
 
-.popover-content {
+.legend-info-popover {
     width: 420px !important;
 }
 
@@ -425,4 +434,17 @@ cursor: pointer;
 
 padding: 30px;
 background: url('../images/load.gif') center center no-repeat transparent;
+}
+
+
+/*css for tooltip popover*/
+
+.book-room{
+    width: 250px !important;
+    z-index: 500;
+    
+}
+.scroll-popover-fix{
+
+position:relative;
 }

@@ -42,12 +42,13 @@
         </tr>
     </table>
     <div class="ScrollStyle">
-        <table class="table">
+        <table class="table scroll-popover-fix">
             <tr ng-repeat="slot in singleroom_data.slot track by $index">
                 <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]}}">{{hours[$index/4]}}</td>
                 <td ng-if="slot.type=='free'" class="border-line">
                   <a uib-popover-template="bookSlot.templateUrl" class="free"
-                        popover-append-to-body="true"
+                        popover-class= "book-room"
+                        popover-append-to-body="false"
                         popover-trigger="outsideClick: outsideClick"
                         popover-placement="bottom"
                         ng-if="slot.type=='free'"
@@ -66,7 +67,7 @@
             </tr>
         </table>
 
-        <script type="text/ng-template" id="bookSlot.html">
+        <script class="scroll-popover-fix" type="text/ng-template" id="bookSlot.html">
             <div>
               <div>
                {{inputData.room.roomName}}
@@ -77,10 +78,10 @@
                <label>To: </label>
                <span>{{slot.endDurationTime | date: 'h:mm a' : 'UTC'}}</span>
               </div>
-                <button class="btn btn-primary" ng-click="creatEvent($index)">Book Room</button>
-                <div class="loader-image" ng-if="eventLoader">
+                <button class="btn btn-primary btn-block" ng-click="creatEvent($index)">Book Room <span class="loader-image" ng-if="eventLoader">
                     <span class="loader"></span>
-                </div>
+                </span></button>
+                
             </div>
         </script>
 
