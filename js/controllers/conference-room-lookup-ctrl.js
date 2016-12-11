@@ -11,10 +11,14 @@
         $scope.specificTime = false;
         $scope.timeFrom = timeRangeService.getFromTimeOptions();
         $scope.timeTo = timeRangeService.getToTimeOptions();
+        $scope.durationTime = durationService.getDuration();
+        console.log($scope.durationTime[0])
         $scope.lookupRoom = {
             "date": new Date(),
-            "unavailable": 0
+            "unavailable": 0,
+            "duration": $scope.durationTime[0]
         };
+
         $scope.inputData = {
             showMultiRoom: false,
             showSingleRoom: false,
@@ -347,7 +351,7 @@
             }
         });
 
-        $scope.durationTime = durationService.getDuration();
+
 
         $scope.loadBuilding = function(campus) {
             $scope.buildingOptions = [];

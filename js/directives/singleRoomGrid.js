@@ -7,15 +7,9 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
         },
         link: function($scope, $ele, $attr) {
             $scope.bookSlot = {
-                templateUrl: 'bookSlot.html',
-                resolve: function(index){
-                  alert(index);
-                }
+                templateUrl: 'bookSlot.html'
             };
 
-            $scope.showSlotDetails=function(highlight){
-              alert(highlight)
-            }
             $scope.createSingleRoomSlots = function(room) {
                 if (room.events.length != 0) {
                     var dt = room.events[0].startDateTime;
@@ -39,6 +33,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                                 "time": tempTime,
                                 "type": "free",
                                 "highlight": false,
+                                "selected": false,
                                 "startDurationTime": null,
                                 "endDurationTime": null
                             });
@@ -54,6 +49,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                                     "displayTime": events.startDateTime.split("T")[1],
                                     "type": "busy",
                                     "highlight": false,
+                                    "selected": false,
                                     "firstCell": true,
                                     "organizer": events.organizer,
                                     "busyTill": events.endDateTime.split("T")[1],
@@ -66,6 +62,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                                     "time": tempTime,
                                     "type": "busy",
                                     "highlight": false,
+                                    "selected": false,
                                     "startDurationTime": null,
                                     "endDurationTime": null
                                 });
@@ -83,6 +80,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                                     "time": tempTime,
                                     "type": "free",
                                     "highlight": false,
+                                    "selected": false,
                                     "startDurationTime": null,
                                     "endDurationTime": null
                                 });
@@ -98,6 +96,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                             "time": tempTime,
                             "type": "free",
                             "highlight": false,
+                            "selected": false,
                             "startDurationTime": null,
                             "endDurationTime": null
                         });
@@ -145,9 +144,6 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             $scope.addDurationClass = function(obj, index) {
                 var startIndex = index;
                 $scope.durationFlag = true;
-                if($scope.inputData.durationIndex){
-                  $scope.inputData.durationIndex=0;
-                }
                 for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
                     if (obj.slot[i].type != 'free') {
                         startIndex --;
@@ -179,6 +175,31 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                 }
             };
 
+            $scope.addSelectedClass = function(obj, index) {
+
+                for (var i = 0; i < 96; i++) {
+                    obj.slot[i].selected = false;
+                }
+
+                var startIndex = index;
+                $scope.selectedDurationFlag = true;
+                for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
+                    if (obj.slot[i].type != 'free') {
+                        startIndex --;
+                        if (obj.slot[startIndex].type != 'free') {
+                            $scope.selectedDurationFlag = false;
+                        }
+                    }
+                }
+                if ($scope.selectedDurationFlag && startIndex <= index) {
+                    for (var i = startIndex; i < startIndex + $scope.inputData.durationIndex + 1; i++) {
+                        obj.slot[i].selected = true;
+                    }
+                }else if(!$scope.selectedDurationFlag){
+                      obj.slot[index].selected = true;
+                }
+            }
+
 
             $timeout(function() {
                 $scope.createSingleRoomSlots($scope.singleroom_data);
@@ -207,3 +228,4 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
         }
     }
 });
+

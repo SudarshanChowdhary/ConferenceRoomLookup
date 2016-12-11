@@ -51,10 +51,12 @@
                         popover-append-to-body="false"
                         popover-trigger="outsideClick: outsideClick"
                         popover-placement="bottom"
+                        popover-dismiss="close()"
                         ng-if="slot.type=='free'"
                         ng-mouseover="addDurationClass(singleroom_data, $index)"
                         ng-mouseout="removeDurationClass(singleroom_data, $index)"
-                        ng-class="{'highlight-free-slot':slot.highlight}">&nbsp;</a>
+                        ng-click="addSelectedClass(singleroom_data, $index)"
+                        ng-class="{'highlight-free-slot':slot.highlight, 'selected-free-slot': slot.selected}">&nbsp;</a>
                 </td>
                 <td ng-if="slot.type=='busy'" class="border-line busy">
                     <div ng-if="slot.firstCell==true" class="row busy-center">

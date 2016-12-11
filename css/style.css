@@ -137,7 +137,6 @@ span a:hover {
 
 .free:hover {
     cursor: pointer;
-    background-color: #3384FB;
 }
 
 div.gridData, div.gridHeader {
@@ -408,7 +407,11 @@ cursor: pointer;
 }
 
 .highlight-free-slot {
-    background-color: #3384FB;
+    background-color: #ccc;
+}
+
+.selected-free-slot{
+    background-color: red;
 }
 
 .sr-booked span:first-child {
@@ -431,7 +434,6 @@ cursor: pointer;
 }
 
 .loader{
-
 padding: 30px;
 background: url('../images/load.gif') center center no-repeat transparent;
 }

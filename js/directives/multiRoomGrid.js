@@ -86,8 +86,6 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 }
             };
 
-
-
             $timeout(function() {
                 angular.forEach($scope.multiroom_data, function(room, m) {
                     $scope.createSlots(room);
@@ -130,7 +128,6 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                             $scope.createSlots(room);
                         });
                     $scope.eventLoader = false;
-
                     $timeout(function() {
                         $scope.scrollToTime($scope.initScrollDiv);
                     }, 10);
