@@ -12,7 +12,7 @@
         $scope.timeFrom = timeRangeService.getFromTimeOptions();
         $scope.timeTo = timeRangeService.getToTimeOptions();
         $scope.durationTime = durationService.getDuration();
-        console.log($scope.durationTime[0])
+        console.log($scope.durationTime[0]);
         $scope.lookupRoom = {
             "date": new Date(),
             "unavailable": 0,

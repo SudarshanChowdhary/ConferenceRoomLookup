@@ -53,7 +53,74 @@
         }
         ],
         "roomUid": "6E07A344-59EE-B829-D62D-CDB1E7197516"
+    },
+    {
+        "status": "busy",
+        "roomName": "{M} Denali [AVCN] (18) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:30:00.000-05:00"
+        }
+        ],
+        "roomUid": "AF39D31E-0A8C-27BE-8D35-7C957E0E7571"
+    }, {
+        "status": "busy",
+        "roomName": "CarreraGT [AVCN] (18) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T11:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:30:00.000-05:00"
+        }
+        ],
+        "roomUid": "6E07A344-59EE-B829-D62D-CDB1E7197516"
+    },
+    {
+        "status": "busy",
+        "roomName": "{M} Denali [AVCN] (18) PL04 4th",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T09:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T09:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T14:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T14:55:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T15:30:00.000-05:00"
+        }
+        ],
+        "roomUid": "AF39D31E-0A8C-27BE-8D35-7C957E0E7571"
+    }, {
+        "status": "busy",
+        "roomName": "CarreraGT [AVCN] (18) PL04 3rd",
+        "busyslot": [{
+            "startDateTime": "2016-09-28T11:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T13:00:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T15:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T16:30:00.000-05:00"
+        }
+        ],
+        "roomUid": "6E07A344-59EE-B829-D62D-CDB1E7197516"
     }
+
     ],
     "success": "true"
 }

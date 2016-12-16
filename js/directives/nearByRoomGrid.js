@@ -1,4 +1,4 @@
-ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, responseGrid, $document, $timeout) {
+ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, responseGrid, $document, $timeout, $filter) {
     return {
         restrict: "E",
         templateUrl: "views/nearByRoomGrid.html",
@@ -90,16 +90,19 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                 $scope.inputData.loader = false;
             }, 1)
 
-            $scope.creatEvent = function(roomName, roomUid, startTime, endTime, timezone){
-              $scope.eventLoader = true;
-              console.log(roomName, roomUid, startTime, endTime, timezone)
-              var req = {
-                  "roomName": roomName,
-                  "roomUid": roomUid,
-                  "startTime": startTime,
-                  "endTime": endTime,
-                  "timezone": timezone
-              }
+            $scope.creatEvent = function(index){
+            $scope.eventLoader = true;
+              // console.log(roomName, roomUid, startDurationTime, endDurationTime, timezone)
+             var req={
+                "attendeeUid":"FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
+                "attendeeName": "sudarshan",
+                "attendeeEmail":"sudarshan_koyalkar@apple.com",
+                "roomName":$scope.inputData.room.roomName,
+                "roomUid":$scope.inputData.room.roomUid,
+                "startTime": $filter('date')($scope.multiroom_data.slot[index].startDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
+                "endTime":$filter('date')($scope.multiroom_data.slot[index].endDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
+                "timeZone":$scope.inputData.timezone
+              };
 
               responseGrid.bookRoom(req).then(function(res) {
                 responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {

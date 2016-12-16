@@ -107,6 +107,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
             }
 
             $scope.creatEvent = function(index){
+               
               $scope.eventLoader = true;
               // console.log(roomName, roomUid, startDurationTime, endDurationTime, timezone)
              var req={
@@ -173,6 +174,33 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                     obj.slot[i].highlight = false;
                 }
             };
+
+             $scope.addSelectedClass = function(obj, index) {
+                console.log(obj.slot[i]);
+
+                for (var i = 0; i < 96; i++) {
+                    obj.slot[i].selected = false;
+                }
+
+                var startIndex = index;
+                $scope.selectedDurationFlag = true;
+                for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
+                    if (obj.slot[i].type != 'free') {
+                        startIndex --;
+                        if (obj.slot[startIndex].type != 'free') {
+                            $scope.selectedDurationFlag = false;
+                        }
+                    }
+                }
+                if ($scope.selectedDurationFlag && startIndex <= index) {
+                    for (var i = startIndex; i < startIndex + $scope.inputData.durationIndex + 1; i++) {
+                        obj.slot[i].selected = true;
+                    }
+                }else if(!$scope.selectedDurationFlag){
+                      obj.slot[index].selected = true;
+                }
+            }
+
             $scope.PreviousDay = function() {
                 $scope.inputData.loader = true;
                 var PrevDay = new Date();

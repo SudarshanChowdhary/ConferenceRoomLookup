@@ -107,6 +107,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             };
 
             $scope.creatEvent = function(index){
+                debugger;
               $scope.eventLoader = true;
               var req={
                 "attendeeUid":"FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
@@ -118,16 +119,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                 "endTime":$filter('date')($scope.singleroom_data.slot[index].endDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
                 "timeZone":$scope.inputData.timezone
               };
-
-              // var req = { "attendeeUid" : "FF5CE544-D5B2-9FBB-5C78-7A392E26B701", 
-              //       "attendeeEmail" : "sudarshan_koyalkar@apple.com",
-              //       "attendeeName" : "sudarshan",
-              //       "roomName" : "CheckIn Testing 001 (2) {RESTRICTED} FSN7 1st",
-              //       "roomUid" : "788BD62E-859F-5F52-E4FD-8464C21A448D",
-              //       "startTime" : "2016-12-08T07:00:00",
-              //       "endTime" : "2016-12-08T07:30:00",
-              //       "timeZone" : "Asia/Kolkata"
-              //       };
+              
               console.log(req);
 
               responseGrid.bookRoom(req).then(function(res){
