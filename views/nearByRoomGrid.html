@@ -71,20 +71,11 @@
                                 popover-placement="bottom"
                                 ng-if="slot.type=='free'"
                                 ng-mouseover="addDurationClass(room, $index)"
-                                ng-mouseout="removeDurationClass(room, $index)"
-                                ng-class="{'highlight-free-slot':slot.highlight, 
-                                'selected-free-slot': slot.selected,
-                                'free':slot.type=='free'}">&nbsp;</a>
-                          <div ng-if="slot.type!='free'" class="busy">&nbsp;</div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-        </table>
-        </div>
-
-        <script type="text/ng-template" style="width:100px;" id="bookSlot.html">
+                                ng-mouseout="removeDurationClass(building, $index)"
+                                ng-class="{'highlight-free-slot':slot.highlight, 'selected-free-slot': slot.selected, 'free':slot.type=='free'}"
+                                ng-click="addSelectedClass(building, room, $index)">&nbsp;</a>
+                                <div ng-if="slot.type!='free'" class="busy">&nbsp;</div>
+                                  <script type="text/ng-template" style="width:100px;" id="nearByBookSlot.html">
             <div>
               <div>
                 <span>{{room.roomName}}</span>
@@ -98,11 +89,20 @@
                 </span>
               </div>
                 <!-- <input type="text" ng-model="bookSlot.title" class="form-control"> -->
-                <button class="btn btn-primary btn-block" ng-click="creatEvent($index)">Book Room <span class="loader-image" ng-if="eventLoader">
+                <button class="btn btn-primary btn-block" ng-click="creatEvent(room, $index)">Book Room <span class="loader-image" ng-if="eventLoader">
                     <span class="loader"></span>
                 </span></button>
             </div>
         </script>
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+        </div>
+
     </section>
 
 

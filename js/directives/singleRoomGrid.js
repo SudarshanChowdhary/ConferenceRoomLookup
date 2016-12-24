@@ -107,7 +107,6 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             };
 
             $scope.creatEvent = function(index){
-                debugger;
               $scope.eventLoader = true;
               var req={
                 "attendeeUid":"FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
@@ -129,6 +128,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                   angular.element("#singleRoom").html("");
                   angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid")($scope));
                   $scope.eventLoader = false;
+//                  $scope.$apply();
                 })
               })
             }

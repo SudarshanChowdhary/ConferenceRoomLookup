@@ -33,6 +33,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                                 "time": tempTime,
                                 "type": "free",
                                 "highlight": false,
+                                "selected": false,
                                 "startDurationTime": null,
                                 "endDurationTime": null
                             });
@@ -46,6 +47,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                                 "time": tempTime,
                                 "type": "busy",
                                 "highlight": false,
+                                "selected": false,
                                 "startDurationTime": null,
                                 "endDurationTime": null
                             });
@@ -62,6 +64,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                                     "time": tempTime,
                                     "type": "free",
                                     "highlight": false,
+                                    "selected": false,
                                     "startDurationTime": null,
                                     "endDurationTime": null
                                 });
@@ -78,6 +81,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                             "time": tempTime,
                             "type": "free",
                             "highlight": false,
+                            "selected": false,
                             "startDurationTime": null,
                             "endDurationTime": null
                         });
@@ -106,8 +110,8 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 })
             }
 
-            $scope.creatEvent = function(index){
-               
+            $scope.creatEvent = function(room, index){
+
               $scope.eventLoader = true;
               // console.log(roomName, roomUid, startDurationTime, endDurationTime, timezone)
              var req={
@@ -116,8 +120,8 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 "attendeeEmail":"sudarshan_koyalkar@apple.com",
                 "roomName":$scope.inputData.room.roomName,
                 "roomUid":$scope.inputData.room.roomUid,
-                "startTime": $filter('date')($scope.multiroom_data.slot[index].startDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
-                "endTime":$filter('date')($scope.multiroom_data.slot[index].endDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
+                "startTime": $filter('date')(room.slot[index].startDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
+                "endTime":$filter('date')(room.slot[index].endDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
                 "timeZone":$scope.inputData.timezone
               };
 
@@ -169,18 +173,20 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 return (inNumber <= 9) ? "0" + inNumber : inNumber;
             };
 
-            $scope.removeDurationClass = function(obj, index) {
-                for (var i = 0; i < 96; i++) {
-                    obj.slot[i].highlight = false;
-                }
+            $scope.removeDurationClass = function(building, index) {
+                angular.forEach(building, function(room){
+                    angular.forEach(room.slot, function(slot){
+                        slot.highlight = false;
+                    })
+                })
             };
 
-             $scope.addSelectedClass = function(obj, index) {
-                console.log(obj.slot[i]);
-
-                for (var i = 0; i < 96; i++) {
-                    obj.slot[i].selected = false;
-                }
+             $scope.addSelectedClass = function(building, obj, index) {
+                angular.forEach(building, function(room){
+                    angular.forEach(room.slot, function(slot){
+                        slot.selected = false;
+                    })
+                })
 
                 var startIndex = index;
                 $scope.selectedDurationFlag = true;

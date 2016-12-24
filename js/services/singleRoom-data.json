@@ -1,9 +1,17 @@
 {
    "data": {
-       "events": [],
+       "events": [{
+            "startDateTime": "2016-09-28T10:00:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T10:30:00.000-05:00"
+        }, {
+            "startDateTime": "2016-09-28T11:30:00.000-05:00",
+            "type": "busy",
+            "endDateTime": "2016-09-28T12:00:00.000-05:00"
+        }],
        "emailBookers": [],
        "roomName": "Fenway Park (8) CB02 13th",
        "roomUid": "82FE757B-C5C6-B1DA-4190-ED833A66B6BD"
-   },
+      },
    "success": "true"
 }
