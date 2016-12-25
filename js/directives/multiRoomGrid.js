@@ -145,9 +145,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
             $scope.addDurationClass = function(obj, index) {
                 var startIndex = index;
                 $scope.durationFlag = true;
-                if($scope.inputData.durationIndex){
-                  $scope.inputData.durationIndex=0;
-                }
+                
                 for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
                     if (obj.slot[i].type != 'free') {
                         startIndex --;

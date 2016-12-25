@@ -389,8 +389,7 @@ cursor: pointer;
 
 .ScrollStyle table tbody tr td.free:hover {
     cursor: pointer;
-    /*background-color: #dbeaff;*/
-     background-color: #dbeaff !important;
+    background-color: #dbeaff;
 }
 
 .divider {
@@ -413,7 +412,7 @@ cursor: pointer;
 }
 
 .selected-free-slot{
-    background-color: #3487fa;
+    background-color: #3487fa !important;
 }
 
 .sr-booked span:first-child {
