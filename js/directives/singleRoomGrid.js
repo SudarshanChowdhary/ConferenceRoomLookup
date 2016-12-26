@@ -90,7 +90,8 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                     });
                 } else {
                     room.slot = [];
-                    var tempTime = new Date("2016-07-25T00:00:00");
+                    var tempTime = $scope.inputData.d.getFullYear() + "-" + ($scope.inputData.d.getMonth() + 1) + "-" + $scope.inputData.d.getDate();
+                    tempTime = new Date(tempTime+"T00:00:00");
                     for (var i = 0; i < 96; i++) {
                         room.slot.push({
                             "time": tempTime,

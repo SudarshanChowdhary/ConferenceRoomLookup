@@ -78,7 +78,8 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
 
                 } else {
                     room.slot = [];
-                    var tempTime = new Date($scope.inputData.searchDate+"T00:00:00");
+                    var tempTime = $scope.inputData.d.getFullYear() + "-" + ($scope.inputData.d.getMonth() + 1) + "-" + $scope.inputData.d.getDate();
+                    tempTime = new Date(tempTime+"T00:00:00");
                     for (var i = 0; i < 96; i++) {
                         room.slot.push({
                             "time": tempTime,
@@ -120,8 +121,8 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                 "attendeeUid":"FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
                 "attendeeName": "sudarshan",
                 "attendeeEmail":"sudarshan_koyalkar@apple.com",
-                "roomName":$scope.inputData.room.roomName,
-                "roomUid":$scope.inputData.room.roomUid,
+                "roomName":room.roomName,
+                "roomUid":room.roomUid,
                 "startTime": $filter('date')(room.slot[index].startDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
                 "endTime":$filter('date')(room.slot[index].endDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
                 "timeZone":$scope.inputData.timezone

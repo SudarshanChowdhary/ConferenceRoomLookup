@@ -28,6 +28,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                         freeTime = freeTime.toFixed();
 
                         var tempTime = temp;
+                        console.log(tempTime);
                         for (var i = 0; i < freeTime; i++) {
                             room.slot.push({
                                 "time": tempTime,
@@ -75,7 +76,8 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
 
                 } else {
                     room.slot = [];
-                    var tempTime = new Date($scope.inputData.searchDate+"T00:00:00");
+                var tempTime = $scope.inputData.d.getFullYear() + "-" + ($scope.inputData.d.getMonth() + 1) + "-" + $scope.inputData.d.getDate();
+                    tempTime = new Date(tempTime+"T00:00:00");
                     for (var i = 0; i < 96; i++) {
                         room.slot.push({
                             "time": tempTime,
@@ -86,6 +88,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                             "endDurationTime": null
                         });
                         tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
+                       // console.log(room.slot[i].time)
                     }
                 }
             };
@@ -118,8 +121,8 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 "attendeeUid":"FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
                 "attendeeName": "sudarshan",
                 "attendeeEmail":"sudarshan_koyalkar@apple.com",
-                "roomName":$scope.inputData.room.roomName,
-                "roomUid":$scope.inputData.room.roomUid,
+                "roomName":room.roomName,
+                "roomUid":room.roomUid,
                 "startTime": $filter('date')(room.slot[index].startDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
                 "endTime":$filter('date')(room.slot[index].endDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
                 "timeZone":$scope.inputData.timezone
@@ -144,6 +147,8 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
 
             $scope.addDurationClass = function(obj, index) {
                 var startIndex = index;
+                console.log(obj)
+
                 $scope.durationFlag = true;
                 
                 for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
@@ -159,6 +164,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                         obj.slot[i].highlight = true;
                         obj.slot[i].startDurationTime = obj.slot[i].time;
                         obj.slot[i].endDurationTime = obj.slot[i+$scope.inputData.durationIndex + 1].time;
+
                     }
                 }else if(!$scope.durationFlag){
                       obj.slot[index].highlight = true;
