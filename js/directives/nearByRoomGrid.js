@@ -115,6 +115,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
             }, 1)
 
             $scope.creatEvent = function(room, index){
+            $scope.reservationComplete = false;
             $scope.eventLoader = true;
               // console.log(roomName, roomUid, startDurationTime, endDurationTime, timezone)
              var req={
@@ -130,6 +131,8 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
 
               responseGrid.bookRoom(req).then(function(res) {
                 responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
+                    $scope.reservationComplete = true;
+                     $timeout(function() {
                     $scope.multiroom_data = res.data.data;
                         angular.forEach($scope.multiroom_data, function(room, m) {
                             $scope.createSlots(room);
@@ -139,11 +142,13 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                     $scope.inputData.clickNumber = 0;
                     $scope.eventLoader = false;
                     $scope.scrollToTime($scope.initScrollDiv);
+                     },3000);
                 })
               })
             }
 
             $scope.addDurationClass = function(obj, index) {
+                 $scope.reservationComplete = false;
                 var startIndex = index;
                 $scope.durationFlag = true;
                 

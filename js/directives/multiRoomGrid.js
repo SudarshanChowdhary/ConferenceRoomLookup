@@ -114,7 +114,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
             }
 
             $scope.creatEvent = function(room, index){
-
+                $scope.reservationComplete = false;
               $scope.eventLoader = true;
               // console.log(roomName, roomUid, startDurationTime, endDurationTime, timezone)
              var req={
@@ -131,11 +131,14 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
               console.log(req);
               responseGrid.bookRoom(req).then(function(res) {
                 responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
+                     $scope.reservationComplete = true;
+                     $timeout(function() {
                     $scope.multiroom_data = res.data.data;
                         angular.forEach($scope.multiroom_data, function(room, m) {
                             $scope.createSlots(room);
                         });
-                    $scope.eventLoader = false;
+                    $scope.eventLoader = false;  
+                },3000);
                     $timeout(function() {
                         $scope.scrollToTime($scope.initScrollDiv);
                     }, 10);
@@ -186,6 +189,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
             };
 
              $scope.addSelectedClass = function(building, obj, index) {
+                $scope.reservationComplete = false;
                 angular.forEach(building, function(room){
                     angular.forEach(room.slot, function(slot){
                         slot.selected = false;

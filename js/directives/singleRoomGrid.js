@@ -108,6 +108,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             };
 
             $scope.creatEvent = function(index){
+            $scope.reservationComplete = false;
               $scope.eventLoader = true;
               var req={
                 "attendeeUid":"FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
@@ -125,16 +126,20 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
               responseGrid.bookRoom(req).then(function(res){
                 console.log(res);
                 responseGrid.getSingleRoomData($scope.reqDataSingle).then(function(res){
+                    $scope.reservationComplete = true;
+                     $timeout(function() {
                   $scope.singleroom_data = res.data.data;
                   angular.element("#singleRoom").html("");
                   angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid")($scope));
                   $scope.eventLoader = false;
 //                  $scope.$apply();
+                    },3000);
                 })
               })
             }
 
             $scope.addDurationClass = function(obj, index) {
+                 $scope.reservationComplete = false;
                 var startIndex = index;
                 $scope.durationFlag = true;
                 for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
