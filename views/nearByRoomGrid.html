@@ -65,7 +65,7 @@
                     <div class="gridData">
                         <div class="cells" ng-repeat="slot in room.slot">
                           <a uib-popover-template="bookSlot.templateUrl"
-                                popover-class= "book-room" 
+                                popover-class= "book-room"
                                 popover-append-to-body="true"
                                 popover-trigger="outsideClick: outsideClick"
                                 popover-placement="bottom"
@@ -93,7 +93,7 @@
                     <span class="loader"></span>
                 </span></button>
             </div>
-            <div ng-if="reservationComplete">
+            <div class="reservation-complete" ng-if="reservationComplete">
         Your reserveration is completed. You can change the event details in Calendar.
     </div>
         </script>

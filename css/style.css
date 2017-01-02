@@ -446,9 +446,13 @@ background: url('../images/load.gif') center center no-repeat transparent;
     width: 250px !important;
     z-index: 500;
     position: absolute;
-    
+
 }
 .scroll-popover-fix{
 
 position:relative;
+}
+.reservation-complete{
+    text-align: center;
+    font-weight: bold;
 }
