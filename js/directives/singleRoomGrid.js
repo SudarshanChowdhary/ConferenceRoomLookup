@@ -129,8 +129,9 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                     $scope.reservationComplete = true;
                      $timeout(function() {
                   $scope.singleroom_data = res.data.data;
+                  $scope.createSingleRoomSlots($scope.singleroom_data);
                   angular.element("#singleRoom").html("");
-                  angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid")($scope));
+                  angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid>")($scope));
                   $scope.eventLoader = false;
 //                  $scope.$apply();
                     },3000);

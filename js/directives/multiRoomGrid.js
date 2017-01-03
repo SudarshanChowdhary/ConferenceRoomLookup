@@ -1,4 +1,4 @@
-ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorScroll, $filter, $document, $timeout, $http) {
+ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorScroll, $filter, $document, $timeout, $http, $compile) {
     return {
         restrict: "E",
         templateUrl: "views/multiRoomGrid.html",
@@ -133,10 +133,13 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
                      $scope.reservationComplete = true;
                      $timeout(function() {
-                    $scope.multiroom_data = res.data.data;
+                     $scope.multiroom_data = res.data.data;
+                      angular.element("#multi-room-gird").html("");
+ 
                         angular.forEach($scope.multiroom_data, function(room, m) {
                             $scope.createSlots(room);
                         });
+                      angular.element("#multi-room-gird").append($compile("<multi-room-grid></multi-room-grid>")($scope));
                     $scope.eventLoader = false;  
                 },3000);
                     $timeout(function() {
