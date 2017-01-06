@@ -69,7 +69,7 @@
                             ng-click="addSelectedClass(multiroom_data, room, $index)">&nbsp;</a>
                             <div ng-if="slot.type!='free'" class="busy">&nbsp;</div>
             <script type="text/ng-template" style="width:100px;" id="bookSlot.html">
-            <div class="" ng-if="!reservationComplete">
+            <div class="" ng-if="!reservationComplete || !reservationInComplete">
               <div>
                 <span>{{room.roomName}}</span>
               </div>
@@ -90,6 +90,9 @@
             <div class="reservation-complete" ng-if="reservationComplete">
         Your reserveration is completed. You can change the event details in Calendar.
     </div>
+    <div class="reservation-complete" ng-if="reservationInComplete">
+Your reserveration is incompleted. You can change the event details in Calendar.
+</div>
         </script>
 
                         </div>

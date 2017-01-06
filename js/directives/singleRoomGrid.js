@@ -126,12 +126,15 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                 responseGrid.bookRoom(req).then(function(res) {
                     console.log(res);
                     $scope.reservationComplete = true;
-                    if (res.statusText=="OK") {
+                    if (res.data.success=="true") {
                       for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
                           $scope.singleroom_data.slot[i].type = "busy";
                       }
                       $scope.eventLoader = false;
                       $scope.reservationComplete = true;
+                    }else if(res.data.success=="false"){
+                      // eror message
+
                     }
                 })
             }

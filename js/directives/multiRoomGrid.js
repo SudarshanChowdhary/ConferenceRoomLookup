@@ -115,6 +115,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
 
             $scope.creatEvent = function(room, index){
                 $scope.reservationComplete = false;
+                  $scope.reservationInComplete = false;
               $scope.eventLoader = true;
               // console.log(roomName, roomUid, startDurationTime, endDurationTime, timezone)
              var req={
@@ -129,19 +130,26 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
               };
 
               responseGrid.bookRoom(req).then(function(res) {
-                if (res.statusText=="OK") {
+                console.log(res.data.success);
+                if (res.data.success=="true") {
                   for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
                       room.slot[i].type = "busy";
                   }
                   $scope.eventLoader = false;
                   $scope.reservationComplete = true;
+                    $scope.reservationInComplete = true;
                 }
+                // else (res.data.success=="false") {
+                //   //res.data.error
+                //    {"error" : e, "success" : "false"} this the
+                // }
               })
 
             }
 
             $scope.addDurationClass = function(obj, index) {
                 $scope.reservationComplete = false;
+                  $scope.reservationInComplete = false;
                 var startIndex = 0;
                 var durationIndex = $scope.inputData.durationIndex + 1;
                 var endIndex = 0;
@@ -188,6 +196,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
 
              $scope.addSelectedClass = function(building, obj, index) {
                 $scope.reservationComplete = false;
+                  $scope.reservationInComplete = false;
                 angular.forEach(building, function(room){
                     angular.forEach(room.slot, function(slot){
                         slot.selected = false;
