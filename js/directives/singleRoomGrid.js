@@ -91,7 +91,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                 } else {
                     room.slot = [];
                     var tempTime = $scope.inputData.d.getFullYear() + "-" + ($scope.inputData.d.getMonth() + 1) + "-" + $scope.inputData.d.getDate();
-                    tempTime = new Date(tempTime+"T00:00:00");
+                    tempTime = new Date(tempTime + "T00:00:00");
                     for (var i = 0; i < 96; i++) {
                         room.slot.push({
                             "time": tempTime,
@@ -107,61 +107,67 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                 $scope.hours = ["12 AM", "01 AM", "02 AM", "03 AM", "04 AM", "05 AM", "06 AM", "07 AM", "08 AM", "09 AM", "10 AM", "11 AM", "12 PM", "01 PM", "02 PM", "03 PM", "04 PM", "05 PM", "06 PM", "07 PM", "08 PM", "09 PM", "10 PM", "11 PM"];
             };
 
-            $scope.creatEvent = function(index){
-            $scope.reservationComplete = false;
-              $scope.eventLoader = true;
-              var req={
-                "attendeeUid":"FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
-                "attendeeName": "sudarshan",
-                "attendeeEmail":"sudarshan_koyalkar@apple.com",
-                "roomName":$scope.inputData.room.roomName,
-                "roomUid":$scope.inputData.room.roomUid,
-                "startTime": $filter('date')($scope.singleroom_data.slot[index].startDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
-                "endTime":$filter('date')($scope.singleroom_data.slot[index].endDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
-                "timeZone":$scope.inputData.timezone
-              };
-              
-              console.log(req);
+            $scope.creatEvent = function(index) {
+                $scope.reservationComplete = false;
+                $scope.eventLoader = true;
+                var req = {
+                    "attendeeUid": "FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
+                    "attendeeName": "sudarshan",
+                    "attendeeEmail": "sudarshan_koyalkar@apple.com",
+                    "roomName": $scope.inputData.room.roomName,
+                    "roomUid": $scope.inputData.room.roomUid,
+                    "startTime": $filter('date')($scope.singleroom_data.slot[index].startDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
+                    "endTime": $filter('date')($scope.singleroom_data.slot[index].endDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
+                    "timeZone": $scope.inputData.timezone
+                };
 
-              responseGrid.bookRoom(req).then(function(res){
-                console.log(res);
-                responseGrid.getSingleRoomData($scope.reqDataSingle).then(function(res){
+                console.log(req);
+
+                responseGrid.bookRoom(req).then(function(res) {
+                    console.log(res);
                     $scope.reservationComplete = true;
-                     $timeout(function() {
-                  $scope.singleroom_data = res.data.data;
-                  $scope.createSingleRoomSlots($scope.singleroom_data);
-                  angular.element("#singleRoom").html("");
-                  angular.element("#singleRoom").append($compile("<single-room-grid></single-room-grid>")($scope));
-                  $scope.eventLoader = false;
-//                  $scope.$apply();
-                    },3000);
+                    if (res.statusText=="OK") {
+                      for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
+                          $scope.singleroom_data.slot[i].type = "busy";
+                      }
+                      $scope.eventLoader = false;
+                      $scope.reservationComplete = true;
+                    }
                 })
-              })
             }
 
             $scope.addDurationClass = function(obj, index) {
-                 $scope.reservationComplete = false;
-                var startIndex = index;
-                $scope.durationFlag = true;
-                for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
-                    if (obj.slot[i].type != 'free') {
-                        startIndex --;
-                        if (obj.slot[startIndex].type != 'free') {
-                            $scope.durationFlag = false;
+                $scope.reservationComplete = false;
+                var startIndex = 0;
+                var durationIndex = $scope.inputData.durationIndex + 1;
+                var endIndex = 0;
+                if ($scope.inputData.durationIndex > 0) {
+                    for (var i = index; i < index + durationIndex; i++) {
+                        if (obj.slot[i].type == 'free') {
+                            startIndex = index;
+                            endIndex = i;
+                        } else {
+                            for (var j = index; j > endIndex - durationIndex; j--) {
+                                if (obj.slot[j].type == 'free') {
+                                    startIndex = j;
+                                } else {
+                                    break;
+                                }
+                            }
+                            break;
                         }
                     }
+                } else {
+                    startIndex = index;
+                    endIndex = index;
                 }
-                if ($scope.durationFlag && startIndex <= index) {
-                    for (var i = startIndex; i < startIndex + $scope.inputData.durationIndex + 1; i++) {
-                        obj.slot[i].highlight = true;
-                        obj.slot[i].startDurationTime = obj.slot[i].time;
-                        obj.slot[i].endDurationTime = obj.slot[i+$scope.inputData.durationIndex + 1].time;
-                    }
-                }else if(!$scope.durationFlag){
-                      obj.slot[index].highlight = true;
-                      obj.slot[index].startDurationTime = obj.slot[index].time;
-                      obj.slot[index].endDurationTime = obj.slot[index + 1].time;
+
+                for (i = startIndex; i < endIndex + 1; i++) {
+                    obj.slot[i].highlight = true;
+//                    obj.slot[i].startDurationTime = obj.slot[startIndex].time;
+//                    obj.slot[i].endDurationTime = obj.slot[endIndex + 1].time;
                 }
+
             }
 
             $scope.appendZero = function(inNumber) {
@@ -175,28 +181,39 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             };
 
             $scope.addSelectedClass = function(obj, index) {
+              $scope.reservationComplete = false;
+              angular.forEach(obj, function(item) {
+                item.selected = false;
+              })
+              $scope.startIndex = 0;
+              var durationIndex = $scope.inputData.durationIndex + 1;
+              $scope.endIndex = 0;
+              if ($scope.inputData.durationIndex > 0) {
+                  for (var i = index; i < index + durationIndex; i++) {
+                      if (obj.slot[i].type == 'free') {
+                          $scope.startIndex = index;
+                          $scope.endIndex = i;
+                      } else {
+                          for (var j = index; j > $scope.endIndex - durationIndex; j--) {
+                              if (obj.slot[j].type == 'free') {
+                                  $scope.startIndex = j;
+                              } else {
+                                  break;
+                              }
+                          }
+                          break;
+                      }
+                  }
+              } else {
+                  $scope.startIndex = index;
+                  $scope.endIndex = index;
+              }
 
-                for (var i = 0; i < 96; i++) {
-                    obj.slot[i].selected = false;
-                }
-
-                var startIndex = index;
-                $scope.selectedDurationFlag = true;
-                for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
-                    if (obj.slot[i].type != 'free') {
-                        startIndex --;
-                        if (obj.slot[startIndex].type != 'free') {
-                            $scope.selectedDurationFlag = false;
-                        }
-                    }
-                }
-                if ($scope.selectedDurationFlag && startIndex <= index) {
-                    for (var i = startIndex; i < startIndex + $scope.inputData.durationIndex + 1; i++) {
-                        obj.slot[i].selected = true;
-                    }
-                }else if(!$scope.selectedDurationFlag){
-                      obj.slot[index].selected = true;
-                }
+              for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
+                  obj.slot[i].selected = true;
+                  obj.slot[i].startDurationTime = obj.slot[$scope.startIndex].time;
+                  obj.slot[i].endDurationTime = obj.slot[$scope.endIndex + 1].time;
+              }
             }
 
 
@@ -227,4 +244,3 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
         }
     }
 });
-

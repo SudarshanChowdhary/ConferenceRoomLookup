@@ -128,55 +128,50 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                 "timeZone":$scope.inputData.timezone
               };
 
-              console.log(req);
               responseGrid.bookRoom(req).then(function(res) {
-                responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
-                     $scope.reservationComplete = true;
-                     $timeout(function() {
-                     $scope.multiroom_data = res.data.data;
-                      angular.element("#multi-room-gird").html("");
- 
-                        angular.forEach($scope.multiroom_data, function(room, m) {
-                            $scope.createSlots(room);
-                        });
-                      angular.element("#multi-room-gird").append($compile("<multi-room-grid></multi-room-grid>")($scope));
-                    $scope.eventLoader = false;  
-                },3000);
-                    $timeout(function() {
-                        $scope.scrollToTime($scope.initScrollDiv);
-                    }, 10);
-
-                })
+                if (res.statusText=="OK") {
+                  for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
+                      room.slot[i].type = "busy";
+                  }
+                  $scope.eventLoader = false;
+                  $scope.reservationComplete = true;
+                }
               })
 
             }
 
             $scope.addDurationClass = function(obj, index) {
-                var startIndex = index;
-                console.log(obj)
-
-                $scope.durationFlag = true;
-                
-                for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
-                    if (obj.slot[i].type != 'free') {
-                        startIndex --;
-                        if (obj.slot[startIndex].type != 'free') {
-                            $scope.durationFlag = false;
+                $scope.reservationComplete = false;
+                var startIndex = 0;
+                var durationIndex = $scope.inputData.durationIndex + 1;
+                var endIndex = 0;
+                if ($scope.inputData.durationIndex > 0) {
+                    for (var i = index; i < index + durationIndex; i++) {
+                        if (obj.slot[i].type == 'free') {
+                            startIndex = index;
+                            endIndex = i;
+                        } else {
+                            for (var j = index; j > endIndex - durationIndex; j--) {
+                                if (obj.slot[j].type == 'free') {
+                                    startIndex = j;
+                                } else {
+                                    break;
+                                }
+                            }
+                            break;
                         }
                     }
+                } else {
+                    startIndex = index;
+                    endIndex = index;
                 }
-                if ($scope.durationFlag && startIndex <= index) {
-                    for (var i = startIndex; i < startIndex + $scope.inputData.durationIndex + 1; i++) {
-                        obj.slot[i].highlight = true;
-                        obj.slot[i].startDurationTime = obj.slot[i].time;
-                        obj.slot[i].endDurationTime = obj.slot[i+$scope.inputData.durationIndex + 1].time;
 
-                    }
-                }else if(!$scope.durationFlag){
-                      obj.slot[index].highlight = true;
-                      obj.slot[index].startDurationTime = obj.slot[index].time;
-                      obj.slot[index].endDurationTime = obj.slot[index + 1].time;
+                for (i = startIndex; i < endIndex + 1; i++) {
+                    obj.slot[i].highlight = true;
+//                    obj.slot[i].startDurationTime = obj.slot[startIndex].time;
+//                    obj.slot[i].endDurationTime = obj.slot[endIndex + 1].time;
                 }
+
             }
 
             $scope.appendZero = function(inNumber) {
@@ -199,22 +194,34 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                     })
                 })
 
-                var startIndex = index;
-                $scope.selectedDurationFlag = true;
-                for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
-                    if (obj.slot[i].type != 'free') {
-                        startIndex --;
-                        if (obj.slot[startIndex].type != 'free') {
-                            $scope.selectedDurationFlag = false;
+                $scope.startIndex = 0;
+                var durationIndex = $scope.inputData.durationIndex + 1;
+                $scope.endIndex = 0;
+                if ($scope.inputData.durationIndex > 0) {
+                    for (var i = index; i < index + durationIndex; i++) {
+                        if (obj.slot[i].type == 'free') {
+                            $scope.startIndex = index;
+                            $scope.endIndex = i;
+                        } else {
+                            for (var j = index; j > $scope.endIndex - durationIndex; j--) {
+                                if (obj.slot[j].type == 'free') {
+                                    $scope.startIndex = j;
+                                } else {
+                                    break;
+                                }
+                            }
+                            break;
                         }
                     }
+                } else {
+                    $scope.startIndex = index;
+                    $scope.endIndex = index;
                 }
-                if ($scope.selectedDurationFlag && startIndex <= index) {
-                    for (var i = startIndex; i < startIndex + $scope.inputData.durationIndex + 1; i++) {
-                        obj.slot[i].selected = true;
-                    }
-                }else if(!$scope.selectedDurationFlag){
-                      obj.slot[index].selected = true;
+
+                for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
+                    obj.slot[i].selected = true;
+                    obj.slot[i].startDurationTime = obj.slot[$scope.startIndex].time;
+                    obj.slot[i].endDurationTime = obj.slot[$scope.endIndex + 1].time;
                 }
             }
 
