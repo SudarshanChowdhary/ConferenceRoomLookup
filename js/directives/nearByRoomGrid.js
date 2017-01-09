@@ -40,7 +40,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                                 "endDurationTime": null
 
                             });
-                        tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));    
+                        tempTime = new Date(tempTime.getTime() + (1000 * 60 * 15));
                         }
                         var busyTime = edt.getTime() - sdt.getTime();
                         busyTime = ((busyTime / 1000) / 60) / 15;
@@ -128,30 +128,45 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                 "endTime":$filter('date')(room.slot[index].endDurationTime, 'yyyy-MM-ddTHH:mm:ss', 'UTC'),
                 "timeZone":$scope.inputData.timezone
               };
-
               responseGrid.bookRoom(req).then(function(res) {
-                responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
-                    $scope.reservationComplete = true;
-                     $timeout(function() {
-                    $scope.multiroom_data = res.data.data;
-                        angular.forEach($scope.multiroom_data, function(room, m) {
-                            $scope.createSlots(room);
-                        });
-                    $scope.nearbydata = null;
-                    $scope.inputData.showNearByRoom = [false, false, false, false];
-                    $scope.inputData.clickNumber = 0;
+                  console.log(res);
+                  $scope.reservationComplete = true;
+                  if (res.data.success=="true") {
+                    for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
+                        room.slot[i].type = "busy";
+                    }
                     $scope.eventLoader = false;
-                    $scope.scrollToTime($scope.initScrollDiv);
-                     },3000);
-                })
+                    $scope.reservationComplete = true;
+                  }else if(res.data.success=="false"){
+                    // eror message
+
+                  }
               })
+
+              // responseGrid.bookRoom(req).then(function(res) {
+              //   responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
+              //       $scope.reservationComplete = true;
+              //
+              //       //  $timeout(function() {
+              //       // $scope.multiroom_data = res.data.data;
+              //       //     angular.forEach($scope.multiroom_data, function(room, m) {
+              //       //         $scope.createSlots(room);
+              //       //     });
+              //       $scope.nearbydata = null;
+              //       $scope.inputData.showNearByRoom = [false, false, false, false];
+              //       $scope.inputData.clickNumber = 0;
+              //       $scope.eventLoader = false;
+              //       $scope.scrollToTime($scope.initScrollDiv);
+              //        },3000);
+              //   })
+              // })
             }
 
             $scope.addDurationClass = function(obj, index) {
                  $scope.reservationComplete = false;
                 var startIndex = index;
                 $scope.durationFlag = true;
-                
+
                 for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
                     if (obj.slot[i].type != 'free') {
                         startIndex --;

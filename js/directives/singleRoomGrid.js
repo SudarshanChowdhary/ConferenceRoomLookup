@@ -108,6 +108,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             };
 
             $scope.creatEvent = function(index) {
+                debugger;
                 $scope.reservationComplete = false;
                 $scope.eventLoader = true;
                 var req = {
@@ -126,13 +127,15 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                 responseGrid.bookRoom(req).then(function(res) {
                     console.log(res);
                     $scope.reservationComplete = true;
-                    if (res.data.success=="true") {
+                    if (res.data.success) {
                       for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
                           $scope.singleroom_data.slot[i].type = "busy";
+
                       }
                       $scope.eventLoader = false;
                       $scope.reservationComplete = true;
-                    }else if(res.data.success=="false"){
+
+                    }else{
                       // eror message
 
                     }
@@ -184,7 +187,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             };
 
             $scope.addSelectedClass = function(obj, index) {
-              $scope.reservationComplete = false;
+            //  $scope.reservationComplete = false;
               angular.forEach(obj, function(item) {
                 item.selected = false;
               })
