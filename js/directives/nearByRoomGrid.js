@@ -97,7 +97,6 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
             $timeout(function() {
                 $scope.nearbydata = $scope.$eval($attr.nearbydata);
                 $scope.clicknumber = $scope.$eval($attr.clicknumber);
-
                 angular.forEach($scope.nearbydata, function(building, index) {
                     angular.forEach(building.room, function(rm) {
                         $scope.createSlots(rm);
@@ -131,13 +130,13 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
               responseGrid.bookRoom(req).then(function(res) {
                   console.log(res);
                   $scope.reservationComplete = true;
-                  if (res.data.success=="true") {
+                  if (res.data.success) {
                     for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
                         room.slot[i].type = "busy";
                     }
                     $scope.eventLoader = false;
                     $scope.reservationComplete = true;
-                  }else if(res.data.success=="false"){
+                  }else{
                     // eror message
 
                   }
@@ -163,29 +162,38 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
             }
 
             $scope.addDurationClass = function(obj, index) {
-                 $scope.reservationComplete = false;
-                var startIndex = index;
-                $scope.durationFlag = true;
-
-                for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
-                    if (obj.slot[i].type != 'free') {
-                        startIndex --;
-                        if (obj.slot[startIndex].type != 'free') {
-                            $scope.durationFlag = false;
+                $scope.reservationComplete = false;
+                  $scope.reservationInComplete = false;
+                var startIndex = 0;
+                var durationIndex = $scope.inputData.durationIndex + 1;
+                var endIndex = 0;
+                if ($scope.inputData.durationIndex > 0) {
+                    for (var i = index; i < index + durationIndex; i++) {
+                        if (obj.slot[i].type == 'free') {
+                            startIndex = index;
+                            endIndex = i;
+                        } else {
+                            for (var j = index; j > endIndex - durationIndex; j--) {
+                                if (obj.slot[j].type == 'free') {
+                                    startIndex = j;
+                                } else {
+                                    break;
+                                }
+                            }
+                            break;
                         }
                     }
+                } else {
+                    startIndex = index;
+                    endIndex = index;
                 }
-                if ($scope.durationFlag && startIndex <= index) {
-                    for (var i = startIndex; i < startIndex + $scope.inputData.durationIndex + 1; i++) {
-                        obj.slot[i].highlight = true;
-                        obj.slot[i].startDurationTime = obj.slot[i].time;
-                        obj.slot[i].endDurationTime = obj.slot[i+$scope.inputData.durationIndex + 1].time;
-                    }
-                }else if(!$scope.durationFlag){
-                      obj.slot[index].highlight = true;
-                      obj.slot[index].startDurationTime = obj.slot[index].time;
-                      obj.slot[index].endDurationTime = obj.slot[index + 1].time;
+
+                for (i = startIndex; i < endIndex + 1; i++) {
+                    obj.slot[i].highlight = true;
+//                    obj.slot[i].startDurationTime = obj.slot[startIndex].time;
+//                    obj.slot[i].endDurationTime = obj.slot[endIndex + 1].time;
                 }
+
             }
 
             $scope.appendZero = function(inNumber) {
@@ -200,31 +208,45 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                 })
             };
 
-             $scope.addSelectedClass = function(building, obj, index) {
-                angular.forEach(building.room, function(room){
-                    angular.forEach(room.slot, function(slot){
-                        slot.selected = false;
-                    })
-                })
+            $scope.addSelectedClass = function(building, obj, index) {
+               $scope.reservationComplete = false;
+                 $scope.reservationInComplete = false;
+               angular.forEach(building, function(room){
+                   angular.forEach(room.slot, function(slot){
+                       slot.selected = false;
+                   })
+               })
 
-                var startIndex = index;
-                $scope.selectedDurationFlag = true;
-                for (var i = index; i < index + $scope.inputData.durationIndex + 1; i++) {
-                    if (obj.slot[i].type != 'free') {
-                        startIndex --;
-                        if (obj.slot[startIndex].type != 'free') {
-                            $scope.selectedDurationFlag = false;
-                        }
-                    }
-                }
-                if ($scope.selectedDurationFlag && startIndex <= index) {
-                    for (var i = startIndex; i < startIndex + $scope.inputData.durationIndex + 1; i++) {
-                        obj.slot[i].selected = true;
-                    }
-                }else if(!$scope.selectedDurationFlag){
-                      obj.slot[index].selected = true;
-                }
-            }
+               $scope.startIndex = 0;
+               var durationIndex = $scope.inputData.durationIndex + 1;
+               $scope.endIndex = 0;
+               if ($scope.inputData.durationIndex > 0) {
+                   for (var i = index; i < index + durationIndex; i++) {
+                       if (obj.slot[i].type == 'free') {
+                           $scope.startIndex = index;
+                           $scope.endIndex = i;
+                       } else {
+                           for (var j = index; j > $scope.endIndex - durationIndex; j--) {
+                               if (obj.slot[j].type == 'free') {
+                                   $scope.startIndex = j;
+                               } else {
+                                   break;
+                               }
+                           }
+                           break;
+                       }
+                   }
+               } else {
+                   $scope.startIndex = index;
+                   $scope.endIndex = index;
+               }
+
+               for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
+                   obj.slot[i].selected = true;
+                   obj.slot[i].startDurationTime = obj.slot[$scope.startIndex].time;
+                   obj.slot[i].endDurationTime = obj.slot[$scope.endIndex + 1].time;
+               }
+           }
 
             $scope.PreviousDay = function(clkNumber, tblIndex) {
                 $scope.inputData.loader = true;

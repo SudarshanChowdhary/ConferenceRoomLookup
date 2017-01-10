@@ -2,9 +2,6 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
     return {
         restrict: "E",
         templateUrl: "views/singleRoomGrid.html",
-        $scope: {
-            singleroom_data: "@"
-        },
         link: function($scope, $ele, $attr) {
             $scope.bookSlot = {
                 templateUrl: 'bookSlot.html'
@@ -108,7 +105,6 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             };
 
             $scope.creatEvent = function(index) {
-                debugger;
                 $scope.reservationComplete = false;
                 $scope.eventLoader = true;
                 var req = {
@@ -125,16 +121,19 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                 console.log(req);
 
                 responseGrid.bookRoom(req).then(function(res) {
-                    console.log(res);
                     $scope.reservationComplete = true;
                     if (res.data.success) {
                       for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
                           $scope.singleroom_data.slot[i].type = "busy";
-
+                          if(i==$scope.startIndex){
+                          $scope.singleroom_data.slot[i].displayTime=req.startTime;
+                          $scope.singleroom_data.slot[i].busyTill=req.endTime;
+                          $scope.singleroom_data.slot[i].organizer = {email:req.attendeeEmail, name:req.attendeeName};
+                          $scope.singleroom_data.slot[i].firstCell = true;
+                        }
                       }
                       $scope.eventLoader = false;
                       $scope.reservationComplete = true;
-
                     }else{
                       // eror message
 

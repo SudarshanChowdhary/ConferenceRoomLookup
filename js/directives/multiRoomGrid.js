@@ -115,7 +115,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
 
             $scope.creatEvent = function(room, index){
                 $scope.reservationComplete = false;
-
+                  $scope.reservationInComplete = false;
               $scope.eventLoader = true;
               // console.log(roomName, roomUid, startDurationTime, endDurationTime, timezone)
              var req={
@@ -130,26 +130,16 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
               };
 
               responseGrid.bookRoom(req).then(function(res) {
-                console.log(res.data.success);
-
-
-
                 if (res.data.success) {
-                  //alert("hi");
                   for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
                       room.slot[i].type = "busy";
                   }
                   $scope.eventLoader = false;
-                  $timeout(function() {
-                    $scope.reservationComplete = true;
-                      alert("hi");
-                    }, 3000);
-
-
-                } else {
-                   //res.data.error
-                  //  {"error" : e, "success" : "false"} this the
-                 }
+                  $scope.reservationComplete = true;
+                  $scope.reservationInComplete = true;
+                }else{
+                  //error
+                }
               })
 
             }
