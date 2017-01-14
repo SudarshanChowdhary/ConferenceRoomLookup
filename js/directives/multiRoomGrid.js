@@ -136,8 +136,17 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                   }
                   $scope.eventLoader = false;
                   $scope.reservationComplete = true;
-                  $scope.reservationInComplete = true;
+                  $timeout(function () {
+
+                  }, 10000);
+
                 }else{
+                  $scope.eventLoader = false;
+                  $scope.reservationError = true;
+                  $timeout(function () {
+
+                  }, 10000);
+
                   //error
                 }
               })
@@ -146,7 +155,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
 
             $scope.addDurationClass = function(obj, index) {
                 $scope.reservationComplete = false;
-                  $scope.reservationInComplete = false;
+                $scope.reservationError = false;
                 var startIndex = 0;
                 var durationIndex = $scope.inputData.durationIndex + 1;
                 var endIndex = 0;
@@ -192,8 +201,8 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
             };
 
              $scope.addSelectedClass = function(building, obj, index) {
-                $scope.reservationComplete = false;
-                  $scope.reservationInComplete = false;
+               $scope.reservationComplete = false;
+               $scope.reservationError = false;
                 angular.forEach(building, function(room){
                     angular.forEach(room.slot, function(slot){
                         slot.selected = false;

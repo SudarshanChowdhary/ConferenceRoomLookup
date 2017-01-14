@@ -4,9 +4,9 @@ ConferenceRoomLookup.factory("responseGrid", function($http, $resource) {
         getMultipleRoomsData: function(req) {
             console.log(req)
             var promise = $http({
-                method: 'POST',
-               // url: 'js/services/responseGrid-data.json',
-                url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json',
+                method: 'GET',
+                url: 'js/services/responseGrid-data.json',
+              //  url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/freebusyrooms/?format=json',
                 data: req,
                  headers: {'Content-Type': 'application/json'}
             });
@@ -15,9 +15,9 @@ ConferenceRoomLookup.factory("responseGrid", function($http, $resource) {
         getSingleRoomData: function(req) {
             console.log(req)
             var promise = $http({
-                method: 'POST',
-              //  url: 'js/services/singleRoom-data.json',
-                url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json',
+                method: 'GET',
+                url: 'js/services/singleRoom-data.json',
+              //  url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/lookupbyroom/?format=json',
                 data: JSON.stringify(req),
                 headers: {'Content-Type': 'application/json'}
             });
@@ -26,9 +26,9 @@ ConferenceRoomLookup.factory("responseGrid", function($http, $resource) {
         getNearByRoomData: function(req) {
             console.log(req)
             var promise = $http({
-                method: 'POST',
-              //  url: 'js/services/nearbybuilding.json',
-                url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json',
+                method: 'GET',
+                url: 'js/services/nearbybuilding.json',
+              //  url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/nearbybuildings/?format=json',
                 data: req,
                  headers: {'Content-Type': 'application/json'}
             });
@@ -37,9 +37,9 @@ ConferenceRoomLookup.factory("responseGrid", function($http, $resource) {
         bookRoom: function(req) {
             console.log(req)
             var promise = $http({
-                method: 'POST',
-              //  url: 'js/services/bookRoom.json',
-                url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/createistevent/?format=json',
+                method: 'GET',
+                url: 'js/services/bookRoom.json',
+              //  url: 'http://ma-istwebd-lweb01.corp.apple.com:8888/roomlookuptool/api/createistevent/?format=json',
                 data: JSON.stringify(req),
                  headers: {'Content-Type': 'application/json'}
             });

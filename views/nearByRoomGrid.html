@@ -76,7 +76,7 @@
                                 ng-click="addSelectedClass(building, room, $index)">&nbsp;</a>
                                 <div ng-if="slot.type!='free'" class="busy">&nbsp;</div>
                                   <script type="text/ng-template" style="width:100px;" id="nearByBookSlot.html">
-            <div ng-if="!reservationComplete">
+            <div ng-if="!reservationComplete && !reservationError">
               <div>
                 <span>{{room.roomName}}</span>
               </div>
@@ -93,9 +93,12 @@
                     <span class="loader"></span>
                 </span></button>
             </div>
-            <div class="reservation-complete" ng-if="reservationComplete">
-        Your reserveration is completed. You can change the event details in Calendar.
-    </div>
+            <div class="reservation-complete" ng-if="reservationComplete && !reservationError">
+                Your reserveration is completed. You can change the event details in Calendar.
+            </div>
+            <div class="reservation-complete" ng-if="reservationError">
+                The slot is already booked, please select some other slot.
+            </div>
         </script>
 
                         </div>

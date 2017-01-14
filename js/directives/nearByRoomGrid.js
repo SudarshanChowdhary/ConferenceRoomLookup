@@ -128,42 +128,30 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                 "timeZone":$scope.inputData.timezone
               };
               responseGrid.bookRoom(req).then(function(res) {
-                  console.log(res);
-                  $scope.reservationComplete = true;
+                $scope.eventLoader = false;
+                $scope.reservationComplete = true;
                   if (res.data.success) {
                     for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
                         room.slot[i].type = "busy";
                     }
-                    $scope.eventLoader = false;
-                    $scope.reservationComplete = true;
+                    $timeout(function () {
+
+                    }, 10000);
                   }else{
+                    $scope.eventLoader = false;
+                    $scope.reservationError = true;
+                    $timeout(function () {
+
+                    }, 10000);
+
                     // eror message
 
                   }
               })
 
-              // responseGrid.bookRoom(req).then(function(res) {
-              //   responseGrid.getMultipleRoomsData($scope.reqDataMulti).then(function(res) {
-              //       $scope.reservationComplete = true;
-              //
-              //       //  $timeout(function() {
-              //       // $scope.multiroom_data = res.data.data;
-              //       //     angular.forEach($scope.multiroom_data, function(room, m) {
-              //       //         $scope.createSlots(room);
-              //       //     });
-              //       $scope.nearbydata = null;
-              //       $scope.inputData.showNearByRoom = [false, false, false, false];
-              //       $scope.inputData.clickNumber = 0;
-              //       $scope.eventLoader = false;
-              //       $scope.scrollToTime($scope.initScrollDiv);
-              //        },3000);
-              //   })
-              // })
             }
 
             $scope.addDurationClass = function(obj, index) {
-                $scope.reservationComplete = false;
-                  $scope.reservationInComplete = false;
                 var startIndex = 0;
                 var durationIndex = $scope.inputData.durationIndex + 1;
                 var endIndex = 0;
@@ -209,8 +197,8 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
             };
 
             $scope.addSelectedClass = function(building, obj, index) {
-               $scope.reservationComplete = false;
-                 $scope.reservationInComplete = false;
+              $scope.reservationComplete = false;
+              $scope.reservationError = false;
                angular.forEach(building, function(room){
                    angular.forEach(room.slot, function(slot){
                        slot.selected = false;

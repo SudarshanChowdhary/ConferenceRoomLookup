@@ -59,41 +59,35 @@
                 <td>
                     <div class="gridData">
                         <div class="cells" ng-repeat="slot in room.slot">
-                            <a uib-popover-template="bookSlot.templateUrl"
-                            popover-class= "book-room"  popover-append-to-body="true"
-                            popover-trigger="outsideClick: outsideClick"
-                            popover-placement="bottom" ng-if="slot.type=='free'"
-                            ng-mouseover="addDurationClass(room, $index)"
-                            ng-mouseout="removeDurationClass(multiroom_data, $index)"
-                            ng-class="{'highlight-free-slot':slot.highlight, 'selected-free-slot': slot.selected, 'free':slot.type=='free'}"
-                            ng-click="addSelectedClass(multiroom_data, room, $index)">&nbsp;</a>
-                            <div ng-if="slot.type!='free'" class="busy">&nbsp;</div>
-            <script type="text/ng-template" style="width:100px;" id="bookSlot.html">
-            <div class="" ng-if="!reservationComplete || !reservationInComplete">
-              <div>
-                <span>{{room.roomName}}</span>
-              </div>
-              <div>
-                <label class="">From : </label>
-                <span>{{slot.startDurationTime | date: 'h:mm a' : 'UTC'}}
+                            <a uib-popover-template="bookSlot.templateUrl" popover-class="book-room" popover-append-to-body="true" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" ng-if="slot.type=='free'" ng-mouseover="addDurationClass(room, $index)" ng-mouseout="removeDurationClass(multiroom_data, $index)"
+                                ng-class="{'highlight-free-slot':slot.highlight, 'selected-free-slot': slot.selected, 'free':slot.type=='free'}" ng-click="addSelectedClass(multiroom_data, room, $index)">&nbsp;</a>
+                                <div ng-if="slot.type!='free'" class="busy">&nbsp;</div>
+                                <script type="text/ng-template" style="width:100px;" id="bookSlot.html">
+                                    <div class="" ng-if="!reservationComplete && !reservationError">
+                                        <div>
+                                            <span>{{room.roomName}}</span>
+                                        </div>
+                                        <div>
+                                            <label class="">From : </label>
+                                            <span>{{slot.startDurationTime | date: 'h:mm a' : 'UTC'}}
                 </span>
-                <label class="">To : </label>
-                <span>{{slot.endDurationTime | date: 'h:mm a' : 'UTC'}}
+                                            <label class="">To : </label>
+                                            <span>{{slot.endDurationTime | date: 'h:mm a' : 'UTC'}}
                 </span>
-              </div>
-                <!-- <input type="text" ng-model="bookSlot.title" class="form-control"> -->
-                <button class="btn btn-primary btn-block" ng-click="creatEvent(room, $index)">Book Room <span class="loader-image" ng-if="eventLoader">
+                                        </div>
+                                        <!-- <input type="text" ng-model="bookSlot.title" class="form-control"> -->
+                                        <button class="btn btn-primary btn-block" ng-click="creatEvent(room, $index)">Book Room <span class="loader-image" ng-if="eventLoader">
                     <span class="loader"></span>
 
                 </span></button>
-            </div>
-            <div class="reservation-complete" ng-if="reservationComplete">
-        Your reserveration is completed. You can change the event details in Calendar.
-    </div>
-    <div class="reservation-complete" ng-if="reservationInComplete">
-Your reserveration is incompleted. You can change the event details in Calendar.
-</div>
-        </script>
+                                    </div>
+                                    <div class="reservation-complete" ng-if="reservationComplete && !reservationError">
+                                        Your reserveration is completed. You can change the event details in Calendar.
+                                    </div>
+                                    <div class="reservation-complete" ng-if="reservationError">
+                                        The slot is already booked, please select some other slot.
+                                    </div>
+                                </script>
 
                         </div>
                     </div>

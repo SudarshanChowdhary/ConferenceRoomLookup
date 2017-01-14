@@ -1,7 +1,7 @@
 <!-- Single Room Search -->
 <section class="single-room-search">
-<h2>{{inputData.d |date :"EEEE, MMMM dd, yyyy"}}</h2>
-   <!--  <h2>{{inputData.searchDate.toString()}}</h2> -->
+    <h2>{{inputData.d |date :"EEEE, MMMM dd, yyyy"}}</h2>
+    <!--  <h2>{{inputData.searchDate.toString()}}</h2> -->
     <h4>{{inputData.room.roomName}}</h4>
     <div class="sr-header">
         <span><img src="images/adir.png"><span class="sr-img">Open in Apple Directory</span>
@@ -45,23 +45,14 @@
             <tr ng-repeat="slot in singleroom_data.slot track by $index">
                 <td class="border-line" ng-if="$index%4==0" rowspan="4" id="{{hours[$index/4]}}">{{hours[$index/4]}}</td>
                 <td ng-if="slot.type=='free'" class="border-line">
-                  <a uib-popover-template="bookSlot.templateUrl" class="free"
-                        popover-class= "book-room"
-                        popover-append-to-body="false"
-                        popover-trigger="outsideClick: outsideClick"
-                        popover-placement="bottom"
-                        popover-dismiss="close()"
-                        ng-if="slot.type=='free'"
-                        ng-mouseover="addDurationClass(singleroom_data, $index)"
-                        ng-mouseout="removeDurationClass(singleroom_data, $index)"
-                        ng-click="addSelectedClass(singleroom_data, $index)"
-                        ng-class="{'highlight-free-slot':slot.highlight, 'selected-free-slot': slot.selected}">&nbsp;</a>
+                    <a uib-popover-template="bookSlot.templateUrl" class="free" popover-class="book-room" popover-append-to-body="false" popover-trigger="outsideClick: outsideClick" popover-placement="bottom" popover-dismiss="close()" ng-if="slot.type=='free'" ng-mouseover="addDurationClass(singleroom_data, $index)"
+                        ng-mouseout="removeDurationClass(singleroom_data, $index)" ng-click="addSelectedClass(singleroom_data, $index)" ng-class="{'highlight-free-slot':slot.highlight, 'selected-free-slot': slot.selected}">&nbsp;</a>
                 </td>
                 <td ng-if="slot.type=='busy'" class="border-line busy">
                     <div ng-if="slot.firstCell==true" class="row busy-center">
                         <div class="col-md-6">{{slot.displayTime | ignoreTimeZone}} to : {{slot.busyTill | ignoreTimeZone}}</div>
                         <div class="col-md-6" ng-click="open(slot)">
-                           <a href="#"> {{slot.organizer.name}} </a>
+                            <a href="#"> {{slot.organizer.name}} </a>
                         </div>
                     </div>
                 </td>
@@ -69,24 +60,28 @@
         </table>
 
         <script class="scroll-popover-fix" type="text/ng-template" id="bookSlot.html">
-            <div ng-if="!reservationComplete">
-              <div>
-               {{inputData.room.roomName}}
-              </div>
-              <div>
-               <label>From: </label>
-               <span>{{slot.startDurationTime | date: 'h:mm a' : 'UTC'}}</span>
-               <label>To: </label>
-               <span>{{slot.endDurationTime | date: 'h:mm a' : 'UTC'}}</span>
-              </div>
+            <div ng-if="!reservationComplete && !reservationError">
+                <div>
+                    {{inputData.room.roomName}}
+                </div>
+                <div>
+                    <label>From: </label>
+                    <span>{{slot.startDurationTime | date: 'h:mm a' : 'UTC'}}</span>
+                    <label>To: </label>
+                    <span>{{slot.endDurationTime | date: 'h:mm a' : 'UTC'}}</span>
+                </div>
                 <button class="btn btn-primary btn-block" ng-click="creatEvent($index)">Book Room <span class="loader-image" ng-if="eventLoader">
                     <span class="loader"></span>
                 </span></button>
 
             </div>
-            <div class="reservation-complete" ng-if="reservationComplete">
-        Your reserveration is completed. You can change the event details in Calendar.
-    </div>
+            <div class="reservation-complete" ng-if="reservationComplete && !reservationError">
+                Your reserveration is completed. You can change the event details in Calendar.
+            </div>
+            <div class="reservation-complete" ng-if="reservationError">
+                The slot is already booked, please select some other slot.
+            </div>
+
         </script>
     </div>
     <script type="text/ng-template" id="myModalContent.html">

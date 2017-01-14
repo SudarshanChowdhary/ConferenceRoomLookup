@@ -106,6 +106,8 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
 
             $scope.creatEvent = function(index) {
                 $scope.reservationComplete = false;
+                $scope.reservationError = false;
+
                 $scope.eventLoader = true;
                 var req = {
                     "attendeeUid": "FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
@@ -118,9 +120,8 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                     "timeZone": $scope.inputData.timezone
                 };
 
-                console.log(req);
-
                 responseGrid.bookRoom(req).then(function(res) {
+                    $scope.eventLoader = false;
                     $scope.reservationComplete = true;
                     if (res.data.success) {
                       for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
@@ -132,17 +133,21 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                           $scope.singleroom_data.slot[i].firstCell = true;
                         }
                       }
-                      $scope.eventLoader = false;
-                      $scope.reservationComplete = true;
-                    }else{
-                      // eror message
+                      $timeout(function () {
 
+                      }, 10000);
+                    }else{
+                        $scope.eventLoader = false;
+                        $scope.reservationError = true;
+                        $timeout(function () {
+
+                        }, 10000);
+                      // error message
                     }
                 })
             }
 
             $scope.addDurationClass = function(obj, index) {
-                $scope.reservationComplete = false;
                 var startIndex = 0;
                 var durationIndex = $scope.inputData.durationIndex + 1;
                 var endIndex = 0;
@@ -172,7 +177,6 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
 //                    obj.slot[i].startDurationTime = obj.slot[startIndex].time;
 //                    obj.slot[i].endDurationTime = obj.slot[endIndex + 1].time;
                 }
-
             }
 
             $scope.appendZero = function(inNumber) {
@@ -186,7 +190,9 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             };
 
             $scope.addSelectedClass = function(obj, index) {
-            //  $scope.reservationComplete = false;
+              $scope.reservationComplete = false;
+              $scope.reservationError = false;
+
               angular.forEach(obj, function(item) {
                 item.selected = false;
               })
