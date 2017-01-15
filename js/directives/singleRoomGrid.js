@@ -130,6 +130,7 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                           $scope.singleroom_data.slot[i].busyTill=req.endTime.split("T")[1];
                           $scope.singleroom_data.slot[i].organizer = {email:req.attendeeEmail, name:req.attendeeName};
                           $scope.singleroom_data.slot[i].firstCell = true;
+                          $scope.singleroom_data.slot[i].numberOfBusySlots= $scope.endIndex + 1
                         }
                       }
                       $timeout(function () {

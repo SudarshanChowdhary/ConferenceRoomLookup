@@ -125,11 +125,12 @@ span a:hover {
     height: 30px !important;
     border-bottom: none !important;
 }
-/*.busy-center{
-  position: absolute;
-  vertical-align: middle;
-  top: 50px;
-}*/
+.busy-center{
+  /*position: absolute;
+  display: inline-block;
+  float: left;
+  width: 50%;*/
+}
 
 .free{
     display: block !important;
