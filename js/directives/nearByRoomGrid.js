@@ -2,6 +2,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
     return {
         restrict: "E",
         templateUrl: "views/nearByRoomGrid.html",
+
         link: function($scope, $ele, $attr) {
             $scope.scrollToTime = function(initScrollDiv, index) {
                 var el = $document.find("#nearbyTbl_" + index + " .table-responsive");
@@ -199,7 +200,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
             $scope.addSelectedClass = function(building, obj, index) {
               $scope.reservationComplete = false;
               $scope.reservationError = false;
-               angular.forEach(building, function(room){
+               angular.forEach(building.room, function(room){
                    angular.forEach(room.slot, function(slot){
                        slot.selected = false;
                    })

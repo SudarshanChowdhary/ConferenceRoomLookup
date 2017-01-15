@@ -6,7 +6,6 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
             $scope.bookSlot = {
                 templateUrl: 'bookSlot.html'
             };
-
             $scope.createSingleRoomSlots = function(room) {
                 if (room.events.length != 0) {
                     var dt = room.events[0].startDateTime;
@@ -127,8 +126,8 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                       for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
                           $scope.singleroom_data.slot[i].type = "busy";
                           if(i==$scope.startIndex){
-                          $scope.singleroom_data.slot[i].displayTime=req.startTime;
-                          $scope.singleroom_data.slot[i].busyTill=req.endTime;
+                          $scope.singleroom_data.slot[i].displayTime=req.startTime.split("T")[1];
+                          $scope.singleroom_data.slot[i].busyTill=req.endTime.split("T")[1];
                           $scope.singleroom_data.slot[i].organizer = {email:req.attendeeEmail, name:req.attendeeName};
                           $scope.singleroom_data.slot[i].firstCell = true;
                         }
@@ -193,9 +192,15 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
               $scope.reservationComplete = false;
               $scope.reservationError = false;
 
-              angular.forEach(obj, function(item) {
-                item.selected = false;
-              })
+              // angular.forEach(obj, function(item) {
+              //   item.selected = false;
+              // })
+
+              for (var i = 0; i < 96; i++) {
+                  obj.slot[i].selected = false;
+              }
+
+
               $scope.startIndex = 0;
               var durationIndex = $scope.inputData.durationIndex + 1;
               $scope.endIndex = 0;

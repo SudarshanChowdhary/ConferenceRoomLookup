@@ -121,10 +121,15 @@ span a:hover {
 }
 
 .busy {
-    background-color: #ccc;
+    background-color: #ddd;
     height: 30px !important;
     border-bottom: none !important;
 }
+/*.busy-center{
+  position: absolute;
+  vertical-align: middle;
+  top: 50px;
+}*/
 
 .free{
     display: block !important;

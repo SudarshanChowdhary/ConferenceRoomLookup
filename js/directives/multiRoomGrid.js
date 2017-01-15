@@ -2,9 +2,6 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
     return {
         restrict: "E",
         templateUrl: "views/multiRoomGrid.html",
-        $scope: {
-            multiroom_data: "@"
-        },
         link: function($scope, $ele, $attr) {
             $scope.bookSlot = {
                 templateUrl: 'bookSlot.html'
