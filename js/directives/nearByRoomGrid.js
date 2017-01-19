@@ -1,4 +1,4 @@
-ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, responseGrid, $document, $timeout, $filter) {
+ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, responseGrid, $document, $timeout, $filter, ngToast) {
     return {
         restrict: "E",
         templateUrl: "views/nearByRoomGrid.html",
@@ -135,18 +135,11 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                     for (i = $scope.startIndex; i < $scope.endIndex + 1; i++) {
                         room.slot[i].type = "busy";
                     }
-                    $timeout(function () {
-
-                    }, 10000);
+                    ngToast.success("Your reserveration is completed. You can change the event details in Calendar.");
                   }else{
                     $scope.eventLoader = false;
                     $scope.reservationError = true;
-                    $timeout(function () {
-
-                    }, 10000);
-
-                    // eror message
-
+                    ngToast.warning("The slot is already booked, please select some other slot.");
                   }
               })
 

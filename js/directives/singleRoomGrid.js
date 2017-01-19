@@ -1,4 +1,4 @@
-ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $document, $timeout, $http, $uibModal, $filter, $compile, responseGrid) {
+ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $document, $timeout, $http, $uibModal, $filter, $compile, responseGrid, ngToast) {
     return {
         restrict: "E",
         templateUrl: "views/singleRoomGrid.html",
@@ -133,15 +133,11 @@ ConferenceRoomLookup.directive("singleRoomGrid", function($anchorScroll, $docume
                           $scope.singleroom_data.slot[i].numberOfBusySlots= $scope.endIndex + 1
                         }
                       }
-                      $timeout(function () {
-
-                      }, 10000);
+                      ngToast.success("Your reserveration is completed. You can change the event details in Calendar.");
                     }else{
                         $scope.eventLoader = false;
                         $scope.reservationError = true;
-                        $timeout(function () {
-
-                        }, 10000);
+                        ngToast.warning("The slot is already booked, please select some other slot.");
                       // error message
                     }
                 })

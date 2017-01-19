@@ -63,7 +63,7 @@
                                 ng-class="{'highlight-free-slot':slot.highlight, 'selected-free-slot': slot.selected, 'free':slot.type=='free'}" ng-click="addSelectedClass(multiroom_data, room, $index)">&nbsp;</a>
                                 <div ng-if="slot.type!='free'" class="busy">&nbsp;</div>
                                 <script type="text/ng-template" style="width:100px;" id="bookSlot.html">
-                                    <div class="" ng-if="!reservationComplete && !reservationError">
+                                    <div>
                                         <div>
                                             <span>{{room.roomName}}</span>
                                         </div>
@@ -81,13 +81,13 @@
 
                 </span></button>
                                     </div>
-                                    <div class="reservation-complete" ng-if="reservationComplete && !reservationError">
+                                    <!-- <div class="reservation-complete" ng-if="reservationComplete && !reservationError">
                                         Your reserveration is completed. You can change the event details in Calendar.
                                     </div>
                                     <div class="reservation-complete" ng-if="reservationError">
                                         The slot is already booked, please select some other slot.
                                     </div>
-                                </script>
+                                </script> -->
 
                         </div>
                     </div>

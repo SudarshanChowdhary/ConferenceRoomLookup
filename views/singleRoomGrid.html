@@ -63,7 +63,7 @@
         </table>
 
         <script class="scroll-popover-fix" type="text/ng-template" id="bookSlot.html">
-            <div ng-if="!reservationComplete && !reservationError">
+            <div>
                 <div>
                     {{inputData.room.roomName}}
                 </div>
@@ -78,12 +78,12 @@
                 </span></button>
 
             </div>
-            <div class="reservation-complete" ng-if="reservationComplete && !reservationError">
+            <!-- <div class="reservation-complete" ng-if="reservationComplete && !reservationError">
                 Your reserveration is completed. You can change the event details in Calendar.
             </div>
             <div class="reservation-complete" ng-if="reservationError">
                 The slot is already booked, please select some other slot.
-            </div>
+            </div> -->
 
         </script>
     </div>

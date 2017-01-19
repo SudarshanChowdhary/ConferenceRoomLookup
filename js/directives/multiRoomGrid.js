@@ -1,4 +1,4 @@
-ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorScroll, $filter, $document, $timeout, $http, $compile) {
+ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorScroll, $filter, $document, $timeout, $http, $compile, ngToast) {
     return {
         restrict: "E",
         templateUrl: "views/multiRoomGrid.html",
@@ -133,17 +133,13 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                   }
                   $scope.eventLoader = false;
                   $scope.reservationComplete = true;
-                  $timeout(function () {
-
-                  }, 10000);
-
+                }
+                ngToast.create("Your reserveration is completed. You can change the event details in Calendar.");
                 }else{
                   $scope.eventLoader = false;
                   $scope.reservationError = true;
-                  $timeout(function () {
-
-                  }, 10000);
-
+                }
+                ngToast.create("The slot is already booked, please select some other slot.");
                   //error
                 }
               })
