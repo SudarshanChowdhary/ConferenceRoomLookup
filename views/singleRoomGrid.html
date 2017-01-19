@@ -52,7 +52,7 @@
                         ng-class="{'highlight-free-slot':slot.highlight, 'selected-free-slot': slot.selected}">&nbsp;</a>
                 </td>
                 <td ng-if="slot.type=='busy'" class="border-line busy">
-                    <div ng-if="slot.firstCell==true" class="row busy-center" ng-style="{margin-top: slot.numberOfBusySlots/2 + 'px;'}">
+                    <div ng-if="slot.firstCell==true" class="row busy-center">
                         <div class="col-md-6">{{slot.displayTime | ignoreTimeZone}} to : {{slot.busyTill | ignoreTimeZone}}</div>
                         <div class="col-md-6" ng-click="open(slot)">
                             <a href="#"> {{slot.organizer.name}} </a>
