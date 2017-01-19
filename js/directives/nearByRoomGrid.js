@@ -142,7 +142,6 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                     ngToast.warning("The slot is already booked, please select some other slot.");
                   }
               })
-
             }
 
             $scope.addDurationClass = function(obj, index) {

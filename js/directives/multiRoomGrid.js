@@ -133,15 +133,13 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                   }
                   $scope.eventLoader = false;
                   $scope.reservationComplete = true;
-                }
-                ngToast.create("Your reserveration is completed. You can change the event details in Calendar.");
-                }else{
+                  ngToast.create("Your reserveration is completed. You can change the event details in Calendar.");
+                  }else{
                   $scope.eventLoader = false;
                   $scope.reservationError = true;
+                  ngToast.create("The slot is already booked, please select some other slot.");
                 }
-                ngToast.create("The slot is already booked, please select some other slot.");
-                  //error
-                }
+
               })
 
             }
