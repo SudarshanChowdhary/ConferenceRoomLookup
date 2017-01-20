@@ -59,6 +59,11 @@
     font-size: 11px;
 }
 
+.error-massage-info{
+  color: red;
+  padding-left: 15px;
+  position: absolute;
+}
 
 /*This css for search result view*/
 
