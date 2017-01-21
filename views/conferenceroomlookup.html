@@ -40,6 +40,7 @@
                         <select id="room" class="input-width " ng-model="lookupRoom.room" ng-disabled="!lookupRoom.buildingName" ng-change="availableSeatsAndAmenities(lookupRoom.room)" ng-options="room.roomName for room in roomOptions">
                      <option value="">Select Room</option>
                   </select>
+                  <!-- <div ng-repeat="room1 in roomOptions">avcn: {{room1.avcn}}, appleTv: {{room1.appleTv}}, projector: {{room1.projector}}, anvc: {{room1.size}}</div> -->
                         <div class="checkbox">
                             <label>
                         <input type="checkbox" ng-model="lookupRoom.unavailable" ng-true-value="1" ng-false-value="0"> <span class="optional"> Include Unavailable Rooms</span>

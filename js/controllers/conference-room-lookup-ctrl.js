@@ -221,43 +221,94 @@
                 }
             }
 
+            function breakAmenitiesSeatsLoop(roomObj, amenitiesObj, seatsSize){
+
+              for(var i=0; i<amenitiesObj.length; i++)
+              {
+                if(!roomObj[amenitiesObj[i]] || roomObj.size <= seatsSize){
+                  return false;
+                }
+              }
+              return true;
+            };
+
+            function breakAmenitiesLoop(roomObj, amenitiesObj){
+              for(var i=0; i<amenitiesObj.length; i++)
+              {
+                if(!roomObj[amenitiesObj[i]]){
+                  return false;
+                }
+              }
+              return true;
+            };
+
+
             if ($scope.lookupRoom.buildingName && !$scope.lookupRoom.room) {
+
+              if($scope.inputData.amenities.length && $scope.inputData.seats.length){
+              //  alert("cond 1");
+                $scope.seatsSize = Math.max.apply(Math, $scope.inputData.seats);
                 angular.forEach($scope.roomOptions, function(room) {
-                    if ($scope.inputData.amenities.length > 0) {
-                        angular.forEach($scope.inputData.amenities, function(ameni) {
-                            if (room[ameni]) {
-                                if ($scope.inputData.seats.length > 0) {
-                                    $scope.seatsSize = Math.max.apply(Math, $scope.inputData.seats);
-                                    if (room.size <= $scope.seatsSize) {
-                                        $scope.filterRm.jsonrooms.push({
-                                            roomName: room.roomName,
-                                            roomUid: room.roomUid
-                                        });
-                                    }
-                                } else {
-                                    $scope.filterRm.jsonrooms.push({
-                                        roomName: room.roomName,
-                                        roomUid: room.roomUid
-                                    });
-                                }
-                            }
+                      $scope.satisfied = breakAmenitiesSeatsLoop(room, $scope.inputData.amenities, $scope.seatsSize);
+                      if($scope.satisfied){
+                        $scope.filterRm.jsonrooms.push({
+                            roomName: room.roomName,
+                            roomUid: room.roomUid
                         });
-                    } else {
-                        if ($scope.inputData.seats.length > 0) {
-                            $scope.seatsSize = Math.max.apply(Math, $scope.inputData.seats);
-                            if (room.size <= $scope.seatsSize) {
-                                $scope.filterRm.jsonrooms.push({
-                                    roomName: room.roomName,
-                                    roomUid: room.roomUid
-                                });
-                            }
-                        } else {
-                            $scope.filterRm.jsonrooms.push({
-                                roomName: room.roomName,
-                                roomUid: room.roomUid
-                            });
-                        }
+                      }
+                });
+                if ($scope.filterRm.jsonrooms.length > 0) {
+                    $scope.filterRm.flag = false;
+                } else {
+                    $scope.filterRm.flag = true;
+                }
+              }
+
+              if($scope.inputData.amenities.length && !$scope.inputData.seats.length){
+                //alert("cond 2");
+                angular.forEach($scope.roomOptions, function(room) {
+                      $scope.satisfied = breakAmenitiesLoop(room, $scope.inputData.amenities)
+                      if($scope.satisfied){
+                        $scope.filterRm.jsonrooms.push({
+                            roomName: room.roomName,
+                            roomUid: room.roomUid
+                        });
+                      }
+                });
+                console.log($scope.filterRm.jsonrooms);
+                if ($scope.filterRm.jsonrooms.length > 0) {
+                    $scope.filterRm.flag = false;
+                } else {
+                    $scope.filterRm.flag = true;
+                }
+              }
+
+              if(!$scope.inputData.amenities.length && $scope.inputData.seats.length){
+                // alert("cond 3");
+                $scope.seatsSize = Math.max.apply(Math, $scope.inputData.seats);
+                  angular.forEach($scope.roomOptions, function(room) {
+                    if (room.size <= $scope.seatsSize) {
+                      $scope.filterRm.jsonrooms.push({
+                          roomName: room.roomName,
+                          roomUid: room.roomUid
+                      });
                     }
+                  });
+                  console.log($scope.filterRm.jsonrooms)
+                  if ($scope.filterRm.jsonrooms.length > 0) {
+                      $scope.filterRm.flag = false;
+                  } else {
+                      $scope.filterRm.flag = true;
+                  }
+              }
+
+              if(!$scope.inputData.amenities.length && !$scope.inputData.seats.length){
+                // alert("cond 4");
+                angular.forEach($scope.roomOptions, function(room) {
+                    $scope.filterRm.jsonrooms.push({
+                        roomName: room.roomName,
+                        roomUid: room.roomUid
+                    });
                 });
                 if ($scope.filterRm.jsonrooms.length > 0) {
                     $scope.filterRm.flag = false;
@@ -265,14 +316,12 @@
                     $scope.filterRm.flag = true;
                 }
 
-            } else {
-                if ($scope.lookupRoom.buildingName && $scope.lookupRoom.room) {
-                    $scope.filterRm.jsonrooms.push({
-                        "roomName": $scope.lookupRoom.room.roomName,
-                        "roomUid": $scope.lookupRoom.room.roomUid,
-                    });
-                    $scope.filterRm.flag = false;
-                }
+              }
+
+
+
+
+
             }
         }
         $scope.nearbyBuilding = function() {
