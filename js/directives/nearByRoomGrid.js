@@ -232,7 +232,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
             $scope.PreviousDay = function(clkNumber, tblIndex) {
                 $scope.inputData.loader = true;
                 var PrevDay = new Date();
-                PrevDay.setDate($scope.inputData.d.getDate() - 1)
+                PrevDay.setTime( $scope.inputData.d.getTime() - 1 * 86400000 );
                 $scope.inputData.d = PrevDay;
                 $scope.inputData.searchDate = PrevDay.getFullYear() + "" + $scope.appendZero(PrevDay.getMonth() + 1) + "" + $scope.appendZero(PrevDay.getDate());
                 $scope.inputData.buildingName = $scope.nearbydata[tblIndex].buildingName;
@@ -259,6 +259,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                     $scope.inputData.showNearByRoom = [false, false, false, false];
                     $scope.inputData.clickNumber = 0;
                     $scope.inputData.loader = false;
+                    $scope.lookupRoom.date = PrevDay;
                 })
             };
 
@@ -279,7 +280,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
             $scope.NextDay = function(clkNumber, tblIndex) {
                 $scope.inputData.loader = true;
                 var NextDay = new Date();
-                NextDay.setDate($scope.inputData.d.getDate() + 1)
+                NextDay.setTime( $scope.inputData.d.getTime() + 1 * 86400000 );
                 $scope.inputData.searchDate = NextDay;
                 $scope.inputData.searchDate = NextDay.getFullYear() + "" + $scope.appendZero(NextDay.getMonth() + 1) + "" + $scope.appendZero(NextDay.getDate());
                 $scope.inputData.buildingName = $scope.nearbydata[tblIndex].buildingName;
@@ -305,6 +306,7 @@ ConferenceRoomLookup.directive("nearbyRoomGrid", function($anchorScroll, respons
                     $scope.inputData.showNearByRoom = [false, false, false, false];
                     $scope.inputData.clickNumber = 0;
                     $scope.inputData.loader = false;
+                    $scope.lookupRoom.date = NextDay;
                 })
             };
 

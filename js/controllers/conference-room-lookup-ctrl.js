@@ -315,13 +315,10 @@
                 } else {
                     $scope.filterRm.flag = true;
                 }
-
               }
-
-
-
-
-
+            }
+            else{
+              $scope.filterRm.flag = false;
             }
         }
         $scope.nearbyBuilding = function() {
@@ -574,7 +571,7 @@
             if (!room) {
                 $scope.disableSeats(1);
                 $scope.disableAmenity(1);
-
+                $scope.filterRoom();
             } else {
                 $scope.resetSeats();
                 $scope.resetAmenity();
@@ -589,7 +586,6 @@
                             }
 
                         });
-
                         $scope.amenities[0].disable = obj.avcn;
                         $scope.amenities[1].disable = obj.projector;
                         $scope.amenities[2].disable = obj.appleTv;

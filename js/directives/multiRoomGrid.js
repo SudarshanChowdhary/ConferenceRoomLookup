@@ -234,8 +234,10 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
             $scope.PreviousDay = function() {
                 $scope.inputData.loader = true;
                 var PrevDay = new Date();
-                PrevDay.setDate($scope.inputData.d.getDate() - 1)
+                PrevDay.setTime( $scope.inputData.d.getTime() - 1 * 86400000 );
+//                PrevDay.setDate($scope.inputData.d.getDate() - 1)
                 $scope.inputData.d = PrevDay;
+                $scope.inputData.searchDate = PrevDay;
                 $scope.inputData.searchDate = PrevDay.getFullYear() + "" + $scope.appendZero(PrevDay.getMonth() + 1) + "" + $scope.appendZero(PrevDay.getDate());
                 $scope.reqDataMulti = {
                     "room": $scope.inputData.room,
@@ -250,6 +252,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                         $scope.createSlots(room);
                     });
                     $scope.inputData.loader = false;
+                    $scope.lookupRoom.date = PrevDay;
                 })
             };
 
@@ -270,7 +273,9 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
             $scope.NextDay = function() {
                 $scope.inputData.loader = true;
                 var NextDay = new Date();
-                NextDay.setDate($scope.inputData.d.getDate() + 1)
+                NextDay.setTime( $scope.inputData.d.getTime() + 1 * 86400000 );
+//                NextDay.setDate($scope.inputData.d.getDate() + 1)
+                $scope.inputData.d = NextDay;
                 $scope.inputData.searchDate = NextDay;
                 $scope.inputData.searchDate = NextDay.getFullYear() + "" + $scope.appendZero(NextDay.getMonth() + 1) + "" + $scope.appendZero(NextDay.getDate());
                 $scope.reqDataMulti = {
@@ -286,6 +291,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
                         $scope.createSlots(room);
                     });
                     $scope.inputData.loader = false;
+                    $scope.lookupRoom.date = NextDay;
                 })
             };
         }
