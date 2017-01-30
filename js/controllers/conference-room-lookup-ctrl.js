@@ -178,11 +178,13 @@
                         $scope.inputData.loader = false;
                     })
                 } else {
-                    $scope.inputData.room = $scope.filterRm.jsonrooms[0];
+
+                    $scope.inputData.room = $scope.lookupRoom.room;
                     $scope.inputData.showSingleRoom = true;
                     $scope.inputData.showMultiRoom = false;
                     $scope.inputData.showNearByRoom = [false, false, false];
 
+                   console.log($scope.inputData.room);
                     $scope.reqDataSingle = {
                         "roomName": $scope.inputData.room.roomName,
                         "roomUid": $scope.inputData.room.roomUid,
@@ -423,7 +425,7 @@
                     }
                 })
             }
-            //    $scope.filterRoom();
+                $scope.filterRoom();
         };
 
         $scope.loadFloorsAndRooms = function(buildingName) {
