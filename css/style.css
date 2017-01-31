@@ -63,6 +63,8 @@
   color: red;
   padding-left: 15px;
   position: absolute;
+  font-style: italic;
+  font-size: 14px;
 }
 
 /*This css for search result view*/
@@ -358,8 +360,8 @@ cursor: pointer;
 }
 .booked-time-line{
     border-left: 1px solid #ccc;
-    /*text-align: center;*/
-    padding-left: 41px;
+    text-align: center;
+    /*padding-left: 41px;*/
 }
 .booked-by-line{
     border-right: 1px solid rgb(204, 204, 204);

@@ -117,7 +117,7 @@ ConferenceRoomLookup.directive("multiRoomGrid", function(responseGrid, $anchorSc
               // console.log(roomName, roomUid, startDurationTime, endDurationTime, timezone)
              var req={
                 "attendeeUid":"FF5CE544-D5B2-9FBB-5C78-7A392E26B701",
-                "attendeeName": "sudarshan",
+                "attendeeName": "K Sudarshan",
                 "attendeeEmail":"sudarshan_koyalkar@apple.com",
                 "roomName":room.roomName,
                 "roomUid":room.roomUid,
